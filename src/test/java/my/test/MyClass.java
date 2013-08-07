@@ -26,8 +26,8 @@ public class MyClass {
     @TableColumn(pos = 1, width = 100, unit = FontSizeUnit.POINT)
     private String lastName;
 
-    @ShortLabel(value = "Birthday", bundle = "my.MyBundle", key = "birthday.short")
-    @Label(value = "Birthday", bundle = "my.MyBundle", key = "birthday")
+    @ShortLabel(value = "BIRTH", bundle = "my/MyBundle", key = "birthday.short")
+    @Label(value = "BIRTHDAY", bundle = "my/MyBundle", key = "birthday")
     @TableColumn(pos = 2, width = 40)
     private Date birthday;
 
