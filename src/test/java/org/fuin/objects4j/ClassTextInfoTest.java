@@ -55,7 +55,7 @@ public final class ClassTextInfoTest {
         final ClassTextInfo testee = new AnnotationAnalyzer<Label>(Label.class).createClassInfo(MyClass.class,
                 Locale.GERMAN);
         assertThat(testee.getClasz()).isSameAs(MyClass.class);
-        assertThat(testee.getText()).isEqualTo("The test class");
+        assertThat(testee.getText()).isEqualTo("MyClass_de title");
 
     }
 
