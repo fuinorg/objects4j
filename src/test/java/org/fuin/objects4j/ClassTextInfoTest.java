@@ -42,8 +42,8 @@ public final class ClassTextInfoTest {
     @Test
     public final void testCreateClassLocaleENGLISH() {
 
-        final ClassTextInfo testee = new AnnotationAnalyzer<Label>(Label.class).createClassInfo(MyClass.class,
-                Locale.ENGLISH);
+        final ClassTextInfo testee = new AnnotationAnalyzer<Label>(Label.class).createClassInfo(
+                MyClass.class, Locale.ENGLISH);
         assertThat(testee.getClasz()).isSameAs(MyClass.class);
         assertThat(testee.getText()).isEqualTo("MyClass_en title");
 
@@ -52,8 +52,8 @@ public final class ClassTextInfoTest {
     @Test
     public final void testCreateClassLocaleGERMAN() {
 
-        final ClassTextInfo testee = new AnnotationAnalyzer<Label>(Label.class).createClassInfo(MyClass.class,
-                Locale.GERMAN);
+        final ClassTextInfo testee = new AnnotationAnalyzer<Label>(Label.class).createClassInfo(
+                MyClass.class, Locale.GERMAN);
         assertThat(testee.getClasz()).isSameAs(MyClass.class);
         assertThat(testee.getText()).isEqualTo("MyClass_de title");
 

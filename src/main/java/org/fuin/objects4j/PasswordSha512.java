@@ -32,8 +32,8 @@ public final class PasswordSha512 extends AbstractStringBasedType<PasswordSha512
 
     private static final long serialVersionUID = -6285061339408965704L;
 
-    private static final char[] DIGITS = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c',
-            'd', 'e', 'f' };
+    private static final char[] DIGITS = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a',
+            'b', 'c', 'd', 'e', 'f' };
 
     @NotNull
     @PasswordSha512Str

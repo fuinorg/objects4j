@@ -162,7 +162,8 @@ public final class AnnotationAnalyzer<ANNOTATION extends Annotation> {
         }
 
         try {
-            final ResourceBundle bundle = getResourceBundle(annotation, locale, field.getDeclaringClass());
+            final ResourceBundle bundle = getResourceBundle(annotation, locale,
+                    field.getDeclaringClass());
             final String text = getText(bundle, annotation, field.getName());
             return new FieldTextInfo(field, text);
         } catch (final MissingResourceException ex) {
@@ -188,7 +189,8 @@ public final class AnnotationAnalyzer<ANNOTATION extends Annotation> {
      * @return Text or <code>null</code>.
      */
     @Requires("(bundle != null) && (annotation != null) && (field!=null)")
-    private String getText(final ResourceBundle bundle, final ANNOTATION annotation, final String defaultKey) {
+    private String getText(final ResourceBundle bundle, final ANNOTATION annotation,
+            final String defaultKey) {
 
         Contract.requireArgNotNull("bundle", bundle);
         Contract.requireArgNotNull("annotation", annotation);
@@ -306,8 +308,8 @@ public final class AnnotationAnalyzer<ANNOTATION extends Annotation> {
      * @return The result of dispatching the method represented by this object
      *         on <code>obj</code> with parameters <code>args</code>.
      */
-    private static Object invoke(final Object obj, final String methodName, final Class<?>[] argTypes,
-            final Object[] args) {
+    private static Object invoke(final Object obj, final String methodName,
+            final Class<?>[] argTypes, final Object[] args) {
 
         Contract.requireArgNotNull("obj", obj);
         Contract.requireArgNotNull("methodName", methodName);
@@ -366,8 +368,9 @@ public final class AnnotationAnalyzer<ANNOTATION extends Annotation> {
 
     private static void checkSameLength(final Class<?>[] argTypes, final Object[] args) {
         if (argTypes.length != args.length) {
-            throw new IllegalArgumentException("The argument 'argTypes' contains " + argTypes.length
-                    + " classes " + "but 'args' only contains " + args.length + " arguments!");
+            throw new IllegalArgumentException("The argument 'argTypes' contains "
+                    + argTypes.length + " classes " + "but 'args' only contains " + args.length
+                    + " arguments!");
         }
     }
 

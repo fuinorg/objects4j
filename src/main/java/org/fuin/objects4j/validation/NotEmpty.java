@@ -41,7 +41,7 @@ import javax.validation.constraints.Size;
 // CHECKSTYLE:OFF
 @Documented
 @Constraint(validatedBy = {})
-@Target( { METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER })
+@Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER })
 @Retention(RUNTIME)
 @ReportAsSingleViolation
 @NotNull

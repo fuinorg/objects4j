@@ -38,6 +38,6 @@ public class AnnotationAnalyzerTest {
     }
 
     // Other methods are indirectly tested by other tests
-    
+
 }
-//CHECKSTYLE:ON
+// CHECKSTYLE:ON

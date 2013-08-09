@@ -58,8 +58,8 @@ public final class TableColumnInfo implements Comparable<TableColumnInfo> {
      *            Name of the getter for the field.
      */
     @Requires("(field != null) && (width != null) && (getter!=null)")
-    public TableColumnInfo(final Field field, final String text, final String shortText, final int pos,
-            final FontSize width, final String getter) {
+    public TableColumnInfo(final Field field, final String text, final String shortText,
+            final int pos, final FontSize width, final String getter) {
         super();
 
         Contract.requireArgNotNull("field", field);
@@ -213,29 +213,29 @@ public final class TableColumnInfo implements Comparable<TableColumnInfo> {
         if (tableColumn == null) {
             return null;
         }
-        final FieldTextInfo labelInfo = new AnnotationAnalyzer<Label>(Label.class).createFieldInfo(field, locale);
+        final FieldTextInfo labelInfo = new AnnotationAnalyzer<Label>(Label.class).createFieldInfo(
+                field, locale);
         final FieldTextInfo shortLabelInfo = new AnnotationAnalyzer<ShortLabel>(ShortLabel.class)
                 .createFieldInfo(field, locale);
         final int pos = tableColumn.pos();
         final FontSize fontSize = new FontSize(tableColumn.width(), tableColumn.unit());
         final String getter = getGetter(tableColumn, field.getName());
-        
+
         final String labelText;
         if (labelInfo == null) {
             labelText = null;
         } else {
             labelText = labelInfo.getTextOrField();
         }
-        
+
         final String shortLabelText;
         if (shortLabelInfo == null) {
             shortLabelText = null;
         } else {
             shortLabelText = shortLabelInfo.getText();
         }
-        
-        return new TableColumnInfo(field, labelText, shortLabelText, pos,
-                fontSize, getter);
+
+        return new TableColumnInfo(field, labelText, shortLabelText, pos, fontSize, getter);
 
     }
 

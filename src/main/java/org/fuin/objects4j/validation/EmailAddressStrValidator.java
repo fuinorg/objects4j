@@ -27,7 +27,7 @@ import javax.validation.ConstraintValidatorContext;
  * <p>
  * Based on code from Hibernate Validator 4.0.2.GA.
  * </p>
- *
+ * 
  * @see org.hibernate.validator.constraints.impl.EmailValidator.
  * @author Emmanuel Bernard
  */
@@ -54,10 +54,10 @@ public final class EmailAddressStrValidator implements ConstraintValidator<Email
 
     /**
      * Check that a given string is a well-formed email address.
-     *
+     * 
      * @param value
      *            Value to check.
-     *
+     * 
      * @return Returns <code>true</code> if it's a valid email address else
      *         <code>false</code> is returned.
      */

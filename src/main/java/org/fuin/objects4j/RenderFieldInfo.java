@@ -226,8 +226,8 @@ public final class RenderFieldInfo {
      * @return Annotation found or <code>null</code>.
      */
     @SuppressWarnings("unchecked")
-    public static <A extends Annotation> A find(final Class<A> type, final Annotation[] annotations,
-            final List<Class<? extends Annotation>> alreadyProcessed) {
+    public static <A extends Annotation> A find(final Class<A> type,
+            final Annotation[] annotations, final List<Class<? extends Annotation>> alreadyProcessed) {
 
         for (final Annotation annotation : annotations) {
             final Class<? extends Annotation> foundType = annotation.annotationType();
@@ -236,7 +236,8 @@ public final class RenderFieldInfo {
                 if (annotation.annotationType().equals(type)) {
                     return (A) annotation;
                 } else {
-                    final A found = find(type, annotation.annotationType().getAnnotations(), alreadyProcessed);
+                    final A found = find(type, annotation.annotationType().getAnnotations(),
+                            alreadyProcessed);
                     if (found != null) {
                         return found;
                     }
@@ -260,8 +261,8 @@ public final class RenderFieldInfo {
     @Ensures("\result != null")
     public static RenderFieldInfo create(final Field field, final Locale locale) {
 
-        final FieldTextInfo labelFieldInfo = new AnnotationAnalyzer<Label>(Label.class).createFieldInfo(field,
-                locale);
+        final FieldTextInfo labelFieldInfo = new AnnotationAnalyzer<Label>(Label.class)
+                .createFieldInfo(field, locale);
         final TextFieldInfo textFieldInfo = TextFieldInfo.create(field, locale);
         final TableColumnInfo tableColumnInfo = TableColumnInfo.create(field, locale);
         return new RenderFieldInfo(field, labelFieldInfo, textFieldInfo, tableColumnInfo);

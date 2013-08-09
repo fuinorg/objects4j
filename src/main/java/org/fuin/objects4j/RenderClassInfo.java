@@ -51,7 +51,8 @@ public final class RenderClassInfo<T> {
         super();
         Contract.requireArgNotNull("clasz", clasz);
         this.clasz = clasz;
-        this.labelClassInfo = new AnnotationAnalyzer<Label>(Label.class).createClassInfo(clasz, locale);
+        this.labelClassInfo = new AnnotationAnalyzer<Label>(Label.class).createClassInfo(clasz,
+                locale);
         this.renderFields = new ArrayList<RenderFieldInfo>();
 
         final Field[] fields = clasz.getDeclaredFields();

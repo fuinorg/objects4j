@@ -32,8 +32,8 @@ import java.lang.annotation.Target;
 public @interface Tooltip {
 
     /**
-     * Default tooltip text. This is only used if no entry in the resource bundle
-     * can be found.
+     * Default tooltip text. This is only used if no entry in the resource
+     * bundle can be found.
      */
     String value() default "";
 

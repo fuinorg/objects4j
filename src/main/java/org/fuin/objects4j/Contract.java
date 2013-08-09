@@ -52,8 +52,10 @@ public final class Contract {
      * @throws ContractViolationException
      *             The value was null.
      */
+    // CHECKSTYLE:OFF:RedundantThrows
     public static void requireArgNotNull(final String name, final Object value)
             throws ContractViolationException {
+        // CHECKSTYLE:ON
         if (value == null) {
             throw new ContractViolationException("The argument '" + name + "' cannot be null");
         }
@@ -68,7 +70,9 @@ public final class Contract {
      * @throws ContractViolationException
      *             The value is invalid.
      */
+    // CHECKSTYLE:OFF:RedundantThrows
     public static void requireValid(final Object value) throws ContractViolationException {
+        // CHECKSTYLE:ON
 
         final Set<ConstraintViolation<Object>> constraintViolations = VALIDATOR.validate(value);
         if (constraintViolations.size() > 0) {
@@ -78,8 +82,8 @@ public final class Contract {
                     sb.append(", ");
                 }
                 sb.append("[" + constraintViolation.getPropertyPath() + "] "
-                        + constraintViolation.getMessage() + " {" + constraintViolation.getInvalidValue()
-                        + "}");
+                        + constraintViolation.getMessage() + " {"
+                        + constraintViolation.getInvalidValue() + "}");
             }
             throw new ContractViolationException(sb.toString(), constraintViolations);
         }
