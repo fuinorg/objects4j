@@ -65,7 +65,7 @@ public final class FieldTextInfoTest {
         final FieldTextInfo infoLastName = new FieldTextInfo(MyClass.class.getDeclaredField("lastName"),
                 "Last name");
         final FieldTextInfo infoBirthday = new FieldTextInfo(MyClass.class.getDeclaredField("birthday"),
-                "Geburtstag");
+                "MyBundle_en birthday");
         final FieldTextInfo infoPermanent = new FieldTextInfo(
                 MyClass.class.getDeclaredField("permanentEmployee"), "Permanent employee");
 
@@ -85,7 +85,7 @@ public final class FieldTextInfoTest {
         final FieldTextInfo testee = new AnnotationAnalyzer<Label>(Label.class).createFieldInfo(
                 MyClass.class.getDeclaredField("birthday"), Locale.ENGLISH);
         final FieldTextInfo infoBirthday = new FieldTextInfo(MyClass.class.getDeclaredField("birthday"),
-                "Geburtstag");
+                "MyBundle_en birthday");
         assertEquals(infoBirthday, testee, "infoBirthday");
 
     }
@@ -98,7 +98,7 @@ public final class FieldTextInfoTest {
 
         final FieldTextInfo testee = new AnnotationAnalyzer<Label>(Label.class).createFieldInfo(field,
                 Locale.ENGLISH);
-        final FieldTextInfo infoBirthday = new FieldTextInfo(field, "Geburtstag");
+        final FieldTextInfo infoBirthday = new FieldTextInfo(field, "MyBundle_en birthday");
         assertEquals(infoBirthday, testee, "infoBirthday");
 
     }
