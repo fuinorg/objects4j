@@ -26,6 +26,7 @@
     <package name="org.fuin.objects4j.vo">
       <dependsOn package="org.fuin.objects4j.common"/>
       <dependsOn package="org.fuin.objects4j.ui"/>
+      <dependsOn package="javax.mail.internet"/>
     </package>
   </allowed>
 
