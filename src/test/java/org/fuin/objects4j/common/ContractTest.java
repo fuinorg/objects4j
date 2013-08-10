@@ -95,13 +95,13 @@ public class ContractTest {
 
         try {
             final Parent parent = new Parent();
-            parent.email = "abc";
+            parent.email = "abc@";
             parent.child = new Child();
             Contract.requireValid(parent);
             fail();
         } catch (final ContractViolationException ex) {
             assertThat(ex.getMessage()).contains("[email]");
-            assertThat(ex.getMessage()).contains("{abc}");
+            assertThat(ex.getMessage()).contains("{abc@}");
             assertThat(ex.getMessage()).contains("[child.password]");
             assertThat(ex.getMessage()).contains("{null}");
         }
@@ -113,14 +113,14 @@ public class ContractTest {
 
         try {
             final Parent parent = new Parent();
-            parent.email = "abc";
+            parent.email = "abc@";
             parent.child = new Child();
             parent.child.password = "verysecret";
             Contract.requireValid(parent);
             fail();
         } catch (final ContractViolationException ex) {
             assertThat(ex.getMessage()).contains("[email]");
-            assertThat(ex.getMessage()).contains("{abc}");
+            assertThat(ex.getMessage()).contains("{abc@}");
             assertThat(ex.getMessage()).doesNotContain("child");
             assertThat(ex.getMessage()).doesNotContain("userName");
             assertThat(ex.getMessage()).doesNotContain("password");
