@@ -12,8 +12,9 @@ Bundle-Version: 0.4.0.SNAPSHOT
 Export-Package: org.fuin.objects4j.common;uses:="javax.validation";versi
  on="0.4.0.SNAPSHOT",org.fuin.objects4j.ui;uses:="org.fuin.objects4j.com
  mon";version="0.4.0.SNAPSHOT",org.fuin.objects4j.vo;uses:="javax.valida
- tion,javax.validation.constraints,org.fuin.objects4j.common";version="0
- .4.0.SNAPSHOT"
-Import-Package: javax.validation,javax.validation.constraints
+ tion,javax.validation.constraints,org.fuin.objects4j.common,org.fuin.ob
+ jects4j.ui";version="0.4.0.SNAPSHOT"
+Import-Package: javax.mail.internet;version="[1.4,2)";resolution:=option
+ al,javax.validation,javax.validation.constraints
 Include-Resource: ValidationMessages.properties=src/main/resources/Valid
  ationMessages.properties
