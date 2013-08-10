@@ -32,7 +32,8 @@ import org.fuin.objects4j.ui.Tooltip;
 @ShortLabel("Email")
 @Label("Email address")
 @Tooltip("Identifies an email box to which email messages are delivered")
-public final class EmailAddress extends AbstractStringBasedType<EmailAddress> {
+public final class EmailAddress extends AbstractStringBasedType<EmailAddress> implements
+        StringSerializable {
 
     private static final long serialVersionUID = -7976802296383690770L;
 

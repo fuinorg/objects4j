@@ -20,9 +20,8 @@ package org.fuin.objects4j.vo;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import javax.validation.constraints.NotNull;
-
 import org.fuin.objects4j.common.Contract;
+import org.fuin.objects4j.common.ContractViolationException;
 import org.fuin.objects4j.common.Immutable;
 import org.fuin.objects4j.common.Requires;
 
@@ -30,15 +29,14 @@ import org.fuin.objects4j.common.Requires;
  * SHA-512 hashed password that is HEX encoded.
  */
 @Immutable
-public final class PasswordSha512 extends AbstractStringBasedType<PasswordSha512> {
+public final class PasswordSha512 extends AbstractStringBasedType<PasswordSha512> implements
+        StringSerializable {
 
     private static final long serialVersionUID = -6285061339408965704L;
 
     private static final char[] DIGITS = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a',
             'b', 'c', 'd', 'e', 'f' };
 
-    @NotNull
-    @PasswordSha512Str
     private final String hash;
 
     /**
@@ -47,11 +45,14 @@ public final class PasswordSha512 extends AbstractStringBasedType<PasswordSha512
      * @param hexEncodedHash
      *            Hash code as HEX encoded string.
      */
-    @Requires("hexEncodedHash!=null")
+    @Requires("hexEncodedHash!=null && PasswordSha512StrValidator.isValid(hexEncodedHash)")
     public PasswordSha512(final String hexEncodedHash) {
         super();
         this.hash = hexEncodedHash;
-        Contract.requireValid(this);
+        Contract.requireArgNotEmpty("hexEncodedHash", hexEncodedHash);
+        if (!PasswordSha512StrValidator.isValid(hexEncodedHash)) {
+            throw new ContractViolationException("The argument 'hexEncodedHash' is not valid");
+        }
     }
 
     /**
@@ -92,17 +93,17 @@ public final class PasswordSha512 extends AbstractStringBasedType<PasswordSha512
     public final String asString() {
         return hash;
     }
-    
+
     /**
      * Reconstructs the object from a given string.
      * 
      * @param str
      *            String as created by {@link #asString()}.
-     *            
+     * 
      * @return New instance parsed from <code>str</code>.
      */
     public static PasswordSha512 create(final String str) {
         return new PasswordSha512(str);
     }
-    
+
 }

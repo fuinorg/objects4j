@@ -51,11 +51,12 @@ public final class KeyValue implements ValueObject {
      * @param value
      *            Value.
      */
-    @Requires("key!=null")
+    @Requires("key!=null && key.trim().length() > 0")
     public KeyValue(final String key, final Object value) {
         super();
+        Contract.requireArgNotNull("key", key);
+        this.key = key.trim();
         Contract.requireArgNotEmpty("key", key);
-        this.key = key;
         this.value = value;
     }
 
@@ -169,5 +170,5 @@ public final class KeyValue implements ValueObject {
 
         return sb.toString();
     }
-    
+
 }

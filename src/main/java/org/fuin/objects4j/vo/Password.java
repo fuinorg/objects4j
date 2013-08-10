@@ -17,9 +17,8 @@
  */
 package org.fuin.objects4j.vo;
 
-import javax.validation.constraints.NotNull;
-
 import org.fuin.objects4j.common.Contract;
+import org.fuin.objects4j.common.ContractViolationException;
 import org.fuin.objects4j.common.Immutable;
 import org.fuin.objects4j.common.Requires;
 
@@ -27,12 +26,10 @@ import org.fuin.objects4j.common.Requires;
  * A password with a length between 8 and 20 characters.
  */
 @Immutable
-public final class Password extends AbstractStringBasedType<Password> {
+public final class Password extends AbstractStringBasedType<Password> implements StringSerializable {
 
     private static final long serialVersionUID = -7745110729063955842L;
 
-    @NotNull
-    @PasswordStr
     private String password;
 
     /**
@@ -41,18 +38,21 @@ public final class Password extends AbstractStringBasedType<Password> {
     protected Password() {
         super();
     }
-    
+
     /**
      * Constructor with password.
      * 
      * @param password
      *            Password.
      */
-    @Requires("(password!=null) && ValidPasswordValidator.isValid(password)")
+    @Requires("(password!=null) && PasswordStrValidator.isValid(password)")
     public Password(final String password) {
         super();
+        Contract.requireArgNotEmpty("password", password);
+        if (!PasswordStrValidator.isValid(password)) {
+            throw new ContractViolationException("The argument 'password' is not valid");
+        }
         this.password = password;
-        Contract.requireValid(this);
     }
 
     @Override
@@ -64,17 +64,17 @@ public final class Password extends AbstractStringBasedType<Password> {
     public final String asString() {
         return password;
     }
-    
+
     /**
      * Reconstructs the object from a given string.
      * 
      * @param str
      *            String as created by {@link #asString()}.
-     *            
+     * 
      * @return New instance parsed from <code>str</code>.
      */
     public static Password create(final String str) {
         return new Password(str);
     }
-    
+
 }

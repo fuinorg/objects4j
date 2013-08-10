@@ -17,9 +17,8 @@
  */
 package org.fuin.objects4j.vo;
 
-import javax.validation.constraints.NotNull;
-
 import org.fuin.objects4j.common.Contract;
+import org.fuin.objects4j.common.ContractViolationException;
 import org.fuin.objects4j.common.Immutable;
 import org.fuin.objects4j.common.Requires;
 
@@ -35,12 +34,10 @@ import org.fuin.objects4j.common.Requires;
  * </ul>
  */
 @Immutable
-public final class UserName extends AbstractStringBasedType<UserName> {
+public final class UserName extends AbstractStringBasedType<UserName> implements StringSerializable {
 
     private static final long serialVersionUID = 9055520843135472634L;
 
-    @NotNull
-    @UserNameStr
     private String userName;
 
     /**
@@ -49,18 +46,22 @@ public final class UserName extends AbstractStringBasedType<UserName> {
     protected UserName() {
         super();
     }
-    
+
     /**
      * Constructor with user name.
      * 
      * @param userName
      *            User name.
      */
-    @Requires("(userName!=null) && ValidUserNameValidator.isValid(userName)")
+    @Requires("(userName!=null) && UserNameStrValidator.isValid(userName)")
     public UserName(final String userName) {
         super();
+        Contract.requireArgNotEmpty("userName", userName);
         this.userName = userName.trim().toLowerCase();
-        Contract.requireValid(this);
+        if (!UserNameStrValidator.isValid(userName)) {
+            throw new ContractViolationException("The argument 'userName' is not valid: '"
+                    + userName + "'");
+        }
     }
 
     @Override
@@ -72,17 +73,17 @@ public final class UserName extends AbstractStringBasedType<UserName> {
     public final String asString() {
         return userName;
     }
-    
+
     /**
      * Reconstructs the object from a given string.
      * 
      * @param str
      *            String as created by {@link #asString()}.
-     *            
+     * 
      * @return New instance parsed from <code>str</code>.
      */
     public static UserName create(final String str) {
         return new UserName(str);
     }
-    
+
 }
