@@ -20,8 +20,6 @@ package org.fuin.objects4j.ui;
 import static org.fest.assertions.Assertions.assertThat;
 
 import org.fest.assertions.Delta;
-import org.fuin.objects4j.ui.FontSize;
-import org.fuin.objects4j.ui.FontSizeUnit;
 import org.junit.Test;
 
 //TESTCODE:BEGIN

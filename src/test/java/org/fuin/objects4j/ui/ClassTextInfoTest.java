@@ -23,9 +23,6 @@ import java.util.Locale;
 
 import my.test.MyClass;
 
-import org.fuin.objects4j.ui.AnnotationAnalyzer;
-import org.fuin.objects4j.ui.ClassTextInfo;
-import org.fuin.objects4j.ui.Label;
 import org.junit.Test;
 
 //TESTCODE:BEGIN
@@ -45,8 +42,8 @@ public final class ClassTextInfoTest {
     @Test
     public final void testCreateClassLocaleENGLISH() {
 
-        final ClassTextInfo testee = new AnnotationAnalyzer<Label>(Label.class).createClassInfo(
-                MyClass.class, Locale.ENGLISH);
+        final ClassTextInfo testee = new AnnotationAnalyzer().createClassInfo(MyClass.class,
+                Locale.ENGLISH, Label.class);
         assertThat(testee.getClasz()).isSameAs(MyClass.class);
         assertThat(testee.getText()).isEqualTo("MyClass_en title");
 
@@ -55,8 +52,8 @@ public final class ClassTextInfoTest {
     @Test
     public final void testCreateClassLocaleGERMAN() {
 
-        final ClassTextInfo testee = new AnnotationAnalyzer<Label>(Label.class).createClassInfo(
-                MyClass.class, Locale.GERMAN);
+        final ClassTextInfo testee = new AnnotationAnalyzer().createClassInfo(MyClass.class,
+                Locale.GERMAN, Label.class);
         assertThat(testee.getClasz()).isSameAs(MyClass.class);
         assertThat(testee.getText()).isEqualTo("MyClass_de title");
 

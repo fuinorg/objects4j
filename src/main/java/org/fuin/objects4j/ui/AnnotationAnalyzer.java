@@ -22,8 +22,10 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
@@ -33,35 +35,21 @@ import org.fuin.objects4j.common.Requires;
 
 /**
  * Wrapper for a class that has some annotations to perform some actions with.
- * 
- * @param <ANNOTATION>
- *            Annotation type the wrapper is working for.
  */
-public final class AnnotationAnalyzer<ANNOTATION extends Annotation> {
+public final class AnnotationAnalyzer {
 
-    private final Class<ANNOTATION> annotationClasz;
+    private static final Map<Class<?>, String> CLASS_NAME_MAP = new HashMap<Class<?>, String>();
 
-    /**
-     * Constructor with annotation class.
-     * 
-     * @param annotationClasz
-     *            Type of annotation to operate on.
-     */
-    @Requires("(annotationClasz != null)")
-    public AnnotationAnalyzer(final Class<ANNOTATION> annotationClasz) {
-        super();
-        Contract.requireArgNotNull("annotationClasz", annotationClasz);
-        this.annotationClasz = annotationClasz;
-    }
-
-    /**
-     * Returns the type of annotation the wrapper operates on.
-     * 
-     * @return Annotation class.
-     */
-    @Ensures("\result != null")
-    public final Class<ANNOTATION> getAnnotationClasz() {
-        return annotationClasz;
+    static {
+        CLASS_NAME_MAP.put(String.class, String.class.getSimpleName());
+        CLASS_NAME_MAP.put(Byte.class, Byte.class.getSimpleName());
+        CLASS_NAME_MAP.put(Short.class, Short.class.getSimpleName());
+        CLASS_NAME_MAP.put(Integer.class, Integer.class.getSimpleName());
+        CLASS_NAME_MAP.put(Long.class, Long.class.getSimpleName());
+        CLASS_NAME_MAP.put(Float.class, Float.class.getSimpleName());
+        CLASS_NAME_MAP.put(String.class, String.class.getSimpleName());
+        CLASS_NAME_MAP.put(Double.class, Double.class.getSimpleName());
+        CLASS_NAME_MAP.put(Boolean.class, Boolean.class.getSimpleName());
     }
 
     /**
@@ -71,16 +59,20 @@ public final class AnnotationAnalyzer<ANNOTATION extends Annotation> {
      *            Class.
      * @param locale
      *            Locale to use.
+     * @param annotationClasz
+     *            Type of annotation to find.
      * 
      * @return Label information or <code>null</code>.
      */
-    @Requires("(clasz != null) && (locale != null)")
-    public final ClassTextInfo createClassInfo(final Class<?> clasz, final Locale locale) {
+    @Requires("(clasz != null) && (locale != null) && (annotationClasz != null)")
+    public final ClassTextInfo createClassInfo(final Class<?> clasz, final Locale locale,
+            final Class<? extends Annotation> annotationClasz) {
 
         Contract.requireArgNotNull("clasz", clasz);
         Contract.requireArgNotNull("locale", locale);
+        Contract.requireArgNotNull("annotationClasz", annotationClasz);
 
-        final ANNOTATION annotation = clasz.getAnnotation(annotationClasz);
+        final Annotation annotation = clasz.getAnnotation(annotationClasz);
         if (annotation == null) {
             return null;
         }
@@ -106,21 +98,25 @@ public final class AnnotationAnalyzer<ANNOTATION extends Annotation> {
      *            Class that contains the fields.
      * @param locale
      *            Locale to use.
+     * @param annotationClasz
+     *            Type of annotation to find.
      * 
      * @return List of informations.
      */
-    @Requires("(clasz != null) && (locale != null)")
+    @Requires("(clasz != null) && (locale != null) && (annotationClasz != null)")
     @Ensures("\result != null")
-    public final List<FieldTextInfo> createFieldInfos(final Class<?> clasz, final Locale locale) {
+    public final List<FieldTextInfo> createFieldInfos(final Class<?> clasz, final Locale locale,
+            final Class<? extends Annotation> annotationClasz) {
 
         Contract.requireArgNotNull("clasz", clasz);
         Contract.requireArgNotNull("locale", locale);
+        Contract.requireArgNotNull("annotationClasz", annotationClasz);
 
         final List<FieldTextInfo> infos = new ArrayList<FieldTextInfo>();
 
         final Field[] fields = clasz.getDeclaredFields();
         for (final Field field : fields) {
-            final ANNOTATION annotation = field.getAnnotation(annotationClasz);
+            final Annotation annotation = field.getAnnotation(annotationClasz);
             if (annotation != null) {
                 try {
                     final ResourceBundle bundle = getResourceBundle(annotation, locale,
@@ -136,7 +132,7 @@ public final class AnnotationAnalyzer<ANNOTATION extends Annotation> {
 
         Class<?> parent = clasz;
         while ((parent = parent.getSuperclass()) != Object.class) {
-            infos.addAll(createFieldInfos(parent, locale));
+            infos.addAll(createFieldInfos(parent, locale, annotationClasz));
         }
 
         return infos;
@@ -150,17 +146,21 @@ public final class AnnotationAnalyzer<ANNOTATION extends Annotation> {
      *            Field to inspect.
      * @param locale
      *            Locale to use.
+     * @param annotationClasz
+     *            Type of annotation to find.
      * 
      * @return Label information or <code>null</code>.
      */
-    @Requires("(field != null)  && (locale != null)")
+    @Requires("(field != null)  && (locale != null) && (annotationClasz != null)")
     @Ensures("\result != null")
-    public final FieldTextInfo createFieldInfo(final Field field, final Locale locale) {
+    public final FieldTextInfo createFieldInfo(final Field field, final Locale locale,
+            final Class<? extends Annotation> annotationClasz) {
 
         Contract.requireArgNotNull("field", field);
         Contract.requireArgNotNull("locale", locale);
+        Contract.requireArgNotNull("annotationClasz", annotationClasz);
 
-        final ANNOTATION annotation = field.getAnnotation(annotationClasz);
+        final Annotation annotation = field.getAnnotation(annotationClasz);
         if (annotation == null) {
             return null;
         }
@@ -177,10 +177,11 @@ public final class AnnotationAnalyzer<ANNOTATION extends Annotation> {
     }
 
     /**
-     * Returns the text for the . If no entry is found in the resource bundle
-     * for {@link Annotation#getKey()} then {@link Annotation#getValue()} will
-     * be returned instead. If {@link Annotation#getValue()} is also empty then
-     * <code>null</code> is returned. If {@link Annotation#getKey()} is empty
+     * Returns the text for the annotation. If no entry is found in the resource
+     * bundle for <code>Annotation#key()</code> then
+     * <code>Annotation#value()</code> will be returned instead. If
+     * <code>Annotation#value()</code> is also empty then <code>null</code> is
+     * returned. If <code>Annotation#key()</code> is empty
      * <code>defaultKey</code> will be used as key in the properties file.
      * 
      * @param bundle
@@ -188,12 +189,12 @@ public final class AnnotationAnalyzer<ANNOTATION extends Annotation> {
      * @param annotation
      *            Annotation wrapper for the field.
      * @param defaultKey
-     *            Default key if {@link Annotation#getKey()} is empty.
+     *            Default key if <code>Annotation#key()</code> is empty.
      * 
      * @return Text or <code>null</code>.
      */
     @Requires("(bundle != null) && (annotation != null) && (field!=null)")
-    private String getText(final ResourceBundle bundle, final ANNOTATION annotation,
+    private String getText(final ResourceBundle bundle, final Annotation annotation,
             final String defaultKey) {
 
         Contract.requireArgNotNull("bundle", bundle);
@@ -217,24 +218,24 @@ public final class AnnotationAnalyzer<ANNOTATION extends Annotation> {
 
     /**
      * Returns the resource bundle for a given annotation. If
-     * {@link Annotation#getBundle()} is empty the <code>clasz</code> is used to
-     * create a path and filename information.
+     * <code>Annotation#bundle()</code> is empty the <code>clasz</code> is used
+     * to create a path and filename information.
      * 
      * @param annotation
      *            Annotation with bundle name.
      * @param locale
      *            Locale to use.
      * @param clasz
-     *            Class to use if the {@link Annotation#getBundle()} is empty.
+     *            Class to use if the <code>Annotation#bundle()</code> is empty.
      *            Example: <code>a.b.c.MyClass</code> is used as
-     *            <code>a/b/c/MyClass.properties</code> or
+     *            <code>a/b/c/MyClass.properties</code> (default) or
      *            <code>a/b/c/MyClass_en.properties</code> (with
      *            {@link Locale#ENGLISH}).
      * 
      * @return Resource bundle.
      */
     @Requires("(annotation != null) && (locale != null) && (clasz != null)")
-    private ResourceBundle getResourceBundle(final ANNOTATION annotation, final Locale locale,
+    private ResourceBundle getResourceBundle(final Annotation annotation, final Locale locale,
             final Class<?> clasz) {
 
         if (getBundle(annotation).equals("")) {
@@ -261,15 +262,15 @@ public final class AnnotationAnalyzer<ANNOTATION extends Annotation> {
         return value;
     }
 
-    private String getBundle(final ANNOTATION annotation) {
+    private String getBundle(final Annotation annotation) {
         return invoke(annotation, "bundle");
     }
 
-    private String getValue(final ANNOTATION annotation) {
+    private String getValue(final Annotation annotation) {
         return invoke(annotation, "value");
     }
 
-    private String getKey(final ANNOTATION annotation) {
+    private String getKey(final Annotation annotation) {
         return invoke(annotation, "key");
     }
 
@@ -337,13 +338,13 @@ public final class AnnotationAnalyzer<ANNOTATION extends Annotation> {
         }
         checkSameLength(argTypesIntern, argsIntern);
 
-        String returnType = null;
+        Class<?> returnType = null;
         try {
             final Method method = obj.getClass().getMethod(methodName, argTypesIntern);
             if (method.getReturnType() == null) {
-                returnType = "void";
+                returnType = void.class;
             } else {
-                returnType = method.getReturnType().getName();
+                returnType = method.getReturnType();
             }
             return method.invoke(obj, argsIntern);
         } catch (final SecurityException ex) {
@@ -382,7 +383,7 @@ public final class AnnotationAnalyzer<ANNOTATION extends Annotation> {
      * Creates a textual representation of the method.
      * 
      * @param returnType
-     *            Return type of the method - Can be <code>null</code>.
+     *            Return type of the method - Cannot be <code>null</code>.
      * @param methodName
      *            Name of the method - Cannot be <code>null</code>.
      * @param argTypes
@@ -390,13 +391,11 @@ public final class AnnotationAnalyzer<ANNOTATION extends Annotation> {
      * 
      * @return Textual signature of the method.
      */
-    private static String getMethodSignature(final String returnType, final String methodName,
+    public static String getMethodSignature(final Class<?> returnType, final String methodName,
             final Class<?>[] argTypes) {
         final StringBuffer sb = new StringBuffer();
-        if (returnType != null) {
-            sb.append(returnType);
-            sb.append(" ");
-        }
+        sb.append(name(returnType));
+        sb.append(" ");
         sb.append(methodName);
         sb.append("(");
         if (argTypes != null) {
@@ -404,11 +403,19 @@ public final class AnnotationAnalyzer<ANNOTATION extends Annotation> {
                 if (i > 0) {
                     sb.append(", ");
                 }
-                sb.append(argTypes[i].getName());
+                sb.append(name(argTypes[i]));
             }
         }
         sb.append(")");
         return sb.toString();
+    }
+
+    private static String name(final Class<?> clasz) {
+        final String name = CLASS_NAME_MAP.get(clasz);
+        if (name == null) {
+            return clasz.getName();
+        }
+        return name;
     }
 
 }

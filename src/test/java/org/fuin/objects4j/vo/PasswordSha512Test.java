@@ -20,8 +20,6 @@ package org.fuin.objects4j.vo;
 import static org.fest.assertions.Assertions.assertThat;
 
 import org.fuin.objects4j.common.ContractViolationException;
-import org.fuin.objects4j.vo.Password;
-import org.fuin.objects4j.vo.PasswordSha512;
 import org.junit.Test;
 
 //TESTCODE:BEGIN

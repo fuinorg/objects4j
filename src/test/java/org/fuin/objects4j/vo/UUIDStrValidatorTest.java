@@ -21,7 +21,6 @@ import static org.fest.assertions.Assertions.assertThat;
 
 import java.util.UUID;
 
-import org.fuin.objects4j.vo.UUIDStrValidator;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

@@ -24,7 +24,6 @@ import java.util.Locale;
 
 import my.test.MyClass;
 
-import org.fuin.objects4j.ui.TextFieldInfo;
 import org.junit.Test;
 
 //TESTCODE:BEGIN

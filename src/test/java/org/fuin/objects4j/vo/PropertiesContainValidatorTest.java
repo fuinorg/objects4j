@@ -25,8 +25,6 @@ import static org.fest.assertions.Assertions.assertThat;
 import java.util.Properties;
 import java.util.StringTokenizer;
 
-import org.fuin.objects4j.vo.PropertiesContain;
-import org.fuin.objects4j.vo.PropertiesContainValidator;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

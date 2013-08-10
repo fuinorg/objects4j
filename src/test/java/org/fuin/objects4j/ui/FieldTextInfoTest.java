@@ -36,10 +36,6 @@ import my.test.H;
 import my.test.I;
 import my.test.MyClass;
 
-import org.fuin.objects4j.ui.AnnotationAnalyzer;
-import org.fuin.objects4j.ui.FieldTextInfo;
-import org.fuin.objects4j.ui.Label;
-import org.fuin.objects4j.ui.ShortLabel;
 import org.junit.Test;
 
 //TESTCODE:BEGIN
@@ -61,8 +57,8 @@ public final class FieldTextInfoTest {
     @Test
     public final void testCreateClassLocale() throws Exception {
 
-        final List<FieldTextInfo> list = new AnnotationAnalyzer<Label>(Label.class)
-                .createFieldInfos(MyClass.class, Locale.ENGLISH);
+        final List<FieldTextInfo> list = new AnnotationAnalyzer().createFieldInfos(MyClass.class,
+                Locale.ENGLISH, Label.class);
 
         final FieldTextInfo infoFirstName = new FieldTextInfo(
                 MyClass.class.getDeclaredField("firstName"), "First name");
@@ -86,8 +82,8 @@ public final class FieldTextInfoTest {
     @Test
     public final void testCreateClassStringLocale() throws Exception {
 
-        final FieldTextInfo testee = new AnnotationAnalyzer<Label>(Label.class).createFieldInfo(
-                MyClass.class.getDeclaredField("birthday"), Locale.ENGLISH);
+        final FieldTextInfo testee = new AnnotationAnalyzer().createFieldInfo(
+                MyClass.class.getDeclaredField("birthday"), Locale.ENGLISH, Label.class);
         final FieldTextInfo infoBirthday = new FieldTextInfo(
                 MyClass.class.getDeclaredField("birthday"), "MyBundle_en birthday");
         assertEquals(infoBirthday, testee, "infoBirthday");
@@ -100,8 +96,8 @@ public final class FieldTextInfoTest {
         final Field field = MyClass.class.getDeclaredField("birthday");
         field.setAccessible(true);
 
-        final FieldTextInfo testee = new AnnotationAnalyzer<Label>(Label.class).createFieldInfo(
-                field, Locale.ENGLISH);
+        final FieldTextInfo testee = new AnnotationAnalyzer().createFieldInfo(field,
+                Locale.ENGLISH, Label.class);
         final FieldTextInfo infoBirthday = new FieldTextInfo(field, "MyBundle_en birthday");
         assertEquals(infoBirthday, testee, "infoBirthday");
 
@@ -110,8 +106,8 @@ public final class FieldTextInfoTest {
     @Test
     public final void testNoValues() throws Exception {
 
-        final List<FieldTextInfo> list = new AnnotationAnalyzer<Label>(Label.class)
-                .createFieldInfos(A.class, Locale.ENGLISH);
+        final List<FieldTextInfo> list = new AnnotationAnalyzer().createFieldInfos(A.class,
+                Locale.ENGLISH, Label.class);
         final FieldTextInfo infoX = new FieldTextInfo(AbstractA.class.getDeclaredField("x"), null);
         final FieldTextInfo infoY = new FieldTextInfo(A.class.getDeclaredField("y"), null);
 
@@ -126,8 +122,8 @@ public final class FieldTextInfoTest {
     @Test
     public final void testNoValuesWithProperties() throws Exception {
 
-        final List<FieldTextInfo> list = new AnnotationAnalyzer<Label>(Label.class)
-                .createFieldInfos(B.class, Locale.ENGLISH);
+        final List<FieldTextInfo> list = new AnnotationAnalyzer().createFieldInfos(B.class,
+                Locale.ENGLISH, Label.class);
         final FieldTextInfo infoX = new FieldTextInfo(AbstractB.class.getDeclaredField("x"), "Xxx");
         final FieldTextInfo infoY = new FieldTextInfo(B.class.getDeclaredField("y"), "Yyy");
 
@@ -142,8 +138,8 @@ public final class FieldTextInfoTest {
     @Test
     public final void testDefaultValue() throws Exception {
 
-        final List<FieldTextInfo> list = new AnnotationAnalyzer<Label>(Label.class)
-                .createFieldInfos(C.class, Locale.ENGLISH);
+        final List<FieldTextInfo> list = new AnnotationAnalyzer().createFieldInfos(C.class,
+                Locale.ENGLISH, Label.class);
         final FieldTextInfo info = new FieldTextInfo(C.class.getDeclaredField("c"), "Ccc");
         assertThat(list).isNotNull();
         assertThat(list.size()).isEqualTo(1);
@@ -155,8 +151,8 @@ public final class FieldTextInfoTest {
     @Test
     public final void testDefaultValueWithProperties() throws Exception {
 
-        final List<FieldTextInfo> list = new AnnotationAnalyzer<Label>(Label.class)
-                .createFieldInfos(D.class, Locale.ENGLISH);
+        final List<FieldTextInfo> list = new AnnotationAnalyzer().createFieldInfos(D.class,
+                Locale.ENGLISH, Label.class);
         final FieldTextInfo info = new FieldTextInfo(D.class.getDeclaredField("d"), "Ddd Ddd");
         assertThat(list).isNotNull();
         assertThat(list.size()).isEqualTo(1);
@@ -168,8 +164,8 @@ public final class FieldTextInfoTest {
     @Test
     public final void testDefaultValueAndKey() throws Exception {
 
-        final List<FieldTextInfo> list = new AnnotationAnalyzer<Label>(Label.class)
-                .createFieldInfos(E.class, Locale.ENGLISH);
+        final List<FieldTextInfo> list = new AnnotationAnalyzer().createFieldInfos(E.class,
+                Locale.ENGLISH, Label.class);
         final FieldTextInfo info = new FieldTextInfo(E.class.getDeclaredField("e"), "Eee");
         assertThat(list).isNotNull();
         assertThat(list.size()).isEqualTo(1);
@@ -181,8 +177,8 @@ public final class FieldTextInfoTest {
     @Test
     public final void testDefaultValueAndKeyWithProperties() throws Exception {
 
-        final List<FieldTextInfo> list = new AnnotationAnalyzer<Label>(Label.class)
-                .createFieldInfos(F.class, Locale.ENGLISH);
+        final List<FieldTextInfo> list = new AnnotationAnalyzer().createFieldInfos(F.class,
+                Locale.ENGLISH, Label.class);
         final FieldTextInfo info = new FieldTextInfo(F.class.getDeclaredField("f"), "Fff Fff");
         assertThat(list).isNotNull();
         assertThat(list.size()).isEqualTo(1);
@@ -194,8 +190,8 @@ public final class FieldTextInfoTest {
     @Test
     public final void testShortTextAndKey() throws Exception {
 
-        final List<FieldTextInfo> list = new AnnotationAnalyzer<ShortLabel>(ShortLabel.class)
-                .createFieldInfos(G.class, Locale.ENGLISH);
+        final List<FieldTextInfo> list = new AnnotationAnalyzer().createFieldInfos(G.class,
+                Locale.ENGLISH, ShortLabel.class);
         final FieldTextInfo info = new FieldTextInfo(G.class.getDeclaredField("g"), "Ggg");
         assertThat(list).isNotNull();
         assertThat(list.size()).isEqualTo(1);
@@ -207,8 +203,8 @@ public final class FieldTextInfoTest {
     @Test
     public final void testShortTextAndKeyWithProperties() throws Exception {
 
-        final List<FieldTextInfo> list = new AnnotationAnalyzer<ShortLabel>(ShortLabel.class)
-                .createFieldInfos(H.class, Locale.ENGLISH);
+        final List<FieldTextInfo> list = new AnnotationAnalyzer().createFieldInfos(H.class,
+                Locale.ENGLISH, ShortLabel.class);
         final FieldTextInfo info = new FieldTextInfo(H.class.getDeclaredField("h"), "Hhh Hhh");
         assertThat(list).isNotNull();
         assertThat(list.size()).isEqualTo(1);
@@ -220,8 +216,8 @@ public final class FieldTextInfoTest {
     @Test
     public final void testShortWithProperties() throws Exception {
 
-        final List<FieldTextInfo> list = new AnnotationAnalyzer<ShortLabel>(ShortLabel.class)
-                .createFieldInfos(I.class, Locale.ENGLISH);
+        final List<FieldTextInfo> list = new AnnotationAnalyzer().createFieldInfos(I.class,
+                Locale.ENGLISH, ShortLabel.class);
         final FieldTextInfo info = new FieldTextInfo(I.class.getDeclaredField("i"), "Iii");
         assertThat(list).isNotNull();
         assertThat(list.size()).isEqualTo(1);

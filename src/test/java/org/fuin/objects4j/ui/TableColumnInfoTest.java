@@ -25,9 +25,6 @@ import java.util.Locale;
 
 import my.test.MyClass;
 
-import org.fuin.objects4j.ui.FontSize;
-import org.fuin.objects4j.ui.FontSizeUnit;
-import org.fuin.objects4j.ui.TableColumnInfo;
 import org.junit.Test;
 
 //TESTCODE:BEGIN

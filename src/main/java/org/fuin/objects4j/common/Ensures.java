@@ -36,7 +36,7 @@ public @interface Ensures {
 
     boolean redundantly() default false;
 
-    String value();
+    String[] value();
 
 }
 // CHECKSTYLE:ON

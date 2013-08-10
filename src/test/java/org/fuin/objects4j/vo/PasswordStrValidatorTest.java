@@ -19,7 +19,6 @@ package org.fuin.objects4j.vo;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-import org.fuin.objects4j.vo.PasswordStrValidator;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

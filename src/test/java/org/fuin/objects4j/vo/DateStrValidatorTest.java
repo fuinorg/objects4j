@@ -22,8 +22,6 @@ import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.replay;
 import static org.fest.assertions.Assertions.assertThat;
 
-import org.fuin.objects4j.vo.DateStr;
-import org.fuin.objects4j.vo.DateStrValidator;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

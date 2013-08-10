@@ -36,7 +36,7 @@ public @interface Requires {
 
     boolean redundantly() default false;
 
-    String value();
+    String[] value();
 
 }
 // CHECKSTYLE:ON

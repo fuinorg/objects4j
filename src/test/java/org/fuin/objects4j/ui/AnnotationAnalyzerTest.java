@@ -17,30 +17,28 @@
  */
 package org.fuin.objects4j.ui;
 
-import org.fuin.objects4j.ui.AnnotationAnalyzer;
-import org.fuin.objects4j.ui.Label;
+import static org.fest.assertions.Assertions.assertThat;
 import org.junit.Test;
 
-import static org.fest.assertions.Assertions.assertThat;
-
 /**
- * test for {@link AnnotationAnalyzer}.
+ * Test for {@link AnnotationAnalyzer}.
  */
 // CHECKSTYLE:OFF
 public class AnnotationAnalyzerTest {
 
-    @Test
-    public final void testConstruction() {
-
-        // PREPARE
-        final AnnotationAnalyzer<Label> testee = new AnnotationAnalyzer<Label>(Label.class);
-
-        // TEST & VERIFY
-        assertThat(testee.getAnnotationClasz()).isSameAs(Label.class);
-
-    }
-
     // Other methods are indirectly tested by other tests
 
+    @Test
+    public void testGetMethodSignature() {
+        
+        // TEST & VERIFY
+        assertThat(AnnotationAnalyzer.getMethodSignature(void.class, "doIt", null)).isEqualTo("void doIt()");
+        assertThat(AnnotationAnalyzer.getMethodSignature(void.class, "doIt", new Class[] {})).isEqualTo("void doIt()");
+        assertThat(AnnotationAnalyzer.getMethodSignature(void.class, "doIt", new Class[] {int.class})).isEqualTo("void doIt(int)");
+        assertThat(AnnotationAnalyzer.getMethodSignature(void.class, "doIt", new Class[] {int.class, Boolean.class})).isEqualTo("void doIt(int, Boolean)");
+        assertThat(AnnotationAnalyzer.getMethodSignature(String.class, "getX", new Class[] {Integer.class})).isEqualTo("String getX(Integer)");
+        
+    }
+    
 }
 // CHECKSTYLE:ON

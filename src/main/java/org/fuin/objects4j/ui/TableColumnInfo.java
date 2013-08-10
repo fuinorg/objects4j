@@ -218,10 +218,10 @@ public final class TableColumnInfo implements Comparable<TableColumnInfo> {
         if (tableColumn == null) {
             return null;
         }
-        final FieldTextInfo labelInfo = new AnnotationAnalyzer<Label>(Label.class).createFieldInfo(
-                field, locale);
-        final FieldTextInfo shortLabelInfo = new AnnotationAnalyzer<ShortLabel>(ShortLabel.class)
-                .createFieldInfo(field, locale);
+        final AnnotationAnalyzer analyzer = new AnnotationAnalyzer();
+        final FieldTextInfo labelInfo = analyzer.createFieldInfo(field, locale, Label.class);
+        final FieldTextInfo shortLabelInfo = analyzer.createFieldInfo(field, locale,
+                ShortLabel.class);
         final int pos = tableColumn.pos();
         final FontSize fontSize = new FontSize(tableColumn.width(), tableColumn.unit());
         final String getter = getGetter(tableColumn, field.getName());

@@ -17,17 +17,11 @@
  */
 package org.fuin.objects4j.vo;
 
-import static org.fest.assertions.Assertions.assertThat;
-
-import org.junit.Test;
-
-//TESTCODE:BEGIN
-public class SecurityTokenTest {
-
-    @Test
-    public final void testCreate() {
-        assertThat(new SecurityToken().length()).isEqualTo(40);
-    }
+/**
+ * Immutable object that represents a simple entity whose equality isn't based
+ * on identity. That means objects of this type are equal when they have the
+ * same value, not necessarily being the same object.
+ */
+public interface ValueObject {
 
 }
-// TESTCODE:END
