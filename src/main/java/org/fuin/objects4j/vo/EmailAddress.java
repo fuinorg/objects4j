@@ -40,7 +40,7 @@ import org.fuin.objects4j.ui.Tooltip;
 public final class EmailAddress implements Comparable<EmailAddress>, Serializable,
         StringSerializable {
 
-    private static final long serialVersionUID = -7976802296383690770L;
+    private static final long serialVersionUID = 811127657088134517L;
 
     private boolean strict;
 
