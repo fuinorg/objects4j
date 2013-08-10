@@ -17,22 +17,25 @@
  */
 package org.fuin.objects4j.vo;
 
-import javax.validation.constraints.NotNull;
-
 import org.fuin.objects4j.common.Contract;
+import org.fuin.objects4j.common.ContractViolationException;
 import org.fuin.objects4j.common.Immutable;
 import org.fuin.objects4j.common.Requires;
+import org.fuin.objects4j.ui.Label;
+import org.fuin.objects4j.ui.ShortLabel;
+import org.fuin.objects4j.ui.Tooltip;
 
 /**
  * A valid email address with all characters lower case.
  */
 @Immutable
+@ShortLabel("Email")
+@Label("Email address")
+@Tooltip("Identifies an email box to which email messages are delivered")
 public final class EmailAddress extends AbstractStringBasedType<EmailAddress> {
 
     private static final long serialVersionUID = -7976802296383690770L;
 
-    @NotNull
-    @EmailAddressStr
     private String emailAddress;
 
     /**
@@ -41,18 +44,23 @@ public final class EmailAddress extends AbstractStringBasedType<EmailAddress> {
     protected EmailAddress() {
         super();
     }
-    
+
     /**
      * Constructor with email address.
      * 
      * @param emailAddress
      *            Email address.
      */
-    @Requires("(emailAddress!=null) && ValidEmailAddressValidator.isValid(emailAddress)")
+    @Requires("(emailAddress!=null) && EmailAddressStrValidator.isValid(emailAddress)")
     public EmailAddress(final String emailAddress) {
         super();
+        Contract.requireArgNotEmpty("emailAddress", emailAddress);
+        if (!EmailAddressStrValidator.isValid(emailAddress)) {
+            throw new ContractViolationException("The argument 'emailAddress' is not valid: '"
+                    + emailAddress + "'");
+        }
+
         this.emailAddress = emailAddress.trim().toLowerCase();
-        Contract.requireValid(this);
     }
 
     @Override
@@ -64,17 +72,17 @@ public final class EmailAddress extends AbstractStringBasedType<EmailAddress> {
     public final String asString() {
         return emailAddress;
     }
-    
+
     /**
      * Reconstructs the object from a given string.
      * 
      * @param str
      *            String as created by {@link #asString()}.
-     *            
+     * 
      * @return New instance parsed from <code>str</code>.
      */
     public static EmailAddress create(final String str) {
         return new EmailAddress(str);
     }
-    
+
 }

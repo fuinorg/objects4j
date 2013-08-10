@@ -12,7 +12,8 @@ import org.fuin.objects4j.ui.TextField;
 /**
  * Test class with fields annotated with label and table column.
  */
-@Label(value = "The test class", key = "MyClass.title")
+@ShortLabel("DEFAULT shortLabel")
+@Label(value = "DEFAULT label", key = "MyClass.Label")
 public class MyClass {
 
     private int id;

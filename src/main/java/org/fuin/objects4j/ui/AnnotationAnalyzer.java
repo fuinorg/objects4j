@@ -79,7 +79,8 @@ public final class AnnotationAnalyzer {
 
         try {
             final ResourceBundle bundle = getResourceBundle(annotation, locale, clasz);
-            final String text = getText(bundle, annotation, clasz.getSimpleName());
+            final String text = getText(bundle, annotation, clasz.getSimpleName() + "."
+                    + annotationClasz.getSimpleName());
             return new ClassTextInfo(clasz, text);
         } catch (final MissingResourceException ex) {
             if (getValue(annotation).equals("")) {
@@ -121,7 +122,8 @@ public final class AnnotationAnalyzer {
                 try {
                     final ResourceBundle bundle = getResourceBundle(annotation, locale,
                             field.getDeclaringClass());
-                    final String text = getText(bundle, annotation, field.getName());
+                    final String text = getText(bundle, annotation, field.getName() + "."
+                            + annotationClasz.getSimpleName());
                     infos.add(new FieldTextInfo(field, text));
                 } catch (final MissingResourceException ex) {
                     final String text = toNullableString(getValue(annotation));
@@ -168,7 +170,8 @@ public final class AnnotationAnalyzer {
         try {
             final ResourceBundle bundle = getResourceBundle(annotation, locale,
                     field.getDeclaringClass());
-            final String text = getText(bundle, annotation, field.getName());
+            final String text = getText(bundle, annotation,
+                    field.getName() + "." + annotationClasz.getSimpleName());
             return new FieldTextInfo(field, text);
         } catch (final MissingResourceException ex) {
             return new FieldTextInfo(field, toNullableString(getValue(annotation)));
