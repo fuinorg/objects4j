@@ -58,9 +58,9 @@ public final class UserName extends AbstractStringBasedType<UserName> implements
         super();
         Contract.requireArgNotEmpty("userName", userName);
         this.userName = userName.trim().toLowerCase();
-        if (!UserNameStrValidator.isValid(userName)) {
+        if (!UserNameStrValidator.isValid(this.userName)) {
             throw new ContractViolationException("The argument 'userName' is not valid: '"
-                    + userName + "'");
+                    + this.userName + "'");
         }
     }
 
