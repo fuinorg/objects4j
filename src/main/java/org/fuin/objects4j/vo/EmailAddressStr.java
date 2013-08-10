@@ -42,5 +42,13 @@ public @interface EmailAddressStr {
 
     Class<? extends Payload>[] payload() default {};
 
+    /**
+     * Determines if the detailed syntax of the address is checked. Non-strict
+     * parsing (DEFAULT) is typically used when parsing a list of mail addresses
+     * entered by a human. Strict parsing is typically used when parsing address
+     * headers in mail messages.
+     */
+    boolean strict() default false;
+
 }
 // CHECKSTYLE:ON

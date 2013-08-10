@@ -17,39 +17,26 @@
  */
 package org.fuin.objects4j.vo;
 
-import java.util.regex.Pattern;
-
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 /**
  * Check that a given string is a well-formed email address.
- * <p>
- * Based on code from Hibernate Validator 4.0.2.GA.
- * </p>
- * 
- * @see org.hibernate.validator.constraints.impl.EmailValidator.
- * @author Emmanuel Bernard
  */
 public final class EmailAddressStrValidator implements ConstraintValidator<EmailAddressStr, String> {
 
-    private static final String ATOM = "[^\\x00-\\x1F^\\(^\\)^\\<^\\>^\\@^\\,^\\;^\\:"
-            + "^\\\\^\\\"^\\.^\\[^\\]^\\s]";
-
-    private static final String DOMAIN = "(" + ATOM + "+(\\." + ATOM + "+)*";
-
-    private static final String IP_DOMAIN = "\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\]";
-
-    private static final Pattern PATTERN = Pattern.compile("^" + ATOM + "+(\\." + ATOM + "+)*@"
-            + DOMAIN + "|" + IP_DOMAIN + ")$", java.util.regex.Pattern.CASE_INSENSITIVE);
+    private boolean strict = false;
 
     @Override
     public final void initialize(final EmailAddressStr annotation) {
+        strict = annotation.strict();
     }
 
     @Override
     public boolean isValid(final String value, final ConstraintValidatorContext context) {
-        return isValid(value);
+        return isValid(value, strict);
     }
 
     /**
@@ -57,18 +44,27 @@ public final class EmailAddressStrValidator implements ConstraintValidator<Email
      * 
      * @param value
      *            Value to check.
+     * @param strict
+     *            Determines if the detailed syntax of the address is checked.
+     *            If <code>strict</code> is true, many (but not all) of the
+     *            RFC822 syntax rules are enforced.
      * 
      * @return Returns <code>true</code> if it's a valid email address else
      *         <code>false</code> is returned.
      */
-    public static boolean isValid(final String value) {
+    public static boolean isValid(final String value, final boolean strict) {
         if (value == null) {
             return true;
         }
         if (value.length() == 0) {
             return false;
         }
-        return PATTERN.matcher(value).matches();
+        try {
+            InternetAddress.parse(value, strict);
+            return true;
+        } catch (final AddressException ex) {
+            return false;
+        }
     }
 
 }

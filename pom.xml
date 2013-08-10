@@ -37,6 +37,13 @@
 			<version>1.0.0.GA</version>
 		</dependency>
 
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.7</version>
+			<optional>true</optional>
+		</dependency>
+
 		<!-- Test -->
 
 		<dependency>

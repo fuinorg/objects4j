@@ -17,6 +17,11 @@
  */
 package org.fuin.objects4j.vo;
 
+import java.io.Serializable;
+
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+
 import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.common.ContractViolationException;
 import org.fuin.objects4j.common.Immutable;
@@ -32,12 +37,14 @@ import org.fuin.objects4j.ui.Tooltip;
 @ShortLabel("Email")
 @Label("Email address")
 @Tooltip("Identifies an email box to which email messages are delivered")
-public final class EmailAddress extends AbstractStringBasedType<EmailAddress> implements
+public final class EmailAddress implements Comparable<EmailAddress>, Serializable,
         StringSerializable {
 
     private static final long serialVersionUID = -7976802296383690770L;
 
-    private String emailAddress;
+    private boolean strict;
+
+    private InternetAddress emailAddress;
 
     /**
      * Protected default constructor for deserialization.
@@ -52,26 +59,93 @@ public final class EmailAddress extends AbstractStringBasedType<EmailAddress> im
      * @param emailAddress
      *            Email address.
      */
-    @Requires("(emailAddress!=null) && EmailAddressStrValidator.isValid(emailAddress)")
+    @Requires("(emailAddress!=null) && EmailAddressStrValidator.isValid(emailAddress, false)")
     public EmailAddress(final String emailAddress) {
+        this(emailAddress, false);
+    }
+
+    /**
+     * Constructor with email address and strict check information.
+     * 
+     * @param emailAddress
+     *            Email address.
+     * @param strict
+     *            Determines if the detailed syntax of the address is checked.
+     *            If <code>strict</code> is true, many (but not all) of the
+     *            RFC822 syntax rules are enforced.
+     */
+    @Requires("(emailAddress!=null) && EmailAddressStrValidator.isValid(emailAddress, strict)")
+    public EmailAddress(final String emailAddress, final boolean strict) {
         super();
         Contract.requireArgNotEmpty("emailAddress", emailAddress);
-        if (!EmailAddressStrValidator.isValid(emailAddress)) {
+        final String toCheck = emailAddress.trim().toLowerCase();
+        try {
+            final InternetAddress[] addr = InternetAddress.parse(toCheck, strict);
+            if (addr.length != 1) {
+                throw new ContractViolationException(
+                        "The argument 'emailAddress' is not a single address: '" + toCheck + "'");
+            }
+            this.strict = strict;
+            this.emailAddress = addr[0];
+        } catch (final AddressException ex) {
             throw new ContractViolationException("The argument 'emailAddress' is not valid: '"
-                    + emailAddress + "'");
+                    + toCheck + "'");
         }
+    }
+    
+    // CHECKSTYLE:OFF Generated code
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((emailAddress == null) ? 0 : emailAddress.hashCode());
+        result = prime * result + (strict ? 1231 : 1237);
+        return result;
+    }
 
-        this.emailAddress = emailAddress.trim().toLowerCase();
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        EmailAddress other = (EmailAddress) obj;
+        if (emailAddress == null) {
+            if (other.emailAddress != null)
+                return false;
+        } else if (!emailAddress.equals(other.emailAddress))
+            return false;
+        if (strict != other.strict)
+            return false;
+        return true;
+    }
+    // CHECKSTYLE:ON
+   
+
+    @Override
+    public final int compareTo(final EmailAddress other) {
+        return this.toString().compareTo(other.toString());
+    }
+
+    /**
+     * Returns the length.
+     * 
+     * @return Number of characters.
+     */
+    public final int length() {
+        return toString().length();
     }
 
     @Override
     public final String toString() {
-        return emailAddress;
+        return emailAddress.toString();
     }
 
     @Override
     public final String asString() {
-        return emailAddress;
+        return emailAddress.toString() + "|" + strict;
     }
 
     /**
@@ -82,8 +156,16 @@ public final class EmailAddress extends AbstractStringBasedType<EmailAddress> im
      * 
      * @return New instance parsed from <code>str</code>.
      */
+    @Requires({ "str != null", "A valid format as returned by 'asString()'" })
     public static EmailAddress create(final String str) {
-        return new EmailAddress(str);
+        Contract.requireArgNotEmpty("str", str);
+        final int p = str.indexOf('|');
+        if (p < 0) {
+            throw new ContractViolationException(
+                    "The argument 'emailAddress' is not a valid format as returned by 'asString()': '"
+                            + str + "'");
+        }
+        return new EmailAddress(str.substring(0, p), Boolean.parseBoolean(str.substring(p + 1)));
     }
 
 }

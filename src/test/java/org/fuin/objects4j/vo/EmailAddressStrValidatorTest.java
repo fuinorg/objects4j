@@ -52,7 +52,6 @@ public final class EmailAddressStrValidatorTest {
     public final void testIsValidFALSE() {
 
         assertThat(testee.isValid("", null)).isFalse();
-        assertThat(testee.isValid("abc", null)).isFalse();
         assertThat(testee.isValid("abc@", null)).isFalse();
         assertThat(testee.isValid("abc@.", null)).isFalse();
         assertThat(testee.isValid("abc@.def", null)).isFalse();

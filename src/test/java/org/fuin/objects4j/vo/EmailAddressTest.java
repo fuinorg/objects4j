@@ -26,25 +26,48 @@ import org.junit.Test;
 public final class EmailAddressTest {
 
     @Test
-    public final void testCreateValid() {
+    public final void testConstructValid() {
         final String emailAddress = "abc@def.com";
         assertThat(new EmailAddress(emailAddress).toString()).isEqualTo(emailAddress);
         assertThat(new EmailAddress(emailAddress).length()).isEqualTo(emailAddress.length());
     }
 
     @Test(expected = ContractViolationException.class)
-    public final void testCreateEmpty() {
+    public final void testConstructEmpty() {
         new EmailAddress("");
     }
 
     @Test(expected = ContractViolationException.class)
-    public final void testCreateIllegal() {
-        new EmailAddress("abc");
+    public final void testConstructIllegal() {
+        new EmailAddress("abc@", true);
     }
 
     @Test
     public final void testEqualsLowerUpperCase() {
         assertThat(new EmailAddress("Abc@DeF.Com")).isEqualTo(new EmailAddress("aBc@deF.cOM"));
+    }
+
+    @Test
+    public final void testAsString() {
+        assertThat(new EmailAddress("abc@def.com", true).asString()).isEqualTo("abc@def.com|true");
+        assertThat(new EmailAddress("abc@def.com", false).asString())
+                .isEqualTo("abc@def.com|false");
+        assertThat(new EmailAddress("abc@def.com").asString()).isEqualTo("abc@def.com|false");
+    }
+
+    @Test(expected = ContractViolationException.class)
+    public final void testCreateMissingDivider() {
+        EmailAddress.create("abc@def.com");
+    }
+
+    @Test
+    public final void testCreateValid() {
+        assertThat(EmailAddress.create("abc@def.com|true")).isEqualTo(
+                new EmailAddress("abc@def.com", true));
+        assertThat(EmailAddress.create("abc@def.com|false")).isEqualTo(
+                new EmailAddress("abc@def.com", false));
+        assertThat(EmailAddress.create("abc@def.com|false")).isEqualTo(
+                new EmailAddress("abc@def.com"));
     }
 
 }
