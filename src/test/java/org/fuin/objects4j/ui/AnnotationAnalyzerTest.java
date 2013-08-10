@@ -18,6 +18,7 @@
 package org.fuin.objects4j.ui;
 
 import static org.fest.assertions.Assertions.assertThat;
+
 import org.junit.Test;
 
 /**
@@ -30,15 +31,24 @@ public class AnnotationAnalyzerTest {
 
     @Test
     public void testGetMethodSignature() {
-        
+
         // TEST & VERIFY
-        assertThat(AnnotationAnalyzer.getMethodSignature(void.class, "doIt", null)).isEqualTo("void doIt()");
-        assertThat(AnnotationAnalyzer.getMethodSignature(void.class, "doIt", new Class[] {})).isEqualTo("void doIt()");
-        assertThat(AnnotationAnalyzer.getMethodSignature(void.class, "doIt", new Class[] {int.class})).isEqualTo("void doIt(int)");
-        assertThat(AnnotationAnalyzer.getMethodSignature(void.class, "doIt", new Class[] {int.class, Boolean.class})).isEqualTo("void doIt(int, Boolean)");
-        assertThat(AnnotationAnalyzer.getMethodSignature(String.class, "getX", new Class[] {Integer.class})).isEqualTo("String getX(Integer)");
-        
+        assertThat(AnnotationAnalyzer.getMethodSignature(void.class, "doIt", null)).isEqualTo(
+                "void doIt()");
+        assertThat(AnnotationAnalyzer.getMethodSignature(void.class, "doIt", new Class[] {}))
+                .isEqualTo("void doIt()");
+        assertThat(
+                AnnotationAnalyzer
+                        .getMethodSignature(void.class, "doIt", new Class[] { int.class }))
+                .isEqualTo("void doIt(int)");
+        assertThat(
+                AnnotationAnalyzer.getMethodSignature(void.class, "doIt", new Class[] { int.class,
+                        Boolean.class })).isEqualTo("void doIt(int, Boolean)");
+        assertThat(
+                AnnotationAnalyzer.getMethodSignature(String.class, "getX",
+                        new Class[] { Integer.class })).isEqualTo("String getX(Integer)");
+
     }
-    
+
 }
 // CHECKSTYLE:ON

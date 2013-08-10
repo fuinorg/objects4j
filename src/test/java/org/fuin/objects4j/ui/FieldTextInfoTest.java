@@ -124,7 +124,8 @@ public final class FieldTextInfoTest {
 
         final List<FieldTextInfo> list = new AnnotationAnalyzer().createFieldInfos(B.class,
                 Locale.ENGLISH, Label.class);
-        final FieldTextInfo infoX = new FieldTextInfo(AbstractB.class.getDeclaredField("x"), "AbstractB_en x.Label");
+        final FieldTextInfo infoX = new FieldTextInfo(AbstractB.class.getDeclaredField("x"),
+                "AbstractB_en x.Label");
         final FieldTextInfo infoY = new FieldTextInfo(B.class.getDeclaredField("y"), "B_en y.Label");
 
         assertThat(list).isNotNull();
@@ -218,7 +219,8 @@ public final class FieldTextInfoTest {
 
         final List<FieldTextInfo> list = new AnnotationAnalyzer().createFieldInfos(I.class,
                 Locale.ENGLISH, ShortLabel.class);
-        final FieldTextInfo info = new FieldTextInfo(I.class.getDeclaredField("i"), "I_en i.ShortLabel");
+        final FieldTextInfo info = new FieldTextInfo(I.class.getDeclaredField("i"),
+                "I_en i.ShortLabel");
         assertThat(list).isNotNull();
         assertThat(list.size()).isEqualTo(1);
         assertThat(list).contains(info);

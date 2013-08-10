@@ -10,6 +10,6 @@ public class D {
 
     @Label("DEFAULT D.d2")
     private String d2;
-    
+
 }
 // CHECKSTYLE:ON

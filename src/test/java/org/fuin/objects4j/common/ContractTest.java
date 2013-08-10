@@ -49,13 +49,13 @@ public class ContractTest {
         } catch (final ContractViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo("The argument 'name' cannot be null");
         }
-        
+
         try {
             Contract.requireArgNotNull("name", "");
         } catch (final ContractViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo("The argument 'name' cannot be empty");
         }
-        
+
     }
 
     @Test

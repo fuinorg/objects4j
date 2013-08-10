@@ -44,16 +44,16 @@ public final class ClassTextInfoTest {
 
         final AnnotationAnalyzer annotationAnalyzer = new AnnotationAnalyzer();
 
-        ClassTextInfo testee = annotationAnalyzer.createClassInfo(MyClass.class,
-                Locale.ENGLISH, Label.class);
+        ClassTextInfo testee = annotationAnalyzer.createClassInfo(MyClass.class, Locale.ENGLISH,
+                Label.class);
         assertThat(testee.getClasz()).isSameAs(MyClass.class);
         assertThat(testee.getText()).isEqualTo("MyClass_en label");
 
-        testee = annotationAnalyzer.createClassInfo(MyClass.class,
-                Locale.ENGLISH, ShortLabel.class);
+        testee = annotationAnalyzer
+                .createClassInfo(MyClass.class, Locale.ENGLISH, ShortLabel.class);
         assertThat(testee.getClasz()).isSameAs(MyClass.class);
         assertThat(testee.getText()).isEqualTo("MyClass_en shortLabel");
-        
+
     }
 
     @Test
@@ -61,13 +61,12 @@ public final class ClassTextInfoTest {
 
         final AnnotationAnalyzer annotationAnalyzer = new AnnotationAnalyzer();
 
-        ClassTextInfo testee = annotationAnalyzer.createClassInfo(MyClass.class,
-                Locale.GERMAN, Label.class);
+        ClassTextInfo testee = annotationAnalyzer.createClassInfo(MyClass.class, Locale.GERMAN,
+                Label.class);
         assertThat(testee.getClasz()).isSameAs(MyClass.class);
         assertThat(testee.getText()).isEqualTo("MyClass_de label");
 
-        testee = annotationAnalyzer.createClassInfo(MyClass.class,
-                Locale.GERMAN, ShortLabel.class);
+        testee = annotationAnalyzer.createClassInfo(MyClass.class, Locale.GERMAN, ShortLabel.class);
         assertThat(testee.getClasz()).isSameAs(MyClass.class);
         assertThat(testee.getText()).isEqualTo("MyClass_de shortLabel");
 
