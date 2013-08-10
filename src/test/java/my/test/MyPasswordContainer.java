@@ -5,10 +5,10 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-import org.fuin.objects4j.Label;
-import org.fuin.objects4j.TextField;
-import org.fuin.objects4j.validation.PasswordStr;
-import org.fuin.objects4j.validation.UserNameStr;
+import org.fuin.objects4j.ui.Label;
+import org.fuin.objects4j.ui.TextField;
+import org.fuin.objects4j.vo.PasswordStr;
+import org.fuin.objects4j.vo.UserNameStr;
 
 public class MyPasswordContainer {
 

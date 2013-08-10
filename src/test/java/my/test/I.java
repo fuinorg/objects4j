@@ -1,7 +1,7 @@
 // CHECKSTYLE:OFF
 package my.test;
 
-import org.fuin.objects4j.ShortLabel;
+import org.fuin.objects4j.ui.ShortLabel;
 
 public class I {
 

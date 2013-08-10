@@ -19,10 +19,14 @@
   
   <!-- Packages are ONLY allowed to use the following packages (all other packages are forbidden) -->
   <allowed>
-    <package name="org.fuin.objects4j" comment="Root can all access child packages">
-      <dependsOn package="org.fuin.objects4j.validation"/>
+    <package name="org.fuin.objects4j.common" comment="No access to other packages"/>
+    <package name="org.fuin.objects4j.ui">
+      <dependsOn package="org.fuin.objects4j.common"/>
     </package>
-    <package name="org.fuin.objects4j.validation" comment="No access to other packages"/>
+    <package name="org.fuin.objects4j.vo">
+      <dependsOn package="org.fuin.objects4j.common"/>
+      <dependsOn package="org.fuin.objects4j.ui"/>
+    </package>
   </allowed>
 
   <!-- Packages are NOT allowed to use the following ones (all other packages are allowed) -->  

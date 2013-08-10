@@ -1,7 +1,7 @@
 // CHECKSTYLE:OFF
 package my.test;
 
-import org.fuin.objects4j.Label;
+import org.fuin.objects4j.ui.Label;
 
 public class D {
 

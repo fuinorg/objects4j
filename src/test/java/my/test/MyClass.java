@@ -3,11 +3,11 @@ package my.test;
 
 import java.util.Date;
 
-import org.fuin.objects4j.FontSizeUnit;
-import org.fuin.objects4j.Label;
-import org.fuin.objects4j.ShortLabel;
-import org.fuin.objects4j.TableColumn;
-import org.fuin.objects4j.TextField;
+import org.fuin.objects4j.ui.FontSizeUnit;
+import org.fuin.objects4j.ui.Label;
+import org.fuin.objects4j.ui.ShortLabel;
+import org.fuin.objects4j.ui.TableColumn;
+import org.fuin.objects4j.ui.TextField;
 
 /**
  * Test class with fields annotated with label and table column.
