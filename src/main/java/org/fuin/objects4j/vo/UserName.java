@@ -41,8 +41,15 @@ public final class UserName extends AbstractStringBasedType<UserName> {
 
     @NotNull
     @UserNameStr
-    private final String userName;
+    private String userName;
 
+    /**
+     * Protected default constructor for deserialization.
+     */
+    protected UserName() {
+        super();
+    }
+    
     /**
      * Constructor with user name.
      * 
@@ -61,4 +68,21 @@ public final class UserName extends AbstractStringBasedType<UserName> {
         return userName;
     }
 
+    @Override
+    public final String asString() {
+        return userName;
+    }
+    
+    /**
+     * Reconstructs the object from a given string.
+     * 
+     * @param str
+     *            String as created by {@link #asString()}.
+     *            
+     * @return New instance parsed from <code>str</code>.
+     */
+    public static UserName create(final String str) {
+        return new UserName(str);
+    }
+    
 }

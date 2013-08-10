@@ -33,8 +33,15 @@ public final class Password extends AbstractStringBasedType<Password> {
 
     @NotNull
     @PasswordStr
-    private final String password;
+    private String password;
 
+    /**
+     * Protected default constructor for deserialization.
+     */
+    protected Password() {
+        super();
+    }
+    
     /**
      * Constructor with password.
      * 
@@ -53,4 +60,21 @@ public final class Password extends AbstractStringBasedType<Password> {
         return password;
     }
 
+    @Override
+    public final String asString() {
+        return password;
+    }
+    
+    /**
+     * Reconstructs the object from a given string.
+     * 
+     * @param str
+     *            String as created by {@link #asString()}.
+     *            
+     * @return New instance parsed from <code>str</code>.
+     */
+    public static Password create(final String str) {
+        return new Password(str);
+    }
+    
 }

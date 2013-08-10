@@ -32,6 +32,33 @@ import org.junit.Test;
 public class ContractTest {
 
     @Test
+    public final void testRequireArgNotNull() {
+
+        try {
+            Contract.requireArgNotNull("name", null);
+        } catch (final ContractViolationException ex) {
+            assertThat(ex.getMessage()).isEqualTo("The argument 'name' cannot be null");
+        }
+    }
+
+    @Test
+    public final void testRequireArgNotEmpty() {
+
+        try {
+            Contract.requireArgNotNull("name", null);
+        } catch (final ContractViolationException ex) {
+            assertThat(ex.getMessage()).isEqualTo("The argument 'name' cannot be null");
+        }
+        
+        try {
+            Contract.requireArgNotNull("name", "");
+        } catch (final ContractViolationException ex) {
+            assertThat(ex.getMessage()).isEqualTo("The argument 'name' cannot be empty");
+        }
+        
+    }
+
+    @Test
     public final void testRequireValidWithOneInvalidField() {
 
         try {

@@ -88,4 +88,21 @@ public final class PasswordSha512 extends AbstractStringBasedType<PasswordSha512
         return hash;
     }
 
+    @Override
+    public final String asString() {
+        return hash;
+    }
+    
+    /**
+     * Reconstructs the object from a given string.
+     * 
+     * @param str
+     *            String as created by {@link #asString()}.
+     *            
+     * @return New instance parsed from <code>str</code>.
+     */
+    public static PasswordSha512 create(final String str) {
+        return new PasswordSha512(str);
+    }
+    
 }

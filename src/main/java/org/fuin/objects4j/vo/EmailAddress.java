@@ -33,8 +33,15 @@ public final class EmailAddress extends AbstractStringBasedType<EmailAddress> {
 
     @NotNull
     @EmailAddressStr
-    private final String emailAddress;
+    private String emailAddress;
 
+    /**
+     * Protected default constructor for deserialization.
+     */
+    protected EmailAddress() {
+        super();
+    }
+    
     /**
      * Constructor with email address.
      * 
@@ -53,4 +60,21 @@ public final class EmailAddress extends AbstractStringBasedType<EmailAddress> {
         return emailAddress;
     }
 
+    @Override
+    public final String asString() {
+        return emailAddress;
+    }
+    
+    /**
+     * Reconstructs the object from a given string.
+     * 
+     * @param str
+     *            String as created by {@link #asString()}.
+     *            
+     * @return New instance parsed from <code>str</code>.
+     */
+    public static EmailAddress create(final String str) {
+        return new EmailAddress(str);
+    }
+    
 }

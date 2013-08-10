@@ -57,12 +57,31 @@ public final class SecurityToken extends AbstractStringBasedType<SecurityToken> 
         super();
         this.token = createSecureRandom();
     }
-
+    
     @Override
     public final String toString() {
         return token;
     }
 
+    @Override
+    public final String asString() {
+        return token;
+    }
+    
+    /**
+     * Reconstructs the object from a given string.
+     * 
+     * @param str
+     *            String as created by {@link #asString()}.
+     *            
+     * @return New instance parsed from <code>str</code>.
+     */
+    public static SecurityToken create(final String str) {
+        final SecurityToken tok = new SecurityToken();
+        tok.token = str;
+        return tok;
+    }
+    
     /**
      * Encodes a byte array base64.
      * 

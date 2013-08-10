@@ -27,7 +27,7 @@ import java.io.Serializable;
  * @param <T>
  *            Concrete type.
  */
-public abstract class AbstractStringBasedType<T> implements Comparable<T>, Serializable {
+public abstract class AbstractStringBasedType<T> implements Comparable<T>, StringSerializable, Serializable {
 
     private static final long serialVersionUID = -8703130956302331118L;
 
@@ -63,7 +63,7 @@ public abstract class AbstractStringBasedType<T> implements Comparable<T>, Seria
     public final int length() {
         return toString().length();
     }
-
+    
     @Override
     public abstract String toString();
 

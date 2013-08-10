@@ -62,6 +62,27 @@ public final class Contract {
     }
 
     /**
+     * Checks if the value is not null and not empty.
+     * 
+     * @param name
+     *            Name of the value for a possible error message.
+     * @param value
+     *            Value to check.
+     * 
+     * @throws ContractViolationException
+     *             The value was null or empty.
+     */
+    // CHECKSTYLE:OFF:RedundantThrows
+    public static void requireArgNotEmpty(final String name, final String value)
+            throws ContractViolationException {
+        // CHECKSTYLE:ON
+        requireArgNotNull(name, value);
+        if (value.length() < 1) {
+            throw new ContractViolationException("The argument '" + name + "' cannot be empty");
+        }
+    }
+    
+    /**
      * Checks if the given value is valid.
      * 
      * @param value
