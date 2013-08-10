@@ -40,7 +40,7 @@ import javax.validation.constraints.Size;
 @Documented
 public @interface PasswordStr {
 
-    String message() default "{org.fuin.objects4j.validation.PasswordStr.message}";
+    String message() default "{org.fuin.objects4j.vo.PasswordStr.message}";
 
     Class<?>[] groups() default {};
 

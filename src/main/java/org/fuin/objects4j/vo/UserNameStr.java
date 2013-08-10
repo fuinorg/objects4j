@@ -48,7 +48,7 @@ import javax.validation.constraints.Size;
 @Documented
 public @interface UserNameStr {
 
-    String message() default "{org.fuin.objects4j.validation.UserNameStr.message}";
+    String message() default "{org.fuin.objects4j.vo.UserNameStr.message}";
 
     Class<?>[] groups() default {};
 

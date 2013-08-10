@@ -41,7 +41,7 @@ import javax.validation.constraints.Size;
 @Documented
 public @interface PasswordSha512Str {
 
-    String message() default "{org.fuin.objects4j.validation.PasswordSha512Str.message}";
+    String message() default "{org.fuin.objects4j.vo.PasswordSha512Str.message}";
 
     Class<?>[] groups() default {};
 

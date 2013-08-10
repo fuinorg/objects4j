@@ -36,7 +36,7 @@ import javax.validation.Payload;
 @Documented
 public @interface PropertiesContain {
 
-    String message() default "{org.fuin.objects4j.validation.PropertiesContain.message}";
+    String message() default "{org.fuin.objects4j.vo.PropertiesContain.message}";
 
     Class<?>[] groups() default {};
 

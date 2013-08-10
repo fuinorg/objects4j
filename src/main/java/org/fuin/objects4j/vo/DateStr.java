@@ -36,7 +36,7 @@ import javax.validation.Payload;
 @Documented
 public @interface DateStr {
 
-    String message() default "{org.fuin.objects4j.validation.DateStr.message}";
+    String message() default "{org.fuin.objects4j.vo.DateStr.message}";
 
     Class<?>[] groups() default {};
 

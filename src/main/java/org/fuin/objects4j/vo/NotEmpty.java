@@ -47,7 +47,7 @@ import javax.validation.constraints.Size;
 @NotNull
 @Size(min = 1)
 public @interface NotEmpty {
-    String message() default "{org.fuin.objects4j.validation.NotEmpty.message}";
+    String message() default "{org.fuin.objects4j.vo.NotEmpty.message}";
 
     Class<?>[] groups() default {};
 

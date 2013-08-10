@@ -40,7 +40,7 @@ import javax.validation.constraints.Size;
 @Documented
 public @interface UUIDStr {
 
-    String message() default "{org.fuin.objects4j.validation.UUIDStr.message}";
+    String message() default "{org.fuin.objects4j.vo.UUIDStr.message}";
 
     Class<?>[] groups() default {};
 
