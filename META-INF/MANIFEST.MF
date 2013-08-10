@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Bundle-Description: A library with common Java types that are mostly imm
+ utable value objects.
+Bundle-DocURL: http://www.fuin.org/
+Bundle-License: http://www.fsf.org/licensing/licenses/lgpl.html
+Bundle-ManifestVersion: 2
+Bundle-Name: Objects4J
+Bundle-SymbolicName: org.fuin.objects4j
+Bundle-Vendor: Future Invent Informationsmanagement GmbH, Hamburg (Germa
+ ny)
+Bundle-Version: 0.4.0.SNAPSHOT
+Export-Package: org.fuin.objects4j.common;uses:="javax.validation";versi
+ on="0.4.0.SNAPSHOT",org.fuin.objects4j.ui;uses:="org.fuin.objects4j.com
+ mon";version="0.4.0.SNAPSHOT",org.fuin.objects4j.vo;uses:="javax.valida
+ tion,javax.validation.constraints,org.fuin.objects4j.common";version="0
+ .4.0.SNAPSHOT"
+Import-Package: javax.validation,javax.validation.constraints
+Include-Resource: ValidationMessages.properties=src/main/resources/Valid
+ ationMessages.properties
