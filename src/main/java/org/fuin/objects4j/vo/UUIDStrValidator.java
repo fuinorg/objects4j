@@ -21,6 +21,9 @@ import java.util.UUID;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+import javax.validation.constraints.NotNull;
+
+import org.fuin.objects4j.common.ContractViolationException;
 
 /**
  * Check that a given string is a valid {@link java.util.UUID}.
@@ -60,4 +63,35 @@ public final class UUIDStrValidator implements ConstraintValidator<UUIDStr, Stri
         }
     }
 
+    /**
+     * Tries to parse the argument is valid and throws an exception if this is not possible.
+     * 
+     * @param name
+     *            Name of the value for a possible error message.
+     * @param value
+     *            Value to check.
+     *            
+     * @return Parsed value.
+     * 
+     * @throws ContractViolationException
+     *             The value was not valid.
+     */
+    // CHECKSTYLE:OFF:RedundantThrows
+    public static UUID parseArg(@NotNull final String name, @NotNull final String value)
+            throws ContractViolationException {
+        // CHECKSTYLE:ON
+        
+        if (value.length() != 36) {
+            throw new ContractViolationException("The argument '" + name + "' is not valid: '"
+                    + value + "'");
+        }
+        try {
+            return UUID.fromString(value);
+        } catch (final RuntimeException ex) {
+            throw new ContractViolationException("The argument '" + name + "' is not valid: '"
+                    + value + "'");
+        }
+        
+    }
+    
 }

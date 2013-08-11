@@ -29,8 +29,7 @@ import org.fuin.objects4j.common.Immutable;
  * Creates a BASE64 encoded string based on a SHA1PRNG {@link SecureRandom}.
  */
 @Immutable
-public final class SecurityToken extends AbstractStringBasedType<SecurityToken> implements
-        StringSerializable {
+public final class SecurityToken extends AbstractStringValueObject<SecurityToken> {
 
     private static final long serialVersionUID = 8737032520847641569L;
 
@@ -62,25 +61,6 @@ public final class SecurityToken extends AbstractStringBasedType<SecurityToken> 
     @Override
     public final String toString() {
         return token;
-    }
-
-    @Override
-    public final String asString() {
-        return token;
-    }
-
-    /**
-     * Reconstructs the object from a given string.
-     * 
-     * @param str
-     *            String as created by {@link #asString()}.
-     * 
-     * @return New instance parsed from <code>str</code>.
-     */
-    public static SecurityToken create(final String str) {
-        final SecurityToken tok = new SecurityToken();
-        tok.token = str;
-        return tok;
     }
 
     /**

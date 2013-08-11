@@ -20,17 +20,17 @@ package org.fuin.objects4j.vo;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import javax.validation.constraints.NotNull;
+
 import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.common.ContractViolationException;
 import org.fuin.objects4j.common.Immutable;
-import org.fuin.objects4j.common.Requires;
 
 /**
  * SHA-512 hashed password that is HEX encoded.
  */
 @Immutable
-public final class PasswordSha512 extends AbstractStringBasedType<PasswordSha512> implements
-        StringSerializable {
+public final class PasswordSha512 extends AbstractStringValueObject<PasswordSha512> {
 
     private static final long serialVersionUID = -6285061339408965704L;
 
@@ -45,8 +45,7 @@ public final class PasswordSha512 extends AbstractStringBasedType<PasswordSha512
      * @param hexEncodedHash
      *            Hash code as HEX encoded string.
      */
-    @Requires("hexEncodedHash!=null && PasswordSha512StrValidator.isValid(hexEncodedHash)")
-    public PasswordSha512(final String hexEncodedHash) {
+    public PasswordSha512(@NotNull @PasswordSha512Str final String hexEncodedHash) {
         super();
         this.hash = hexEncodedHash;
         Contract.requireArgNotEmpty("hexEncodedHash", hexEncodedHash);
@@ -61,8 +60,7 @@ public final class PasswordSha512 extends AbstractStringBasedType<PasswordSha512
      * @param password
      *            Clear text password.
      */
-    @Requires("password!=null")
-    public PasswordSha512(final Password password) {
+    public PasswordSha512(@NotNull final Password password) {
         super();
         try {
             final MessageDigest md = MessageDigest.getInstance("SHA-512");
@@ -87,23 +85,6 @@ public final class PasswordSha512 extends AbstractStringBasedType<PasswordSha512
     @Override
     public final String toString() {
         return hash;
-    }
-
-    @Override
-    public final String asString() {
-        return hash;
-    }
-
-    /**
-     * Reconstructs the object from a given string.
-     * 
-     * @param str
-     *            String as created by {@link #asString()}.
-     * 
-     * @return New instance parsed from <code>str</code>.
-     */
-    public static PasswordSha512 create(final String str) {
-        return new PasswordSha512(str);
     }
 
 }

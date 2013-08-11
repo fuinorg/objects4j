@@ -21,22 +21,23 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+import javax.validation.constraints.NotNull;
+
+import org.fuin.objects4j.common.ContractViolationException;
 
 /**
  * Check that a given string is a well-formed email address.
  */
 public final class EmailAddressStrValidator implements ConstraintValidator<EmailAddressStr, String> {
 
-    private boolean strict = false;
-
     @Override
     public final void initialize(final EmailAddressStr annotation) {
-        strict = annotation.strict();
+        // Not used
     }
 
     @Override
     public boolean isValid(final String value, final ConstraintValidatorContext context) {
-        return isValid(value, strict);
+        return isValid(value);
     }
 
     /**
@@ -44,15 +45,11 @@ public final class EmailAddressStrValidator implements ConstraintValidator<Email
      * 
      * @param value
      *            Value to check.
-     * @param strict
-     *            Determines if the detailed syntax of the address is checked.
-     *            If <code>strict</code> is true, many (but not all) of the
-     *            RFC822 syntax rules are enforced.
      * 
      * @return Returns <code>true</code> if it's a valid email address else
      *         <code>false</code> is returned.
      */
-    public static boolean isValid(final String value, final boolean strict) {
+    public static boolean isValid(final String value) {
         if (value == null) {
             return true;
         }
@@ -60,11 +57,36 @@ public final class EmailAddressStrValidator implements ConstraintValidator<Email
             return false;
         }
         try {
-            InternetAddress.parse(value, strict);
+            InternetAddress.parse(value, false);
             return true;
         } catch (final AddressException ex) {
             return false;
         }
+    }
+
+    /**
+     * Checks if the argument is a valid email and throws an exception if this
+     * is not the case.
+     * 
+     * @param name
+     *            Name of the value for a possible error message.
+     * @param value
+     *            Value to check.
+     * 
+     * @throws ContractViolationException
+     *             The value was not valid.
+     */
+    // CHECKSTYLE:OFF:RedundantThrows
+    public static void requireArgValid(@NotNull final String name, @NotNull final String value)
+            throws ContractViolationException {
+        // CHECKSTYLE:ON
+
+        final String trimmedLowerCaseValue = value.trim().toLowerCase();
+        if (!isValid(trimmedLowerCaseValue)) {
+            throw new ContractViolationException("The argument '" + name + "' is not valid: '"
+                    + trimmedLowerCaseValue + "'");
+        }
+
     }
 
 }

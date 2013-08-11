@@ -21,6 +21,9 @@ import java.util.regex.Pattern;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+import javax.validation.constraints.NotNull;
+
+import org.fuin.objects4j.common.ContractViolationException;
 
 /**
  * Check that a given string is an allowed HEX encoded SHA512 password.
@@ -59,4 +62,26 @@ public final class PasswordSha512StrValidator implements
         return PATTERN.matcher(value).matches();
     }
 
+    /**
+     * Checks if the argument is valid and throws an exception if this is not
+     * the case.
+     * 
+     * @param name
+     *            Name of the value for a possible error message.
+     * @param value
+     *            Value to check.
+     * 
+     * @throws ContractViolationException
+     *             The value was not valid.
+     */
+    // CHECKSTYLE:OFF:RedundantThrows
+    public static void requireArgValid(@NotNull final String name, @NotNull final String value)
+            throws ContractViolationException {
+        // CHECKSTYLE:ON
+        if (!isValid(value)) {
+            throw new ContractViolationException("The argument '" + name + "' is not valid: '"
+                    + value + "'");
+        }
+    }
+    
 }

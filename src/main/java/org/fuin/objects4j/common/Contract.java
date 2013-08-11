@@ -22,6 +22,7 @@ import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
+import javax.validation.constraints.NotNull;
 
 /**
  * Utility class for assertions on objects.
@@ -53,7 +54,7 @@ public final class Contract {
      *             The value was null.
      */
     // CHECKSTYLE:OFF:RedundantThrows
-    public static void requireArgNotNull(final String name, final Object value)
+    public static void requireArgNotNull(@NotNull final String name, final Object value)
             throws ContractViolationException {
         // CHECKSTYLE:ON
         if (value == null) {
@@ -62,7 +63,8 @@ public final class Contract {
     }
 
     /**
-     * Checks if the value is not null and not empty.
+     * Checks if the value is not empty. A single space is considered a valid
+     * value.
      * 
      * @param name
      *            Name of the value for a possible error message.
@@ -73,15 +75,14 @@ public final class Contract {
      *             The value was null or empty.
      */
     // CHECKSTYLE:OFF:RedundantThrows
-    public static void requireArgNotEmpty(final String name, final String value)
+    public static void requireArgNotEmpty(@NotNull final String name, @NotNull final String value)
             throws ContractViolationException {
         // CHECKSTYLE:ON
-        requireArgNotNull(name, value);
         if (value.length() < 1) {
             throw new ContractViolationException("The argument '" + name + "' cannot be empty");
         }
     }
-    
+
     /**
      * Checks if the given value is valid.
      * 
@@ -92,7 +93,7 @@ public final class Contract {
      *             The value is invalid.
      */
     // CHECKSTYLE:OFF:RedundantThrows
-    public static void requireValid(final Object value) throws ContractViolationException {
+    public static void requireValid(@NotNull final Object value) throws ContractViolationException {
         // CHECKSTYLE:ON
 
         final Set<ConstraintViolation<Object>> constraintViolations = VALIDATOR.validate(value);

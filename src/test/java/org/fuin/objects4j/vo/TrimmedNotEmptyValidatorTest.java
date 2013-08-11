@@ -25,14 +25,18 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-//TESTCODE:BEGIN
-public final class EmailAddressStrValidatorTest {
 
-    private EmailAddressStrValidator testee;
+/**
+ * Test for the {@link TrimmedNotEmptyValidator} class.
+ */
+//CHECKSTYLE:OFF
+public class TrimmedNotEmptyValidatorTest {
+
+    private TrimmedNotEmptyValidator testee;
 
     @Before
     public final void setUp() {
-        testee = new EmailAddressStrValidator();
+        testee = new TrimmedNotEmptyValidator();
     }
 
     @After
@@ -41,43 +45,35 @@ public final class EmailAddressStrValidatorTest {
     }
 
     @Test
-    public final void testIsValidTRUE() {
+    public final void testIsValid() {
 
-        assertThat(testee.isValid("a@b.c", null)).isTrue();
-        assertThat(testee.isValid("abc@def", null)).isTrue();
-        assertThat(testee.isValid("abc@def.ghi", null)).isTrue();
         assertThat(testee.isValid(null, null)).isTrue();
-
-    }
-
-    @Test
-    public final void testIsValidFALSE() {
-
+        assertThat(testee.isValid("a", null)).isTrue();
+        assertThat(testee.isValid(" a ", null)).isTrue();
+        assertThat(testee.isValid(" ", null)).isFalse();
         assertThat(testee.isValid("", null)).isFalse();
-        assertThat(testee.isValid("abc@", null)).isFalse();
-        assertThat(testee.isValid("abc@.", null)).isFalse();
-        assertThat(testee.isValid("abc@.def", null)).isFalse();
-
-    }
+        
+    }    
 
     @Test
     public final void testRequireArgValid() {
 
         try {
-            EmailAddressStrValidator.requireArgValid("a", "");
+            TrimmedNotEmptyValidator.requireArgValid("a", "");
             fail();
         } catch (final ContractViolationException ex) {
-            assertThat(ex.getMessage()).isEqualTo("The argument 'a' is not valid: ''");
+            assertThat(ex.getMessage()).isEqualTo("The argument 'a' cannot be empty");
         }
 
         try {
-            EmailAddressStrValidator.requireArgValid("a", "abc@");
+            TrimmedNotEmptyValidator.requireArgValid("a", " ");
             fail();
         } catch (final ContractViolationException ex) {
-            assertThat(ex.getMessage()).isEqualTo("The argument 'a' is not valid: 'abc@'");
+            assertThat(ex.getMessage()).isEqualTo("The argument 'a' cannot be empty");
         }
-
-    }    
+        
+    }
+    
     
 }
-// TESTCODE:END
+//CHECKSTYLE:ON

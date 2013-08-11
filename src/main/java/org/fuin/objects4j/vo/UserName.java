@@ -17,10 +17,10 @@
  */
 package org.fuin.objects4j.vo;
 
+import javax.validation.constraints.NotNull;
+
 import org.fuin.objects4j.common.Contract;
-import org.fuin.objects4j.common.ContractViolationException;
 import org.fuin.objects4j.common.Immutable;
-import org.fuin.objects4j.common.Requires;
 
 /**
  * User name with the following rules.
@@ -34,7 +34,7 @@ import org.fuin.objects4j.common.Requires;
  * </ul>
  */
 @Immutable
-public final class UserName extends AbstractStringBasedType<UserName> implements StringSerializable {
+public final class UserName extends AbstractStringValueObject<UserName> {
 
     private static final long serialVersionUID = 9055520843135472634L;
 
@@ -53,37 +53,16 @@ public final class UserName extends AbstractStringBasedType<UserName> implements
      * @param userName
      *            User name.
      */
-    @Requires("(userName!=null) && UserNameStrValidator.isValid(userName)")
-    public UserName(final String userName) {
+    public UserName(@NotNull @UserNameStr final String userName) {
         super();
-        Contract.requireArgNotEmpty("userName", userName);
+        Contract.requireArgNotNull("userName", userName);
+        UserNameStrValidator.parseArg("userName", userName);
         this.userName = userName.trim().toLowerCase();
-        if (!UserNameStrValidator.isValid(this.userName)) {
-            throw new ContractViolationException("The argument 'userName' is not valid: '"
-                    + this.userName + "'");
-        }
     }
 
     @Override
     public String toString() {
         return userName;
-    }
-
-    @Override
-    public final String asString() {
-        return userName;
-    }
-
-    /**
-     * Reconstructs the object from a given string.
-     * 
-     * @param str
-     *            String as created by {@link #asString()}.
-     * 
-     * @return New instance parsed from <code>str</code>.
-     */
-    public static UserName create(final String str) {
-        return new UserName(str);
     }
 
 }

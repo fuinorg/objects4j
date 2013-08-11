@@ -17,16 +17,16 @@
  */
 package org.fuin.objects4j.vo;
 
+import javax.validation.constraints.NotNull;
+
 import org.fuin.objects4j.common.Contract;
-import org.fuin.objects4j.common.ContractViolationException;
 import org.fuin.objects4j.common.Immutable;
-import org.fuin.objects4j.common.Requires;
 
 /**
  * A password with a length between 8 and 20 characters.
  */
 @Immutable
-public final class Password extends AbstractStringBasedType<Password> implements StringSerializable {
+public final class Password extends AbstractStringValueObject<Password> {
 
     private static final long serialVersionUID = -7745110729063955842L;
 
@@ -45,36 +45,17 @@ public final class Password extends AbstractStringBasedType<Password> implements
      * @param password
      *            Password.
      */
-    @Requires("(password!=null) && PasswordStrValidator.isValid(password)")
-    public Password(final String password) {
+    public Password(@NotNull @PasswordStr final String password) {
         super();
+        Contract.requireArgNotNull("password", password);
         Contract.requireArgNotEmpty("password", password);
-        if (!PasswordStrValidator.isValid(password)) {
-            throw new ContractViolationException("The argument 'password' is not valid");
-        }
-        this.password = password;
+        PasswordStrValidator.requireArgValid("password", password);
+        this.password = password.trim();
     }
 
     @Override
     public String toString() {
         return password;
-    }
-
-    @Override
-    public final String asString() {
-        return password;
-    }
-
-    /**
-     * Reconstructs the object from a given string.
-     * 
-     * @param str
-     *            String as created by {@link #asString()}.
-     * 
-     * @return New instance parsed from <code>str</code>.
-     */
-    public static Password create(final String str) {
-        return new Password(str);
     }
 
 }

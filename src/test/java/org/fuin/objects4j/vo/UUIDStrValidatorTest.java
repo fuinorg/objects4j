@@ -21,11 +21,14 @@ import static org.fest.assertions.Assertions.assertThat;
 
 import java.util.UUID;
 
+import org.fuin.objects4j.common.ContractViolationException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-//TESTCODE:BEGIN
+import static org.junit.Assert.fail;
+
+//CHECKSTYLE:OFF
 public final class UUIDStrValidatorTest {
 
     private UUIDStrValidator testee;
@@ -42,38 +45,84 @@ public final class UUIDStrValidatorTest {
 
     @Test
     public final void testValidConstantLowerCase() {
-        assertThat(testee.isValid("089ba5d3-1027-421d-add7-7e65f95b6ed6", null)).isTrue();
+
+        final String value = "089ba5d3-1027-421d-add7-7e65f95b6ed6";
+        assertThat(testee.isValid(value, null)).isTrue();
+        assertThat(UUIDStrValidator.parseArg("a", value)).isEqualTo(UUID.fromString(value));
+        
     }
 
     @Test
     public final void testValidConstantUpperCase() {
-        assertThat(testee.isValid("089ba5d3-1027-421d-add7-7e65f95b6ed6", null)).isTrue();
+        final String value = "089ba5d3-1027-421d-add7-7e65f95b6ed6";
+        assertThat(testee.isValid(value, null)).isTrue();
+        assertThat(UUIDStrValidator.parseArg("a", value)).isEqualTo(UUID.fromString(value));
     }
 
     @Test
     public final void testValidNullValue() {
+        
         assertThat(testee.isValid(null, null)).isTrue();
+        
+        // UUIDStrValidator.parseArg(..) does not allow NULL
+        
     }
 
     @Test
     public final void testValidRandom() {
-        assertThat(testee.isValid(UUID.randomUUID().toString(), null)).isTrue();
+        final String value = UUID.randomUUID().toString();
+        assertThat(testee.isValid(value, null)).isTrue();
+        assertThat(UUIDStrValidator.parseArg("a", value)).isEqualTo(UUID.fromString(value));
     }
 
     @Test
     public final void testInvalidEmpty() {
+
         assertThat(testee.isValid("", null)).isFalse();
+        
+        try {
+            UUIDStrValidator.parseArg("a", "");
+            fail();
+        } catch (final ContractViolationException ex) {
+            assertThat(ex.getMessage()).isEqualTo("The argument 'a' is not valid: ''");
+        }
+        
     }
 
     @Test
     public final void testInvalidSingleNumber() {
+
         assertThat(testee.isValid("1", null)).isFalse();
+        
+        try {
+            UUIDStrValidator.parseArg("a", "1");
+            fail();
+        } catch (final ContractViolationException ex) {
+            assertThat(ex.getMessage()).isEqualTo("The argument 'a' is not valid: '1'");
+        }
+        
     }
 
     @Test
     public final void testInvalidSpecialCharacters() {
-        assertThat(testee.isValid("089ba5d3-10ä7-421d-add7-7e65f95b6ed6", null)).isFalse();
+        
+        final String value = "089ba5d3-10ä7-421d-add7-7e65f95b6ed6";
+        assertThat(testee.isValid(value, null)).isFalse();
+        
+        try {
+            UUIDStrValidator.parseArg("a", value);
+            fail();
+        } catch (final ContractViolationException ex) {
+            assertThat(ex.getMessage()).isEqualTo("The argument 'a' is not valid: '" + value + "'");
+        }
+        
+    }
+
+    @Test
+    public final void testParseArg() {
+        
+        
     }
 
 }
-// TESTCODE:END
+// CHECKSTYLE:ON

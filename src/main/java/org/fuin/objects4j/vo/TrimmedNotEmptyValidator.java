@@ -21,44 +21,30 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import javax.validation.constraints.NotNull;
 
+import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.common.ContractViolationException;
 
 /**
- * Check that a given string is an allowed password.
+ * Check that a given string is not <code>null</code> and the trimmed length is
+ * greater than zero.
  */
-public final class PasswordStrValidator implements ConstraintValidator<PasswordStr, String> {
+public class TrimmedNotEmptyValidator implements ConstraintValidator<TrimmedNotEmpty, String> {
 
     @Override
-    public final void initialize(final PasswordStr constraintAnnotation) {
+    public final void initialize(final TrimmedNotEmpty constraintAnnotation) {
+        // Not used
     }
 
     @Override
     public final boolean isValid(final String value, final ConstraintValidatorContext context) {
-        return isValid(value);
-    }
-
-    /**
-     * Check that a given string is an allowed password.
-     * 
-     * @param value
-     *            Value to check.
-     * 
-     * @return Returns <code>true</code> if it's an allowed password else
-     *         <code>false</code> is returned.
-     */
-    public static final boolean isValid(final String value) {
         if (value == null) {
             return true;
         }
-        if ((value.length() < 8) || (value.length() > 20)) {
-            return false;
-        }
-        return true;
+        return value.trim().length() > 0;
     }
 
     /**
-     * Checks if the argument is valid and throws an exception if this is not
-     * the case.
+     * Parses the value and throws an exception if the trimmed value is empty.
      * 
      * @param name
      *            Name of the value for a possible error message.
@@ -66,17 +52,14 @@ public final class PasswordStrValidator implements ConstraintValidator<PasswordS
      *            Value to check.
      * 
      * @throws ContractViolationException
-     *             The value was not valid.
+     *             The trimmed value was empty.
      */
     // CHECKSTYLE:OFF:RedundantThrows
     public static void requireArgValid(@NotNull final String name, @NotNull final String value)
             throws ContractViolationException {
         // CHECKSTYLE:ON
         final String trimmedValue = value.trim();
-        if (!isValid(trimmedValue)) {
-            throw new ContractViolationException("The argument '" + name + "' is not valid: '"
-                    + trimmedValue + "'");
-        }
+        Contract.requireArgNotEmpty(name, trimmedValue);
     }
-    
+
 }

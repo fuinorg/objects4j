@@ -39,35 +39,12 @@ public final class EmailAddressTest {
 
     @Test(expected = ContractViolationException.class)
     public final void testConstructIllegal() {
-        new EmailAddress("abc@", true);
+        new EmailAddress("abc@");
     }
 
     @Test
     public final void testEqualsLowerUpperCase() {
         assertThat(new EmailAddress("Abc@DeF.Com")).isEqualTo(new EmailAddress("aBc@deF.cOM"));
-    }
-
-    @Test
-    public final void testAsString() {
-        assertThat(new EmailAddress("abc@def.com", true).asString()).isEqualTo("abc@def.com|true");
-        assertThat(new EmailAddress("abc@def.com", false).asString())
-                .isEqualTo("abc@def.com|false");
-        assertThat(new EmailAddress("abc@def.com").asString()).isEqualTo("abc@def.com|false");
-    }
-
-    @Test(expected = ContractViolationException.class)
-    public final void testCreateMissingDivider() {
-        EmailAddress.create("abc@def.com");
-    }
-
-    @Test
-    public final void testCreateValid() {
-        assertThat(EmailAddress.create("abc@def.com|true")).isEqualTo(
-                new EmailAddress("abc@def.com", true));
-        assertThat(EmailAddress.create("abc@def.com|false")).isEqualTo(
-                new EmailAddress("abc@def.com", false));
-        assertThat(EmailAddress.create("abc@def.com|false")).isEqualTo(
-                new EmailAddress("abc@def.com"));
     }
 
 }

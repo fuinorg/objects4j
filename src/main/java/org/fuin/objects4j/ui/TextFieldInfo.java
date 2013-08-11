@@ -20,10 +20,10 @@ package org.fuin.objects4j.ui;
 import java.lang.reflect.Field;
 import java.util.Locale;
 
+import javax.validation.constraints.NotNull;
+
 import org.fuin.objects4j.common.Contract;
-import org.fuin.objects4j.common.Ensures;
 import org.fuin.objects4j.common.Immutable;
-import org.fuin.objects4j.common.Requires;
 
 /**
  * Information about a text field.
@@ -43,8 +43,7 @@ public class TextFieldInfo {
      * @param width
      *            Number of characters to be shown.
      */
-    @Requires("(field != null) && (width != null)")
-    public TextFieldInfo(final Field field, final int width) {
+    public TextFieldInfo(@NotNull final Field field, final int width) {
         super();
 
         Contract.requireArgNotNull("field", field);
@@ -57,9 +56,8 @@ public class TextFieldInfo {
     /**
      * Returns the field.
      * 
-     * @return Field.
+     * @return Field - Never <code>null</code>
      */
-    @Ensures("\result != null")
     public final Field getField() {
         return field;
     }
@@ -106,8 +104,7 @@ public class TextFieldInfo {
      * 
      * @return Information or <code>null</code>.
      */
-    @Requires("(field != null) && (locale!=null)")
-    public static TextFieldInfo create(final Field field, final Locale locale) {
+    public static TextFieldInfo create(@NotNull final Field field, @NotNull final Locale locale) {
 
         final TextField textField = field.getAnnotation(TextField.class);
         if (textField == null) {

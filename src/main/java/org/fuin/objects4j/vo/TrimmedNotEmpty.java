@@ -30,24 +30,17 @@ import java.lang.annotation.Target;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
-import javax.validation.ReportAsSingleViolation;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 /**
- * The object is not <code>null</code> and not empty (it's size is at least one
- * element).
+ * The string is not <code>null</code> and the trimmed size is at least one.
  */
 // CHECKSTYLE:OFF
 @Documented
-@Constraint(validatedBy = {})
+@Constraint(validatedBy = { TrimmedNotEmptyValidator.class })
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER })
 @Retention(RUNTIME)
-@ReportAsSingleViolation
-@NotNull
-@Size(min = 1)
-public @interface NotEmpty {
-    String message() default "{org.fuin.objects4j.vo.NotEmpty.message}";
+public @interface TrimmedNotEmpty {
+    String message() default "{org.fuin.objects4j.vo.TrimmedNotEmpty.message}";
 
     Class<?>[] groups() default {};
 

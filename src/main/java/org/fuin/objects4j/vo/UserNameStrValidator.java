@@ -21,6 +21,9 @@ import java.util.regex.Pattern;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+import javax.validation.constraints.NotNull;
+
+import org.fuin.objects4j.common.ContractViolationException;
 
 /**
  * Check that a given string is a well-formed user id.
@@ -55,6 +58,28 @@ public final class UserNameStrValidator implements ConstraintValidator<UserNameS
             return false;
         }
         return PATTERN.matcher(value.toString()).matches();
+    }
+
+    /**
+     * Parses the argument and throws an exception if it's not valid.
+     * 
+     * @param name
+     *            Name of the value for a possible error message.
+     * @param value
+     *            Value to check.
+     * 
+     * @throws ContractViolationException
+     *             The value was not valid.
+     */
+    // CHECKSTYLE:OFF:RedundantThrows
+    public static void parseArg(@NotNull final String name, @NotNull final String value)
+            throws ContractViolationException {
+        // CHECKSTYLE:ON
+        final String trimmed = value.trim().toLowerCase();
+        if (!isValid(trimmed)) {
+            throw new ContractViolationException("The argument '" + name + "' is not valid: '"
+                    + trimmed + "'");
+        }
     }
 
 }

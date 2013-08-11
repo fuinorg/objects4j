@@ -21,9 +21,10 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.validation.constraints.NotNull;
+
 import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.common.Immutable;
-import org.fuin.objects4j.common.Requires;
 
 /**
  * Container for a key and a value.
@@ -31,7 +32,7 @@ import org.fuin.objects4j.common.Requires;
 @Immutable
 public final class KeyValue implements ValueObject {
 
-    @NotEmpty
+    @TrimmedNotEmpty
     private String key;
 
     private Object value;
@@ -51,12 +52,11 @@ public final class KeyValue implements ValueObject {
      * @param value
      *            Value.
      */
-    @Requires("key!=null && key.trim().length() > 0")
-    public KeyValue(final String key, final Object value) {
+    public KeyValue(@NotNull @TrimmedNotEmpty final String key, final Object value) {
         super();
         Contract.requireArgNotNull("key", key);
+        TrimmedNotEmptyValidator.requireArgValid("key", key);
         this.key = key.trim();
-        Contract.requireArgNotEmpty("key", key);
         this.value = value;
     }
 

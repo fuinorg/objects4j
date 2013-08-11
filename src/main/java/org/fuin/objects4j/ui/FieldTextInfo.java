@@ -19,9 +19,9 @@ package org.fuin.objects4j.ui;
 
 import java.lang.reflect.Field;
 
+import javax.validation.constraints.NotNull;
+
 import org.fuin.objects4j.common.Contract;
-import org.fuin.objects4j.common.Ensures;
-import org.fuin.objects4j.common.Requires;
 
 /**
  * Stores some text associated with a field.
@@ -38,8 +38,7 @@ public final class FieldTextInfo extends TextInfo {
      * @param text
      *            Text.
      */
-    @Requires("field != null")
-    public FieldTextInfo(final Field field, final String text) {
+    public FieldTextInfo(@NotNull final Field field, final String text) {
         super(text);
         Contract.requireArgNotNull("field", field);
         this.field = field;
@@ -48,9 +47,8 @@ public final class FieldTextInfo extends TextInfo {
     /**
      * Returns the field.
      * 
-     * @return Field.
+     * @return Field - Never <code>null</code>.
      */
-    @Ensures("\result != null")
     public final Field getField() {
         return field;
     }
@@ -59,9 +57,8 @@ public final class FieldTextInfo extends TextInfo {
      * Returns the text of the label or the name of the field if the text is
      * <code>null</code>.
      * 
-     * @return Long text or field name.
+     * @return Long text or field name - Never <code>null</code>.
      */
-    @Ensures("\result != null")
     public final String getTextOrField() {
         final String text = getText();
         if (text == null) {

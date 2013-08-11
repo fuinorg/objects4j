@@ -20,14 +20,14 @@ package org.fuin.objects4j.vo;
 import java.io.Serializable;
 
 /**
- * Base class for immutable types that have {@link Object#hashCode()},
- * {@link Object#equals(Object)} and are comparable based on the
+ * Base class for value objects that that overrides {@link Object#hashCode()}
+ * and {@link Object#equals(Object)} and it implements comparable based on the
  * {@link Object#toString()} method.
  * 
  * @param <T>
  *            Concrete type.
  */
-public abstract class AbstractStringBasedType<T> implements Comparable<T>, Serializable {
+public abstract class AbstractStringValueObject<T> implements Comparable<T>, Serializable {
 
     private static final long serialVersionUID = -8703130956302331118L;
 

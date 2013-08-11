@@ -29,9 +29,9 @@ import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+import javax.validation.constraints.NotNull;
+
 import org.fuin.objects4j.common.Contract;
-import org.fuin.objects4j.common.Ensures;
-import org.fuin.objects4j.common.Requires;
 
 /**
  * Wrapper for a class that has some annotations to perform some actions with.
@@ -62,11 +62,10 @@ public final class AnnotationAnalyzer {
      * @param annotationClasz
      *            Type of annotation to find.
      * 
-     * @return Label information or <code>null</code>.
+     * @return Label information - Never <code>null</code>.
      */
-    @Requires("(clasz != null) && (locale != null) && (annotationClasz != null)")
-    public final ClassTextInfo createClassInfo(final Class<?> clasz, final Locale locale,
-            final Class<? extends Annotation> annotationClasz) {
+    public final ClassTextInfo createClassInfo(@NotNull final Class<?> clasz,
+            @NotNull final Locale locale, @NotNull final Class<? extends Annotation> annotationClasz) {
 
         Contract.requireArgNotNull("clasz", clasz);
         Contract.requireArgNotNull("locale", locale);
@@ -102,12 +101,10 @@ public final class AnnotationAnalyzer {
      * @param annotationClasz
      *            Type of annotation to find.
      * 
-     * @return List of informations.
+     * @return List of informations - Never <code>null</code>, but may be empty.
      */
-    @Requires("(clasz != null) && (locale != null) && (annotationClasz != null)")
-    @Ensures("\result != null")
-    public final List<FieldTextInfo> createFieldInfos(final Class<?> clasz, final Locale locale,
-            final Class<? extends Annotation> annotationClasz) {
+    public final List<FieldTextInfo> createFieldInfos(@NotNull final Class<?> clasz,
+            @NotNull final Locale locale, @NotNull final Class<? extends Annotation> annotationClasz) {
 
         Contract.requireArgNotNull("clasz", clasz);
         Contract.requireArgNotNull("locale", locale);
@@ -151,12 +148,10 @@ public final class AnnotationAnalyzer {
      * @param annotationClasz
      *            Type of annotation to find.
      * 
-     * @return Label information or <code>null</code>.
+     * @return Label information - Never <code>null</code>.
      */
-    @Requires("(field != null)  && (locale != null) && (annotationClasz != null)")
-    @Ensures("\result != null")
-    public final FieldTextInfo createFieldInfo(final Field field, final Locale locale,
-            final Class<? extends Annotation> annotationClasz) {
+    public final FieldTextInfo createFieldInfo(@NotNull final Field field,
+            @NotNull final Locale locale, @NotNull final Class<? extends Annotation> annotationClasz) {
 
         Contract.requireArgNotNull("field", field);
         Contract.requireArgNotNull("locale", locale);
@@ -196,9 +191,8 @@ public final class AnnotationAnalyzer {
      * 
      * @return Text or <code>null</code>.
      */
-    @Requires("(bundle != null) && (annotation != null) && (field!=null)")
-    private String getText(final ResourceBundle bundle, final Annotation annotation,
-            final String defaultKey) {
+    private String getText(@NotNull final ResourceBundle bundle,
+            @NotNull final Annotation annotation, @NotNull final String defaultKey) {
 
         Contract.requireArgNotNull("bundle", bundle);
         Contract.requireArgNotNull("annotation", annotation);
@@ -235,11 +229,10 @@ public final class AnnotationAnalyzer {
      *            <code>a/b/c/MyClass_en.properties</code> (with
      *            {@link Locale#ENGLISH}).
      * 
-     * @return Resource bundle.
+     * @return Resource bundle - Never <code>null</code>.
      */
-    @Requires("(annotation != null) && (locale != null) && (clasz != null)")
-    private ResourceBundle getResourceBundle(final Annotation annotation, final Locale locale,
-            final Class<?> clasz) {
+    private ResourceBundle getResourceBundle(@NotNull final Annotation annotation,
+            @NotNull final Locale locale, @NotNull final Class<?> clasz) {
 
         if (getBundle(annotation).equals("")) {
             final String path = clasz.getPackage().getName().replace('.', '/');
@@ -394,8 +387,8 @@ public final class AnnotationAnalyzer {
      * 
      * @return Textual signature of the method.
      */
-    public static String getMethodSignature(final Class<?> returnType, final String methodName,
-            final Class<?>[] argTypes) {
+    public static String getMethodSignature(@NotNull final Class<?> returnType,
+            @NotNull final String methodName, final Class<?>[] argTypes) {
         final StringBuffer sb = new StringBuffer();
         sb.append(name(returnType));
         sb.append(" ");

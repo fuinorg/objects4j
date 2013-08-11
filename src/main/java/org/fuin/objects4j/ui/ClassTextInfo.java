@@ -17,10 +17,10 @@
  */
 package org.fuin.objects4j.ui;
 
+import javax.validation.constraints.NotNull;
+
 import org.fuin.objects4j.common.Contract;
-import org.fuin.objects4j.common.Ensures;
 import org.fuin.objects4j.common.Immutable;
-import org.fuin.objects4j.common.Requires;
 
 /**
  * Stores some text associated with a class.
@@ -38,8 +38,7 @@ public final class ClassTextInfo extends TextInfo {
      * @param text
      *            Text or <code>null</code>.
      */
-    @Requires("clasz != null")
-    public ClassTextInfo(final Class<?> clasz, final String text) {
+    public ClassTextInfo(@NotNull final Class<?> clasz, final String text) {
         super(text);
         Contract.requireArgNotNull("clasz", clasz);
         this.clasz = clasz;
@@ -48,9 +47,8 @@ public final class ClassTextInfo extends TextInfo {
     /**
      * Returns the class the text belongs to.
      * 
-     * @return Class.
+     * @return Class - Never <code>null</code>.
      */
-    @Ensures("\result != null")
     public final Class<?> getClasz() {
         return clasz;
     }

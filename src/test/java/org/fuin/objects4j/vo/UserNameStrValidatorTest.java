@@ -23,7 +23,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-//TESTCODE:BEGIN
+// CHECKSTYLE:OFF
 public final class UserNameStrValidatorTest {
 
     private UserNameStrValidator testee;
@@ -94,4 +94,4 @@ public final class UserNameStrValidatorTest {
     }
 
 }
-// TESTCODE:END
+//CHECKSTYLE:ON

@@ -23,10 +23,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
+import javax.validation.constraints.NotNull;
+
 import org.fuin.objects4j.common.Contract;
-import org.fuin.objects4j.common.Ensures;
 import org.fuin.objects4j.common.Immutable;
-import org.fuin.objects4j.common.Requires;
 
 /**
  * Table column information for a field of a class.
@@ -62,9 +62,8 @@ public final class TableColumnInfo implements Comparable<TableColumnInfo> {
      * @param getter
      *            Name of the getter for the field.
      */
-    @Requires("(field != null) && (width != null) && (getter!=null)")
-    public TableColumnInfo(final Field field, final String text, final String shortText,
-            final int pos, final FontSize width, final String getter) {
+    public TableColumnInfo(@NotNull final Field field, final String text, final String shortText,
+            final int pos, @NotNull final FontSize width, @NotNull final String getter) {
         super();
 
         Contract.requireArgNotNull("field", field);
@@ -82,9 +81,8 @@ public final class TableColumnInfo implements Comparable<TableColumnInfo> {
     /**
      * Returns the field.
      * 
-     * @return Field.
+     * @return Field - Never <code>null</code>.
      */
-    @Ensures("\result != null")
     public final Field getField() {
         return field;
     }
@@ -128,9 +126,8 @@ public final class TableColumnInfo implements Comparable<TableColumnInfo> {
     /**
      * The name of the getter for the table column field.
      * 
-     * @return Getter name.
+     * @return Getter name - Never <code>null</code>.
      */
-    @Ensures("\result != null")
     public final String getGetter() {
         return getter;
     }
@@ -179,8 +176,8 @@ public final class TableColumnInfo implements Comparable<TableColumnInfo> {
      * 
      * @return List of table columns sorted by the position.
      */
-    @Requires("(clasz != null) && (locale!=null)")
-    public static List<TableColumnInfo> create(final Class<?> clasz, final Locale locale) {
+    public static List<TableColumnInfo> create(@NotNull final Class<?> clasz,
+            @NotNull final Locale locale) {
 
         Contract.requireArgNotNull("clasz", clasz);
         Contract.requireArgNotNull("locale", locale);
@@ -208,8 +205,7 @@ public final class TableColumnInfo implements Comparable<TableColumnInfo> {
      * 
      * @return Information or <code>null</code>.
      */
-    @Requires("(field != null) && (locale!=null)")
-    public static TableColumnInfo create(final Field field, final Locale locale) {
+    public static TableColumnInfo create(@NotNull final Field field, @NotNull final Locale locale) {
 
         Contract.requireArgNotNull("field", field);
         Contract.requireArgNotNull("locale", locale);

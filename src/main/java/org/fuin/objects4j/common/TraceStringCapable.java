@@ -27,7 +27,6 @@ public interface TraceStringCapable {
      * 
      * @return A string for a technical log.
      */
-    @Ensures("\result!=null")
     public String toTraceString();
 
 }
