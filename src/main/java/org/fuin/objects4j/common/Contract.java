@@ -17,6 +17,7 @@
  */
 package org.fuin.objects4j.common;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
@@ -110,6 +111,24 @@ public final class Contract {
             throw new ContractViolationException(sb.toString(), constraintViolations);
         }
 
+    }
+
+    /**
+     * Validates the given object using a default validator.
+     * 
+     * @param value
+     *            Value to validate or NULL.
+     * 
+     * @return List of constraint violations - Never NULL, but may be empty.
+     * 
+     * @param <TYPE>
+     *            Type of the validated object.
+     */
+    public static <TYPE> Set<ConstraintViolation<TYPE>> validate(final TYPE value) {
+        if (value == null) {
+            return new HashSet<ConstraintViolation<TYPE>>();
+        }
+        return VALIDATOR.validate(value);
     }
 
 }
