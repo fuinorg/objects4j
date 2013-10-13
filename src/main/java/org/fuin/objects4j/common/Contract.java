@@ -30,10 +30,33 @@ import javax.validation.constraints.NotNull;
  */
 public final class Contract {
 
-    private static final Validator VALIDATOR;
+    // According to the specification instances are thread safe
+    private static Validator validator;
 
-    static {
-        VALIDATOR = Validation.buildDefaultValidatorFactory().getValidator();
+    /**
+     * Sets the validator to use for contract validation. This method is NOT
+     * thread safe.
+     * 
+     * @param newValidator
+     *            Set the validator to a new value.
+     */
+    public static void setValidator(final Validator newValidator) {
+        validator = newValidator;
+    }
+
+    /**
+     * Returns the validator that is used for contract validation. This method
+     * is NOT thread safe - This may lead to concurrent initialization of the
+     * validator if it's not set yet.
+     * 
+     * @return Current instance - If the validator is not set yet, a new default
+     *         validator will be created.
+     */
+    public static Validator getValidator() {
+        if (validator == null) {
+            validator = Validation.buildDefaultValidatorFactory().getValidator();
+        }
+        return validator;
     }
 
     /**
@@ -97,7 +120,8 @@ public final class Contract {
     public static void requireValid(@NotNull final Object value) throws ContractViolationException {
         // CHECKSTYLE:ON
 
-        final Set<ConstraintViolation<Object>> constraintViolations = VALIDATOR.validate(value);
+        final Set<ConstraintViolation<Object>> constraintViolations = getValidator()
+                .validate(value);
         if (constraintViolations.size() > 0) {
             final StringBuffer sb = new StringBuffer();
             for (final ConstraintViolation<Object> constraintViolation : constraintViolations) {
@@ -128,7 +152,7 @@ public final class Contract {
         if (value == null) {
             return new HashSet<ConstraintViolation<TYPE>>();
         }
-        return VALIDATOR.validate(value);
+        return getValidator().validate(value);
     }
 
 }
