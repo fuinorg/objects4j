@@ -35,7 +35,8 @@ public final class Contract {
 
     /**
      * Sets the validator to use for contract validation. This method is NOT
-     * thread safe.
+     * thread safe. It should only be called once per application during the
+     * initialization phase.
      * 
      * @param newValidator
      *            Set the validator to a new value.
