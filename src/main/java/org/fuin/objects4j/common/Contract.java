@@ -88,8 +88,8 @@ public final class Contract {
     }
 
     /**
-     * Checks if the value is not empty. A single space is considered a valid
-     * value.
+     * Checks if the value is not <code>null</code> or empty. A single space is
+     * considered a valid value.
      * 
      * @param name
      *            Name of the value for a possible error message.
@@ -100,9 +100,10 @@ public final class Contract {
      *             The value was null or empty.
      */
     // CHECKSTYLE:OFF:RedundantThrows
-    public static void requireArgNotEmpty(@NotNull final String name, @NotNull final String value)
+    public static void requireArgNotEmpty(@NotNull final String name, final String value)
             throws ContractViolationException {
         // CHECKSTYLE:ON
+        requireArgNotNull(name, value);
         if (value.length() < 1) {
             throw new ContractViolationException("The argument '" + name + "' cannot be empty");
         }
