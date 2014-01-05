@@ -24,14 +24,6 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Immutable.
- * 
- * Copyright (c) 2005 Brian Goetz Released under the Creative Commons
- * Attribution License (http://creativecommons.org/licenses/by/2.5) Official
- * home: http://www.jcip.net
- * 
- * Original source: http://code.google.com/p/jsr-305/
- * 
  * The class to which this annotation is applied is immutable. This means that
  * its state cannot be seen to change by callers. Of necessity this means that
  * all public fields are final, and that all public final reference fields refer
@@ -44,6 +36,12 @@ import java.lang.annotation.Target;
  * 
  * Immutable objects are inherently thread-safe; they may be passed between
  * threads or published without synchronization.
+ * 
+ * Copyright (c) 2005 Brian Goetz Released under the Creative Commons
+ * Attribution License (http://creativecommons.org/licenses/by/2.5) Official
+ * home: http://www.jcip.net
+ * 
+ * Original source: http://code.google.com/p/jsr-305/
  */
 @Documented
 @Target(ElementType.TYPE)
