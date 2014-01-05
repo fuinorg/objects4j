@@ -18,11 +18,19 @@
 package org.fuin.objects4j.vo;
 
 /**
- * Value object that has internally only one base field. Objects of this kind
- * are restricted versions of a base type.
+ * Value object that can be represented by using a base type. Objects of this
+ * kind are mostly restricted versions of a standard type.
  * 
- * @param <BASE_TYPE> Restricted base type.  
+ * @param <BASE_TYPE>
+ *            Base type.
  */
 public interface SimpleValueObject<BASE_TYPE> extends ValueObject {
+
+	/**
+	 * Converts the object into it's base type representation.
+	 * 
+	 * @return Base type.
+	 */
+	public BASE_TYPE asBaseType();
 
 }

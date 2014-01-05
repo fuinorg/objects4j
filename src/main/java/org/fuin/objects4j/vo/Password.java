@@ -47,7 +47,6 @@ public final class Password extends AbstractStringValueObject<Password> {
      */
     public Password(@NotNull @PasswordStr final String password) {
         super();
-        Contract.requireArgNotNull("password", password);
         Contract.requireArgNotEmpty("password", password);
         PasswordStrValidator.requireArgValid("password", password);
         this.password = password.trim();
