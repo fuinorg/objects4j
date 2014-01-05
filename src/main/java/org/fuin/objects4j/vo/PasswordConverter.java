@@ -25,39 +25,31 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 import org.fuin.objects4j.common.ThreadSafe;
 
 /**
- * Creates a {@link UserName}.
+ * Creates a {@link Password}.
  */
 @ThreadSafe
 @ApplicationScoped
 @Converter(autoApply = true)
-public final class UserNameFactory extends XmlAdapter<String, UserName> implements
-        AttributeConverter<UserName, String>, ValueObjectConverter<String, UserName> {
+public class PasswordConverter extends XmlAdapter<String, Password> implements
+        AttributeConverter<Password, String>, ValueObjectConverter<String, Password> {
 
     @Override
-    public Class<String> getBaseTypeClass() {
+    public final Class<String> getBaseTypeClass() {
         return String.class;
     }
 
     @Override
-    public final Class<UserName> getValueObjectClass() {
-        return UserName.class;
+    public final Class<Password> getValueObjectClass() {
+        return Password.class;
     }
 
     @Override
     public final boolean isValid(final String value) {
-        return UserNameStrValidator.isValid(value);
+        return PasswordStrValidator.isValid(value);
     }
 
     @Override
-    public final UserName toVO(final String value) {
-        if (value == null) {
-            return null;
-        }
-        return new UserName(value);
-    }
-
-    @Override
-    public final String fromVO(final UserName value) {
+    public final String fromVO(final Password value) {
         if (value == null) {
             return null;
         }
@@ -65,22 +57,30 @@ public final class UserNameFactory extends XmlAdapter<String, UserName> implemen
     }
 
     @Override
-    public final String marshal(final UserName value) throws Exception {
+    public final Password toVO(final String value) {
+        if (value == null) {
+            return null;
+        }
+        return new Password(value);
+    }
+
+    @Override
+    public final String marshal(final Password value) throws Exception {
         return fromVO(value);
     }
 
     @Override
-    public final UserName unmarshal(final String value) throws Exception {
+    public final Password unmarshal(final String value) throws Exception {
         return toVO(value);
     }
 
     @Override
-    public final String convertToDatabaseColumn(final UserName value) {
+    public final String convertToDatabaseColumn(final Password value) {
         return fromVO(value);
     }
 
     @Override
-    public final UserName convertToEntityAttribute(final String value) {
+    public final Password convertToEntityAttribute(final String value) {
         return toVO(value);
     }
 

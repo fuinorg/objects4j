@@ -39,7 +39,7 @@ import org.fuin.objects4j.ui.ShortLabel;
 @Immutable
 @ShortLabel("User")
 @Label("Username")
-@XmlJavaTypeAdapter(UserNameFactory.class)
+@XmlJavaTypeAdapter(UserNameConverter.class)
 public final class UserName extends AbstractStringValueObject<UserName> {
 
     private static final long serialVersionUID = 9055520843135472634L;

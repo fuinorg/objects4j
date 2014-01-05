@@ -32,14 +32,14 @@ import org.junit.runner.RunWith;
 
 //CHECKSTYLE:OFF
 @RunWith(WeldJUnit4Runner.class)
-public class PasswordSha512FactoryTest extends SimpleValueObjectFactoryTest {
+public class UserNameConverterTest extends ValueObjectConverterTest {
 
-    private static final String HASH = "925f43c3cfb956bbe3c6aa8023ba7ad5cfa21d104186fffc69e768e55940d9653b1cd36fba614fba2e1844f4436da20f83750c6ec1db356da154691bdd71a9b1";
+    private static final String USER_NAME = "michael-1_a";
 
-    private static final String XML = XML_PREFIX + "<data passwordSha512=\"" + HASH + "\"/>";
+    private static final String XML = XML_PREFIX + "<data userName=\"" + USER_NAME + "\"/>";
 
     @Inject
-    private ValueObjectConverter<String, PasswordSha512> testee;
+    private ValueObjectConverter<String, UserName> testee;
 
     @Test
     public final void testFactoryInjectable() {
@@ -48,27 +48,27 @@ public class PasswordSha512FactoryTest extends SimpleValueObjectFactoryTest {
 
     @Test
     public final void testToVO() {
-        assertThat(testee.toVO(HASH)).isEqualTo(new PasswordSha512(HASH));
+        assertThat(testee.toVO(USER_NAME)).isEqualTo(new UserName(USER_NAME));
     }
 
     @Test
     public final void testIsValid() {
         assertThat(testee.isValid(null)).isTrue();
-        assertThat(testee.isValid(HASH)).isTrue();
-        assertThat(testee.isValid("abcd123")).isFalse();
+        assertThat(testee.isValid(USER_NAME)).isTrue();
         assertThat(testee.isValid("")).isFalse();
+        assertThat(testee.isValid("a12345678901234567890")).isFalse();
     }
 
     @Test
     public final void testGetSimpleValueObjectClass() {
-        assertThat(testee.getValueObjectClass()).isSameAs(PasswordSha512.class);
+        assertThat(testee.getValueObjectClass()).isSameAs(UserName.class);
     }
 
     @Test
     public final void testMarshal() throws JAXBException {
 
         final Data data = new Data();
-        data.passwordSha512 = new PasswordSha512(HASH);
+        data.userName = new UserName(USER_NAME);
         assertThat(marshal(data)).isEqualTo(XML);
 
     }
@@ -77,19 +77,19 @@ public class PasswordSha512FactoryTest extends SimpleValueObjectFactoryTest {
     public final void testMarshalUnmarshal() throws JAXBException {
 
         final Data data = unmarshal(XML);
-        assertThat(data.passwordSha512).isEqualTo(new PasswordSha512(HASH));
+        assertThat(data.userName).isEqualTo(new UserName(USER_NAME));
 
     }
 
     @Test
     public final void testUnmarshalError() {
 
-        final String invalidHashInXmlData = XML_PREFIX + "<data passwordSha512=\"1\"/>";
+        final String invalidUsernameInXmlData = XML_PREFIX + "<data userName=\"x\"/>";
         try {
-            unmarshal(invalidHashInXmlData);
+            unmarshal(invalidUsernameInXmlData);
             fail("Expected an exception");
         } catch (final RuntimeException ex) {
-            assertCauseCauseMessage(ex, "The argument 'hexEncodedHash' is not valid");
+            assertCauseCauseMessage(ex, "The argument 'userName' is not valid: 'x'");
         }
 
     }
@@ -98,14 +98,14 @@ public class PasswordSha512FactoryTest extends SimpleValueObjectFactoryTest {
     public final void testValidation() {
 
         final Data data = new Data();
-        data.passwordSha512 = new PasswordSha512(HASH);
+        data.userName = new UserName(USER_NAME);
         // Set intentionally an illegal value
         // This may happen when deserialized
-        setPrivateField(data.passwordSha512, "hash", "1");
+        setPrivateField(data.userName, "str", "x");
         final Set<ConstraintViolation<Object>> violations = validate(data);
         assertThat(violations).hasSize(1);
         assertThat(violations.iterator().next().getMessage()).isEqualTo(
-                "is not a valid HEX encoded SHA512 password hash");
+                "is not a well-formed user name");
 
     }
 

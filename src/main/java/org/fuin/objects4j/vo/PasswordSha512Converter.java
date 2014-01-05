@@ -25,13 +25,13 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 import org.fuin.objects4j.common.ThreadSafe;
 
 /**
- * Creates a {@link Password}.
+ * Creates a {@link PasswordSha512}.
  */
 @ThreadSafe
 @ApplicationScoped
 @Converter(autoApply = true)
-public class PasswordFactory extends XmlAdapter<String, Password> implements
-        AttributeConverter<Password, String>, ValueObjectConverter<String, Password> {
+public class PasswordSha512Converter extends XmlAdapter<String, PasswordSha512> implements
+        AttributeConverter<PasswordSha512, String>, ValueObjectConverter<String, PasswordSha512> {
 
     @Override
     public final Class<String> getBaseTypeClass() {
@@ -39,17 +39,17 @@ public class PasswordFactory extends XmlAdapter<String, Password> implements
     }
 
     @Override
-    public final Class<Password> getValueObjectClass() {
-        return Password.class;
+    public final Class<PasswordSha512> getValueObjectClass() {
+        return PasswordSha512.class;
     }
 
     @Override
     public final boolean isValid(final String value) {
-        return PasswordStrValidator.isValid(value);
+        return PasswordSha512StrValidator.isValid(value);
     }
 
     @Override
-    public final String fromVO(final Password value) {
+    public final String fromVO(final PasswordSha512 value) {
         if (value == null) {
             return null;
         }
@@ -57,30 +57,30 @@ public class PasswordFactory extends XmlAdapter<String, Password> implements
     }
 
     @Override
-    public final Password toVO(final String value) {
+    public final PasswordSha512 toVO(final String value) {
         if (value == null) {
             return null;
         }
-        return new Password(value);
+        return new PasswordSha512(value);
     }
 
     @Override
-    public final String marshal(final Password value) throws Exception {
+    public final String marshal(final PasswordSha512 value) throws Exception {
         return fromVO(value);
     }
 
     @Override
-    public final Password unmarshal(final String value) throws Exception {
+    public final PasswordSha512 unmarshal(final String value) throws Exception {
         return toVO(value);
     }
 
     @Override
-    public final String convertToDatabaseColumn(final Password value) {
+    public final String convertToDatabaseColumn(final PasswordSha512 value) {
         return fromVO(value);
     }
 
     @Override
-    public final Password convertToEntityAttribute(final String value) {
+    public final PasswordSha512 convertToEntityAttribute(final String value) {
         return toVO(value);
     }
 

@@ -30,14 +30,16 @@ import org.fuin.units4j.WeldJUnit4Runner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-// CHECKSTYLE:OFF
+//CHECKSTYLE:OFF
 @RunWith(WeldJUnit4Runner.class)
-public class PasswordFactoryTest extends SimpleValueObjectFactoryTest {
+public class PasswordSha512ConverterTest extends ValueObjectConverterTest {
 
-    private static final String XML = XML_PREFIX + "<data password=\"abcd1234\"/>";
+    private static final String HASH = "925f43c3cfb956bbe3c6aa8023ba7ad5cfa21d104186fffc69e768e55940d9653b1cd36fba614fba2e1844f4436da20f83750c6ec1db356da154691bdd71a9b1";
+
+    private static final String XML = XML_PREFIX + "<data passwordSha512=\"" + HASH + "\"/>";
 
     @Inject
-    private ValueObjectConverter<String, Password> testee;
+    private ValueObjectConverter<String, PasswordSha512> testee;
 
     @Test
     public final void testFactoryInjectable() {
@@ -46,29 +48,27 @@ public class PasswordFactoryTest extends SimpleValueObjectFactoryTest {
 
     @Test
     public final void testToVO() {
-        assertThat(testee.toVO("abcd1234")).isEqualTo(new Password("abcd1234"));
+        assertThat(testee.toVO(HASH)).isEqualTo(new PasswordSha512(HASH));
     }
 
     @Test
     public final void testIsValid() {
         assertThat(testee.isValid(null)).isTrue();
-        assertThat(testee.isValid("abcd1234")).isTrue();
-        assertThat(testee.isValid("123456789.123456789.")).isTrue();
+        assertThat(testee.isValid(HASH)).isTrue();
         assertThat(testee.isValid("abcd123")).isFalse();
         assertThat(testee.isValid("")).isFalse();
-        assertThat(testee.isValid("123456789.123456789.1")).isFalse();
     }
 
     @Test
     public final void testGetSimpleValueObjectClass() {
-        assertThat(testee.getValueObjectClass()).isSameAs(Password.class);
+        assertThat(testee.getValueObjectClass()).isSameAs(PasswordSha512.class);
     }
 
     @Test
     public final void testMarshal() throws JAXBException {
 
         final Data data = new Data();
-        data.password = new Password("abcd1234");
+        data.passwordSha512 = new PasswordSha512(HASH);
         assertThat(marshal(data)).isEqualTo(XML);
 
     }
@@ -77,20 +77,19 @@ public class PasswordFactoryTest extends SimpleValueObjectFactoryTest {
     public final void testMarshalUnmarshal() throws JAXBException {
 
         final Data data = unmarshal(XML);
-        assertThat(data.password).isNotNull();
-        assertThat(data.password).isEqualTo(new Password("abcd1234"));
+        assertThat(data.passwordSha512).isEqualTo(new PasswordSha512(HASH));
 
     }
 
     @Test
     public final void testUnmarshalError() {
 
-        final String invalidPasswordInXmlData = XML_PREFIX + "<data password=\"abcd123\"/>";
+        final String invalidHashInXmlData = XML_PREFIX + "<data passwordSha512=\"1\"/>";
         try {
-            unmarshal(invalidPasswordInXmlData);
+            unmarshal(invalidHashInXmlData);
             fail("Expected an exception");
         } catch (final RuntimeException ex) {
-            assertCauseCauseMessage(ex, "The argument 'password' is not valid: 'abcd123'");
+            assertCauseCauseMessage(ex, "The argument 'hexEncodedHash' is not valid");
         }
 
     }
@@ -99,13 +98,14 @@ public class PasswordFactoryTest extends SimpleValueObjectFactoryTest {
     public final void testValidation() {
 
         final Data data = new Data();
-        data.password = new Password("abcd1234");
+        data.passwordSha512 = new PasswordSha512(HASH);
         // Set intentionally an illegal value
         // This may happen when deserialized
-        setPrivateField(data.password, "str", "abc123");
+        setPrivateField(data.passwordSha512, "hash", "1");
         final Set<ConstraintViolation<Object>> violations = validate(data);
         assertThat(violations).hasSize(1);
-        assertThat(violations.iterator().next().getMessage()).isEqualTo("is not a valid password");
+        assertThat(violations.iterator().next().getMessage()).isEqualTo(
+                "is not a valid HEX encoded SHA512 password hash");
 
     }
 

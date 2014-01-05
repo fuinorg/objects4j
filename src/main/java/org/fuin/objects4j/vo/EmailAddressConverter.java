@@ -30,7 +30,7 @@ import org.fuin.objects4j.common.ThreadSafe;
 @ThreadSafe
 @ApplicationScoped
 @Converter(autoApply = true)
-public final class EmailAddressFactory extends XmlAdapter<String, EmailAddress> implements
+public final class EmailAddressConverter extends XmlAdapter<String, EmailAddress> implements
         AttributeConverter<EmailAddress, String>, ValueObjectConverter<String, EmailAddress> {
 
     @Override

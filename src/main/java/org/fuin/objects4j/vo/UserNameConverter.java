@@ -17,21 +17,21 @@
  */
 package org.fuin.objects4j.vo;
 
-import java.util.UUID;
-
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.AttributeConverter;
+import javax.persistence.Converter;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 import org.fuin.objects4j.common.ThreadSafe;
 
 /**
- * Creates a {@link UUID}.
+ * Creates a {@link UserName}.
  */
 @ThreadSafe
 @ApplicationScoped
-public final class UUIDFactory extends XmlAdapter<String, UUID> implements
-        AttributeConverter<UUID, String>, ValueObjectConverter<String, UUID> {
+@Converter(autoApply = true)
+public final class UserNameConverter extends XmlAdapter<String, UserName> implements
+        AttributeConverter<UserName, String>, ValueObjectConverter<String, UserName> {
 
     @Override
     public Class<String> getBaseTypeClass() {
@@ -39,22 +39,25 @@ public final class UUIDFactory extends XmlAdapter<String, UUID> implements
     }
 
     @Override
-    public final Class<UUID> getValueObjectClass() {
-        return UUID.class;
+    public final Class<UserName> getValueObjectClass() {
+        return UserName.class;
     }
 
     @Override
     public final boolean isValid(final String value) {
-        return UUIDStrValidator.isValid(value);
+        return UserNameStrValidator.isValid(value);
     }
 
     @Override
-    public final UUID toVO(final String value) {
-        return UUID.fromString(value);
+    public final UserName toVO(final String value) {
+        if (value == null) {
+            return null;
+        }
+        return new UserName(value);
     }
 
     @Override
-    public final String fromVO(final UUID value) {
+    public final String fromVO(final UserName value) {
         if (value == null) {
             return null;
         }
@@ -62,22 +65,22 @@ public final class UUIDFactory extends XmlAdapter<String, UUID> implements
     }
 
     @Override
-    public final UUID unmarshal(final String value) throws Exception {
+    public final String marshal(final UserName value) throws Exception {
+        return fromVO(value);
+    }
+
+    @Override
+    public final UserName unmarshal(final String value) throws Exception {
         return toVO(value);
     }
 
     @Override
-    public final String marshal(final UUID value) throws Exception {
+    public final String convertToDatabaseColumn(final UserName value) {
         return fromVO(value);
     }
 
     @Override
-    public final String convertToDatabaseColumn(final UUID value) {
-        return fromVO(value);
-    }
-
-    @Override
-    public final UUID convertToEntityAttribute(final String value) {
+    public final UserName convertToEntityAttribute(final String value) {
         return toVO(value);
     }
 

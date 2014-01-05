@@ -21,7 +21,7 @@
  * identity. That means instances of this type are equal when they have the same
  * value, not necessarily being the same object. Additionally some helper classes are placed in this package.
  */
-@XmlJavaTypeAdapter(value = UUIDFactory.class, type = UUID.class)
+@XmlJavaTypeAdapter(value = UUIDConverter.class, type = UUID.class)
 package org.fuin.objects4j.vo;
 
 import java.util.UUID;

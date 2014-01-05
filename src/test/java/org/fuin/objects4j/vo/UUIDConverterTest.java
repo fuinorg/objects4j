@@ -21,7 +21,7 @@ import org.fuin.units4j.TestOmitted;
 
 //TESTCODE:BEGIN
 @TestOmitted("Functionality implicitly tested by other tests")
-public class UUIDFactoryTest {
+public class UUIDConverterTest {
 
 }
 // TESTCODE:END

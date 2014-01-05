@@ -31,7 +31,7 @@ import org.fuin.objects4j.common.Immutable;
  * SHA-512 hashed password that is HEX encoded.
  */
 @Immutable
-@XmlJavaTypeAdapter(PasswordSha512Factory.class)
+@XmlJavaTypeAdapter(PasswordSha512Converter.class)
 public final class PasswordSha512 extends AbstractStringValueObject<PasswordSha512> {
 
     private static final long serialVersionUID = -6285061339408965704L;

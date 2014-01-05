@@ -41,7 +41,7 @@ import javax.xml.bind.ValidationEventHandler;
  * implementations.
  */
 // CHECKSTYLE:OFF
-public abstract class SimpleValueObjectFactoryTest {
+public abstract class ValueObjectConverterTest {
 
     protected static final String XML_PREFIX = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>";
 

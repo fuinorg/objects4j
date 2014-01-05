@@ -17,39 +17,44 @@
  */
 package org.fuin.objects4j.vo;
 
+import java.util.UUID;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.AttributeConverter;
-import javax.persistence.Converter;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 import org.fuin.objects4j.common.ThreadSafe;
 
 /**
- * Creates a {@link PasswordSha512}.
+ * Creates a {@link UUID}.
  */
 @ThreadSafe
 @ApplicationScoped
-@Converter(autoApply = true)
-public class PasswordSha512Factory extends XmlAdapter<String, PasswordSha512> implements
-        AttributeConverter<PasswordSha512, String>, ValueObjectConverter<String, PasswordSha512> {
+public final class UUIDConverter extends XmlAdapter<String, UUID> implements
+        AttributeConverter<UUID, String>, ValueObjectConverter<String, UUID> {
 
     @Override
-    public final Class<String> getBaseTypeClass() {
+    public Class<String> getBaseTypeClass() {
         return String.class;
     }
 
     @Override
-    public final Class<PasswordSha512> getValueObjectClass() {
-        return PasswordSha512.class;
+    public final Class<UUID> getValueObjectClass() {
+        return UUID.class;
     }
 
     @Override
     public final boolean isValid(final String value) {
-        return PasswordSha512StrValidator.isValid(value);
+        return UUIDStrValidator.isValid(value);
     }
 
     @Override
-    public final String fromVO(final PasswordSha512 value) {
+    public final UUID toVO(final String value) {
+        return UUID.fromString(value);
+    }
+
+    @Override
+    public final String fromVO(final UUID value) {
         if (value == null) {
             return null;
         }
@@ -57,30 +62,22 @@ public class PasswordSha512Factory extends XmlAdapter<String, PasswordSha512> im
     }
 
     @Override
-    public final PasswordSha512 toVO(final String value) {
-        if (value == null) {
-            return null;
-        }
-        return new PasswordSha512(value);
-    }
-
-    @Override
-    public final String marshal(final PasswordSha512 value) throws Exception {
-        return fromVO(value);
-    }
-
-    @Override
-    public final PasswordSha512 unmarshal(final String value) throws Exception {
+    public final UUID unmarshal(final String value) throws Exception {
         return toVO(value);
     }
 
     @Override
-    public final String convertToDatabaseColumn(final PasswordSha512 value) {
+    public final String marshal(final UUID value) throws Exception {
         return fromVO(value);
     }
 
     @Override
-    public final PasswordSha512 convertToEntityAttribute(final String value) {
+    public final String convertToDatabaseColumn(final UUID value) {
+        return fromVO(value);
+    }
+
+    @Override
+    public final UUID convertToEntityAttribute(final String value) {
         return toVO(value);
     }
 
