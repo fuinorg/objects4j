@@ -18,6 +18,8 @@
 package org.fuin.objects4j.vo;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.persistence.AttributeConverter;
+import javax.persistence.Converter;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 import org.fuin.objects4j.common.ThreadSafe;
@@ -27,8 +29,9 @@ import org.fuin.objects4j.common.ThreadSafe;
  */
 @ThreadSafe
 @ApplicationScoped
+@Converter(autoApply = true)
 public final class EmailAddressFactory extends XmlAdapter<String, EmailAddress> implements
-        SimpleValueObjectFactory<String, EmailAddress> {
+        AttributeConverter<EmailAddress, String>, SimpleValueObjectFactory<String, EmailAddress> {
 
     @Override
     public final Class<EmailAddress> getSimpleValueObjectClass() {
@@ -58,6 +61,19 @@ public final class EmailAddressFactory extends XmlAdapter<String, EmailAddress> 
 
     @Override
     public final EmailAddress unmarshal(final String value) throws Exception {
+        return create(value);
+    }
+
+    @Override
+    public final String convertToDatabaseColumn(final EmailAddress value) {
+        if (value == null) {
+            return null;
+        }
+        return value.asBaseType();
+    }
+
+    @Override
+    public final EmailAddress convertToEntityAttribute(final String value) {
         return create(value);
     }
 

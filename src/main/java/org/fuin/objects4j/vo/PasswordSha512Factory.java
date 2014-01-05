@@ -18,6 +18,8 @@
 package org.fuin.objects4j.vo;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.persistence.AttributeConverter;
+import javax.persistence.Converter;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 import org.fuin.objects4j.common.ThreadSafe;
@@ -27,7 +29,9 @@ import org.fuin.objects4j.common.ThreadSafe;
  */
 @ThreadSafe
 @ApplicationScoped
+@Converter(autoApply = true)
 public class PasswordSha512Factory extends XmlAdapter<String, PasswordSha512> implements
+        AttributeConverter<PasswordSha512, String>,
         SimpleValueObjectFactory<String, PasswordSha512> {
 
     @Override
@@ -58,6 +62,19 @@ public class PasswordSha512Factory extends XmlAdapter<String, PasswordSha512> im
 
     @Override
     public final PasswordSha512 unmarshal(final String value) throws Exception {
+        return create(value);
+    }
+
+    @Override
+    public final String convertToDatabaseColumn(final PasswordSha512 value) {
+        if (value == null) {
+            return null;
+        }
+        return value.asBaseType();
+    }
+
+    @Override
+    public final PasswordSha512 convertToEntityAttribute(final String value) {
         return create(value);
     }
 
