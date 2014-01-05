@@ -31,11 +31,15 @@ import org.fuin.objects4j.common.ThreadSafe;
 @ApplicationScoped
 @Converter(autoApply = true)
 public class PasswordSha512Factory extends XmlAdapter<String, PasswordSha512> implements
-        AttributeConverter<PasswordSha512, String>,
-        SimpleValueObjectFactory<String, PasswordSha512> {
+        AttributeConverter<PasswordSha512, String>, ValueObjectConverter<String, PasswordSha512> {
 
     @Override
-    public final Class<PasswordSha512> getSimpleValueObjectClass() {
+    public final Class<String> getBaseTypeClass() {
+        return String.class;
+    }
+
+    @Override
+    public final Class<PasswordSha512> getValueObjectClass() {
         return PasswordSha512.class;
     }
 
@@ -45,7 +49,15 @@ public class PasswordSha512Factory extends XmlAdapter<String, PasswordSha512> im
     }
 
     @Override
-    public final PasswordSha512 create(final String value) {
+    public final String fromVO(final PasswordSha512 value) {
+        if (value == null) {
+            return null;
+        }
+        return value.toString();
+    }
+
+    @Override
+    public final PasswordSha512 toVO(final String value) {
         if (value == null) {
             return null;
         }
@@ -54,28 +66,22 @@ public class PasswordSha512Factory extends XmlAdapter<String, PasswordSha512> im
 
     @Override
     public final String marshal(final PasswordSha512 value) throws Exception {
-        if (value == null) {
-            return null;
-        }
-        return value.asBaseType();
+        return fromVO(value);
     }
 
     @Override
     public final PasswordSha512 unmarshal(final String value) throws Exception {
-        return create(value);
+        return toVO(value);
     }
 
     @Override
     public final String convertToDatabaseColumn(final PasswordSha512 value) {
-        if (value == null) {
-            return null;
-        }
-        return value.asBaseType();
+        return fromVO(value);
     }
 
     @Override
     public final PasswordSha512 convertToEntityAttribute(final String value) {
-        return create(value);
+        return toVO(value);
     }
 
 }

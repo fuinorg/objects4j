@@ -27,8 +27,8 @@ import java.io.Serializable;
  * @param <T>
  *            Concrete type.
  */
-public abstract class AbstractStringValueObject<T> implements SimpleValueObject<String>,
-        Comparable<T>, Serializable {
+public abstract class AbstractStringValueObject<T> implements ValueObject, Comparable<T>,
+        Serializable {
 
     private static final long serialVersionUID = -8703130956302331118L;
 
@@ -63,11 +63,6 @@ public abstract class AbstractStringValueObject<T> implements SimpleValueObject<
      */
     public final int length() {
         return toString().length();
-    }
-
-    @Override
-    public final String asBaseType() {
-        return toString();
     }
 
     @Override

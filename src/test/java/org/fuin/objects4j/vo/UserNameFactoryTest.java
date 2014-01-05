@@ -39,7 +39,7 @@ public class UserNameFactoryTest extends SimpleValueObjectFactoryTest {
     private static final String XML = XML_PREFIX + "<data userName=\"" + USER_NAME + "\"/>";
 
     @Inject
-    private SimpleValueObjectFactory<String, UserName> testee;
+    private ValueObjectConverter<String, UserName> testee;
 
     @Test
     public final void testFactoryInjectable() {
@@ -47,8 +47,8 @@ public class UserNameFactoryTest extends SimpleValueObjectFactoryTest {
     }
 
     @Test
-    public final void testCreate() {
-        assertThat(testee.create(USER_NAME)).isEqualTo(new UserName(USER_NAME));
+    public final void testToVO() {
+        assertThat(testee.toVO(USER_NAME)).isEqualTo(new UserName(USER_NAME));
     }
 
     @Test
@@ -61,7 +61,7 @@ public class UserNameFactoryTest extends SimpleValueObjectFactoryTest {
 
     @Test
     public final void testGetSimpleValueObjectClass() {
-        assertThat(testee.getSimpleValueObjectClass()).isSameAs(UserName.class);
+        assertThat(testee.getValueObjectClass()).isSameAs(UserName.class);
     }
 
     @Test

@@ -18,26 +18,32 @@
 package org.fuin.objects4j.vo;
 
 /**
- * Creates a simple value object from it's base type representation.
+ * Converts a value object into another representation and back.
  * 
  * @param <BASE_TYPE>
- *            Restricted base type.
+ *            Type to convert the value object from/to.
  * @param <VO_TYPE>
- *            Concrete simple value object type.
+ *            Concrete value object type.
  */
-public interface SimpleValueObjectFactory<BASE_TYPE, VO_TYPE> {
+public interface ValueObjectConverter<BASE_TYPE, VO_TYPE> {
 
     /**
-     * Returns the concrete class of the simple value object.
+     * Returns the class of the type to convert from/to.
+     * 
+     * @return Type of the other object.
+     */
+    public Class<BASE_TYPE> getBaseTypeClass();
+
+    /**
+     * Returns the concrete class of the value object.
      * 
      * @return Type of the value object.
      */
-    public Class<VO_TYPE> getSimpleValueObjectClass();
+    public Class<VO_TYPE> getValueObjectClass();
 
     /**
-     * Verifies that the given value can be converted into a simple value object
-     * using the factory. A <code>null</code> parameter will return
-     * <code>true</code>.
+     * Verifies that the given value can be converted into a value object using
+     * the factory. A <code>null</code> parameter will return <code>true</code>.
      * 
      * @param value
      *            Value to check.
@@ -48,14 +54,25 @@ public interface SimpleValueObjectFactory<BASE_TYPE, VO_TYPE> {
     public boolean isValid(BASE_TYPE value);
 
     /**
-     * Creates a new instance of the simple value object from a base type. A
-     * <code>null</code> parameter will return <code>null</code>.
+     * Converts the base type into an value object. A <code>null</code>
+     * parameter will return <code>null</code>.
      * 
      * @param value
      *            Representation of the value object as base type.
      * 
-     * @return New value object instance.
+     * @return Value object.
      */
-    public VO_TYPE create(BASE_TYPE value);
+    public VO_TYPE toVO(BASE_TYPE value);
+
+    /**
+     * Converts the value object into an base type. A <code>null</code>
+     * parameter will return <code>null</code>.
+     * 
+     * @param value
+     *            Value object.
+     * 
+     * @return Base type.
+     */
+    public BASE_TYPE fromVO(VO_TYPE value);
 
 }

@@ -37,7 +37,7 @@ public class PasswordFactoryTest extends SimpleValueObjectFactoryTest {
     private static final String XML = XML_PREFIX + "<data password=\"abcd1234\"/>";
 
     @Inject
-    private SimpleValueObjectFactory<String, Password> testee;
+    private ValueObjectConverter<String, Password> testee;
 
     @Test
     public final void testFactoryInjectable() {
@@ -45,8 +45,8 @@ public class PasswordFactoryTest extends SimpleValueObjectFactoryTest {
     }
 
     @Test
-    public final void testCreate() {
-        assertThat(testee.create("abcd1234")).isEqualTo(new Password("abcd1234"));
+    public final void testToVO() {
+        assertThat(testee.toVO("abcd1234")).isEqualTo(new Password("abcd1234"));
     }
 
     @Test
@@ -61,7 +61,7 @@ public class PasswordFactoryTest extends SimpleValueObjectFactoryTest {
 
     @Test
     public final void testGetSimpleValueObjectClass() {
-        assertThat(testee.getSimpleValueObjectClass()).isSameAs(Password.class);
+        assertThat(testee.getValueObjectClass()).isSameAs(Password.class);
     }
 
     @Test

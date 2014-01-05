@@ -31,10 +31,15 @@ import org.fuin.objects4j.common.ThreadSafe;
 @ApplicationScoped
 @Converter(autoApply = true)
 public final class EmailAddressFactory extends XmlAdapter<String, EmailAddress> implements
-        AttributeConverter<EmailAddress, String>, SimpleValueObjectFactory<String, EmailAddress> {
+        AttributeConverter<EmailAddress, String>, ValueObjectConverter<String, EmailAddress> {
 
     @Override
-    public final Class<EmailAddress> getSimpleValueObjectClass() {
+    public Class<String> getBaseTypeClass() {
+        return String.class;
+    }
+
+    @Override
+    public final Class<EmailAddress> getValueObjectClass() {
         return EmailAddress.class;
     }
 
@@ -44,7 +49,7 @@ public final class EmailAddressFactory extends XmlAdapter<String, EmailAddress> 
     }
 
     @Override
-    public final EmailAddress create(final String value) {
+    public final EmailAddress toVO(final String value) {
         if (value == null) {
             return null;
         }
@@ -52,29 +57,31 @@ public final class EmailAddressFactory extends XmlAdapter<String, EmailAddress> 
     }
 
     @Override
-    public final String marshal(final EmailAddress value) throws Exception {
+    public final String fromVO(final EmailAddress value) {
         if (value == null) {
             return null;
         }
-        return value.asBaseType();
+        return value.toString();
+    }
+
+    @Override
+    public final String marshal(final EmailAddress value) throws Exception {
+        return fromVO(value);
     }
 
     @Override
     public final EmailAddress unmarshal(final String value) throws Exception {
-        return create(value);
+        return toVO(value);
     }
 
     @Override
     public final String convertToDatabaseColumn(final EmailAddress value) {
-        if (value == null) {
-            return null;
-        }
-        return value.asBaseType();
+        return fromVO(value);
     }
 
     @Override
     public final EmailAddress convertToEntityAttribute(final String value) {
-        return create(value);
+        return toVO(value);
     }
 
 }

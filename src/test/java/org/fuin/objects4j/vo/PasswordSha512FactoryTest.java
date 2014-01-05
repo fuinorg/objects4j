@@ -39,7 +39,7 @@ public class PasswordSha512FactoryTest extends SimpleValueObjectFactoryTest {
     private static final String XML = XML_PREFIX + "<data passwordSha512=\"" + HASH + "\"/>";
 
     @Inject
-    private SimpleValueObjectFactory<String, PasswordSha512> testee;
+    private ValueObjectConverter<String, PasswordSha512> testee;
 
     @Test
     public final void testFactoryInjectable() {
@@ -47,8 +47,8 @@ public class PasswordSha512FactoryTest extends SimpleValueObjectFactoryTest {
     }
 
     @Test
-    public final void testCreate() {
-        assertThat(testee.create(HASH)).isEqualTo(new PasswordSha512(HASH));
+    public final void testToVO() {
+        assertThat(testee.toVO(HASH)).isEqualTo(new PasswordSha512(HASH));
     }
 
     @Test
@@ -61,7 +61,7 @@ public class PasswordSha512FactoryTest extends SimpleValueObjectFactoryTest {
 
     @Test
     public final void testGetSimpleValueObjectClass() {
-        assertThat(testee.getSimpleValueObjectClass()).isSameAs(PasswordSha512.class);
+        assertThat(testee.getValueObjectClass()).isSameAs(PasswordSha512.class);
     }
 
     @Test

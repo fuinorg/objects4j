@@ -34,7 +34,7 @@ public class EmailAddressFactoryTest extends SimpleValueObjectFactoryTest {
     private static final String XML = XML_PREFIX + "<data email=\"a@b.c\"/>";
 
     @Inject
-    private SimpleValueObjectFactory<String, EmailAddress> testee;
+    private ValueObjectConverter<String, EmailAddress> testee;
 
     @Test
     public final void testFactoryInjectable() {
@@ -42,8 +42,8 @@ public class EmailAddressFactoryTest extends SimpleValueObjectFactoryTest {
     }
 
     @Test
-    public final void testCreate() {
-        assertThat(testee.create("a@b.c")).isEqualTo(new EmailAddress("a@b.c"));
+    public final void testtoVO() {
+        assertThat(testee.toVO("a@b.c")).isEqualTo(new EmailAddress("a@b.c"));
     }
 
     @Test
@@ -55,7 +55,7 @@ public class EmailAddressFactoryTest extends SimpleValueObjectFactoryTest {
 
     @Test
     public final void testGetSimpleValueObjectClass() {
-        assertThat(testee.getSimpleValueObjectClass()).isSameAs(EmailAddress.class);
+        assertThat(testee.getValueObjectClass()).isSameAs(EmailAddress.class);
     }
 
     @Test

@@ -31,10 +31,15 @@ import org.fuin.objects4j.common.ThreadSafe;
 @ApplicationScoped
 @Converter(autoApply = true)
 public class PasswordFactory extends XmlAdapter<String, Password> implements
-        AttributeConverter<Password, String>, SimpleValueObjectFactory<String, Password> {
+        AttributeConverter<Password, String>, ValueObjectConverter<String, Password> {
 
     @Override
-    public final Class<Password> getSimpleValueObjectClass() {
+    public final Class<String> getBaseTypeClass() {
+        return String.class;
+    }
+
+    @Override
+    public final Class<Password> getValueObjectClass() {
         return Password.class;
     }
 
@@ -44,7 +49,15 @@ public class PasswordFactory extends XmlAdapter<String, Password> implements
     }
 
     @Override
-    public final Password create(final String value) {
+    public final String fromVO(final Password value) {
+        if (value == null) {
+            return null;
+        }
+        return value.toString();
+    }
+
+    @Override
+    public final Password toVO(final String value) {
         if (value == null) {
             return null;
         }
@@ -53,28 +66,22 @@ public class PasswordFactory extends XmlAdapter<String, Password> implements
 
     @Override
     public final String marshal(final Password value) throws Exception {
-        if (value == null) {
-            return null;
-        }
-        return value.asBaseType();
+        return fromVO(value);
     }
 
     @Override
     public final Password unmarshal(final String value) throws Exception {
-        return create(value);
+        return toVO(value);
     }
 
     @Override
     public final String convertToDatabaseColumn(final Password value) {
-        if (value == null) {
-            return null;
-        }
-        return value.asBaseType();
+        return fromVO(value);
     }
 
     @Override
     public final Password convertToEntityAttribute(final String value) {
-        return create(value);
+        return toVO(value);
     }
 
 }

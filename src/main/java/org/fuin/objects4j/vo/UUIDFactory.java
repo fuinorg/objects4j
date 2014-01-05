@@ -20,6 +20,7 @@ package org.fuin.objects4j.vo;
 import java.util.UUID;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.persistence.AttributeConverter;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 import org.fuin.objects4j.common.ThreadSafe;
@@ -30,10 +31,15 @@ import org.fuin.objects4j.common.ThreadSafe;
 @ThreadSafe
 @ApplicationScoped
 public final class UUIDFactory extends XmlAdapter<String, UUID> implements
-        SimpleValueObjectFactory<String, UUID> {
+        AttributeConverter<UUID, String>, ValueObjectConverter<String, UUID> {
 
     @Override
-    public final Class<UUID> getSimpleValueObjectClass() {
+    public Class<String> getBaseTypeClass() {
+        return String.class;
+    }
+
+    @Override
+    public final Class<UUID> getValueObjectClass() {
         return UUID.class;
     }
 
@@ -43,24 +49,36 @@ public final class UUIDFactory extends XmlAdapter<String, UUID> implements
     }
 
     @Override
-    public final UUID create(final String value) {
+    public final UUID toVO(final String value) {
         return UUID.fromString(value);
+    }
+
+    @Override
+    public final String fromVO(final UUID value) {
+        if (value == null) {
+            return null;
+        }
+        return value.toString();
     }
 
     @Override
     public final UUID unmarshal(final String value) throws Exception {
-        if (value == null) {
-            return null;
-        }
-        return UUID.fromString(value);
+        return toVO(value);
     }
 
     @Override
-    public final String marshal(final UUID uuid) throws Exception {
-        if (uuid == null) {
-            return null;
-        }
-        return uuid.toString();
+    public final String marshal(final UUID value) throws Exception {
+        return fromVO(value);
+    }
+
+    @Override
+    public final String convertToDatabaseColumn(final UUID value) {
+        return fromVO(value);
+    }
+
+    @Override
+    public final UUID convertToEntityAttribute(final String value) {
+        return toVO(value);
     }
 
 }

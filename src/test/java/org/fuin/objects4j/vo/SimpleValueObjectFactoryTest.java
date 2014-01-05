@@ -37,7 +37,7 @@ import javax.xml.bind.ValidationEvent;
 import javax.xml.bind.ValidationEventHandler;
 
 /**
- * Base class for testing concrete {@link SimpleValueObjectFactory}
+ * Base class for testing concrete {@link ValueObjectConverter}
  * implementations.
  */
 // CHECKSTYLE:OFF

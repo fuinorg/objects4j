@@ -31,10 +31,15 @@ import org.fuin.objects4j.common.ThreadSafe;
 @ApplicationScoped
 @Converter(autoApply = true)
 public final class UserNameFactory extends XmlAdapter<String, UserName> implements
-        AttributeConverter<UserName, String>, SimpleValueObjectFactory<String, UserName> {
+        AttributeConverter<UserName, String>, ValueObjectConverter<String, UserName> {
 
     @Override
-    public final Class<UserName> getSimpleValueObjectClass() {
+    public Class<String> getBaseTypeClass() {
+        return String.class;
+    }
+
+    @Override
+    public final Class<UserName> getValueObjectClass() {
         return UserName.class;
     }
 
@@ -44,7 +49,7 @@ public final class UserNameFactory extends XmlAdapter<String, UserName> implemen
     }
 
     @Override
-    public final UserName create(final String value) {
+    public final UserName toVO(final String value) {
         if (value == null) {
             return null;
         }
@@ -52,29 +57,31 @@ public final class UserNameFactory extends XmlAdapter<String, UserName> implemen
     }
 
     @Override
-    public final String marshal(final UserName value) throws Exception {
+    public final String fromVO(final UserName value) {
         if (value == null) {
             return null;
         }
-        return value.asBaseType();
+        return value.toString();
+    }
+
+    @Override
+    public final String marshal(final UserName value) throws Exception {
+        return fromVO(value);
     }
 
     @Override
     public final UserName unmarshal(final String value) throws Exception {
-        return create(value);
+        return toVO(value);
     }
 
     @Override
     public final String convertToDatabaseColumn(final UserName value) {
-        if (value == null) {
-            return null;
-        }
-        return value.asBaseType();
+        return fromVO(value);
     }
 
     @Override
     public final UserName convertToEntityAttribute(final String value) {
-        return create(value);
+        return toVO(value);
     }
 
 }
