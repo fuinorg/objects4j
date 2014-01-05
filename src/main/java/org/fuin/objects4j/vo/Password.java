@@ -18,19 +18,27 @@
 package org.fuin.objects4j.vo;
 
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.common.Immutable;
+import org.fuin.objects4j.ui.Label;
+import org.fuin.objects4j.ui.ShortLabel;
+import org.fuin.objects4j.ui.Tooltip;
 
 /**
  * A password with a length between 8 and 20 characters.
  */
 @Immutable
+@ShortLabel("PW")
+@Label("Password")
+@Tooltip("Secret password")
+@XmlJavaTypeAdapter(PasswordFactory.class)
 public final class Password extends AbstractStringValueObject<Password> {
 
     private static final long serialVersionUID = -7745110729063955842L;
 
-	@NotNull
+    @NotNull
     private String password;
 
     /**

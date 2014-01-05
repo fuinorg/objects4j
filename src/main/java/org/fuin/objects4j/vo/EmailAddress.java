@@ -20,6 +20,7 @@ package org.fuin.objects4j.vo;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.common.ContractViolationException;
@@ -35,11 +36,12 @@ import org.fuin.objects4j.ui.Tooltip;
 @ShortLabel("Email")
 @Label("Email address")
 @Tooltip("Identifies an email box to which email messages are delivered")
+@XmlJavaTypeAdapter(EmailAddressFactory.class)
 public final class EmailAddress extends AbstractStringValueObject<EmailAddress> {
 
     private static final long serialVersionUID = 811127657088134517L;
 
-	@NotNull
+    @NotNull
     private InternetAddress emailAddress;
 
     /**
@@ -66,7 +68,6 @@ public final class EmailAddress extends AbstractStringValueObject<EmailAddress> 
         return emailAddress.toString();
     }
 
-
     private static InternetAddress parseArg(@NotNull final String name, @NotNull final String value) {
 
         final String trimmedLowerCaseValue = value.trim().toLowerCase();
@@ -84,5 +85,5 @@ public final class EmailAddress extends AbstractStringValueObject<EmailAddress> 
         }
 
     }
-    
+
 }

@@ -64,13 +64,14 @@ public final class UUIDStrValidator implements ConstraintValidator<UUIDStr, Stri
     }
 
     /**
-     * Tries to parse the argument is valid and throws an exception if this is not possible.
+     * Tries to parse the argument is valid and throws an exception if this is
+     * not possible.
      * 
      * @param name
      *            Name of the value for a possible error message.
      * @param value
      *            Value to check.
-     *            
+     * 
      * @return Parsed value.
      * 
      * @throws ContractViolationException
@@ -80,7 +81,7 @@ public final class UUIDStrValidator implements ConstraintValidator<UUIDStr, Stri
     public static UUID parseArg(@NotNull final String name, @NotNull final String value)
             throws ContractViolationException {
         // CHECKSTYLE:ON
-        
+
         if (value.length() != 36) {
             throw new ContractViolationException("The argument '" + name + "' is not valid: '"
                     + value + "'");
@@ -91,7 +92,7 @@ public final class UUIDStrValidator implements ConstraintValidator<UUIDStr, Stri
             throw new ContractViolationException("The argument '" + name + "' is not valid: '"
                     + value + "'");
         }
-        
+
     }
-    
+
 }

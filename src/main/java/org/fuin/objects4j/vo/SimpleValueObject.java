@@ -26,11 +26,11 @@ package org.fuin.objects4j.vo;
  */
 public interface SimpleValueObject<BASE_TYPE> extends ValueObject {
 
-	/**
-	 * Converts the object into it's base type representation.
-	 * 
-	 * @return Base type.
-	 */
-	public BASE_TYPE asBaseType();
+    /**
+     * Converts the object into it's base type representation.
+     * 
+     * @return Base type.
+     */
+    public BASE_TYPE asBaseType();
 
 }

@@ -21,6 +21,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.common.ContractViolationException;
@@ -30,6 +31,7 @@ import org.fuin.objects4j.common.Immutable;
  * SHA-512 hashed password that is HEX encoded.
  */
 @Immutable
+@XmlJavaTypeAdapter(PasswordSha512Factory.class)
 public final class PasswordSha512 extends AbstractStringValueObject<PasswordSha512> {
 
     private static final long serialVersionUID = -6285061339408965704L;
@@ -37,7 +39,7 @@ public final class PasswordSha512 extends AbstractStringValueObject<PasswordSha5
     private static final char[] DIGITS = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a',
             'b', 'c', 'd', 'e', 'f' };
 
-	@NotNull
+    @NotNull
     private final String hash;
 
     /**

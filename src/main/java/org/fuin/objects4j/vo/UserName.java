@@ -18,9 +18,12 @@
 package org.fuin.objects4j.vo;
 
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.common.Immutable;
+import org.fuin.objects4j.ui.Label;
+import org.fuin.objects4j.ui.ShortLabel;
 
 /**
  * User name with the following rules.
@@ -34,11 +37,14 @@ import org.fuin.objects4j.common.Immutable;
  * </ul>
  */
 @Immutable
+@ShortLabel("User")
+@Label("Username")
+@XmlJavaTypeAdapter(UserNameFactory.class)
 public final class UserName extends AbstractStringValueObject<UserName> {
 
     private static final long serialVersionUID = 9055520843135472634L;
 
-	@NotNull
+    @NotNull
     private String userName;
 
     /**

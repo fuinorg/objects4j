@@ -11,6 +11,7 @@
       <dependsOn package="java.util"/>
       <dependsOn package="javax.validation"/>
       <dependsOn package="javax.enterprise.context"/>
+      <dependsOn package="javax.xml.bind.annotation.adapters"/>
   </alwaysAllowed>
   
   <!-- It's forbidden for all classes to use this (in production code) -->
