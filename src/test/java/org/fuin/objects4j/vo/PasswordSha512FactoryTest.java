@@ -18,8 +18,12 @@
 package org.fuin.objects4j.vo;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
+import java.util.Set;
 
 import javax.inject.Inject;
+import javax.validation.ConstraintViolation;
 import javax.xml.bind.JAXBException;
 
 import org.fuin.units4j.WeldJUnit4Runner;
@@ -32,8 +36,7 @@ public class PasswordSha512FactoryTest extends SimpleValueObjectFactoryTest {
 
     private static final String HASH = "925f43c3cfb956bbe3c6aa8023ba7ad5cfa21d104186fffc69e768e55940d9653b1cd36fba614fba2e1844f4436da20f83750c6ec1db356da154691bdd71a9b1";
 
-    private static final String XML = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>"
-            + "<data passwordSha512=\"" + HASH + "\"/>";
+    private static final String XML = XML_PREFIX + "<data passwordSha512=\"" + HASH + "\"/>";
 
     @Inject
     private SimpleValueObjectFactory<String, PasswordSha512> testee;
@@ -75,6 +78,34 @@ public class PasswordSha512FactoryTest extends SimpleValueObjectFactoryTest {
 
         final Data data = unmarshal(XML);
         assertThat(data.passwordSha512).isEqualTo(new PasswordSha512(HASH));
+
+    }
+
+    @Test
+    public final void testUnmarshalError() {
+
+        final String invalidHashInXmlData = XML_PREFIX + "<data passwordSha512=\"1\"/>";
+        try {
+            unmarshal(invalidHashInXmlData);
+            fail("Expected an exception");
+        } catch (final RuntimeException ex) {
+            assertCauseCauseMessage(ex, "The argument 'hexEncodedHash' is not valid");
+        }
+
+    }
+
+    @Test
+    public final void testValidation() {
+
+        final Data data = new Data();
+        data.passwordSha512 = new PasswordSha512(HASH);
+        // Set intentionally an illegal value
+        // This may happen when deserialized
+        setPrivateField(data.passwordSha512, "hash", "1");
+        final Set<ConstraintViolation<Object>> violations = validate(data);
+        assertThat(violations).hasSize(1);
+        assertThat(violations.iterator().next().getMessage()).isEqualTo(
+                "is not a valid HEX encoded SHA512 password hash");
 
     }
 

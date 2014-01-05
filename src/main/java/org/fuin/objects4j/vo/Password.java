@@ -40,7 +40,7 @@ public final class Password extends AbstractStringValueObject<Password> {
 
     @NotNull
     @PasswordStr
-    private String password;
+    private String str;
 
     /**
      * Protected default constructor for deserialization.
@@ -59,12 +59,12 @@ public final class Password extends AbstractStringValueObject<Password> {
         super();
         Contract.requireArgNotEmpty("password", password);
         PasswordStrValidator.requireArgValid("password", password);
-        this.password = password.trim();
+        this.str = password.trim();
     }
 
     @Override
     public String toString() {
-        return password;
+        return str;
     }
 
 }

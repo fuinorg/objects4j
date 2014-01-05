@@ -19,6 +19,7 @@ package org.fuin.objects4j.vo;
 
 import java.util.UUID;
 
+import javax.validation.Valid;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -29,18 +30,23 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Data {
 
+    @Valid
     @XmlAttribute
     public EmailAddress email;
 
+    @Valid
     @XmlAttribute
     public Password password;
 
+    @Valid
     @XmlAttribute
     public PasswordSha512 passwordSha512;
 
+    @Valid
     @XmlAttribute
     public UserName userName;
 
+    @Valid
     @XmlAttribute
     public UUID uuid;
 

@@ -18,8 +18,12 @@
 package org.fuin.objects4j.vo;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
+import java.util.Set;
 
 import javax.inject.Inject;
+import javax.validation.ConstraintViolation;
 import javax.xml.bind.JAXBException;
 
 import org.fuin.units4j.WeldJUnit4Runner;
@@ -32,8 +36,7 @@ public class UserNameFactoryTest extends SimpleValueObjectFactoryTest {
 
     private static final String USER_NAME = "michael-1_a";
 
-    private static final String XML = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>"
-            + "<data userName=\"" + USER_NAME + "\"/>";
+    private static final String XML = XML_PREFIX + "<data userName=\"" + USER_NAME + "\"/>";
 
     @Inject
     private SimpleValueObjectFactory<String, UserName> testee;
@@ -75,6 +78,34 @@ public class UserNameFactoryTest extends SimpleValueObjectFactoryTest {
 
         final Data data = unmarshal(XML);
         assertThat(data.userName).isEqualTo(new UserName(USER_NAME));
+
+    }
+
+    @Test
+    public final void testUnmarshalError() {
+
+        final String invalidUsernameInXmlData = XML_PREFIX + "<data userName=\"x\"/>";
+        try {
+            unmarshal(invalidUsernameInXmlData);
+            fail("Expected an exception");
+        } catch (final RuntimeException ex) {
+            assertCauseCauseMessage(ex, "The argument 'userName' is not valid: 'x'");
+        }
+
+    }
+
+    @Test
+    public final void testValidation() {
+
+        final Data data = new Data();
+        data.userName = new UserName(USER_NAME);
+        // Set intentionally an illegal value
+        // This may happen when deserialized
+        setPrivateField(data.userName, "str", "x");
+        final Set<ConstraintViolation<Object>> violations = validate(data);
+        assertThat(violations).hasSize(1);
+        assertThat(violations.iterator().next().getMessage()).isEqualTo(
+                "is not a well-formed user name");
 
     }
 

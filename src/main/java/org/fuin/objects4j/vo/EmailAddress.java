@@ -42,7 +42,7 @@ public final class EmailAddress extends AbstractStringValueObject<EmailAddress> 
     private static final long serialVersionUID = 811127657088134517L;
 
     @NotNull
-    private InternetAddress emailAddress;
+    private InternetAddress adr;
 
     /**
      * Protected default constructor for deserialization.
@@ -60,12 +60,12 @@ public final class EmailAddress extends AbstractStringValueObject<EmailAddress> 
     public EmailAddress(@NotNull @EmailAddressStr final String emailAddress) {
         super();
         Contract.requireArgNotEmpty("emailAddress", emailAddress);
-        this.emailAddress = parseArg("emailAddress", emailAddress);
+        this.adr = parseArg("emailAddress", emailAddress);
     }
 
     @Override
     public final String toString() {
-        return emailAddress.toString();
+        return adr.toString();
     }
 
     private static InternetAddress parseArg(@NotNull final String name, @NotNull final String value) {

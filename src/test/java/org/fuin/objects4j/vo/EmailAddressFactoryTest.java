@@ -18,6 +18,7 @@
 package org.fuin.objects4j.vo;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.fail;
 
 import javax.inject.Inject;
 import javax.xml.bind.JAXBException;
@@ -30,8 +31,7 @@ import org.junit.runner.RunWith;
 @RunWith(WeldJUnit4Runner.class)
 public class EmailAddressFactoryTest extends SimpleValueObjectFactoryTest {
 
-    private static final String XML = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>"
-            + "<data email=\"a@b.c\"/>";
+    private static final String XML = XML_PREFIX + "<data email=\"a@b.c\"/>";
 
     @Inject
     private SimpleValueObjectFactory<String, EmailAddress> testee;
@@ -72,6 +72,19 @@ public class EmailAddressFactoryTest extends SimpleValueObjectFactoryTest {
 
         final Data data = unmarshal(XML);
         assertThat(data.email).isEqualTo(new EmailAddress("a@b.c"));
+
+    }
+
+    @Test
+    public final void testUnmarshalError() {
+
+        final String invalidEmailInXmlData = XML_PREFIX + "<data email=\"abc@\"/>";
+        try {
+            unmarshal(invalidEmailInXmlData);
+            fail("Expected an exception");
+        } catch (final RuntimeException ex) {
+            assertCauseCauseMessage(ex, "The argument 'emailAddress' is not valid: 'abc@'");
+        }
 
     }
 

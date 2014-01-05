@@ -46,7 +46,7 @@ public final class UserName extends AbstractStringValueObject<UserName> {
 
     @NotNull
     @UserNameStr
-    private String userName;
+    private String str;
 
     /**
      * Protected default constructor for deserialization.
@@ -65,12 +65,12 @@ public final class UserName extends AbstractStringValueObject<UserName> {
         super();
         Contract.requireArgNotNull("userName", userName);
         UserNameStrValidator.parseArg("userName", userName);
-        this.userName = userName.trim().toLowerCase();
+        this.str = userName.trim().toLowerCase();
     }
 
     @Override
     public String toString() {
-        return userName;
+        return str;
     }
 
 }
