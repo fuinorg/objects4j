@@ -30,6 +30,7 @@ public final class Password extends AbstractStringValueObject<Password> {
 
     private static final long serialVersionUID = -7745110729063955842L;
 
+	@NotNull
     private String password;
 
     /**

@@ -39,6 +39,7 @@ public final class EmailAddress extends AbstractStringValueObject<EmailAddress> 
 
     private static final long serialVersionUID = 811127657088134517L;
 
+	@NotNull
     private InternetAddress emailAddress;
 
     /**

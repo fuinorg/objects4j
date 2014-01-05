@@ -38,6 +38,7 @@ public final class UserName extends AbstractStringValueObject<UserName> {
 
     private static final long serialVersionUID = 9055520843135472634L;
 
+	@NotNull
     private String userName;
 
     /**
