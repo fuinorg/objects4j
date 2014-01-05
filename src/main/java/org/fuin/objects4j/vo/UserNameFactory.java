@@ -42,12 +42,18 @@ public final class UserNameFactory extends XmlAdapter<String, UserName> implemen
 
     @Override
     public final UserName create(final String value) {
+        if (value == null) {
+            return null;
+        }
         return new UserName(value);
     }
 
     @Override
-    public final String marshal(final UserName userName) throws Exception {
-        return userName.asBaseType();
+    public final String marshal(final UserName value) throws Exception {
+        if (value == null) {
+            return null;
+        }
+        return value.asBaseType();
     }
 
     @Override

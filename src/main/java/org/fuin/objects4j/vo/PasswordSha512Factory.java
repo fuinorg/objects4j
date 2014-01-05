@@ -42,12 +42,18 @@ public class PasswordSha512Factory extends XmlAdapter<String, PasswordSha512> im
 
     @Override
     public final PasswordSha512 create(final String value) {
+        if (value == null) {
+            return null;
+        }
         return new PasswordSha512(value);
     }
 
     @Override
-    public final String marshal(final PasswordSha512 pw) throws Exception {
-        return pw.asBaseType();
+    public final String marshal(final PasswordSha512 value) throws Exception {
+        if (value == null) {
+            return null;
+        }
+        return value.asBaseType();
     }
 
     @Override

@@ -42,12 +42,18 @@ public class PasswordFactory extends XmlAdapter<String, Password> implements
 
     @Override
     public final Password create(final String value) {
+        if (value == null) {
+            return null;
+        }
         return new Password(value);
     }
 
     @Override
-    public final String marshal(final Password pw) throws Exception {
-        return pw.asBaseType();
+    public final String marshal(final Password value) throws Exception {
+        if (value == null) {
+            return null;
+        }
+        return value.asBaseType();
     }
 
     @Override

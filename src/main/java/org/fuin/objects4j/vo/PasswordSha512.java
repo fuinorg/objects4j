@@ -40,6 +40,7 @@ public final class PasswordSha512 extends AbstractStringValueObject<PasswordSha5
             'b', 'c', 'd', 'e', 'f' };
 
     @NotNull
+    @PasswordSha512Str
     private final String hash;
 
     /**

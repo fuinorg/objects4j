@@ -49,11 +49,17 @@ public final class UUIDFactory extends XmlAdapter<String, UUID> implements
 
     @Override
     public final UUID unmarshal(final String value) throws Exception {
+        if (value == null) {
+            return null;
+        }
         return UUID.fromString(value);
     }
 
     @Override
     public final String marshal(final UUID uuid) throws Exception {
+        if (uuid == null) {
+            return null;
+        }
         return uuid.toString();
     }
 

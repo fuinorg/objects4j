@@ -17,11 +17,66 @@
  */
 package org.fuin.objects4j.vo;
 
-import org.fuin.units4j.TestOmitted;
+import static org.fest.assertions.Assertions.assertThat;
 
-//TESTCODE:BEGIN
-@TestOmitted("Functionality implicitly tested by other tests")
-public class PasswordFactoryTest {
+import javax.inject.Inject;
+import javax.xml.bind.JAXBException;
+
+import org.fuin.units4j.WeldJUnit4Runner;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+// CHECKSTYLE:OFF
+@RunWith(WeldJUnit4Runner.class)
+public class PasswordFactoryTest extends SimpleValueObjectFactoryTest {
+
+    private static final String XML = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>"
+            + "<data password=\"abcd1234\"/>";
+
+    @Inject
+    private SimpleValueObjectFactory<String, Password> testee;
+
+    @Test
+    public final void testFactoryInjectable() {
+        assertThat(testee).isNotNull();
+    }
+
+    @Test
+    public final void testCreate() {
+        assertThat(testee.create("abcd1234")).isEqualTo(new Password("abcd1234"));
+    }
+
+    @Test
+    public final void testIsValid() {
+        assertThat(testee.isValid(null)).isTrue();
+        assertThat(testee.isValid("abcd1234")).isTrue();
+        assertThat(testee.isValid("123456789.123456789.")).isTrue();
+        assertThat(testee.isValid("abcd123")).isFalse();
+        assertThat(testee.isValid("")).isFalse();
+        assertThat(testee.isValid("123456789.123456789.1")).isFalse();
+    }
+
+    @Test
+    public final void testGetSimpleValueObjectClass() {
+        assertThat(testee.getSimpleValueObjectClass()).isSameAs(Password.class);
+    }
+
+    @Test
+    public final void testMarshal() throws JAXBException {
+
+        final Data data = new Data();
+        data.password = new Password("abcd1234");
+        assertThat(marshal(data)).isEqualTo(XML);
+
+    }
+
+    @Test
+    public final void testMarshalUnmarshal() throws JAXBException {
+
+        final Data data = unmarshal(XML);
+        assertThat(data.password).isEqualTo(new Password("abcd1234"));
+
+    }
 
 }
-// TESTCODE:END
+// CHECKSTYLE:OFF

@@ -42,12 +42,18 @@ public final class EmailAddressFactory extends XmlAdapter<String, EmailAddress> 
 
     @Override
     public final EmailAddress create(final String value) {
+        if (value == null) {
+            return null;
+        }
         return new EmailAddress(value);
     }
 
     @Override
-    public final String marshal(final EmailAddress emailAddress) throws Exception {
-        return emailAddress.asBaseType();
+    public final String marshal(final EmailAddress value) throws Exception {
+        if (value == null) {
+            return null;
+        }
+        return value.asBaseType();
     }
 
     @Override

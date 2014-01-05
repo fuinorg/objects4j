@@ -36,7 +36,8 @@ public interface SimpleValueObjectFactory<BASE_TYPE, VO_TYPE> {
 
     /**
      * Verifies that the given value can be converted into a simple value object
-     * using the factory.
+     * using the factory. A <code>null</code> parameter will return
+     * <code>true</code>.
      * 
      * @param value
      *            Value to check.
@@ -47,7 +48,8 @@ public interface SimpleValueObjectFactory<BASE_TYPE, VO_TYPE> {
     public boolean isValid(BASE_TYPE value);
 
     /**
-     * Creates a new instance of the simple value object from a base type.
+     * Creates a new instance of the simple value object from a base type. A
+     * <code>null</code> parameter will return <code>null</code>.
      * 
      * @param value
      *            Representation of the value object as base type.

@@ -17,11 +17,63 @@
  */
 package org.fuin.objects4j.vo;
 
-import org.fuin.units4j.TestOmitted;
+import static org.fest.assertions.Assertions.assertThat;
 
-//TESTCODE:BEGIN
-@TestOmitted("Functionality implicitly tested by other tests")
-public class EmailAddressFactoryTest {
+import javax.inject.Inject;
+import javax.xml.bind.JAXBException;
+
+import org.fuin.units4j.WeldJUnit4Runner;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+// CHECKSTYLE:OFF
+@RunWith(WeldJUnit4Runner.class)
+public class EmailAddressFactoryTest extends SimpleValueObjectFactoryTest {
+
+    private static final String XML = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>"
+            + "<data email=\"a@b.c\"/>";
+
+    @Inject
+    private SimpleValueObjectFactory<String, EmailAddress> testee;
+
+    @Test
+    public final void testFactoryInjectable() {
+        assertThat(testee).isNotNull();
+    }
+
+    @Test
+    public final void testCreate() {
+        assertThat(testee.create("a@b.c")).isEqualTo(new EmailAddress("a@b.c"));
+    }
+
+    @Test
+    public final void testIsValid() {
+        assertThat(testee.isValid(null)).isTrue();
+        assertThat(testee.isValid("a@b.c")).isTrue();
+        assertThat(testee.isValid("")).isFalse();
+    }
+
+    @Test
+    public final void testGetSimpleValueObjectClass() {
+        assertThat(testee.getSimpleValueObjectClass()).isSameAs(EmailAddress.class);
+    }
+
+    @Test
+    public final void testMarshal() throws JAXBException {
+
+        final Data data = new Data();
+        data.email = new EmailAddress("a@b.c");
+        assertThat(marshal(data)).isEqualTo(XML);
+
+    }
+
+    @Test
+    public final void testMarshalUnmarshal() throws JAXBException {
+
+        final Data data = unmarshal(XML);
+        assertThat(data.email).isEqualTo(new EmailAddress("a@b.c"));
+
+    }
 
 }
-// TESTCODE:END
+// CHECKSTYLE:ON
