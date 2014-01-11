@@ -19,11 +19,12 @@ package org.fuin.objects4j.vo;
 
 import static org.fest.assertions.Assertions.assertThat;
 
+import org.fuin.objects4j.common.AbstractPersistenceTest;
 import org.fuin.objects4j.common.ContractViolationException;
 import org.junit.Test;
 
 //TESTCODE:BEGIN
-public final class PasswordSha512Test {
+public final class PasswordSha512Test extends AbstractPersistenceTest {
 
     @Test
     public final void testCreateWithPasswordValid() {
@@ -57,6 +58,33 @@ public final class PasswordSha512Test {
     public final void testCreateTooLong() {
         new PasswordSha512("b4d4b13a02230f9672c92fd45aa44fd202bdba7de3fda640ac84ee5d54c"
                 + "57fde293b4bbddce1b9a56d63d674b47c4dd7e6d89536a1e126ebf0cd662e76e8bec3b4");
+    }
+
+    @Test
+    public void testJPA() {
+
+        // PREPARE
+        beginTransaction();
+        getEm().persist(new PasswordSha512ParentEntity(1));
+        commitTransaction();
+
+        // TEST UPDATE
+        beginTransaction();
+        final PasswordSha512ParentEntity entity = getEm()
+                .find(PasswordSha512ParentEntity.class, 1L);
+        entity.setPasswordSha512(new PasswordSha512(new Password("abcd1234")));
+        commitTransaction();
+
+        // VERIFY
+        beginTransaction();
+        final PasswordSha512ParentEntity copy = getEm().find(PasswordSha512ParentEntity.class, 1L);
+        assertThat(copy).isNotNull();
+        assertThat(copy.getId()).isEqualTo(1);
+        assertThat(copy.getPasswordSha512()).isNotNull();
+        assertThat(copy.getPasswordSha512())
+                .isEqualTo(new PasswordSha512(new Password("abcd1234")));
+        commitTransaction();
+
     }
 
 }

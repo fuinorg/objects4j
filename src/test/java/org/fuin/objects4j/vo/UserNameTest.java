@@ -19,11 +19,12 @@ package org.fuin.objects4j.vo;
 
 import static org.fest.assertions.Assertions.assertThat;
 
+import org.fuin.objects4j.common.AbstractPersistenceTest;
 import org.fuin.objects4j.common.ContractViolationException;
 import org.junit.Test;
 
 //TESTCODE:BEGIN
-public final class UserNameTest {
+public final class UserNameTest extends AbstractPersistenceTest {
 
     @Test
     public final void testCreateValidLowerCase() {
@@ -82,6 +83,31 @@ public final class UserNameTest {
     @Test(expected = ContractViolationException.class)
     public final void testCreateContainsIllegalAtAndDot() {
         new UserName("abc@def.com");
+    }
+
+    @Test
+    public void testJPA() {
+
+        // PREPARE
+        beginTransaction();
+        getEm().persist(new UserNameParentEntity(1));
+        commitTransaction();
+
+        // TEST UPDATE
+        beginTransaction();
+        final UserNameParentEntity entity = getEm().find(UserNameParentEntity.class, 1L);
+        entity.setUserName(new UserName("michael-1_a"));
+        commitTransaction();
+
+        // VERIFY
+        beginTransaction();
+        final UserNameParentEntity copy = getEm().find(UserNameParentEntity.class, 1L);
+        assertThat(copy).isNotNull();
+        assertThat(copy.getId()).isEqualTo(1);
+        assertThat(copy.getUserName()).isNotNull();
+        assertThat(copy.getUserName()).isEqualTo(new UserName("michael-1_a"));
+        commitTransaction();
+
     }
 
 }

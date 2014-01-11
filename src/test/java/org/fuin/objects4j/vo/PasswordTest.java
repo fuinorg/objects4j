@@ -19,11 +19,12 @@ package org.fuin.objects4j.vo;
 
 import static org.fest.assertions.Assertions.assertThat;
 
+import org.fuin.objects4j.common.AbstractPersistenceTest;
 import org.fuin.objects4j.common.ContractViolationException;
 import org.junit.Test;
 
 //TESTCODE:BEGIN
-public final class PasswordTest {
+public final class PasswordTest extends AbstractPersistenceTest {
 
     @Test
     public final void testCreateValid() {
@@ -45,6 +46,31 @@ public final class PasswordTest {
     @Test(expected = ContractViolationException.class)
     public final void testCreateTooLong() {
         new Password("123456789012345678901");
+    }
+
+    @Test
+    public void testJPA() {
+
+        // PREPARE
+        beginTransaction();
+        getEm().persist(new PasswordParentEntity(1));
+        commitTransaction();
+
+        // TEST UPDATE
+        beginTransaction();
+        final PasswordParentEntity entity = getEm().find(PasswordParentEntity.class, 1L);
+        entity.setPassword(new Password("abcd1234"));
+        commitTransaction();
+
+        // VERIFY
+        beginTransaction();
+        final PasswordParentEntity copy = getEm().find(PasswordParentEntity.class, 1L);
+        assertThat(copy).isNotNull();
+        assertThat(copy.getId()).isEqualTo(1);
+        assertThat(copy.getPassword()).isNotNull();
+        assertThat(copy.getPassword()).isEqualTo(new Password("abcd1234"));
+        commitTransaction();
+
     }
 
 }

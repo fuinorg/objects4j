@@ -17,42 +17,45 @@
  */
 package org.fuin.objects4j.vo;
 
-import java.util.UUID;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
-import javax.validation.Valid;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
-
-/**
- * XML container used for tests.
- */
 // CHECKSTYLE:OFF
-@XmlRootElement
-public class Data {
+@Entity(name = "USER_NAME_PARENT")
+public class UserNameParentEntity {
 
-    @Valid
-    @XmlAttribute
-    public EmailAddress email;
+    @Id
+    @Column(name = "ID")
+    private long id;
 
-    @Valid
-    @XmlAttribute
-    public Password password;
+    @Column(name = "USERNAME", nullable = true)
+    private UserName userName;
 
-    @Valid
-    @XmlAttribute
-    public PasswordSha512 passwordSha512;
+    public UserNameParentEntity() {
+        super();
+    }
 
-    @Valid
-    @XmlAttribute
-    public UserName userName;
+    public UserNameParentEntity(long id) {
+        super();
+        this.id = id;
+    }
 
-    @Valid
-    @XmlAttribute
-    public UUID uuid;
+    public long getId() {
+        return id;
+    }
 
-    @Valid
-    @XmlAttribute(name = "ca")
-    public CurrencyAmount currencyAmount;
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public UserName getUserName() {
+        return userName;
+    }
+
+    public void setUserName(UserName userName) {
+        this.userName = userName;
+    }
 
 }
 // CHECKSTYLE:ON

@@ -17,42 +17,31 @@
  */
 package org.fuin.objects4j.vo;
 
-import java.util.UUID;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-import javax.validation.Valid;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.validation.Constraint;
+import javax.validation.Payload;
 
-/**
- * XML container used for tests.
- */
 // CHECKSTYLE:OFF
-@XmlRootElement
-public class Data {
+/**
+ * The string is a canonical string representation of a currency amount. <br>
+ * Examples: '1234.56 EUR', '1691.35 USD' or '175701 JPY'
+ */
+@Target({ ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD, ElementType.ANNOTATION_TYPE })
+@Retention(RetentionPolicy.RUNTIME)
+@Constraint(validatedBy = { CurrencyAmountStrValidator.class })
+@Documented
+public @interface CurrencyAmountStr {
 
-    @Valid
-    @XmlAttribute
-    public EmailAddress email;
+    String message() default "{org.fuin.objects4j.vo.CurrencyAmountStr.message}";
 
-    @Valid
-    @XmlAttribute
-    public Password password;
+    Class<?>[] groups() default {};
 
-    @Valid
-    @XmlAttribute
-    public PasswordSha512 passwordSha512;
-
-    @Valid
-    @XmlAttribute
-    public UserName userName;
-
-    @Valid
-    @XmlAttribute
-    public UUID uuid;
-
-    @Valid
-    @XmlAttribute(name = "ca")
-    public CurrencyAmount currencyAmount;
+    Class<? extends Payload>[] payload() default {};
 
 }
 // CHECKSTYLE:ON

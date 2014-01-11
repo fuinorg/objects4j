@@ -17,11 +17,41 @@
  */
 package org.fuin.objects4j.vo;
 
-import org.fuin.units4j.TestOmitted;
+import static org.fest.assertions.Assertions.assertThat;
+
+import java.util.UUID;
+
+import org.fuin.objects4j.common.AbstractPersistenceTest;
+import org.junit.Test;
 
 //TESTCODE:BEGIN
-@TestOmitted("Functionality implicitly tested by other tests")
-public class UUIDConverterTest {
+public class UUIDConverterTest extends AbstractPersistenceTest {
+
+    @Test
+    public final void testJPA() {
+
+        // PREPARE
+        beginTransaction();
+        getEm().persist(new UUIDParentEntity(1));
+        commitTransaction();
+
+        // TEST UPDATE
+        final UUID uuid = UUID.randomUUID();
+        beginTransaction();
+        final UUIDParentEntity entity = getEm().find(UUIDParentEntity.class, 1L);
+        entity.setUUID(uuid);
+        commitTransaction();
+
+        // VERIFY
+        beginTransaction();
+        final UUIDParentEntity copy = getEm().find(UUIDParentEntity.class, 1L);
+        assertThat(copy).isNotNull();
+        assertThat(copy.getId()).isEqualTo(1);
+        assertThat(copy.getUUID()).isNotNull();
+        assertThat(copy.getUUID()).isEqualTo(uuid);
+        commitTransaction();
+
+    }
 
 }
 // TESTCODE:END
