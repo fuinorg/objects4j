@@ -110,6 +110,52 @@ public final class Contract {
     }
 
     /**
+     * Checks if the length of value is not higher than a give maximum.
+     * 
+     * @param name
+     *            Name of the value for a possible error message.
+     * @param value
+     *            Value to check.
+     * @param max
+     *            Max length (inclusive).
+     * 
+     * @throws ContractViolationException
+     *             The length was more than <code>max</code>.
+     */
+    // CHECKSTYLE:OFF:RedundantThrows
+    public static void requireArgMaxLength(@NotNull final String name, @NotNull final String value,
+            final int max) throws ContractViolationException {
+        // CHECKSTYLE:ON
+        if (value.length() > max) {
+            throw new ContractViolationException("Max length of argument '" + name + "' is " + max
+                    + ", but was: " + value.length());
+        }
+    }
+
+    /**
+     * Checks if the length of value is not less than a give minimum.
+     * 
+     * @param name
+     *            Name of the value for a possible error message.
+     * @param value
+     *            Value to check.
+     * @param min
+     *            Minimal length.
+     * 
+     * @throws ContractViolationException
+     *             The length was less than <code>min</code>.
+     */
+    // CHECKSTYLE:OFF:RedundantThrows
+    public static void requireArgMinLength(@NotNull final String name, @NotNull final String value,
+            final int min) throws ContractViolationException {
+        // CHECKSTYLE:ON
+        if (value.length() < min) {
+            throw new ContractViolationException("Min length of argument '" + name + "' is " + min
+                    + ", but was: " + value.length());
+        }
+    }
+
+    /**
      * Checks if the given value is valid.
      * 
      * @param value
