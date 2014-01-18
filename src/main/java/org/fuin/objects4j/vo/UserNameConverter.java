@@ -20,7 +20,6 @@ package org.fuin.objects4j.vo;
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
-import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 import org.fuin.objects4j.common.ThreadSafe;
 
@@ -30,8 +29,8 @@ import org.fuin.objects4j.common.ThreadSafe;
 @ThreadSafe
 @ApplicationScoped
 @Converter(autoApply = true)
-public final class UserNameConverter extends XmlAdapter<String, UserName> implements
-        AttributeConverter<UserName, String>, ValueObjectConverter<String, UserName> {
+public final class UserNameConverter extends AbstractValueObjectConverter<String, UserName>
+        implements AttributeConverter<UserName, String> {
 
     @Override
     public Class<String> getBaseTypeClass() {
@@ -62,26 +61,6 @@ public final class UserNameConverter extends XmlAdapter<String, UserName> implem
             return null;
         }
         return value.toString();
-    }
-
-    @Override
-    public final String marshal(final UserName value) throws Exception {
-        return fromVO(value);
-    }
-
-    @Override
-    public final UserName unmarshal(final String value) throws Exception {
-        return toVO(value);
-    }
-
-    @Override
-    public final String convertToDatabaseColumn(final UserName value) {
-        return fromVO(value);
-    }
-
-    @Override
-    public final UserName convertToEntityAttribute(final String value) {
-        return toVO(value);
     }
 
 }

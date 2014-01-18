@@ -20,7 +20,6 @@ package org.fuin.objects4j.vo;
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
-import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 import org.fuin.objects4j.common.ThreadSafe;
 
@@ -30,8 +29,8 @@ import org.fuin.objects4j.common.ThreadSafe;
 @ThreadSafe
 @ApplicationScoped
 @Converter(autoApply = true)
-public final class EmailAddressConverter extends XmlAdapter<String, EmailAddress> implements
-        AttributeConverter<EmailAddress, String>, ValueObjectConverter<String, EmailAddress> {
+public final class EmailAddressConverter extends AbstractValueObjectConverter<String, EmailAddress>
+        implements AttributeConverter<EmailAddress, String> {
 
     @Override
     public Class<String> getBaseTypeClass() {
@@ -62,26 +61,6 @@ public final class EmailAddressConverter extends XmlAdapter<String, EmailAddress
             return null;
         }
         return value.toString();
-    }
-
-    @Override
-    public final String marshal(final EmailAddress value) throws Exception {
-        return fromVO(value);
-    }
-
-    @Override
-    public final EmailAddress unmarshal(final String value) throws Exception {
-        return toVO(value);
-    }
-
-    @Override
-    public final String convertToDatabaseColumn(final EmailAddress value) {
-        return fromVO(value);
-    }
-
-    @Override
-    public final EmailAddress convertToEntityAttribute(final String value) {
-        return toVO(value);
     }
 
 }

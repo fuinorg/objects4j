@@ -21,7 +21,6 @@ import java.util.Currency;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.AttributeConverter;
-import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 import org.fuin.objects4j.common.ThreadSafe;
 
@@ -30,8 +29,8 @@ import org.fuin.objects4j.common.ThreadSafe;
  */
 @ThreadSafe
 @ApplicationScoped
-public class CurrencyAmountConverter extends XmlAdapter<String, CurrencyAmount> implements
-        AttributeConverter<CurrencyAmount, String>, ValueObjectConverter<String, CurrencyAmount> {
+public class CurrencyAmountConverter extends AbstractValueObjectConverter<String, CurrencyAmount>
+        implements AttributeConverter<CurrencyAmount, String> {
 
     @Override
     public final Class<String> getBaseTypeClass() {
@@ -69,26 +68,6 @@ public class CurrencyAmountConverter extends XmlAdapter<String, CurrencyAmount> 
             return null;
         }
         return value.toString();
-    }
-
-    @Override
-    public final String marshal(final CurrencyAmount value) throws Exception {
-        return fromVO(value);
-    }
-
-    @Override
-    public final CurrencyAmount unmarshal(final String value) throws Exception {
-        return toVO(value);
-    }
-
-    @Override
-    public final String convertToDatabaseColumn(final CurrencyAmount value) {
-        return fromVO(value);
-    }
-
-    @Override
-    public final CurrencyAmount convertToEntityAttribute(final String value) {
-        return toVO(value);
     }
 
 }

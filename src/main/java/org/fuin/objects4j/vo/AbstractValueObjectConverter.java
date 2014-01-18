@@ -17,47 +17,39 @@
  */
 package org.fuin.objects4j.vo;
 
-import java.util.UUID;
-
-import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.AttributeConverter;
-
-import org.fuin.objects4j.common.ThreadSafe;
+import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
- * Creates a {@link UUID}.
+ * Base class for vale object converters.
+ * 
+ * @param <BASE_TYPE>
+ *            Type to convert the value object from/to.
+ * @param <VO_TYPE>
+ *            Concrete value object type.
  */
-@ThreadSafe
-@ApplicationScoped
-public final class UUIDConverter extends AbstractValueObjectConverter<String, UUID> implements
-        AttributeConverter<UUID, String> {
+public abstract class AbstractValueObjectConverter<BASE_TYPE, VO_TYPE> extends
+        XmlAdapter<BASE_TYPE, VO_TYPE> implements AttributeConverter<VO_TYPE, BASE_TYPE>,
+        ValueObjectConverter<BASE_TYPE, VO_TYPE> {
 
     @Override
-    public Class<String> getBaseTypeClass() {
-        return String.class;
+    public final BASE_TYPE marshal(final VO_TYPE value) throws Exception {
+        return fromVO(value);
     }
 
     @Override
-    public final Class<UUID> getValueObjectClass() {
-        return UUID.class;
+    public final VO_TYPE unmarshal(final BASE_TYPE value) throws Exception {
+        return toVO(value);
     }
 
     @Override
-    public final boolean isValid(final String value) {
-        return UUIDStrValidator.isValid(value);
+    public final BASE_TYPE convertToDatabaseColumn(final VO_TYPE value) {
+        return fromVO(value);
     }
 
     @Override
-    public final UUID toVO(final String value) {
-        return UUID.fromString(value);
-    }
-
-    @Override
-    public final String fromVO(final UUID value) {
-        if (value == null) {
-            return null;
-        }
-        return value.toString();
+    public final VO_TYPE convertToEntityAttribute(final BASE_TYPE value) {
+        return toVO(value);
     }
 
 }

@@ -20,7 +20,6 @@ package org.fuin.objects4j.vo;
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
-import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 import org.fuin.objects4j.common.ThreadSafe;
 
@@ -30,8 +29,8 @@ import org.fuin.objects4j.common.ThreadSafe;
 @ThreadSafe
 @ApplicationScoped
 @Converter(autoApply = true)
-public class PasswordConverter extends XmlAdapter<String, Password> implements
-        AttributeConverter<Password, String>, ValueObjectConverter<String, Password> {
+public class PasswordConverter extends AbstractValueObjectConverter<String, Password> implements
+        AttributeConverter<Password, String> {
 
     @Override
     public final Class<String> getBaseTypeClass() {
@@ -62,26 +61,6 @@ public class PasswordConverter extends XmlAdapter<String, Password> implements
             return null;
         }
         return new Password(value);
-    }
-
-    @Override
-    public final String marshal(final Password value) throws Exception {
-        return fromVO(value);
-    }
-
-    @Override
-    public final Password unmarshal(final String value) throws Exception {
-        return toVO(value);
-    }
-
-    @Override
-    public final String convertToDatabaseColumn(final Password value) {
-        return fromVO(value);
-    }
-
-    @Override
-    public final Password convertToEntityAttribute(final String value) {
-        return toVO(value);
     }
 
 }
