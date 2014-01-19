@@ -156,6 +156,52 @@ public final class Contract {
     }
 
     /**
+     * Checks if the value is not higher than a give maximum.
+     * 
+     * @param name
+     *            Name of the value for a possible error message.
+     * @param value
+     *            Value to check.
+     * @param max
+     *            Max value (inclusive).
+     * 
+     * @throws ContractViolationException
+     *             The value was more than <code>max</code>.
+     */
+    // CHECKSTYLE:OFF:RedundantThrows
+    public static void requireArgMax(@NotNull final String name, @NotNull final int value,
+            final int max) throws ContractViolationException {
+        // CHECKSTYLE:ON
+        if (value > max) {
+            throw new ContractViolationException("Max value of argument '" + name + "' is " + max
+                    + ", but was: " + value);
+        }
+    }
+
+    /**
+     * Checks if the value is not less than a give minimum.
+     * 
+     * @param name
+     *            Name of the value for a possible error message.
+     * @param value
+     *            Value to check.
+     * @param min
+     *            Minimal value (inclusive).
+     * 
+     * @throws ContractViolationException
+     *             The value was less than <code>min</code>.
+     */
+    // CHECKSTYLE:OFF:RedundantThrows
+    public static void requireArgMin(@NotNull final String name, @NotNull final int value,
+            final int min) throws ContractViolationException {
+        // CHECKSTYLE:ON
+        if (value < min) {
+            throw new ContractViolationException("Min value of argument '" + name + "' is " + min
+                    + ", but was: " + value);
+        }
+    }
+
+    /**
      * Checks if the given value is valid.
      * 
      * @param value
