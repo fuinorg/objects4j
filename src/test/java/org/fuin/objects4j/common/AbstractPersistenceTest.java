@@ -31,8 +31,8 @@ import org.junit.BeforeClass;
 /**
  * Base class for unit tests with entity manager.
  */
-// CHECKSTYLE:OFF
-public abstract class AbstractPersistenceTest {
+// CHECKSTYLE:OFF:JavaDoc
+public abstract class AbstractPersistenceTest extends AbstractBaseTest {
 
     private static EntityManagerFactory emf;
 
@@ -81,25 +81,25 @@ public abstract class AbstractPersistenceTest {
     /**
      * Starts a transaction.
      */
-    protected void beginTransaction() {
+    protected final void beginTransaction() {
         getEm().getTransaction().begin();
     }
 
     /**
      * Commits the current transaction.
      */
-    protected void commitTransaction() {
+    protected final void commitTransaction() {
         getEm().getTransaction().commit();
     }
 
     /**
      * Rolls back the current transaction (if active.
      */
-    protected void rollbackTransaction() {
+    protected final void rollbackTransaction() {
         if (getEm().getTransaction().isActive()) {
             getEm().getTransaction().rollback();
         }
     }
 
 }
-// CHECKSTYLE:ON
+// CHECKSTYLE:ON:JavaDoc

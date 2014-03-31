@@ -32,7 +32,7 @@ import org.fuin.objects4j.common.Immutable;
  */
 @Immutable
 @XmlJavaTypeAdapter(PasswordSha512Converter.class)
-public final class PasswordSha512 extends AbstractStringValueObject<PasswordSha512> {
+public final class PasswordSha512 extends AbstractStringValueObject {
 
     private static final long serialVersionUID = -6285061339408965704L;
 
@@ -87,8 +87,13 @@ public final class PasswordSha512 extends AbstractStringValueObject<PasswordSha5
     }
 
     @Override
-    public final String toString() {
+    public final String asBaseType() {
         return hash;
+    }
+
+    @Override
+    public final String toString() {
+        return asBaseType();
     }
 
 }

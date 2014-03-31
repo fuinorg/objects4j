@@ -27,6 +27,14 @@ import org.junit.Test;
 public final class PasswordTest extends AbstractPersistenceTest {
 
     @Test
+    public final void testSerialize() {
+        final String password = "very-secret";
+        final Password original = new Password(password);
+        final Password copy = deserialize(serialize(original));
+        assertThat(original).isEqualTo(copy);
+    }
+
+    @Test
     public final void testCreateValid() {
         final String password = "very-secret";
         assertThat(new Password(password).toString()).isEqualTo(password);

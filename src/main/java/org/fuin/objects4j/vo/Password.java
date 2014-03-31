@@ -34,7 +34,7 @@ import org.fuin.objects4j.ui.Tooltip;
 @Label("Password")
 @Tooltip("Secret password")
 @XmlJavaTypeAdapter(PasswordConverter.class)
-public final class Password extends AbstractStringValueObject<Password> {
+public final class Password extends AbstractStringValueObject {
 
     private static final long serialVersionUID = -7745110729063955842L;
 
@@ -63,8 +63,13 @@ public final class Password extends AbstractStringValueObject<Password> {
     }
 
     @Override
-    public String toString() {
+    public final String asBaseType() {
         return str;
+    }
+
+    @Override
+    public final String toString() {
+        return asBaseType();
     }
 
 }

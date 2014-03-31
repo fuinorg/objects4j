@@ -18,14 +18,14 @@
 package org.fuin.objects4j.vo;
 
 /**
- * Converts a value object into another representation and back.
+ * Converts a value object into it's base type and back.
  * 
  * @param <BASE_TYPE>
  *            Type to convert the value object from/to.
  * @param <VO_TYPE>
  *            Concrete value object type.
  */
-public interface ValueObjectConverter<BASE_TYPE, VO_TYPE> {
+public interface ValueObjectConverter<BASE_TYPE, VO_TYPE extends ValueObjectWithBaseType<BASE_TYPE>> {
 
     /**
      * Returns the class of the type to convert from/to.

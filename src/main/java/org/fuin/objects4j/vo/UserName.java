@@ -40,7 +40,7 @@ import org.fuin.objects4j.ui.ShortLabel;
 @ShortLabel("User")
 @Label("Username")
 @XmlJavaTypeAdapter(UserNameConverter.class)
-public final class UserName extends AbstractStringValueObject<UserName> {
+public final class UserName extends AbstractStringValueObject {
 
     private static final long serialVersionUID = 9055520843135472634L;
 
@@ -69,8 +69,13 @@ public final class UserName extends AbstractStringValueObject<UserName> {
     }
 
     @Override
-    public String toString() {
+    public final String asBaseType() {
         return str;
+    }
+
+    @Override
+    public final String toString() {
+        return asBaseType();
     }
 
 }

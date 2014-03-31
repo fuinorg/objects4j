@@ -27,6 +27,14 @@ import org.junit.Test;
 public final class UserNameTest extends AbstractPersistenceTest {
 
     @Test
+    public final void testSerialize() {
+        final String userName = "michael-1_a";
+        final UserName original = new UserName(userName);
+        final UserName copy = deserialize(serialize(original));
+        assertThat(original).isEqualTo(copy);
+    }
+
+    @Test
     public final void testCreateValidLowerCase() {
         final String userName = "michael-1_a";
         assertThat(new UserName(userName).toString()).isEqualTo(userName);

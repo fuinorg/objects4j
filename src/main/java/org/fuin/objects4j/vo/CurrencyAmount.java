@@ -17,6 +17,7 @@
  */
 package org.fuin.objects4j.vo;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Currency;
@@ -37,7 +38,10 @@ import org.fuin.objects4j.ui.ShortLabel;
 @ShortLabel("Amount")
 @Label("Amount of currency")
 @XmlJavaTypeAdapter(CurrencyAmountConverter.class)
-public final class CurrencyAmount implements ValueObject, Comparable<CurrencyAmount> {
+public final class CurrencyAmount implements ValueObjectWithBaseType<String>,
+        Comparable<CurrencyAmount>, Serializable {
+
+    private static final long serialVersionUID = 1000L;
 
     @NotNull
     private BigDecimal amount;
@@ -167,11 +171,21 @@ public final class CurrencyAmount implements ValueObject, Comparable<CurrencyAmo
     }
 
     @Override
-    public final String toString() {
+    public final Class<String> getBaseType() {
+        return String.class;
+    }
+
+    @Override
+    public final String asBaseType() {
         if (stringCache == null) {
             stringCache = amountToStr(amount) + " " + currency.getCurrencyCode();
         }
         return stringCache;
+    }
+
+    @Override
+    public final String toString() {
+        return asBaseType();
     }
 
     /**

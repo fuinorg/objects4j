@@ -21,43 +21,42 @@ import java.util.UUID;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.AttributeConverter;
+import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 import org.fuin.objects4j.common.ThreadSafe;
 
 /**
- * Creates a {@link UUID}.
+ * Converts a {@link UUID} into a String and back.
  */
 @ThreadSafe
 @ApplicationScoped
-public final class UUIDConverter extends AbstractValueObjectConverter<String, UUID> implements
+public final class UUIDConverter extends XmlAdapter<String, UUID> implements
         AttributeConverter<UUID, String> {
 
     @Override
-    public Class<String> getBaseTypeClass() {
-        return String.class;
-    }
-
-    @Override
-    public final Class<UUID> getValueObjectClass() {
-        return UUID.class;
-    }
-
-    @Override
-    public final boolean isValid(final String value) {
-        return UUIDStrValidator.isValid(value);
-    }
-
-    @Override
-    public final UUID toVO(final String value) {
-        return UUID.fromString(value);
-    }
-
-    @Override
-    public final String fromVO(final UUID value) {
+    public final String marshal(final UUID value) throws Exception {
         if (value == null) {
             return null;
         }
         return value.toString();
+    }
+
+    @Override
+    public final UUID unmarshal(final String value) throws Exception {
+        return UUID.fromString(value);
+    }
+
+    @Override
+    public final String convertToDatabaseColumn(final UUID value) {
+        if (value == null) {
+            return null;
+        }
+        return value.toString();
+    }
+
+    @Override
+    public final UUID convertToEntityAttribute(final String value) {
+        return UUID.fromString(value);
     }
 
 }

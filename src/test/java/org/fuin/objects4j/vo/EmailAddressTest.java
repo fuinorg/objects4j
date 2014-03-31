@@ -27,6 +27,14 @@ import org.junit.Test;
 public final class EmailAddressTest extends AbstractPersistenceTest {
 
     @Test
+    public final void testSerialize() {
+        final String emailAddress = "abc@def.com";
+        final EmailAddress original = new EmailAddress(emailAddress);
+        final EmailAddress copy = deserialize(serialize(original));
+        assertThat(original).isEqualTo(copy);
+    }
+
+    @Test
     public final void testConstructValid() {
         final String emailAddress = "abc@def.com";
         assertThat(new EmailAddress(emailAddress).toString()).isEqualTo(emailAddress);

@@ -19,10 +19,18 @@ package org.fuin.objects4j.vo;
 
 import static org.fest.assertions.Assertions.assertThat;
 
+import org.fuin.objects4j.common.AbstractBaseTest;
 import org.junit.Test;
 
 //TESTCODE:BEGIN
-public class SecurityTokenTest {
+public class SecurityTokenTest extends AbstractBaseTest {
+
+    @Test
+    public final void testSerialize() {
+        final SecurityToken original = new SecurityToken();
+        final SecurityToken copy = deserialize(serialize(original));
+        assertThat(original).isEqualTo(copy);
+    }
 
     @Test
     public final void testCreate() {

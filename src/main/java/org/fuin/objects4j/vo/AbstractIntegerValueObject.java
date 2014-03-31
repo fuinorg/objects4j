@@ -21,11 +21,11 @@ import java.io.Serializable;
 
 /**
  * Base class for value objects that that overrides {@link Object#hashCode()}
- * and {@link Object#equals(Object)} and implements comparable all based on the
+ * and {@link Object#equals(Object)} and it implements comparable based on the
  * {@link #asBaseType()} method.
  */
-public abstract class AbstractStringValueObject implements ValueObjectWithBaseType<String>,
-        Comparable<AbstractStringValueObject>, Serializable {
+public abstract class AbstractIntegerValueObject implements ValueObjectWithBaseType<Integer>,
+        Comparable<AbstractIntegerValueObject>, Serializable {
 
     private static final long serialVersionUID = 1000L;
 
@@ -45,27 +45,18 @@ public abstract class AbstractStringValueObject implements ValueObjectWithBaseTy
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final AbstractStringValueObject other = (AbstractStringValueObject) obj;
+        final AbstractIntegerValueObject other = (AbstractIntegerValueObject) obj;
         return asBaseType().equals(other.asBaseType());
     }
 
     @Override
-    public final int compareTo(final AbstractStringValueObject other) {
-        return this.asBaseType().compareTo(other.asBaseType());
-    }
-
-    /**
-     * Returns the length.
-     * 
-     * @return Number of characters.
-     */
-    public final int length() {
-        return asBaseType().length();
+    public final int compareTo(final AbstractIntegerValueObject other) {
+        return asBaseType().compareTo(other.asBaseType());
     }
 
     @Override
-    public final Class<String> getBaseType() {
-        return String.class;
+    public final Class<Integer> getBaseType() {
+        return Integer.class;
     }
 
 }

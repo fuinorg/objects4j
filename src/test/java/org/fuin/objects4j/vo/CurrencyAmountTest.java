@@ -35,6 +35,13 @@ import org.junit.Test;
 public class CurrencyAmountTest extends AbstractPersistenceTest {
 
     @Test
+    public final void testSerialize() {
+        final CurrencyAmount original = new CurrencyAmount(bd(123.456, 3), cu("EUR"));
+        final CurrencyAmount copy = deserialize(serialize(original));
+        assertThat(original).isEqualTo(copy);
+    }
+
+    @Test
     public final void testEquals() {
         final CurrencyAmount eur1 = new CurrencyAmount(bd(123.456, 3), cu("EUR"));
         final CurrencyAmount eur2 = new CurrencyAmount(bd(123.456, 3), cu("EUR"));

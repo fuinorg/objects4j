@@ -27,6 +27,13 @@ import org.junit.Test;
 public final class PasswordSha512Test extends AbstractPersistenceTest {
 
     @Test
+    public final void testSerialize() {
+        final PasswordSha512 original = new PasswordSha512(new Password("very-secret"));
+        final PasswordSha512 copy = deserialize(serialize(original));
+        assertThat(original).isEqualTo(copy);
+    }
+
+    @Test
     public final void testCreateWithPasswordValid() {
         assertThat(new PasswordSha512(new Password("very-secret"))).isEqualTo(
                 new PasswordSha512(new Password("very-secret")));
