@@ -15,19 +15,49 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library. If not, see <http://www.gnu.org/licenses/>.
  */
-
-/**
- * Contains immutable object that represents an object whose equality isn't based on
- * identity. That means instances of this type are equal when they have the same
- * value, not necessarily being the same object. Additionally some helper classes are placed in this package.
- */
-@XmlJavaTypeAdapters({ @XmlJavaTypeAdapter(value = UUIDConverter.class, type = UUID.class),
-        @XmlJavaTypeAdapter(value = LocaleConverter.class, type = Locale.class) })
 package org.fuin.objects4j.vo;
 
 import java.util.Locale;
-import java.util.UUID;
 
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapters;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
+// CHECKSTYLE:OFF
+@Entity(name = "LOCALE_PARENT")
+public class LocaleParentEntity {
+
+    @Id
+    @Column(name = "ID")
+    private long id;
+
+    @Column(name = "LOCALE", nullable = true)
+    private Locale locale;
+
+    public LocaleParentEntity() {
+        super();
+    }
+
+    public LocaleParentEntity(long id) {
+        super();
+        this.id = id;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Locale getLocale() {
+        return locale;
+    }
+
+    public void setLocale(Locale locale) {
+        this.locale = locale;
+    }
+
+}
+// CHECKSTYLE:ON

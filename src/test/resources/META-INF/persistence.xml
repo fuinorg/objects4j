@@ -15,6 +15,7 @@
 		<class>org.fuin.objects4j.vo.PasswordParentEntity</class>
 		<class>org.fuin.objects4j.vo.UserNameParentEntity</class>
 		<class>org.fuin.objects4j.vo.UUIDParentEntity</class>
+		<class>org.fuin.objects4j.vo.LocaleParentEntity</class>
 		
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<properties>

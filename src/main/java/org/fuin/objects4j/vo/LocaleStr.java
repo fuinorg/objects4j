@@ -15,19 +15,32 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library. If not, see <http://www.gnu.org/licenses/>.
  */
-
-/**
- * Contains immutable object that represents an object whose equality isn't based on
- * identity. That means instances of this type are equal when they have the same
- * value, not necessarily being the same object. Additionally some helper classes are placed in this package.
- */
-@XmlJavaTypeAdapters({ @XmlJavaTypeAdapter(value = UUIDConverter.class, type = UUID.class),
-        @XmlJavaTypeAdapter(value = LocaleConverter.class, type = Locale.class) })
 package org.fuin.objects4j.vo;
 
-import java.util.Locale;
-import java.util.UUID;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapters;
+import javax.validation.Constraint;
+import javax.validation.Payload;
 
+//CHECKSTYLE:OFF
+/**
+ * The string has to be a valid {@link java.util.Locale}.
+ */
+@Target({ ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD, ElementType.ANNOTATION_TYPE })
+@Retention(RetentionPolicy.RUNTIME)
+@Constraint(validatedBy = { LocaleStrValidator.class })
+@Documented
+public @interface LocaleStr {
+
+    String message() default "{org.fuin.objects4j.vo.LocaleStr.message}";
+
+    Class<?>[] groups() default {};
+
+    Class<? extends Payload>[] payload() default {};
+
+}
+// CHECKSTYLE:ON
