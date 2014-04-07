@@ -18,8 +18,8 @@ Export-Package: org.fuin.objects4j.common;uses:="javax.validation,javax.
  HOT"
 Import-Package: javax.enterprise.context,javax.mail.internet;version="[1
  .4,2)";resolution:=optional,javax.persistence;version="[2.1,3)";resolut
- ion:=optional,javax.validation,javax.validation.constraints,javax.xml.b
- ind.annotation.adapters
+ ion:=optional,javax.validation;version="[1.1,2)",javax.validation.const
+ raints;version="[1.1,2)",javax.xml.bind.annotation.adapters
 Include-Resource: META-INF/beans.xml=src/main/resources/META-INF/beans.x
  ml,ValidationMessages.properties=src/main/resources/ValidationMessages.
  properties
