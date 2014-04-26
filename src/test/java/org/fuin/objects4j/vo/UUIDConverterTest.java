@@ -21,7 +21,7 @@ import static org.fest.assertions.Assertions.assertThat;
 
 import java.util.UUID;
 
-import org.fuin.objects4j.common.AbstractPersistenceTest;
+import org.fuin.units4j.AbstractPersistenceTest;
 import org.junit.Test;
 
 //TESTCODE:BEGIN

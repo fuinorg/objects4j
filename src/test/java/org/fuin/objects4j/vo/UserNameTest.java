@@ -19,9 +19,11 @@ package org.fuin.objects4j.vo;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-import org.fuin.objects4j.common.AbstractPersistenceTest;
 import org.fuin.objects4j.common.ContractViolationException;
+import org.fuin.units4j.AbstractPersistenceTest;
 import org.junit.Test;
+import static org.fuin.units4j.Units4JUtils.deserialize;
+import static org.fuin.units4j.Units4JUtils.serialize;
 
 //TESTCODE:BEGIN
 public final class UserNameTest extends AbstractPersistenceTest {

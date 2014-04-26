@@ -19,12 +19,11 @@ package org.fuin.objects4j.vo;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-import org.fuin.objects4j.common.AbstractBaseTest;
 import org.fuin.objects4j.common.ContractViolationException;
 import org.junit.Test;
 
 // CHECKSTYLE:OFF
-public final class KeyValueTest extends AbstractBaseTest {
+public final class KeyValueTest {
 
     @Test
     public final void testCreateValid() {

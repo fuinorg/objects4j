@@ -18,6 +18,8 @@
 package org.fuin.objects4j.vo;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.fuin.units4j.Units4JUtils.deserialize;
+import static org.fuin.units4j.Units4JUtils.serialize;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -25,7 +27,7 @@ import java.util.Currency;
 
 import javax.persistence.Query;
 
-import org.fuin.objects4j.common.AbstractPersistenceTest;
+import org.fuin.units4j.AbstractPersistenceTest;
 import org.junit.Test;
 
 /**

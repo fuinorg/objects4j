@@ -18,12 +18,13 @@
 package org.fuin.objects4j.vo;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.fuin.units4j.Units4JUtils.deserialize;
+import static org.fuin.units4j.Units4JUtils.serialize;
 
-import org.fuin.objects4j.common.AbstractBaseTest;
 import org.junit.Test;
 
 //TESTCODE:BEGIN
-public class SecurityTokenTest extends AbstractBaseTest {
+public class SecurityTokenTest {
 
     @Test
     public final void testSerialize() {
