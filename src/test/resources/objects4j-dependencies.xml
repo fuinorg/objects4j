@@ -14,6 +14,7 @@
       <dependsOn package="javax.persistence"/>
       <dependsOn package="javax.enterprise.context"/>
       <dependsOn package="javax.xml.bind.annotation.adapters"/>
+      <dependsOn package="org.joda.time"/>
   </alwaysAllowed>
   
   <!-- It's forbidden for all classes to use this (in production code) -->
