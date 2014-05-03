@@ -16,6 +16,7 @@
 		<class>org.fuin.objects4j.vo.UserNameParentEntity</class>
 		<class>org.fuin.objects4j.vo.UUIDParentEntity</class>
 		<class>org.fuin.objects4j.vo.LocaleParentEntity</class>
+		<class>org.fuin.objects4j.vo.JodaParentEntity</class>
 		
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<properties>

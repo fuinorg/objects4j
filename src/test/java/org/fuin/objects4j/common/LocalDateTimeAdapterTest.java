@@ -19,28 +19,72 @@ package org.fuin.objects4j.common;
 
 import static org.fest.assertions.Assertions.assertThat;
 
+import org.fuin.objects4j.vo.JodaParentEntity;
+import org.fuin.units4j.AbstractPersistenceTest;
 import org.joda.time.LocalDateTime;
 import org.junit.Test;
 
 //TESTCODE:BEGIN
-public final class LocalDateTimeAdapterTest {
+public final class LocalDateTimeAdapterTest extends AbstractPersistenceTest {
 
-    @Test
-    public final void testMarshalUnmarshal() {
+	@Test
+	public final void testMarshalUnmarshal() {
 
-    	// PREPARE
-    	final LocalDateTimeAdapter testee = new LocalDateTimeAdapter();
-    	final LocalDateTime original = new LocalDateTime(); 
-    	
-    	// TEST
-    	final String str = testee.marshal(original);
-    	final LocalDateTime copy = testee.unmarshal(str); 
-    	
-    	// VERIFY
-        assertThat(copy).isEqualTo(original);
+		// PREPARE
+		final LocalDateTimeAdapter testee = new LocalDateTimeAdapter();
+		final LocalDateTime original = new LocalDateTime();
 
-    }
+		// TEST
+		final String str = testee.marshal(original);
+		final LocalDateTime copy = testee.unmarshal(str);
 
+		// VERIFY
+		assertThat(copy).isEqualTo(original);
+
+	}
+
+	@Test
+	public final void testConvert() {
+
+		// PREPARE
+		final LocalDateTimeAdapter testee = new LocalDateTimeAdapter();
+		final LocalDateTime original = new LocalDateTime();
+
+		// TEST
+		final String str = testee.convertToDatabaseColumn(original);
+		final LocalDateTime copy = testee.convertToEntityAttribute(str);
+
+		// VERIFY
+		assertThat(copy).isEqualTo(original);
+
+	}
+
+	@Test
+	public void testJPA() {
+
+		// PREPARE
+		final LocalDateTime localDateTime = new LocalDateTime();
+
+		beginTransaction();
+		getEm().persist(new JodaParentEntity(1));
+		commitTransaction();
+
+		// TEST UPDATE
+		beginTransaction();
+		final JodaParentEntity entity = getEm()
+				.find(JodaParentEntity.class, 1L);
+		entity.setLocalDateTime(localDateTime);
+		commitTransaction();
+
+		// VERIFY
+		beginTransaction();
+		final JodaParentEntity copy = getEm().find(JodaParentEntity.class, 1L);
+		assertThat(copy).isNotNull();
+		assertThat(copy.getId()).isEqualTo(1);
+		assertThat(copy.getLocalDateTime()).isEqualTo(localDateTime);
+		commitTransaction();
+
+	}
 
 }
 // TESTCODE:END

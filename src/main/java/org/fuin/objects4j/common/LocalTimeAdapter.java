@@ -17,24 +17,48 @@
  */
 package org.fuin.objects4j.common;
 
+import javax.persistence.AttributeConverter;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 import org.joda.time.LocalTime;
 import org.joda.time.format.ISODateTimeFormat;
 
 /**
- * Joda local time JAXB adapter.
+ * Joda local time JAXB adapter and JPA converter.
  */
-public final class LocalTimeAdapter extends XmlAdapter<String, LocalTime> {
+public final class LocalTimeAdapter extends XmlAdapter<String, LocalTime>
+		implements AttributeConverter<LocalTime, String> {
 
 	@Override
 	public final LocalTime unmarshal(final String str) {
+		if (str == null) {
+			return null;
+		}
 		return LocalTime.parse(str, ISODateTimeFormat.timeParser());
 	}
 
 	@Override
 	public final String marshal(final LocalTime value) {
+		if (value == null) {
+			return null;
+		}
 		return ISODateTimeFormat.time().print(value);
+	}
+
+	@Override
+	public final String convertToDatabaseColumn(final LocalTime value) {
+		if (value == null) {
+			return null;
+		}
+		return ISODateTimeFormat.time().print(value);
+	}
+
+	@Override
+	public final LocalTime convertToEntityAttribute(final String str) {
+		if (str == null) {
+			return null;
+		}
+		return LocalTime.parse(str, ISODateTimeFormat.timeParser());
 	}
 
 }

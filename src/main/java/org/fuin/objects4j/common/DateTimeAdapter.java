@@ -17,24 +17,48 @@
  */
 package org.fuin.objects4j.common;
 
+import javax.persistence.AttributeConverter;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.ISODateTimeFormat;
 
 /**
- * Joda date time JAXB adapter.
+ * Joda date time JAXB adapter and JPA converter.
  */
-public final class DateTimeAdapter extends XmlAdapter<String, DateTime> {
-	
+public final class DateTimeAdapter extends XmlAdapter<String, DateTime>
+		implements AttributeConverter<DateTime, String> {
+
 	@Override
 	public final DateTime unmarshal(final String str) {
+		if (str == null) {
+			return null;
+		}
 		return DateTime.parse(str, ISODateTimeFormat.dateTimeParser());
 	}
 
 	@Override
 	public final String marshal(final DateTime value) {
+		if (value == null) {
+			return null;
+		}
 		return ISODateTimeFormat.dateTime().print(value);
+	}
+
+	@Override
+	public final String convertToDatabaseColumn(final DateTime value) {
+		if (value == null) {
+			return null;
+		}
+		return ISODateTimeFormat.dateTime().print(value);
+	}
+
+	@Override
+	public final DateTime convertToEntityAttribute(final String str) {
+		if (str == null) {
+			return null;
+		}
+		return DateTime.parse(str, ISODateTimeFormat.dateTimeParser());
 	}
 
 }
