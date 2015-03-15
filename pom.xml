@@ -11,7 +11,7 @@
 
 	<artifactId>objects4j</artifactId>
 	<packaging>jar</packaging>
-	<version>0.5.0</version>
+	<version>0.6.0</version>
 	<name>Objects4J</name>
 
 	<description>A library with common Java types that are mostly immutable value objects.</description>
@@ -90,7 +90,7 @@
 		<dependency>
 			<groupId>org.fuin</groupId>
 			<artifactId>units4j</artifactId>
-			<version>0.5.0</version>
+			<version>0.6.0</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -185,35 +185,41 @@
 			<scope>test</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>junit-addons</groupId>
+			<artifactId>junit-addons</artifactId>
+			<version>1.4</version>
+			<scope>test</scope>
+		</dependency>
 
 	</dependencies>
 
 	<build>
 
 		<plugins>
-		
+
 			<plugin>
-			    <groupId>org.codehaus.mojo</groupId>
-			    <artifactId>cobertura-maven-plugin</artifactId>
-			    <version>2.6</version>
-			    <configuration>
-			        <format>xml</format>
-			        <maxmem>256m</maxmem>
-			        <aggregate>true</aggregate>
-			    </configuration>
-			</plugin>	
-	
-			<plugin>
-			    <groupId>org.eluder.coveralls</groupId>
-			    <artifactId>coveralls-maven-plugin</artifactId>
-			    <version>3.0.1</version>
-			    <configuration>
-			        <repoToken>${coveralls.objects4j}</repoToken>
-			    </configuration>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>cobertura-maven-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<format>xml</format>
+					<maxmem>256m</maxmem>
+					<aggregate>true</aggregate>
+				</configuration>
 			</plugin>
-		
+
+			<plugin>
+				<groupId>org.eluder.coveralls</groupId>
+				<artifactId>coveralls-maven-plugin</artifactId>
+				<version>3.0.1</version>
+				<configuration>
+					<repoToken>${coveralls.objects4j}</repoToken>
+				</configuration>
+			</plugin>
+
 		</plugins>
 
 	</build>
-	
+
 </project>
