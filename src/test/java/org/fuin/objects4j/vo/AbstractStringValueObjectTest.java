@@ -17,25 +17,18 @@
  */
 package org.fuin.objects4j.vo;
 
-import junitx.extensions.EqualsHashCodeTestCase;
+import nl.jqno.equalsverifier.EqualsVerifier;
+
+import org.junit.Test;
 
 //CHECKSTYLE:OFF
-public class AbstractStringValueObjectTest extends EqualsHashCodeTestCase {
+public class AbstractStringValueObjectTest {
 
-    public AbstractStringValueObjectTest(String name) {
-        super(name);
+    @Test
+    public void testEqualsHashCode() {
+        EqualsVerifier.forExamples(new TestStringVO("A"), new TestStringVO("B"));
     }
 
-    @Override
-    protected Object createInstance() throws Exception {
-        return new TestStringVO("A");
-    }
-
-    @Override
-    protected Object createNotEqualInstance() throws Exception {
-        return new TestStringVO("B");
-    }
-    
     /** Implementation for tests. */
     public static class TestStringVO extends AbstractStringValueObject {
 

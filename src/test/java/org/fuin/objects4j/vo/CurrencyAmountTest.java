@@ -27,6 +27,8 @@ import java.util.Currency;
 
 import javax.persistence.Query;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
+
 import org.fuin.units4j.AbstractPersistenceTest;
 import org.junit.Test;
 
@@ -37,29 +39,40 @@ import org.junit.Test;
 public class CurrencyAmountTest extends AbstractPersistenceTest {
 
     @Test
-    public final void testSerialize() {
-        final CurrencyAmount original = new CurrencyAmount(bd(123.456, 3), cu("EUR"));
-        final CurrencyAmount copy = deserialize(serialize(original));
-        assertThat(original).isEqualTo(copy);
+    public void testEqualsHashCode() {
+        EqualsVerifier.forClass(CurrencyAmount.class)
+                .withPrefabValues(Currency.class, cu("EUR"), cu("USD"))
+                .verify();
     }
 
     @Test
-    public final void testEquals() {
-        final CurrencyAmount eur1 = new CurrencyAmount(bd(123.456, 3), cu("EUR"));
-        final CurrencyAmount eur2 = new CurrencyAmount(bd(123.456, 3), cu("EUR"));
-        final CurrencyAmount eur3 = new CurrencyAmount(bd(123.450, 3), cu("EUR"));
-        final CurrencyAmount usd1 = new CurrencyAmount(bd(123.456, 3), cu("USD"));
-        assertThat(eur1).isEqualTo(eur2);
-        assertThat(eur1).isNotEqualTo(eur3);
-        assertThat(eur1).isNotEqualTo(usd1);
+    public void testCompareTo() {
+        
+        final CurrencyAmount eur123_2 = new CurrencyAmount(bd(123, 2), cu("EUR"));
+        final CurrencyAmount usd123_2 = new CurrencyAmount(bd(123, 2), cu("USD"));
+        
+        assertThat(eur123_2.compareTo(usd123_2)).isLessThan(0);
+        assertThat(usd123_2.compareTo(eur123_2)).isGreaterThan(0);
+        assertThat(usd123_2.compareTo(usd123_2)).isEqualTo(0);
+        
+    }
+    
+    @Test
+    public final void testSerialize() {
+        final CurrencyAmount original = new CurrencyAmount(bd(123.456, 3),
+                cu("EUR"));
+        final CurrencyAmount copy = deserialize(serialize(original));
+        assertThat(original).isEqualTo(copy);
     }
 
     @Test
     public void testAmountToStr() {
 
         assertThat(CurrencyAmount.amountToStr(null)).isNull();
-        assertThat(CurrencyAmount.amountToStr(bd(-123.456, 3))).isEqualTo("-123.456");
-        assertThat(CurrencyAmount.amountToStr(bd(123.456, 3))).isEqualTo("123.456");
+        assertThat(CurrencyAmount.amountToStr(bd(-123.456, 3))).isEqualTo(
+                "-123.456");
+        assertThat(CurrencyAmount.amountToStr(bd(123.456, 3))).isEqualTo(
+                "123.456");
         assertThat(CurrencyAmount.amountToStr(bd(123, 3))).isEqualTo("123.000");
         assertThat(CurrencyAmount.amountToStr(bd(12, 3))).isEqualTo("12.000");
         assertThat(CurrencyAmount.amountToStr(bd(1, 3))).isEqualTo("1.000");
@@ -74,8 +87,10 @@ public class CurrencyAmountTest extends AbstractPersistenceTest {
     public void testStrToAmount() {
 
         assertThat(CurrencyAmount.strToAmount(null)).isNull();
-        assertThat(CurrencyAmount.strToAmount("-123.456")).isEqualTo(bd(-123.456, 3));
-        assertThat(CurrencyAmount.strToAmount("123.456")).isEqualTo(bd(123.456, 3));
+        assertThat(CurrencyAmount.strToAmount("-123.456")).isEqualTo(
+                bd(-123.456, 3));
+        assertThat(CurrencyAmount.strToAmount("123.456")).isEqualTo(
+                bd(123.456, 3));
         assertThat(CurrencyAmount.strToAmount("123.000")).isEqualTo(bd(123, 3));
         assertThat(CurrencyAmount.strToAmount("12.000")).isEqualTo(bd(12, 3));
         assertThat(CurrencyAmount.strToAmount("1.000")).isEqualTo(bd(1, 3));
@@ -91,37 +106,45 @@ public class CurrencyAmountTest extends AbstractPersistenceTest {
 
         // PREPARE
         beginTransaction();
-        final CurrencyAmountParentEntity cap1 = new CurrencyAmountParentEntity(1);
+        final CurrencyAmountParentEntity cap1 = new CurrencyAmountParentEntity(
+                1);
         getEm().persist(cap1);
-        final CurrencyAmountParentEntity cap2 = new CurrencyAmountParentEntity(2);
+        final CurrencyAmountParentEntity cap2 = new CurrencyAmountParentEntity(
+                2);
         cap2.setAmount(new CurrencyAmount("100.10", Currency.getInstance("USD")));
         getEm().persist(cap2);
-        final CurrencyAmountParentEntity cap3 = new CurrencyAmountParentEntity(3);
+        final CurrencyAmountParentEntity cap3 = new CurrencyAmountParentEntity(
+                3);
         cap3.setPrice(new CurrencyAmount("0.25", Currency.getInstance("USD")));
         getEm().persist(cap3);
         commitTransaction();
 
         // TEST UPDATE
         beginTransaction();
-        CurrencyAmountParentEntity ca = getEm().find(CurrencyAmountParentEntity.class, 1L);
-        ca.setAmount(new CurrencyAmount(new BigDecimal(1234.56).setScale(2, RoundingMode.HALF_UP),
-                Currency.getInstance("EUR")));
-        ca.setPrice(new CurrencyAmount(new BigDecimal(175701).setScale(0), Currency
-                .getInstance("JPY")));
+        CurrencyAmountParentEntity ca = getEm().find(
+                CurrencyAmountParentEntity.class, 1L);
+        ca.setAmount(new CurrencyAmount(new BigDecimal(1234.56).setScale(2,
+                RoundingMode.HALF_UP), Currency.getInstance("EUR")));
+        ca.setPrice(new CurrencyAmount(new BigDecimal(175701).setScale(0),
+                Currency.getInstance("JPY")));
         commitTransaction();
 
         // VERIFY
         beginTransaction();
 
         // Read using entity manager
-        CurrencyAmountParentEntity cap = getEm().find(CurrencyAmountParentEntity.class, 1L);
+        CurrencyAmountParentEntity cap = getEm().find(
+                CurrencyAmountParentEntity.class, 1L);
         assertThat(cap).isNotNull();
         assertThat(cap.getId()).isEqualTo(1);
         assertThat(cap.getAmount().getAmount()).isEqualTo(
                 new BigDecimal(1234.56).setScale(2, RoundingMode.HALF_UP));
-        assertThat(cap.getAmount().getCurrency()).isEqualTo(Currency.getInstance("EUR"));
-        assertThat(cap.getPrice().getAmount()).isEqualTo(new BigDecimal(175701).setScale(0));
-        assertThat(cap.getPrice().getCurrency()).isEqualTo(Currency.getInstance("JPY"));
+        assertThat(cap.getAmount().getCurrency()).isEqualTo(
+                Currency.getInstance("EUR"));
+        assertThat(cap.getPrice().getAmount()).isEqualTo(
+                new BigDecimal(175701).setScale(0));
+        assertThat(cap.getPrice().getCurrency()).isEqualTo(
+                Currency.getInstance("JPY"));
 
         // Select using native SQL
         assertThat(

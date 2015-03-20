@@ -11,7 +11,7 @@
 
 	<artifactId>objects4j</artifactId>
 	<packaging>jar</packaging>
-	<version>0.6.0</version>
+	<version>0.6.1-SNAPSHOT</version>
 	<name>Objects4J</name>
 
 	<description>A library with common Java types that are mostly immutable value objects.</description>
@@ -186,9 +186,9 @@
 		</dependency>
 
 		<dependency>
-			<groupId>junit-addons</groupId>
-			<artifactId>junit-addons</artifactId>
-			<version>1.4</version>
+			<groupId>nl.jqno.equalsverifier</groupId>
+			<artifactId>equalsverifier</artifactId>
+			<version>1.7.1</version>
 			<scope>test</scope>
 		</dependency>
 
