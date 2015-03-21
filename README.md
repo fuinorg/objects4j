@@ -6,6 +6,7 @@ A library with common Java types that are mostly immutable value objects.
 [![Build Status](https://fuin-org.ci.cloudbees.com/job/objects4j/badge/icon)](https://fuin-org.ci.cloudbees.com/job/objects4j/)
 [![Coverage Status](https://coveralls.io/repos/fuinorg/objects4j/badge.svg)](https://coveralls.io/r/fuinorg/objects4j)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.fuin/objects4j/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.fuin/objects4j/)
+[![LGPLv3 License](http://img.shields.io/badge/license-LGPLv3-blue.svg)](https://www.gnu.org/licenses/lgpl.html)
 
 ###Snapshots
 
