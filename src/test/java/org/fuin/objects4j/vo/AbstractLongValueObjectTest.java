@@ -18,6 +18,7 @@
 package org.fuin.objects4j.vo;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
 
 import org.junit.Test;
 
@@ -26,27 +27,33 @@ public class AbstractLongValueObjectTest {
 
     @Test
     public void testEqualsHashCode() {
-        EqualsVerifier.forExamples(new TestLongVO(1L), new TestLongVO(2L));
+        EqualsVerifier
+                .forClass(TestLongVO.class)
+                .withRedefinedSuperclass()
+                .withPrefabValues(AbstractLongValueObject.class,
+                        new TestLongVO(1L), new TestLongVO(2L))
+                .suppress(Warning.NULL_FIELDS).verify();
+
     }
 
     /** Implementation for tests. */
-    public static class TestLongVO extends AbstractLongValueObject {
+    public static final class TestLongVO extends AbstractLongValueObject {
 
         private static final long serialVersionUID = 1L;
-        
+
         private final Long value;
-        
+
         public TestLongVO(final Long value) {
             super();
             this.value = value;
         }
-        
+
         @Override
         public Long asBaseType() {
             return value;
         }
-        
+
     }
 
 }
-//CHECKSTYLE:ON
+// CHECKSTYLE:ON

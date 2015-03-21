@@ -18,36 +18,41 @@
 package org.fuin.objects4j.vo;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
 
 import org.junit.Test;
-
 
 //CHECKSTYLE:OFF
 public class AbstractIntegerValueObjectTest {
 
     @Test
     public void testEqualsHashCode() {
-        EqualsVerifier.forExamples(new TestIntegerVO(1), new TestIntegerVO(2));
+        EqualsVerifier
+                .forClass(TestIntegerVO.class)
+                .withRedefinedSuperclass()
+                .withPrefabValues(AbstractIntegerValueObject.class,
+                        new TestIntegerVO(1), new TestIntegerVO(2))
+                .suppress(Warning.NULL_FIELDS).verify();
     }
-    
+
     /** Implementation for tests. */
-    public static class TestIntegerVO extends AbstractIntegerValueObject {
+    public static final class TestIntegerVO extends AbstractIntegerValueObject {
 
         private static final long serialVersionUID = 1L;
-        
+
         private final Integer value;
-        
+
         public TestIntegerVO(final Integer value) {
             super();
             this.value = value;
         }
-        
+
         @Override
         public Integer asBaseType() {
             return value;
         }
-        
+
     }
 
 }
-//CHECKSTYLE:ON
+// CHECKSTYLE:ON

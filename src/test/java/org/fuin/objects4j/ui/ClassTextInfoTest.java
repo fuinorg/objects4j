@@ -22,6 +22,8 @@ import static org.fest.assertions.Assertions.assertThat;
 import java.util.Locale;
 
 import my.test.MyClass;
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
 
 import org.junit.Test;
 
@@ -44,13 +46,13 @@ public final class ClassTextInfoTest {
 
         final AnnotationAnalyzer annotationAnalyzer = new AnnotationAnalyzer();
 
-        ClassTextInfo testee = annotationAnalyzer.createClassInfo(MyClass.class, Locale.ENGLISH,
-                Label.class);
+        ClassTextInfo testee = annotationAnalyzer.createClassInfo(
+                MyClass.class, Locale.ENGLISH, Label.class);
         assertThat(testee.getClasz()).isSameAs(MyClass.class);
         assertThat(testee.getText()).isEqualTo("MyClass_en label");
 
-        testee = annotationAnalyzer
-                .createClassInfo(MyClass.class, Locale.ENGLISH, ShortLabel.class);
+        testee = annotationAnalyzer.createClassInfo(MyClass.class,
+                Locale.ENGLISH, ShortLabel.class);
         assertThat(testee.getClasz()).isSameAs(MyClass.class);
         assertThat(testee.getText()).isEqualTo("MyClass_en shortLabel");
 
@@ -61,15 +63,22 @@ public final class ClassTextInfoTest {
 
         final AnnotationAnalyzer annotationAnalyzer = new AnnotationAnalyzer();
 
-        ClassTextInfo testee = annotationAnalyzer.createClassInfo(MyClass.class, Locale.GERMAN,
-                Label.class);
+        ClassTextInfo testee = annotationAnalyzer.createClassInfo(
+                MyClass.class, Locale.GERMAN, Label.class);
         assertThat(testee.getClasz()).isSameAs(MyClass.class);
         assertThat(testee.getText()).isEqualTo("MyClass_de label");
 
-        testee = annotationAnalyzer.createClassInfo(MyClass.class, Locale.GERMAN, ShortLabel.class);
+        testee = annotationAnalyzer.createClassInfo(MyClass.class,
+                Locale.GERMAN, ShortLabel.class);
         assertThat(testee.getClasz()).isSameAs(MyClass.class);
         assertThat(testee.getText()).isEqualTo("MyClass_de shortLabel");
 
+    }
+
+    @Test
+    public void testEqualsHashCode() {
+        EqualsVerifier.forClass(ClassTextInfo.class)
+                .suppress(Warning.NULL_FIELDS).verify();
     }
 
 }
