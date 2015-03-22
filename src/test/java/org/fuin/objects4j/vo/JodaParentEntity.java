@@ -18,9 +18,14 @@
 package org.fuin.objects4j.vo;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import org.fuin.objects4j.common.DateTimeAdapter;
+import org.fuin.objects4j.common.LocalDateAdapter;
+import org.fuin.objects4j.common.LocalDateTimeAdapter;
+import org.fuin.objects4j.common.LocalTimeAdapter;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
@@ -35,15 +40,19 @@ public class JodaParentEntity {
 	private long id;
 
 	@Column(name = "LOCAL_DATE", nullable = true)
+	@Convert(converter = LocalDateAdapter.class)
 	private LocalDate localDate;
 
 	@Column(name = "LOCAL_DATE_TIME", nullable = true)
+        @Convert(converter = LocalDateTimeAdapter.class)
 	private LocalDateTime localDateTime;
 
 	@Column(name = "LOCAL_TIME", nullable = true)
+        @Convert(converter = LocalTimeAdapter.class)
 	private LocalTime localTime;
 
 	@Column(name = "DATE_TIME", nullable = true)
+        @Convert(converter = DateTimeAdapter.class)
 	private DateTime dateTime;
 
 	public JodaParentEntity() {

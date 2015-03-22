@@ -18,6 +18,7 @@
 package org.fuin.objects4j.vo;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -30,6 +31,7 @@ public class EmailAddressParentEntity {
     private long id;
 
     @Column(name = "EMAIL", nullable = true)
+    @Convert(converter = EmailAddressConverter.class)
     private EmailAddress emailAddress;
 
     public EmailAddressParentEntity() {
