@@ -92,7 +92,7 @@ public final class AnnotationAnalyzer {
 
     /**
      * Returns text annotation informations for all field of a class that are
-     * annotated with {@link #annotationClasz}. All other fields are ignored.
+     * annotated with <code>annotationClasz</code>. All other fields are ignored.
      * 
      * @param clasz
      *            Class that contains the fields.
