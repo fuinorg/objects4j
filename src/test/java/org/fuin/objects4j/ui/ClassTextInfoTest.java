@@ -17,7 +17,7 @@
  */
 package org.fuin.objects4j.ui;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Locale;
 
@@ -78,7 +78,7 @@ public final class ClassTextInfoTest {
     @Test
     public void testEqualsHashCode() {
         EqualsVerifier.forClass(ClassTextInfo.class)
-                .suppress(Warning.NULL_FIELDS).verify();
+                .suppress(Warning.NULL_FIELDS, Warning.ALL_FIELDS_SHOULD_BE_USED).verify();
     }
 
 }

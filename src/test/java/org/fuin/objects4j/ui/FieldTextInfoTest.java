@@ -17,7 +17,7 @@
  */
 package org.fuin.objects4j.ui;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -268,7 +268,7 @@ public final class FieldTextInfoTest {
                 .forClass(FieldTextInfo.class)
                 .withPrefabValues(Field.class, C.class.getDeclaredField("c"),
                         D.class.getDeclaredField("d2"))
-                .suppress(Warning.NULL_FIELDS).verify();
+                .suppress(Warning.NULL_FIELDS, Warning.ALL_FIELDS_SHOULD_BE_USED).verify();
     }
 
 }

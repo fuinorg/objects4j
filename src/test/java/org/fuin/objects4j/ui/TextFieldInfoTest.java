@@ -17,7 +17,7 @@
  */
 package org.fuin.objects4j.ui;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.lang.reflect.Field;
 import java.util.Locale;

@@ -17,7 +17,7 @@
  */
 package org.fuin.objects4j.vo;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 import java.util.Locale;
@@ -53,7 +53,7 @@ public final class LocaleStrValidatorTest {
         for (final Locale locale : locales) {
             final String value = locale.toString();
             // Skip locales like ja_JP_JP_#u-ca-japanese as we cannot handle it
-            if (!value.contains("#")) {
+            if (!value.contains("#") && !value.equals("")) {
 	            assertThat(testee.isValid(value, CONTEXT)).describedAs(value).isTrue();
 	            assertThat(LocaleStrValidator.parseArg("a", value)).describedAs(value).isEqualTo(locale);
             }

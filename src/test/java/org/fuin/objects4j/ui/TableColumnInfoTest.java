@@ -17,7 +17,7 @@
  */
 package org.fuin.objects4j.ui;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -186,7 +186,7 @@ public final class TableColumnInfoTest {
                 .withPrefabValues(FontSize.class,
                         new FontSize(40, FontSizeUnit.PIXEL),
                         new FontSize(100, FontSizeUnit.POINT))
-                .suppress(Warning.NULL_FIELDS).verify();
+                .suppress(Warning.NULL_FIELDS, Warning.ALL_FIELDS_SHOULD_BE_USED).verify();
     }
 
 }

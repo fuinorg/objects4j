@@ -17,7 +17,7 @@
  */
 package org.fuin.objects4j.vo;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.fuin.units4j.Units4JUtils.deserialize;
 import static org.fuin.units4j.Units4JUtils.serialize;
 

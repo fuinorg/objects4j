@@ -11,7 +11,7 @@
 
 	<artifactId>objects4j</artifactId>
 	<packaging>jar</packaging>
-	<version>0.6.1</version>
+	<version>0.6.2</version>
 	<name>Objects4J</name>
 
 	<description>A library with common Java types that are mostly immutable value objects.</description>
@@ -81,9 +81,9 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.easytesting</groupId>
-			<artifactId>fest-assert</artifactId>
-			<version>1.4</version>
+			<groupId>org.assertj</groupId>
+			<artifactId>assertj-core</artifactId>
+			<version>3.5.1</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -92,19 +92,25 @@
 			<artifactId>units4j</artifactId>
 			<version>0.6.1</version>
 			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>fest-assert</artifactId>
+					<groupId>org.easytesting</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>
 			<groupId>org.easymock</groupId>
 			<artifactId>easymock</artifactId>
-			<version>3.3.1</version>
+			<version>3.4</version>
 			<scope>test</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
-			<version>5.1.3.Final</version>
+			<version>5.2.4.Final</version>
 			<scope>test</scope>
 			<exclusions>
 				<exclusion>
@@ -133,22 +139,22 @@
 		</dependency>
 
 		<dependency>
-		    <groupId>org.jboss</groupId>
-		    <artifactId>jandex</artifactId>
-		    <version>1.2.3.Final</version>
+			<groupId>org.jboss</groupId>
+			<artifactId>jandex</artifactId>
+			<version>2.0.2.Final</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			<version>1.7.10</version>
+			<version>1.7.21</version>
 			<scope>test</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.7.10</version>
+			<version>1.7.21</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -187,15 +193,21 @@
 		<dependency>
 			<groupId>org.hsqldb</groupId>
 			<artifactId>hsqldb</artifactId>
-			<version>2.3.2</version>
+			<version>2.3.4</version>
 			<scope>test</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>nl.jqno.equalsverifier</groupId>
 			<artifactId>equalsverifier</artifactId>
-			<version>1.7.1</version>
+			<version>2.1.2</version>
 			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>19.0</version>
 		</dependency>
 
 	</dependencies>
@@ -209,8 +221,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.1</version>
 				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
+					<source>1.8</source>
+					<target>1.8</target>
 				</configuration>
 			</plugin>
 

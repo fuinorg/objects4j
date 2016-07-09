@@ -8,7 +8,7 @@ Bundle-Name: Objects4J
 Bundle-SymbolicName: org.fuin.objects4j
 Bundle-Vendor: Future Invent Informationsmanagement GmbH, Hamburg (Germa
  ny)
-Bundle-Version: 0.6.1
+Bundle-Version: 0.6.2
 Export-Package: org.fuin.objects4j.common;version="0.6.1";uses:="javax.p
  ersistence,javax.validation,javax.validation.constraints,javax.xml.bind
  .annotation.adapters,org.joda.time",org.fuin.objects4j.vo;version="0.6.

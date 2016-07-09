@@ -17,10 +17,10 @@
  */
 package org.fuin.objects4j.ui;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.data.Offset.offset;
 import nl.jqno.equalsverifier.EqualsVerifier;
 
-import org.fest.assertions.Delta;
 import org.junit.Test;
 
 //TESTCODE:BEGIN
@@ -46,7 +46,7 @@ public final class FontSizeTest {
     public final void testCreate() {
 
         final FontSize testee = new FontSize(12.34f, FontSizeUnit.EM);
-        assertThat(testee.getSize()).isEqualTo(12.34f, Delta.delta(0.01f));
+        assertThat(testee.getSize()).isEqualTo(12.34f, offset(0.01f));
         assertThat(testee.getUnit()).isEqualTo(FontSizeUnit.EM);
 
     }
@@ -61,13 +61,13 @@ public final class FontSizeTest {
                     POINTS[i]);
             assertThat((float) fontSize.toPixel()).describedAs(
                     POINTS[i] + "pt => " + PIXELS[i] + "px").isEqualTo(
-                    PIXELS[i], Delta.delta(1));
+                    PIXELS[i], offset(1f));
             assertThat(fontSize.toEm()).describedAs(
                     POINTS[i] + "pt => " + EMS[i] + "em").isEqualTo(EMS[i],
-                    Delta.delta(1));
+                    offset(1f));
             assertThat(fontSize.toPercent()).describedAs(
                     POINTS[i] + "pt => " + PERCENT[i] + "%").isEqualTo(
-                    PERCENT[i], Delta.delta(10));
+                    PERCENT[i], offset(10f));
         }
     }
 
@@ -78,16 +78,16 @@ public final class FontSizeTest {
                     FontSizeUnit.PIXEL);
             assertThat(fontSize.toPoint()).describedAs(
                     PIXELS[i] + "px => " + POINTS[i] + "pt").isEqualTo(
-                    POINTS[i], Delta.delta(1));
+                    POINTS[i], offset(1f));
             assertThat(fontSize.toPixel()).describedAs(
                     PIXELS[i] + "px => " + PIXELS[i] + "px").isEqualTo(
                     PIXELS[i]);
             assertThat(fontSize.toEm()).describedAs(
                     PIXELS[i] + "px => " + EMS[i] + "em").isEqualTo(EMS[i],
-                    Delta.delta(1));
+                    offset(1f));
             assertThat(fontSize.toPercent()).describedAs(
                     PIXELS[i] + "px => " + PERCENT[i] + "%").isEqualTo(
-                    PERCENT[i], Delta.delta(10));
+                    PERCENT[i], offset(10f));
         }
     }
 
@@ -98,13 +98,13 @@ public final class FontSizeTest {
                     FontSizeUnit.PERCENT);
             assertThat(fontSize.toPoint()).describedAs(
                     PERCENT[i] + "% => " + POINTS[i] + "pt").isEqualTo(
-                    POINTS[i], Delta.delta(1));
+                    POINTS[i], offset(1f));
             assertThat((float) fontSize.toPixel()).describedAs(
                     PERCENT[i] + "% => " + PIXELS[i] + "px").isEqualTo(
-                    PIXELS[i], Delta.delta(1));
+                    PIXELS[i], offset(1f));
             assertThat(fontSize.toEm()).describedAs(
                     PERCENT[i] + "% => " + EMS[i] + "em").isEqualTo(EMS[i],
-                    Delta.delta(1));
+                    offset(1f));
             assertThat(fontSize.toPercent()).describedAs(
                     PERCENT[i] + "% => " + PERCENT[i] + "%").isEqualTo(
                     PERCENT[i]);
@@ -117,15 +117,15 @@ public final class FontSizeTest {
             final FontSize fontSize = new FontSize(EMS[i], FontSizeUnit.EM);
             assertThat(fontSize.toPoint()).describedAs(
                     EMS[i] + "em => " + POINTS[i] + "pt").isEqualTo(POINTS[i],
-                    Delta.delta(1));
+                    offset(1f));
             assertThat((float) fontSize.toPixel()).describedAs(
                     EMS[i] + "em => " + PIXELS[i] + "px").isEqualTo(PIXELS[i],
-                    Delta.delta(1));
+                    offset(1f));
             assertThat(fontSize.toEm()).describedAs(
                     EMS[i] + "em => " + EMS[i] + "em").isEqualTo(EMS[i]);
             assertThat(fontSize.toPercent()).describedAs(
                     EMS[i] + "em => " + PERCENT[i] + "%").isEqualTo(PERCENT[i],
-                    Delta.delta(10));
+                    offset(10f));
         }
     }
 
