@@ -18,6 +18,12 @@
 package org.fuin.objects4j.vo;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.fuin.units4j.Units4JUtils.assertCauseCauseMessage;
+import static org.fuin.units4j.Units4JUtils.setPrivateField;
+import static org.fuin.units4j.Units4JUtils.validate;
+import static org.fuin.utils4j.JaxbUtils.XML_PREFIX;
+import static org.fuin.utils4j.JaxbUtils.marshal;
+import static org.fuin.utils4j.JaxbUtils.unmarshal;
 import static org.junit.Assert.fail;
 
 import java.util.Set;
@@ -32,7 +38,7 @@ import org.junit.runner.RunWith;
 
 //CHECKSTYLE:OFF
 @RunWith(WeldJUnit4Runner.class)
-public class PasswordSha512ConverterTest extends ValueObjectConverterTest {
+public class PasswordSha512ConverterTest {
 
     private static final String HASH = "925f43c3cfb956bbe3c6aa8023ba7ad5cfa21d104186fffc69e768e55940d9653b1cd36fba614fba2e1844f4436da20f83750c6ec1db356da154691bdd71a9b1";
 
@@ -69,14 +75,14 @@ public class PasswordSha512ConverterTest extends ValueObjectConverterTest {
 
         final Data data = new Data();
         data.passwordSha512 = new PasswordSha512(HASH);
-        assertThat(marshal(data)).isEqualTo(XML);
+        assertThat(marshal(data, Data.class)).isEqualTo(XML);
 
     }
 
     @Test
     public final void testMarshalUnmarshal() throws JAXBException {
 
-        final Data data = unmarshal(XML);
+        final Data data = unmarshal(XML, Data.class);
         assertThat(data.passwordSha512).isEqualTo(new PasswordSha512(HASH));
 
     }
@@ -86,7 +92,7 @@ public class PasswordSha512ConverterTest extends ValueObjectConverterTest {
 
         final String invalidHashInXmlData = XML_PREFIX + "<data passwordSha512=\"1\"/>";
         try {
-            unmarshal(invalidHashInXmlData);
+            unmarshal(invalidHashInXmlData, Data.class);
             fail("Expected an exception");
         } catch (final RuntimeException ex) {
             assertCauseCauseMessage(ex, "The argument 'hexEncodedHash' is not valid");

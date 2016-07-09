@@ -29,10 +29,14 @@ import javax.xml.bind.JAXBException;
 import org.fuin.units4j.WeldJUnit4Runner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import static org.fuin.utils4j.JaxbUtils.XML_PREFIX;
+import static org.fuin.utils4j.JaxbUtils.marshal;
+import static org.fuin.utils4j.JaxbUtils.unmarshal;
+import static org.fuin.units4j.Units4JUtils.*;
 
 //CHECKSTYLE:OFF
 @RunWith(WeldJUnit4Runner.class)
-public class UserNameConverterTest extends ValueObjectConverterTest {
+public class UserNameConverterTest {
 
     private static final String USER_NAME = "michael-1_a";
 
@@ -69,14 +73,14 @@ public class UserNameConverterTest extends ValueObjectConverterTest {
 
         final Data data = new Data();
         data.userName = new UserName(USER_NAME);
-        assertThat(marshal(data)).isEqualTo(XML);
+        assertThat(marshal(data, Data.class)).isEqualTo(XML);
 
     }
 
     @Test
     public final void testMarshalUnmarshal() throws JAXBException {
 
-        final Data data = unmarshal(XML);
+        final Data data = unmarshal(XML, Data.class);
         assertThat(data.userName).isEqualTo(new UserName(USER_NAME));
 
     }
@@ -86,7 +90,7 @@ public class UserNameConverterTest extends ValueObjectConverterTest {
 
         final String invalidUsernameInXmlData = XML_PREFIX + "<data userName=\"x\"/>";
         try {
-            unmarshal(invalidUsernameInXmlData);
+            unmarshal(invalidUsernameInXmlData, Data.class);
             fail("Expected an exception");
         } catch (final RuntimeException ex) {
             assertCauseCauseMessage(ex, "The argument 'userName' is not valid: 'x'");

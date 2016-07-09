@@ -54,5 +54,9 @@ public class Data {
     @XmlAttribute(name = "ca")
     public CurrencyAmount currencyAmount;
 
+    @Valid
+    @XmlAttribute(name = "any-str")
+    public AnyStr anyStr;
+    
 }
 // CHECKSTYLE:ON

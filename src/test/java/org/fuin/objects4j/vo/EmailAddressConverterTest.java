@@ -18,6 +18,10 @@
 package org.fuin.objects4j.vo;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.fuin.units4j.Units4JUtils.assertCauseCauseMessage;
+import static org.fuin.utils4j.JaxbUtils.XML_PREFIX;
+import static org.fuin.utils4j.JaxbUtils.marshal;
+import static org.fuin.utils4j.JaxbUtils.unmarshal;
 import static org.junit.Assert.fail;
 
 import javax.inject.Inject;
@@ -29,7 +33,7 @@ import org.junit.runner.RunWith;
 
 // CHECKSTYLE:OFF
 @RunWith(WeldJUnit4Runner.class)
-public class EmailAddressConverterTest extends ValueObjectConverterTest {
+public class EmailAddressConverterTest  {
 
     private static final String XML = XML_PREFIX + "<data email=\"a@b.c\"/>";
 
@@ -63,14 +67,14 @@ public class EmailAddressConverterTest extends ValueObjectConverterTest {
 
         final Data data = new Data();
         data.email = new EmailAddress("a@b.c");
-        assertThat(marshal(data)).isEqualTo(XML);
+        assertThat(marshal(data, Data.class)).isEqualTo(XML);
 
     }
 
     @Test
     public final void testMarshalUnmarshal() throws JAXBException {
 
-        final Data data = unmarshal(XML);
+        final Data data = unmarshal(XML, Data.class);
         assertThat(data.email).isEqualTo(new EmailAddress("a@b.c"));
 
     }
@@ -80,7 +84,7 @@ public class EmailAddressConverterTest extends ValueObjectConverterTest {
 
         final String invalidEmailInXmlData = XML_PREFIX + "<data email=\"abc@\"/>";
         try {
-            unmarshal(invalidEmailInXmlData);
+            unmarshal(invalidEmailInXmlData, Data.class);
             fail("Expected an exception");
         } catch (final RuntimeException ex) {
             assertCauseCauseMessage(ex, "The argument 'emailAddress' is not valid: 'abc@'");

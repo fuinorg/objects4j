@@ -18,6 +18,12 @@
 package org.fuin.objects4j.vo;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.fuin.units4j.Units4JUtils.assertCauseCauseMessage;
+import static org.fuin.units4j.Units4JUtils.setPrivateField;
+import static org.fuin.units4j.Units4JUtils.validate;
+import static org.fuin.utils4j.JaxbUtils.XML_PREFIX;
+import static org.fuin.utils4j.JaxbUtils.marshal;
+import static org.fuin.utils4j.JaxbUtils.unmarshal;
 import static org.junit.Assert.fail;
 
 import java.util.Set;
@@ -32,7 +38,7 @@ import org.junit.runner.RunWith;
 
 // CHECKSTYLE:OFF
 @RunWith(WeldJUnit4Runner.class)
-public class PasswordConverterTest extends ValueObjectConverterTest {
+public class PasswordConverterTest {
 
     private static final String XML = XML_PREFIX + "<data password=\"abcd1234\"/>";
 
@@ -69,14 +75,14 @@ public class PasswordConverterTest extends ValueObjectConverterTest {
 
         final Data data = new Data();
         data.password = new Password("abcd1234");
-        assertThat(marshal(data)).isEqualTo(XML);
+        assertThat(marshal(data, Data.class)).isEqualTo(XML);
 
     }
 
     @Test
     public final void testMarshalUnmarshal() throws JAXBException {
 
-        final Data data = unmarshal(XML);
+        final Data data = unmarshal(XML, Data.class);
         assertThat(data.password).isNotNull();
         assertThat(data.password).isEqualTo(new Password("abcd1234"));
 
@@ -87,7 +93,7 @@ public class PasswordConverterTest extends ValueObjectConverterTest {
 
         final String invalidPasswordInXmlData = XML_PREFIX + "<data password=\"abcd123\"/>";
         try {
-            unmarshal(invalidPasswordInXmlData);
+            unmarshal(invalidPasswordInXmlData, Data.class);
             fail("Expected an exception");
         } catch (final RuntimeException ex) {
             assertCauseCauseMessage(ex, "The argument 'password' is not valid: 'abcd123'");

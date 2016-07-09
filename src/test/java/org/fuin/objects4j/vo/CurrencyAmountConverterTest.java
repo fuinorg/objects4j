@@ -18,6 +18,10 @@
 package org.fuin.objects4j.vo;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.fuin.units4j.Units4JUtils.assertCauseCauseMessage;
+import static org.fuin.utils4j.JaxbUtils.XML_PREFIX;
+import static org.fuin.utils4j.JaxbUtils.marshal;
+import static org.fuin.utils4j.JaxbUtils.unmarshal;
 import static org.junit.Assert.fail;
 
 import java.math.BigDecimal;
@@ -33,7 +37,7 @@ import org.junit.runner.RunWith;
 
 // CHECKSTYLE:OFF
 @RunWith(WeldJUnit4Runner.class)
-public class CurrencyAmountConverterTest extends ValueObjectConverterTest {
+public class CurrencyAmountConverterTest {
 
     private static final String XML = XML_PREFIX + "<data ca=\"1234.56 EUR\"/>";
 
@@ -71,14 +75,14 @@ public class CurrencyAmountConverterTest extends ValueObjectConverterTest {
 
         final Data data = new Data();
         data.currencyAmount = new CurrencyAmount("1234.56", "EUR");
-        assertThat(marshal(data)).isEqualTo(XML);
+        assertThat(marshal(data, Data.class)).isEqualTo(XML);
 
     }
 
     @Test
     public final void testMarshalUnmarshal() throws JAXBException {
 
-        final Data data = unmarshal(XML);
+        final Data data = unmarshal(XML, Data.class);
         assertThat(data.currencyAmount).isEqualTo(new CurrencyAmount("1234.56", "EUR"));
 
     }
@@ -88,7 +92,7 @@ public class CurrencyAmountConverterTest extends ValueObjectConverterTest {
 
         final String invalidEmailInXmlData = XML_PREFIX + "<data ca=\"1234.56\"/>";
         try {
-            unmarshal(invalidEmailInXmlData);
+            unmarshal(invalidEmailInXmlData, Data.class);
             fail("Expected an exception");
         } catch (final RuntimeException ex) {
             assertCauseCauseMessage(ex, "No space character found in '1234.56'");
