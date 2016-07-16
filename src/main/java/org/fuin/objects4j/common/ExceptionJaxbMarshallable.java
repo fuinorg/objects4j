@@ -22,11 +22,4 @@ package org.fuin.objects4j.common;
  */
 public interface ExceptionJaxbMarshallable {
 
-    /**
-     * Returns the message.
-     * 
-     * @return Exception message.
-     */
-    public String getMsg();
-
 }

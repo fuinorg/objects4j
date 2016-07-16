@@ -49,7 +49,6 @@ public class AbstractJaxbMarshallableExceptionTest {
 
         // VERIFY
         assertThat(copy.getMessage()).isEqualTo(original.getMessage());
-        assertThat(copy.getMsg()).isEqualTo(original.getMsg());
 
     }
 
@@ -76,7 +75,6 @@ public class AbstractJaxbMarshallableExceptionTest {
         final TestException copy = unmarshal(xml, TestException.class);
 
         // VERIFY
-        assertThat(copy.getMsg()).isEqualTo(original.getMsg());
         assertThat(copy.getMessage()).isEqualTo(original.getMessage());
         assertThat(copy.getStackTrace()).isEmpty();
 
@@ -89,7 +87,7 @@ public class AbstractJaxbMarshallableExceptionTest {
         private static final long serialVersionUID = 1L;
 
         /**
-         * JAX-B constrcutor.
+         * JAX-B constructor.
          */
         protected TestException() {
             super();

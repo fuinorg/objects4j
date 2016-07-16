@@ -57,7 +57,6 @@ public abstract class AbstractJaxbMarshallableException extends Exception implem
      */
     public AbstractJaxbMarshallableException(final String message, final Throwable cause) {
         super(message, cause);
-        this.msg = message;
     }
 
     /**
@@ -73,11 +72,6 @@ public abstract class AbstractJaxbMarshallableException extends Exception implem
         this.msg = message;
     }
 
-    @Override
-    public final String getMsg() {
-        return msg;
-    }
-
     /**
      * Invoked by Marshaller after it has created an instance of this object.
      * 
@@ -89,6 +83,7 @@ public abstract class AbstractJaxbMarshallableException extends Exception implem
      */
     protected final void beforeMarshal(final Marshaller marshaller) {
         this.transientStackTrace = getStackTrace();
+        this.msg = getMessage();
         setStackTrace(new StackTraceElement[] {});
     }
 
@@ -102,20 +97,6 @@ public abstract class AbstractJaxbMarshallableException extends Exception implem
      */
     protected final void afterMarshal(final Marshaller marshaller) {
         setStackTrace(this.transientStackTrace);
-    }
-
-    /**
-     * This method is called immediately after the object is created and before the unmarshalling of this
-     * object begins. The callback provides an opportunity to initialize JavaBean properties prior to
-     * unmarshalling.
-     *
-     * @param unmarshaller
-     *            Unmarshaller.
-     * @param parent
-     *            Parent object.
-     */
-    protected final void beforeUnmarshal(final Unmarshaller unmarshaller, final Object parent) {
-        // Do nothing for now...
     }
 
     /**
