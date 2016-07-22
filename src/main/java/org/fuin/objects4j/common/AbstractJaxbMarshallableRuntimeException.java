@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlElement;
  * Base class for runtime exceptions that removes the stack trace and cause while marshalling and
  * unmarshalling using JAX-B.
  */
-public abstract class AbstractJaxbMarshallableRuntimeException extends Exception implements
+public abstract class AbstractJaxbMarshallableRuntimeException extends RuntimeException implements
         ExceptionJaxbMarshallable {
 
     private static final long serialVersionUID = 1L;
