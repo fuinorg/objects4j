@@ -32,7 +32,7 @@ import org.xmlunit.builder.DiffBuilder;
 import org.xmlunit.diff.Diff;
 
 /**
- * Tests for {@link AggregateDeletedException}.
+ * Tests for {@link AbstractJaxbMarshallableException}.
  */
 // CHECKSTYLE:OFF Disabled for test
 public class AbstractJaxbMarshallableExceptionTest {
