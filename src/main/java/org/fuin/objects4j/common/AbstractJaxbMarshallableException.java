@@ -24,7 +24,8 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlElement;
 
 /**
- * Base class that removes the stack trace and cause while marshalling and unmarshalling using JAX-B.
+ * Base class for checked exceptions that removes the stack trace and cause while marshalling and
+ * unmarshalling using JAX-B.
  */
 public abstract class AbstractJaxbMarshallableException extends Exception implements
         ExceptionJaxbMarshallable {
