@@ -28,6 +28,32 @@ import org.junit.Test;
 public class UUIDConverterTest extends AbstractPersistenceTest {
 
     @Test
+    public void testMarshal() throws Exception {
+        
+        // PREPARE
+        final String str = "ec5468bd-9cd9-4a0f-a502-96190f6a0995";
+        final UUID uuid = UUID.fromString(str);
+        
+        // TEST & VERIFY
+        assertThat(new UUIDConverter().marshal(uuid)).isEqualTo(str);
+        assertThat(new UUIDConverter().marshal(null)).isNull();
+        
+    }
+
+    @Test
+    public void testUnmarshal() throws Exception {
+        
+        // PREPARE
+        final String str = "ec5468bd-9cd9-4a0f-a502-96190f6a0995";
+        final UUID uuid = UUID.fromString(str);
+        
+        // TEST & VERIFY
+        assertThat(new UUIDConverter().unmarshal(str)).isEqualTo(uuid);
+        assertThat(new UUIDConverter().unmarshal(null)).isNull();
+        
+    }
+    
+    @Test
     public final void testJPA() {
 
         // PREPARE
