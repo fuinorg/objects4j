@@ -19,7 +19,6 @@ package org.fuin.objects4j.vo;
 
 import java.util.UUID;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.AttributeConverter;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
