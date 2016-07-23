@@ -22,8 +22,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.fuin.objects4j.common.ContractViolationException;
 import org.fuin.units4j.AbstractPersistenceTest;
 import org.junit.Test;
-import static org.fuin.units4j.Units4JUtils.deserialize;
-import static org.fuin.units4j.Units4JUtils.serialize;
+import static org.fuin.utils4j.Utils4J.deserialize;
+import static org.fuin.utils4j.Utils4J.serialize;
 
 //TESTCODE:BEGIN
 public final class UserNameTest extends AbstractPersistenceTest {

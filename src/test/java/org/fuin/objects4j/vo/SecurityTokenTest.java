@@ -18,8 +18,8 @@
 package org.fuin.objects4j.vo;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.fuin.units4j.Units4JUtils.deserialize;
-import static org.fuin.units4j.Units4JUtils.serialize;
+import static org.fuin.utils4j.Utils4J.deserialize;
+import static org.fuin.utils4j.Utils4J.serialize;
 
 import org.junit.Test;
 
