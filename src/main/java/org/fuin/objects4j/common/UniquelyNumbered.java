@@ -22,11 +22,11 @@ package org.fuin.objects4j.common;
  */
 public interface UniquelyNumbered {
 
-	/**
-	 * Returns a number that is unique in a context. 
-	 * 
-	 * @return Unique ID.
-	 */
-	public long getUniqueNumber();
-	
+    /**
+     * Returns a number that is unique in a context.
+     * 
+     * @return Unique ID.
+     */
+    public long getUniqueNumber();
+
 }

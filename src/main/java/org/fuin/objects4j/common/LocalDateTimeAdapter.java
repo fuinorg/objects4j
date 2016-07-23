@@ -26,40 +26,39 @@ import org.joda.time.format.ISODateTimeFormat;
 /**
  * Joda local date/time JAXB adapter and JPA converter.
  */
-public final class LocalDateTimeAdapter extends
-		XmlAdapter<String, LocalDateTime> implements
-		AttributeConverter<LocalDateTime, String> {
+public final class LocalDateTimeAdapter extends XmlAdapter<String, LocalDateTime>
+        implements AttributeConverter<LocalDateTime, String> {
 
-	@Override
-	public final LocalDateTime unmarshal(final String str) {
-		if (str == null) {
-			return null;
-		}
-		return LocalDateTime.parse(str, ISODateTimeFormat.dateTimeParser());
-	}
+    @Override
+    public final LocalDateTime unmarshal(final String str) {
+        if (str == null) {
+            return null;
+        }
+        return LocalDateTime.parse(str, ISODateTimeFormat.dateTimeParser());
+    }
 
-	@Override
-	public final String marshal(final LocalDateTime value) {
-		if (value == null) {
-			return null;
-		}
-		return ISODateTimeFormat.dateTime().print(value);
-	}
+    @Override
+    public final String marshal(final LocalDateTime value) {
+        if (value == null) {
+            return null;
+        }
+        return ISODateTimeFormat.dateTime().print(value);
+    }
 
-	@Override
-	public final String convertToDatabaseColumn(final LocalDateTime value) {
-		if (value == null) {
-			return null;
-		}
-		return ISODateTimeFormat.dateTime().print(value);
-	}
+    @Override
+    public final String convertToDatabaseColumn(final LocalDateTime value) {
+        if (value == null) {
+            return null;
+        }
+        return ISODateTimeFormat.dateTime().print(value);
+    }
 
-	@Override
-	public final LocalDateTime convertToEntityAttribute(final String str) {
-		if (str == null) {
-			return null;
-		}
-		return LocalDateTime.parse(str, ISODateTimeFormat.dateTimeParser());
-	}
+    @Override
+    public final LocalDateTime convertToEntityAttribute(final String str) {
+        if (str == null) {
+            return null;
+        }
+        return LocalDateTime.parse(str, ISODateTimeFormat.dateTimeParser());
+    }
 
 }
