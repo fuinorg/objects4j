@@ -29,7 +29,6 @@ import org.fuin.objects4j.common.ThreadSafe;
  * Converts a {@link UUID} into a String and back.
  */
 @ThreadSafe
-@ApplicationScoped
 public final class UUIDConverter extends XmlAdapter<String, UUID> implements
         AttributeConverter<UUID, String> {
 

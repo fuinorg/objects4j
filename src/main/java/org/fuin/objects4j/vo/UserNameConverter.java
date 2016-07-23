@@ -17,7 +17,6 @@
  */
 package org.fuin.objects4j.vo;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
@@ -27,7 +26,6 @@ import org.fuin.objects4j.common.ThreadSafe;
  * Creates a {@link UserName}.
  */
 @ThreadSafe
-@ApplicationScoped
 @Converter(autoApply = true)
 public final class UserNameConverter extends AbstractValueObjectConverter<String, UserName>
         implements AttributeConverter<UserName, String> {

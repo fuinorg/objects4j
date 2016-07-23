@@ -17,7 +17,6 @@
  */
 package org.fuin.objects4j.vo;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
@@ -27,7 +26,6 @@ import org.fuin.objects4j.common.ThreadSafe;
  * Creates a {@link Password}.
  */
 @ThreadSafe
-@ApplicationScoped
 @Converter(autoApply = true)
 public class PasswordConverter extends AbstractValueObjectConverter<String, Password> implements
         AttributeConverter<Password, String> {

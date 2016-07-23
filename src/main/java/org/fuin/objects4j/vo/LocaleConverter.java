@@ -20,7 +20,6 @@ package org.fuin.objects4j.vo;
 import java.util.Locale;
 import java.util.StringTokenizer;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.AttributeConverter;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
@@ -30,7 +29,6 @@ import org.fuin.objects4j.common.ThreadSafe;
  * Converts a {@link Locale} into a String and back.
  */
 @ThreadSafe
-@ApplicationScoped
 public final class LocaleConverter extends XmlAdapter<String, Locale> implements
         AttributeConverter<Locale, String> {
 
@@ -70,7 +68,7 @@ public final class LocaleConverter extends XmlAdapter<String, Locale> implements
      * @return Locale.
      */
     public static Locale asLocale(final String value) {
-        Locale locale;
+        final Locale locale;
         final int p = value.indexOf("__");
         if (p > -1) {
             locale = new Locale(value.substring(0, p), null, value.substring(p + 2));
