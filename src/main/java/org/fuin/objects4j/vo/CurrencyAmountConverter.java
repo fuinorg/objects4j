@@ -19,7 +19,6 @@ package org.fuin.objects4j.vo;
 
 import java.util.Currency;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.AttributeConverter;
 
 import org.fuin.objects4j.common.ThreadSafe;
@@ -28,8 +27,7 @@ import org.fuin.objects4j.common.ThreadSafe;
  * Converts a {@link CurrencyAmount}.
  */
 @ThreadSafe
-@ApplicationScoped
-public class CurrencyAmountConverter extends AbstractValueObjectConverter<String, CurrencyAmount>
+public final class CurrencyAmountConverter extends AbstractValueObjectConverter<String, CurrencyAmount>
         implements AttributeConverter<CurrencyAmount, String> {
 
     @Override
