@@ -20,7 +20,7 @@ package org.fuin.objects4j.vo;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
-import org.fuin.objects4j.common.ContractViolationException;
+import org.fuin.objects4j.common.ConstraintViolationException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -61,14 +61,14 @@ public class TrimmedNotEmptyValidatorTest {
         try {
             TrimmedNotEmptyValidator.requireArgValid("a", "");
             fail();
-        } catch (final ContractViolationException ex) {
+        } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo("The argument 'a' cannot be empty");
         }
 
         try {
             TrimmedNotEmptyValidator.requireArgValid("a", " ");
             fail();
-        } catch (final ContractViolationException ex) {
+        } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo("The argument 'a' cannot be empty");
         }
         

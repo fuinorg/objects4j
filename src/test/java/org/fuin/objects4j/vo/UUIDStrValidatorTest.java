@@ -21,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.UUID;
 
-import org.fuin.objects4j.common.ContractViolationException;
+import org.fuin.objects4j.common.ConstraintViolationException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -83,7 +83,7 @@ public final class UUIDStrValidatorTest {
         try {
             UUIDStrValidator.parseArg("a", "");
             fail();
-        } catch (final ContractViolationException ex) {
+        } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo("The argument 'a' is not valid: ''");
         }
         
@@ -97,7 +97,7 @@ public final class UUIDStrValidatorTest {
         try {
             UUIDStrValidator.parseArg("a", "1");
             fail();
-        } catch (final ContractViolationException ex) {
+        } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo("The argument 'a' is not valid: '1'");
         }
         
@@ -112,7 +112,7 @@ public final class UUIDStrValidatorTest {
         try {
             UUIDStrValidator.parseArg("a", value);
             fail();
-        } catch (final ContractViolationException ex) {
+        } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo("The argument 'a' is not valid: '" + value + "'");
         }
         

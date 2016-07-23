@@ -24,7 +24,7 @@ import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.fuin.objects4j.common.Contract;
-import org.fuin.objects4j.common.ContractViolationException;
+import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.objects4j.common.Immutable;
 
 /**
@@ -54,7 +54,7 @@ public final class PasswordSha512 extends AbstractStringValueObject {
         this.hash = hexEncodedHash;
         Contract.requireArgNotEmpty("hexEncodedHash", hexEncodedHash);
         if (!PasswordSha512StrValidator.isValid(hexEncodedHash)) {
-            throw new ContractViolationException("The argument 'hexEncodedHash' is not valid");
+            throw new ConstraintViolationException("The argument 'hexEncodedHash' is not valid");
         }
     }
 

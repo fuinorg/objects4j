@@ -109,7 +109,7 @@ public final class IsDirectoryValidatorTest {
         try {
             IsDirectoryValidator.requireArgValid("x", existingFile);
             fail("Expected exception");
-        } catch (final ContractViolationException ex) {
+        } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).startsWith("The argument 'x' is not a directory:");
         }
 

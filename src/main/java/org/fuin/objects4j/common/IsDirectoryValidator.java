@@ -49,15 +49,15 @@ public class IsDirectoryValidator implements ConstraintValidator<IsDirectory, Fi
      * @param value
      *            Value to check.
      * 
-     * @throws ContractViolationException
+     * @throws ConstraintViolationException
      *             The file does not exist.
      */
     // CHECKSTYLE:OFF:RedundantThrows
     public static void requireArgValid(@NotNull final String name,
-            @FileExists @NotNull final File value) throws ContractViolationException {
+            @FileExists @NotNull final File value) throws ConstraintViolationException {
         // CHECKSTYLE:ON
         if (!value.isDirectory()) {
-            throw new ContractViolationException("The argument '" + name
+            throw new ConstraintViolationException("The argument '" + name
                     + "' is not a directory: '" + value + "'");
         }
     }

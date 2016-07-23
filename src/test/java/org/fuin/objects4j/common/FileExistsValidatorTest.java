@@ -112,7 +112,7 @@ public final class FileExistsValidatorTest {
         try {
             FileExistsValidator.requireArgValid("x", notExisting);
             fail("Expected exception");
-        } catch (final ContractViolationException ex) {
+        } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).startsWith("The argument 'x' is not an existing file:");
         }
 

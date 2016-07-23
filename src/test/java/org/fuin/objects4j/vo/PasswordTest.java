@@ -21,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.fuin.utils4j.Utils4J.deserialize;
 import static org.fuin.utils4j.Utils4J.serialize;
 
-import org.fuin.objects4j.common.ContractViolationException;
+import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.units4j.AbstractPersistenceTest;
 import org.junit.Test;
 
@@ -43,17 +43,17 @@ public final class PasswordTest extends AbstractPersistenceTest {
         assertThat(new Password(password).length()).isEqualTo(password.length());
     }
 
-    @Test(expected = ContractViolationException.class)
+    @Test(expected = ConstraintViolationException.class)
     public final void testCreateEmpty() {
         new Password("");
     }
 
-    @Test(expected = ContractViolationException.class)
+    @Test(expected = ConstraintViolationException.class)
     public final void testCreateTooShort() {
         new Password("abc");
     }
 
-    @Test(expected = ContractViolationException.class)
+    @Test(expected = ConstraintViolationException.class)
     public final void testCreateTooLong() {
         new Password("123456789012345678901");
     }

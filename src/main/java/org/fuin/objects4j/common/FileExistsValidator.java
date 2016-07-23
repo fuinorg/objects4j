@@ -49,15 +49,15 @@ public class FileExistsValidator implements ConstraintValidator<FileExists, File
      * @param value
      *            Value to check.
      * 
-     * @throws ContractViolationException
+     * @throws ConstraintViolationException
      *             The file does not exist.
      */
     // CHECKSTYLE:OFF:RedundantThrows
     public static void requireArgValid(@NotNull final String name, @NotNull final File value)
-            throws ContractViolationException {
+            throws ConstraintViolationException {
         // CHECKSTYLE:ON
         if (!value.exists()) {
-            throw new ContractViolationException("The argument '" + name
+            throw new ConstraintViolationException("The argument '" + name
                     + "' is not an existing file: '" + value + "'");
         }
     }

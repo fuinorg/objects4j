@@ -27,6 +27,26 @@ import org.junit.Test;
 //TESTCODE:BEGIN
 public final class LocalDateAdapterTest extends AbstractPersistenceTest {
 
+    @Test
+    public final void testMarshalNull() {
+        assertThat(new LocalDateAdapter().marshal(null)).isNull();
+    }
+
+    @Test
+    public final void testUnmarshalNull() {
+        assertThat(new LocalDateAdapter().unmarshal(null)).isNull();
+    }
+    
+    @Test
+    public final void testConvertToDatabaseColumnNull() {
+        assertThat(new LocalDateAdapter().convertToDatabaseColumn(null)).isNull();
+    }
+
+    @Test
+    public final void testConvertToEntityAttributeNull() {
+        assertThat(new LocalDateAdapter().convertToEntityAttribute(null)).isNull();
+    }
+    
 	@Test
 	public final void testMarshalUnmarshal() {
 

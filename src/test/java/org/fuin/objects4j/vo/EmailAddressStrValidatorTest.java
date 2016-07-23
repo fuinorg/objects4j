@@ -20,7 +20,7 @@ package org.fuin.objects4j.vo;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
-import org.fuin.objects4j.common.ContractViolationException;
+import org.fuin.objects4j.common.ConstraintViolationException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -66,14 +66,14 @@ public final class EmailAddressStrValidatorTest {
         try {
             EmailAddressStrValidator.requireArgValid("a", "");
             fail();
-        } catch (final ContractViolationException ex) {
+        } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo("The argument 'a' is not valid: ''");
         }
 
         try {
             EmailAddressStrValidator.requireArgValid("a", "abc@");
             fail();
-        } catch (final ContractViolationException ex) {
+        } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo("The argument 'a' is not valid: 'abc@'");
         }
 

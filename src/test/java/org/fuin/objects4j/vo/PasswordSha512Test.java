@@ -21,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.fuin.utils4j.Utils4J.deserialize;
 import static org.fuin.utils4j.Utils4J.serialize;
 
-import org.fuin.objects4j.common.ContractViolationException;
+import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.units4j.AbstractPersistenceTest;
 import org.junit.Test;
 
@@ -52,18 +52,18 @@ public final class PasswordSha512Test extends AbstractPersistenceTest {
         assertThat(new PasswordSha512(verySecret)).isNotEqualTo(new PasswordSha512(verySecret2));
     }
 
-    @Test(expected = ContractViolationException.class)
+    @Test(expected = ConstraintViolationException.class)
     public final void testCreateEmpty() {
         new PasswordSha512("");
     }
 
-    @Test(expected = ContractViolationException.class)
+    @Test(expected = ConstraintViolationException.class)
     public final void testCreateTooShort() {
         new PasswordSha512("b4d4b13a02230f9672c92fd45aa44fd202bdba7de3fda640ac84ee5d54c"
                 + "57fde293b4bbddce1b9a56d63d674b47c4dd7e6d89536a1e126ebf0cd662e76e8be");
     }
 
-    @Test(expected = ContractViolationException.class)
+    @Test(expected = ConstraintViolationException.class)
     public final void testCreateTooLong() {
         new PasswordSha512("b4d4b13a02230f9672c92fd45aa44fd202bdba7de3fda640ac84ee5d54c"
                 + "57fde293b4bbddce1b9a56d63d674b47c4dd7e6d89536a1e126ebf0cd662e76e8bec3b4");

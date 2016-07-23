@@ -23,7 +23,7 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import javax.validation.constraints.NotNull;
 
-import org.fuin.objects4j.common.ContractViolationException;
+import org.fuin.objects4j.common.ConstraintViolationException;
 
 /**
  * Check that a given string is an allowed HEX encoded SHA512 password.
@@ -71,15 +71,15 @@ public final class PasswordSha512StrValidator implements
      * @param value
      *            Value to check.
      * 
-     * @throws ContractViolationException
+     * @throws ConstraintViolationException
      *             The value was not valid.
      */
     // CHECKSTYLE:OFF:RedundantThrows
     public static void requireArgValid(@NotNull final String name, @NotNull final String value)
-            throws ContractViolationException {
+            throws ConstraintViolationException {
         // CHECKSTYLE:ON
         if (!isValid(value)) {
-            throw new ContractViolationException("The argument '" + name + "' is not valid: '"
+            throw new ConstraintViolationException("The argument '" + name + "' is not valid: '"
                     + value + "'");
         }
     }

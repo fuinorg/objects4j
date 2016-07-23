@@ -24,7 +24,7 @@ import java.util.Locale;
 
 import javax.validation.ConstraintValidatorContext;
 
-import org.fuin.objects4j.common.ContractViolationException;
+import org.fuin.objects4j.common.ConstraintViolationException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -72,7 +72,7 @@ public final class LocaleStrValidatorTest {
         try {
             LocaleStrValidator.parseArg("a", "");
             fail();
-        } catch (final ContractViolationException ex) {
+        } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo("The argument 'a' is not valid: ''");
         }
 
@@ -85,7 +85,7 @@ public final class LocaleStrValidatorTest {
         try {
             LocaleStrValidator.parseArg("a", "d");
             fail();
-        } catch (final ContractViolationException ex) {
+        } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo("The argument 'a' is not valid: 'd'");
         }
 
@@ -93,7 +93,7 @@ public final class LocaleStrValidatorTest {
         try {
             LocaleStrValidator.parseArg("a", "xx_XX");
             fail();
-        } catch (final ContractViolationException ex) {
+        } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo("The argument 'a' is not valid: 'xx_XX'");
         }
 
@@ -101,7 +101,7 @@ public final class LocaleStrValidatorTest {
         try {
             LocaleStrValidator.parseArg("a", "xx_YY_zz");
             fail();
-        } catch (final ContractViolationException ex) {
+        } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo("The argument 'a' is not valid: 'xx_YY_zz'");
         }
 

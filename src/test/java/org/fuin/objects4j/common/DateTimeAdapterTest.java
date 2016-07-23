@@ -27,64 +27,83 @@ import org.junit.Test;
 //TESTCODE:BEGIN
 public final class DateTimeAdapterTest extends AbstractPersistenceTest {
 
-	@Test
-	public final void testMarshalUnmarshal() {
+    @Test
+    public final void testMarshalNull() {
+        assertThat(new DateTimeAdapter().marshal(null)).isNull();
+    }
 
-		// PREPARE
-		final DateTimeAdapter testee = new DateTimeAdapter();
-		final DateTime original = new DateTime();
+    @Test
+    public final void testUnmarshalNull() {
+        assertThat(new DateTimeAdapter().unmarshal(null)).isNull();
+    }
 
-		// TEST
-		final String str = testee.marshal(original);
-		final DateTime copy = testee.unmarshal(str);
+    @Test
+    public final void testConvertToDatabaseColumnNull() {
+        assertThat(new DateTimeAdapter().convertToDatabaseColumn(null)).isNull();
+    }
 
-		// VERIFY
-		assertThat(copy).isEqualTo(original);
+    @Test
+    public final void testConvertToEntityAttributeNull() {
+        assertThat(new DateTimeAdapter().convertToEntityAttribute(null)).isNull();
+    }
+    
+    @Test
+    public final void testMarshalUnmarshal() {
 
-	}
+        // PREPARE
+        final DateTimeAdapter testee = new DateTimeAdapter();
+        final DateTime original = new DateTime();
 
-	@Test
-	public final void testConvert() {
+        // TEST
+        final String str = testee.marshal(original);
+        final DateTime copy = testee.unmarshal(str);
 
-		// PREPARE
-		final DateTimeAdapter testee = new DateTimeAdapter();
-		final DateTime original = new DateTime();
+        // VERIFY
+        assertThat(copy).isEqualTo(original);
 
-		// TEST
-		final String str = testee.convertToDatabaseColumn(original);
-		final DateTime copy = testee.convertToEntityAttribute(str);
+    }
 
-		// VERIFY
-		assertThat(copy).isEqualTo(original);
+    @Test
+    public final void testConvert() {
 
-	}
-	
-	@Test
-	public void testJPA() {
+        // PREPARE
+        final DateTimeAdapter testee = new DateTimeAdapter();
+        final DateTime original = new DateTime();
 
-		// PREPARE
-		final DateTime dateTime = new DateTime();
+        // TEST
+        final String str = testee.convertToDatabaseColumn(original);
+        final DateTime copy = testee.convertToEntityAttribute(str);
 
-		beginTransaction();
-		getEm().persist(new JodaParentEntity(1));
-		commitTransaction();
+        // VERIFY
+        assertThat(copy).isEqualTo(original);
 
-		// TEST UPDATE
-		beginTransaction();
-		final JodaParentEntity entity = getEm()
-				.find(JodaParentEntity.class, 1L);
-		entity.setDateTime(dateTime);
-		commitTransaction();
+    }
 
-		// VERIFY
-		beginTransaction();
-		final JodaParentEntity copy = getEm().find(JodaParentEntity.class, 1L);
-		assertThat(copy).isNotNull();
-		assertThat(copy.getId()).isEqualTo(1);
-		assertThat(copy.getDateTime()).isEqualTo(dateTime);
-		commitTransaction();
+    @Test
+    public void testJPA() {
 
-	}
+        // PREPARE
+        final DateTime dateTime = new DateTime();
+
+        beginTransaction();
+        getEm().persist(new JodaParentEntity(1));
+        commitTransaction();
+
+        // TEST UPDATE
+        beginTransaction();
+        final JodaParentEntity entity = getEm().find(JodaParentEntity.class, 1L);
+        entity.setDateTime(dateTime);
+        commitTransaction();
+
+        // VERIFY
+        beginTransaction();
+        final JodaParentEntity copy = getEm().find(JodaParentEntity.class, 1L);
+        assertThat(copy).isNotNull();
+        assertThat(copy.getId()).isEqualTo(1);
+        assertThat(copy.getDateTime()).isEqualTo(dateTime);
+        commitTransaction();
+
+    }
 
 }
 // TESTCODE:END

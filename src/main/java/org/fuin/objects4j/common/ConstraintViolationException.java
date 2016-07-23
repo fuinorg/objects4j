@@ -25,7 +25,7 @@ import javax.validation.ConstraintViolation;
 /**
  * The contract that was checked is violated.
  */
-public final class ContractViolationException extends RuntimeException {
+public final class ConstraintViolationException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 
@@ -37,7 +37,7 @@ public final class ContractViolationException extends RuntimeException {
      * @param message
      *            Message.
      */
-    public ContractViolationException(final String message) {
+    public ConstraintViolationException(final String message) {
         super(message);
         this.constraintViolations = null;
     }
@@ -50,7 +50,7 @@ public final class ContractViolationException extends RuntimeException {
      * @param constraintViolations
      *            Constraint violations.
      */
-    public ContractViolationException(final String message,
+    public ConstraintViolationException(final String message,
             final Set<ConstraintViolation<Object>> constraintViolations) {
         super(message);
         this.constraintViolations = constraintViolations;

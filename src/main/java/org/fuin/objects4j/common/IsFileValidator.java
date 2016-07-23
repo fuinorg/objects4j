@@ -49,15 +49,15 @@ public class IsFileValidator implements ConstraintValidator<IsFile, File> {
      * @param value
      *            Value to check.
      * 
-     * @throws ContractViolationException
+     * @throws ConstraintViolationException
      *             The file does not exist.
      */
     // CHECKSTYLE:OFF:RedundantThrows
     public static void requireArgValid(@NotNull final String name,
-            @FileExists @NotNull final File value) throws ContractViolationException {
+            @FileExists @NotNull final File value) throws ConstraintViolationException {
         // CHECKSTYLE:ON
         if (!value.isFile()) {
-            throw new ContractViolationException("The argument '" + name + "' is not a file: '"
+            throw new ConstraintViolationException("The argument '" + name + "' is not a file: '"
                     + value + "'");
         }
     }

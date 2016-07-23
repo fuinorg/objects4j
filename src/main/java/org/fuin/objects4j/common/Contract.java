@@ -75,15 +75,15 @@ public final class Contract {
      * @param value
      *            Value to check.
      * 
-     * @throws ContractViolationException
+     * @throws ConstraintViolationException
      *             The value was null.
      */
     // CHECKSTYLE:OFF:RedundantThrows
     public static void requireArgNotNull(@NotNull final String name, final Object value)
-            throws ContractViolationException {
+            throws ConstraintViolationException {
         // CHECKSTYLE:ON
         if (value == null) {
-            throw new ContractViolationException("The argument '" + name + "' cannot be null");
+            throw new ConstraintViolationException("The argument '" + name + "' cannot be null");
         }
     }
 
@@ -96,16 +96,16 @@ public final class Contract {
      * @param value
      *            Value to check.
      * 
-     * @throws ContractViolationException
+     * @throws ConstraintViolationException
      *             The value was null or empty.
      */
     // CHECKSTYLE:OFF:RedundantThrows
     public static void requireArgNotEmpty(@NotNull final String name, final String value)
-            throws ContractViolationException {
+            throws ConstraintViolationException {
         // CHECKSTYLE:ON
         requireArgNotNull(name, value);
         if (value.length() < 1) {
-            throw new ContractViolationException("The argument '" + name + "' cannot be empty");
+            throw new ConstraintViolationException("The argument '" + name + "' cannot be empty");
         }
     }
 
@@ -119,15 +119,15 @@ public final class Contract {
      * @param max
      *            Max length (inclusive).
      * 
-     * @throws ContractViolationException
+     * @throws ConstraintViolationException
      *             The length was more than <code>max</code>.
      */
     // CHECKSTYLE:OFF:RedundantThrows
     public static void requireArgMaxLength(@NotNull final String name, @NotNull final String value,
-            final int max) throws ContractViolationException {
+            final int max) throws ConstraintViolationException {
         // CHECKSTYLE:ON
         if (value.length() > max) {
-            throw new ContractViolationException("Max length of argument '" + name + "' is " + max
+            throw new ConstraintViolationException("Max length of argument '" + name + "' is " + max
                     + ", but was: " + value.length());
         }
     }
@@ -142,15 +142,15 @@ public final class Contract {
      * @param min
      *            Minimal length.
      * 
-     * @throws ContractViolationException
+     * @throws ConstraintViolationException
      *             The length was less than <code>min</code>.
      */
     // CHECKSTYLE:OFF:RedundantThrows
     public static void requireArgMinLength(@NotNull final String name, @NotNull final String value,
-            final int min) throws ContractViolationException {
+            final int min) throws ConstraintViolationException {
         // CHECKSTYLE:ON
         if (value.length() < min) {
-            throw new ContractViolationException("Min length of argument '" + name + "' is " + min
+            throw new ConstraintViolationException("Min length of argument '" + name + "' is " + min
                     + ", but was: " + value.length());
         }
     }
@@ -165,15 +165,15 @@ public final class Contract {
      * @param max
      *            Max value (inclusive).
      * 
-     * @throws ContractViolationException
+     * @throws ConstraintViolationException
      *             The value was more than <code>max</code>.
      */
     // CHECKSTYLE:OFF:RedundantThrows
     public static void requireArgMax(@NotNull final String name, @NotNull final int value,
-            final int max) throws ContractViolationException {
+            final int max) throws ConstraintViolationException {
         // CHECKSTYLE:ON
         if (value > max) {
-            throw new ContractViolationException("Max value of argument '" + name + "' is " + max
+            throw new ConstraintViolationException("Max value of argument '" + name + "' is " + max
                     + ", but was: " + value);
         }
     }
@@ -188,15 +188,15 @@ public final class Contract {
      * @param min
      *            Minimal value (inclusive).
      * 
-     * @throws ContractViolationException
+     * @throws ConstraintViolationException
      *             The value was less than <code>min</code>.
      */
     // CHECKSTYLE:OFF:RedundantThrows
     public static void requireArgMin(@NotNull final String name, @NotNull final int value,
-            final int min) throws ContractViolationException {
+            final int min) throws ConstraintViolationException {
         // CHECKSTYLE:ON
         if (value < min) {
-            throw new ContractViolationException("Min value of argument '" + name + "' is " + min
+            throw new ConstraintViolationException("Min value of argument '" + name + "' is " + min
                     + ", but was: " + value);
         }
     }
@@ -207,11 +207,11 @@ public final class Contract {
      * @param value
      *            Value to check.
      * 
-     * @throws ContractViolationException
+     * @throws ConstraintViolationException
      *             The value is invalid.
      */
     // CHECKSTYLE:OFF:RedundantThrows
-    public static void requireValid(@NotNull final Object value) throws ContractViolationException {
+    public static void requireValid(@NotNull final Object value) throws ConstraintViolationException {
         // CHECKSTYLE:ON
 
         final Set<ConstraintViolation<Object>> constraintViolations = getValidator()
@@ -226,7 +226,7 @@ public final class Contract {
                         + constraintViolation.getMessage() + " {"
                         + constraintViolation.getInvalidValue() + "}");
             }
-            throw new ContractViolationException(sb.toString(), constraintViolations);
+            throw new ConstraintViolationException(sb.toString(), constraintViolations);
         }
 
     }

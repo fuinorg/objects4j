@@ -41,6 +41,9 @@ public final class UUIDConverter extends XmlAdapter<String, UUID> implements
 
     @Override
     public final UUID unmarshal(final String value) throws Exception {
+        if (value == null) {
+            return null;
+        }
         return UUID.fromString(value);
     }
 

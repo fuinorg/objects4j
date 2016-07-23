@@ -34,9 +34,13 @@ public class ContractTest {
     @Test
     public final void testRequireArgNotNull() {
 
+        // TEST
+        Contract.requireArgNotNull("name", "Whatever");
+
+        // TEST
         try {
             Contract.requireArgNotNull("name", null);
-        } catch (final ContractViolationException ex) {
+        } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo("The argument 'name' cannot be null");
         }
     }
@@ -44,15 +48,20 @@ public class ContractTest {
     @Test
     public final void testRequireArgNotEmpty() {
 
+        // TEST
+        Contract.requireArgNotNull("name", "Whatever");
+        
+        // TEST
         try {
             Contract.requireArgNotNull("name", null);
-        } catch (final ContractViolationException ex) {
+        } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo("The argument 'name' cannot be null");
         }
 
+        // TEST
         try {
             Contract.requireArgNotNull("name", "");
-        } catch (final ContractViolationException ex) {
+        } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo("The argument 'name' cannot be empty");
         }
 
@@ -65,7 +74,7 @@ public class ContractTest {
             final Child child = new Child();
             Contract.requireValid(child);
             fail();
-        } catch (final ContractViolationException ex) {
+        } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).contains("[password]");
             assertThat(ex.getMessage()).contains("{null}");
             assertThat(ex.getMessage()).doesNotContain("[userName]");
@@ -81,7 +90,7 @@ public class ContractTest {
             child.userName = "";
             Contract.requireValid(child);
             fail();
-        } catch (final ContractViolationException ex) {
+        } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).contains("[password]");
             assertThat(ex.getMessage()).contains("{null}");
             assertThat(ex.getMessage()).contains("[userName]");
@@ -99,7 +108,7 @@ public class ContractTest {
             parent.child = new Child();
             Contract.requireValid(parent);
             fail();
-        } catch (final ContractViolationException ex) {
+        } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).contains("[email]");
             assertThat(ex.getMessage()).contains("{abc@}");
             assertThat(ex.getMessage()).contains("[child.password]");
@@ -118,7 +127,7 @@ public class ContractTest {
             parent.child.password = "verysecret";
             Contract.requireValid(parent);
             fail();
-        } catch (final ContractViolationException ex) {
+        } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).contains("[email]");
             assertThat(ex.getMessage()).contains("{abc@}");
             assertThat(ex.getMessage()).doesNotContain("child");
@@ -128,8 +137,78 @@ public class ContractTest {
             assertThat(ex.getMessage()).doesNotContain("{}");
         }
 
+
     }
 
+    @Test
+    public void testRequireArgMaxLength() {
+
+        // TEST
+        Contract.requireArgMaxLength("name", "123", 3);
+
+        // TEST
+        Contract.requireArgMaxLength("name", "12", 3);
+        
+        // TEST
+        try {
+            Contract.requireArgMaxLength("name", "123", 2);
+        } catch (final ConstraintViolationException ex) {
+            assertThat(ex.getMessage()).isEqualTo("Max length of argument 'name' is 2, but was: 3");
+        }
+        
+    }
+
+    @Test
+    public void testRequireArgMinLength() {
+
+        // TEST
+        Contract.requireArgMinLength("name", "1234", 4);
+        
+        // TEST
+        try {
+            Contract.requireArgMinLength("name", "123", 4);
+        } catch (final ConstraintViolationException ex) {
+            assertThat(ex.getMessage()).isEqualTo("Min length of argument 'name' is 4, but was: 3");
+        }
+        
+    }
+
+    @Test
+    public void testRequireArgMax() {
+
+        // TEST
+        Contract.requireArgMax("name", 4, 5);
+        
+        // TEST
+        Contract.requireArgMax("name", 5, 5);
+        
+        // TEST
+        try {
+            Contract.requireArgMax("name", 6, 5);
+        } catch (final ConstraintViolationException ex) {
+            assertThat(ex.getMessage()).isEqualTo("Max value of argument 'name' is 5, but was: 6");
+        }
+        
+    }
+
+    @Test
+    public void testRequireArgMin() {
+
+        // TEST
+        Contract.requireArgMin("name", 5, 4);
+
+        // TEST
+        Contract.requireArgMin("name", 4, 4);
+        
+        // TEST
+        try {
+            Contract.requireArgMin("name", 3, 4);
+        } catch (final ConstraintViolationException ex) {
+            assertThat(ex.getMessage()).isEqualTo("Min value of argument 'name' is 4, but was: 3");
+        }
+        
+    }
+    
     // CHECKSTYLE:OFF
 
     // Yes, the classes don't have getters and setters... ;-)

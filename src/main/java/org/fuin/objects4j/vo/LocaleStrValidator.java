@@ -24,7 +24,7 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import javax.validation.constraints.NotNull;
 
-import org.fuin.objects4j.common.ContractViolationException;
+import org.fuin.objects4j.common.ConstraintViolationException;
 
 /**
  * Check that a given string is a valid {@link java.util.Locale}.
@@ -83,23 +83,23 @@ public final class LocaleStrValidator implements ConstraintValidator<LocaleStr, 
      * 
      * @return Parsed value.
      * 
-     * @throws ContractViolationException
+     * @throws ConstraintViolationException
      *             The value was not valid.
      */
     // CHECKSTYLE:OFF:RedundantThrows
     public static Locale parseArg(@NotNull final String name, @NotNull final String value)
-            throws ContractViolationException {
+            throws ConstraintViolationException {
         // CHECKSTYLE:ON
 
         try {
             final Locale locale = LocaleConverter.asLocale(value);
             if (!LocaleConverter.validLocale(locale)) {
-                throw new ContractViolationException("The argument '" + name + "' is not valid: '"
+                throw new ConstraintViolationException("The argument '" + name + "' is not valid: '"
                         + value + "'");
             }
             return locale;
         } catch (final RuntimeException ex) {
-            throw new ContractViolationException("The argument '" + name + "' is not valid: '"
+            throw new ConstraintViolationException("The argument '" + name + "' is not valid: '"
                     + value + "'");
         }
 

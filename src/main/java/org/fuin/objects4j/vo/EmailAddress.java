@@ -23,7 +23,7 @@ import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.fuin.objects4j.common.Contract;
-import org.fuin.objects4j.common.ContractViolationException;
+import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.objects4j.common.Immutable;
 import org.fuin.objects4j.ui.Label;
 import org.fuin.objects4j.ui.ShortLabel;
@@ -79,13 +79,13 @@ public final class EmailAddress extends AbstractStringValueObject {
         try {
             final InternetAddress[] addr = InternetAddress.parse(trimmedLowerCaseValue, false);
             if (addr.length != 1) {
-                throw new ContractViolationException(
+                throw new ConstraintViolationException(
                         "The argument 'emailAddress' is not a single address: '"
                                 + trimmedLowerCaseValue + "'");
             }
             return addr[0];
         } catch (final AddressException ex) {
-            throw new ContractViolationException("The argument 'emailAddress' is not valid: '"
+            throw new ConstraintViolationException("The argument 'emailAddress' is not valid: '"
                     + trimmedLowerCaseValue + "'");
         }
 

@@ -19,7 +19,7 @@ package org.fuin.objects4j.vo;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.fuin.objects4j.common.ContractViolationException;
+import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.units4j.AbstractPersistenceTest;
 import org.junit.Test;
 import static org.fuin.utils4j.Utils4J.deserialize;
@@ -55,42 +55,42 @@ public final class UserNameTest extends AbstractPersistenceTest {
         assertThat(new UserName("abc-1_B")).isEqualTo(new UserName("AbC-1_b"));
     }
 
-    @Test(expected = ContractViolationException.class)
+    @Test(expected = ConstraintViolationException.class)
     public final void testCreateEmpty() {
         new UserName("");
     }
 
-    @Test(expected = ContractViolationException.class)
+    @Test(expected = ConstraintViolationException.class)
     public final void testCreateTooShort() {
         new UserName("ab");
     }
 
-    @Test(expected = ContractViolationException.class)
+    @Test(expected = ConstraintViolationException.class)
     public final void testCreateTooLong() {
         new UserName("a12345678901234567890");
     }
 
-    @Test(expected = ContractViolationException.class)
+    @Test(expected = ConstraintViolationException.class)
     public final void testCreateStartsWithNumber() {
         new UserName("1abc");
     }
 
-    @Test(expected = ContractViolationException.class)
+    @Test(expected = ConstraintViolationException.class)
     public final void testCreateStartsWithUnderscore() {
         new UserName("_abc");
     }
 
-    @Test(expected = ContractViolationException.class)
+    @Test(expected = ConstraintViolationException.class)
     public final void testCreateStartsWithHyphen() {
         new UserName("-abc");
     }
 
-    @Test(expected = ContractViolationException.class)
+    @Test(expected = ConstraintViolationException.class)
     public final void testCreateContainsIllegalDoubleCross() {
         new UserName("abc#1");
     }
 
-    @Test(expected = ContractViolationException.class)
+    @Test(expected = ConstraintViolationException.class)
     public final void testCreateContainsIllegalAtAndDot() {
         new UserName("abc@def.com");
     }
