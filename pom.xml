@@ -11,7 +11,7 @@
 
 	<artifactId>objects4j</artifactId>
 	<packaging>bundle</packaging>
-	<version>0.6.3-SNAPSHOT</version>
+	<version>0.6.3</version>
 	<name>Objects4J</name>
 
 	<description>A library with common Java types that are mostly immutable value objects.</description>
@@ -34,7 +34,7 @@
 		<dependency>
 			<groupId>org.fuin</groupId>
 			<artifactId>utils4j</artifactId>
-			<version>0.9.1</version>
+			<version>0.9.2</version>
 		</dependency>
 
 		<!-- Dependencies to JEE are all optional to avoid copying the JARs when 
@@ -73,7 +73,7 @@
 		<dependency>
 			<groupId>joda-time</groupId>
 			<artifactId>joda-time</artifactId>
-			<version>2.7</version>
+			<version>2.9.4</version>
 			<optional>true</optional>
 		</dependency>
 
@@ -89,21 +89,15 @@
 		<dependency>
 			<groupId>org.assertj</groupId>
 			<artifactId>assertj-core</artifactId>
-			<version>3.5.1</version>
+			<version>3.5.2</version>
 			<scope>test</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.fuin</groupId>
 			<artifactId>units4j</artifactId>
-			<version>0.8.1</version>
+			<version>0.8.2</version>
 			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<artifactId>fest-assert</artifactId>
-					<groupId>org.easytesting</groupId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 
 		<dependency>
@@ -147,7 +141,7 @@
 		<dependency>
 			<groupId>org.jboss</groupId>
 			<artifactId>jandex</artifactId>
-			<version>2.0.2.Final</version>
+			<version>2.0.3.Final</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -207,7 +201,7 @@
 		<dependency>
 			<groupId>nl.jqno.equalsverifier</groupId>
 			<artifactId>equalsverifier</artifactId>
-			<version>2.1.2</version>
+			<version>2.1.5</version>
 			<scope>test</scope>
 		</dependency>
 
