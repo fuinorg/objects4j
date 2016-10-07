@@ -13,6 +13,7 @@
       <dependsOn package="javax.validation"/>
       <dependsOn package="javax.persistence"/>
       <dependsOn package="javax.enterprise.context"/>
+      <dependsOn package="javax.enterprise.inject" />
       <dependsOn package="javax.xml.bind"/>
       <dependsOn package="org.joda.time"/>
   </alwaysAllowed>

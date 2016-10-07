@@ -20,6 +20,7 @@ package org.fuin.objects4j.ui;
 import java.lang.reflect.Field;
 import java.util.Locale;
 
+import javax.enterprise.inject.Vetoed;
 import javax.validation.constraints.NotNull;
 
 import org.fuin.objects4j.common.Contract;
@@ -29,6 +30,7 @@ import org.fuin.objects4j.common.Immutable;
  * Information about a text field.
  */
 @Immutable
+@Vetoed
 public class TextFieldInfo {
 
     private final Field field;

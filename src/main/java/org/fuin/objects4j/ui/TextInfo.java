@@ -17,12 +17,15 @@
  */
 package org.fuin.objects4j.ui;
 
+import javax.enterprise.inject.Vetoed;
+
 import org.fuin.objects4j.common.Immutable;
 
 /**
  * Stores some text.
  */
 @Immutable
+@Vetoed
 public abstract class TextInfo {
 
     private final String text;

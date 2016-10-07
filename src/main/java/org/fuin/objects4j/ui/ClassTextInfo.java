@@ -17,6 +17,7 @@
  */
 package org.fuin.objects4j.ui;
 
+import javax.enterprise.inject.Vetoed;
 import javax.validation.constraints.NotNull;
 
 import org.fuin.objects4j.common.Contract;
@@ -26,6 +27,7 @@ import org.fuin.objects4j.common.Immutable;
  * Stores some text associated with a class.
  */
 @Immutable
+@Vetoed
 public final class ClassTextInfo extends TextInfo {
 
     private final Class<?> clasz;

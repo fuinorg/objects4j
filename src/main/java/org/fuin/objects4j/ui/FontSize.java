@@ -20,6 +20,7 @@ package org.fuin.objects4j.ui;
 import java.io.Serializable;
 import java.text.DecimalFormat;
 
+import javax.enterprise.inject.Vetoed;
 import javax.validation.constraints.NotNull;
 
 import org.fuin.objects4j.common.Contract;
@@ -29,6 +30,7 @@ import org.fuin.objects4j.common.Immutable;
  * Size of a font including the unit.
  */
 @Immutable
+@Vetoed
 public final class FontSize implements Serializable {
 
     private static final long serialVersionUID = -1572749922357083439L;

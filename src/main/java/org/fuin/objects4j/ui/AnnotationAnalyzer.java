@@ -29,6 +29,7 @@ import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+import javax.enterprise.inject.Vetoed;
 import javax.validation.constraints.NotNull;
 
 import org.fuin.objects4j.common.Contract;
@@ -36,6 +37,7 @@ import org.fuin.objects4j.common.Contract;
 /**
  * Wrapper for a class that has some annotations to perform some actions with.
  */
+@Vetoed
 public final class AnnotationAnalyzer {
 
     private static final Map<Class<?>, String> CLASS_NAME_MAP = new HashMap<Class<?>, String>();
