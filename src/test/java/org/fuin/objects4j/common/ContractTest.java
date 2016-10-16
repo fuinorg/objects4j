@@ -20,7 +20,11 @@ package org.fuin.objects4j.common;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
 import javax.validation.Valid;
+import javax.validation.Validation;
 import javax.validation.constraints.NotNull;
 
 import org.fuin.objects4j.vo.EmailAddressStr;
@@ -50,7 +54,7 @@ public class ContractTest {
 
         // TEST
         Contract.requireArgNotNull("name", "Whatever");
-        
+
         // TEST
         try {
             Contract.requireArgNotNull("name", null);
@@ -63,6 +67,44 @@ public class ContractTest {
             Contract.requireArgNotNull("name", "");
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo("The argument 'name' cannot be empty");
+        }
+
+    }
+
+    @Test
+    public final void testValidateWithValidator() {
+
+        final Child child = new Child();
+        final Set<ConstraintViolation<Child>> violations = Contract
+                .validate(Validation.buildDefaultValidatorFactory().getValidator(), child);
+        assertThat(violations).isNotNull();
+        assertThat(violations.size()).isGreaterThan(0);
+        assertThat(violations.iterator().next().getMessage()).isEqualTo("darf nicht null sein");
+
+    }
+
+    @Test
+    public final void testValidateWithDefaultValidator() {
+
+        final Child child = new Child();
+        final Set<ConstraintViolation<Child>> violations = Contract.validate(child);
+        assertThat(violations).isNotNull();
+        assertThat(violations.size()).isGreaterThan(0);
+        assertThat(violations.iterator().next().getMessage()).isEqualTo("darf nicht null sein");
+
+    }
+
+    @Test
+    public final void testRequireValidWithValidator() {
+
+        try {
+            final Child child = new Child();
+            Contract.requireValid(Validation.buildDefaultValidatorFactory().getValidator(), child);
+            fail();
+        } catch (final ConstraintViolationException ex) {
+            assertThat(ex.getMessage()).contains("[password]");
+            assertThat(ex.getMessage()).contains("{null}");
+            assertThat(ex.getMessage()).doesNotContain("[userName]");
         }
 
     }
@@ -137,7 +179,6 @@ public class ContractTest {
             assertThat(ex.getMessage()).doesNotContain("{}");
         }
 
-
     }
 
     @Test
@@ -148,14 +189,14 @@ public class ContractTest {
 
         // TEST
         Contract.requireArgMaxLength("name", "12", 3);
-        
+
         // TEST
         try {
             Contract.requireArgMaxLength("name", "123", 2);
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo("Max length of argument 'name' is 2, but was: 3");
         }
-        
+
     }
 
     @Test
@@ -163,14 +204,14 @@ public class ContractTest {
 
         // TEST
         Contract.requireArgMinLength("name", "1234", 4);
-        
+
         // TEST
         try {
             Contract.requireArgMinLength("name", "123", 4);
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo("Min length of argument 'name' is 4, but was: 3");
         }
-        
+
     }
 
     @Test
@@ -178,17 +219,17 @@ public class ContractTest {
 
         // TEST
         Contract.requireArgMax("name", 4, 5);
-        
+
         // TEST
         Contract.requireArgMax("name", 5, 5);
-        
+
         // TEST
         try {
             Contract.requireArgMax("name", 6, 5);
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo("Max value of argument 'name' is 5, but was: 6");
         }
-        
+
     }
 
     @Test
@@ -199,16 +240,16 @@ public class ContractTest {
 
         // TEST
         Contract.requireArgMin("name", 4, 4);
-        
+
         // TEST
         try {
             Contract.requireArgMin("name", 3, 4);
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo("Min value of argument 'name' is 4, but was: 3");
         }
-        
+
     }
-    
+
     // CHECKSTYLE:OFF
 
     // Yes, the classes don't have getters and setters... ;-)
