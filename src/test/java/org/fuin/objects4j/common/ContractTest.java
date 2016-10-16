@@ -79,7 +79,7 @@ public class ContractTest {
                 .validate(Validation.buildDefaultValidatorFactory().getValidator(), child);
         assertThat(violations).isNotNull();
         assertThat(violations.size()).isGreaterThan(0);
-        assertThat(violations.iterator().next().getMessage()).isEqualTo("darf nicht null sein");
+        assertThat(violations.iterator().next().getMessageTemplate()).isEqualTo("{javax.validation.constraints.NotNull.message}");
 
     }
 
@@ -90,7 +90,7 @@ public class ContractTest {
         final Set<ConstraintViolation<Child>> violations = Contract.validate(child);
         assertThat(violations).isNotNull();
         assertThat(violations.size()).isGreaterThan(0);
-        assertThat(violations.iterator().next().getMessage()).isEqualTo("darf nicht null sein");
+        assertThat(violations.iterator().next().getMessageTemplate()).isEqualTo("{javax.validation.constraints.NotNull.message}");
 
     }
 
