@@ -28,7 +28,7 @@ Annotations that can be placed on plain objects but may be used by a user interf
 * [ShortLabel annotation](#shortlabel-annotation)
 * [TableColumn annotation](#tablecolumn-annotation)
 * [TextField annotation](#textfield-annotation)
-* [Tooltip annotation](#tooltipp-annotation)
+* [Tooltip annotation](#tooltip-annotation)
 
 
 ## Package "vo"
