@@ -30,9 +30,13 @@ Annotations that can be placed on plain objects but may be used by a user interf
 * [TextField annotation](#textfield-annotation)
 * [Tooltip annotation](#tooltip-annotation)
 
-
 ## Package "vo"
 Provides Value Objects and utility classes for those immutable objects. 
+
+[Click here for details...](#description-vo)
+
+* * *
+
 ## Description "common"
 Base classes like utilities and general annotations.
 
