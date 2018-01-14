@@ -28,21 +28,28 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Currency;
 
-import javax.inject.Inject;
 import javax.xml.bind.JAXBException;
 
-import org.fuin.units4j.WeldJUnit4Runner;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 // CHECKSTYLE:OFF
-@RunWith(WeldJUnit4Runner.class)
 public class CurrencyAmountConverterTest {
 
     private static final String XML = XML_PREFIX + "<data ca=\"1234.56 EUR\"/>";
 
-    @Inject
     private ValueObjectConverter<String, CurrencyAmount> testee;
+
+    @Before
+    public void setup() {
+        testee = new CurrencyAmountConverter();
+    }
+
+    @After
+    public void teardown() {
+        testee = null;
+    }
 
     @Test
     public final void testFactoryInjectable() {

@@ -24,21 +24,28 @@ import static org.fuin.utils4j.JaxbUtils.marshal;
 import static org.fuin.utils4j.JaxbUtils.unmarshal;
 import static org.junit.Assert.fail;
 
-import javax.inject.Inject;
 import javax.xml.bind.JAXBException;
 
-import org.fuin.units4j.WeldJUnit4Runner;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 // CHECKSTYLE:OFF
-@RunWith(WeldJUnit4Runner.class)
-public class EmailAddressConverterTest  {
+public class EmailAddressConverterTest {
 
     private static final String XML = XML_PREFIX + "<data email=\"a@b.c\"/>";
 
-    @Inject
     private ValueObjectConverter<String, EmailAddress> testee;
+
+    @Before
+    public void setup() {
+        testee = new EmailAddressConverter();
+    }
+
+    @After
+    public void teardown() {
+        testee = null;
+    }
 
     @Test
     public final void testFactoryInjectable() {
@@ -82,12 +89,14 @@ public class EmailAddressConverterTest  {
     @Test
     public final void testUnmarshalError() {
 
-        final String invalidEmailInXmlData = XML_PREFIX + "<data email=\"abc@\"/>";
+        final String invalidEmailInXmlData = XML_PREFIX
+                + "<data email=\"abc@\"/>";
         try {
             unmarshal(invalidEmailInXmlData, Data.class);
             fail("Expected an exception");
         } catch (final RuntimeException ex) {
-            assertCauseCauseMessage(ex, "The argument 'emailAddress' is not valid: 'abc@'");
+            assertCauseCauseMessage(ex,
+                    "The argument 'emailAddress' is not valid: 'abc@'");
         }
 
     }

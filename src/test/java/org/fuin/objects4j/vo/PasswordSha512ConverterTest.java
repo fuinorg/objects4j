@@ -28,24 +28,32 @@ import static org.junit.Assert.fail;
 
 import java.util.Set;
 
-import javax.inject.Inject;
 import javax.validation.ConstraintViolation;
 import javax.xml.bind.JAXBException;
 
-import org.fuin.units4j.WeldJUnit4Runner;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 //CHECKSTYLE:OFF
-@RunWith(WeldJUnit4Runner.class)
 public class PasswordSha512ConverterTest {
 
     private static final String HASH = "925f43c3cfb956bbe3c6aa8023ba7ad5cfa21d104186fffc69e768e55940d9653b1cd36fba614fba2e1844f4436da20f83750c6ec1db356da154691bdd71a9b1";
 
-    private static final String XML = XML_PREFIX + "<data passwordSha512=\"" + HASH + "\"/>";
+    private static final String XML = XML_PREFIX + "<data passwordSha512=\""
+            + HASH + "\"/>";
 
-    @Inject
     private ValueObjectConverter<String, PasswordSha512> testee;
+
+    @Before
+    public void setup() {
+        testee = new PasswordSha512Converter();
+    }
+
+    @After
+    public void teardown() {
+        testee = null;
+    }
 
     @Test
     public final void testFactoryInjectable() {
@@ -90,12 +98,14 @@ public class PasswordSha512ConverterTest {
     @Test
     public final void testUnmarshalError() {
 
-        final String invalidHashInXmlData = XML_PREFIX + "<data passwordSha512=\"1\"/>";
+        final String invalidHashInXmlData = XML_PREFIX
+                + "<data passwordSha512=\"1\"/>";
         try {
             unmarshal(invalidHashInXmlData, Data.class);
             fail("Expected an exception");
         } catch (final RuntimeException ex) {
-            assertCauseCauseMessage(ex, "The argument 'hexEncodedHash' is not valid");
+            assertCauseCauseMessage(ex,
+                    "The argument 'hexEncodedHash' is not valid");
         }
 
     }
@@ -110,8 +120,8 @@ public class PasswordSha512ConverterTest {
         setPrivateField(data.passwordSha512, "hash", "1");
         final Set<ConstraintViolation<Object>> violations = validate(data);
         assertThat(violations).hasSize(1);
-        assertThat(violations.iterator().next().getMessage()).isEqualTo(
-                "is not a valid HEX encoded SHA512 password hash");
+        assertThat(violations.iterator().next().getMessage())
+                .isEqualTo("is not a valid HEX encoded SHA512 password hash");
 
     }
 

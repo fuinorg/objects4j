@@ -18,32 +18,42 @@
 package org.fuin.objects4j.vo;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.fuin.units4j.Units4JUtils.assertCauseCauseMessage;
+import static org.fuin.units4j.Units4JUtils.setPrivateField;
+import static org.fuin.units4j.Units4JUtils.validate;
+import static org.fuin.utils4j.JaxbUtils.XML_PREFIX;
+import static org.fuin.utils4j.JaxbUtils.marshal;
+import static org.fuin.utils4j.JaxbUtils.unmarshal;
 import static org.junit.Assert.fail;
 
 import java.util.Set;
 
-import javax.inject.Inject;
 import javax.validation.ConstraintViolation;
 import javax.xml.bind.JAXBException;
 
-import org.fuin.units4j.WeldJUnit4Runner;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import static org.fuin.utils4j.JaxbUtils.XML_PREFIX;
-import static org.fuin.utils4j.JaxbUtils.marshal;
-import static org.fuin.utils4j.JaxbUtils.unmarshal;
-import static org.fuin.units4j.Units4JUtils.*;
 
 //CHECKSTYLE:OFF
-@RunWith(WeldJUnit4Runner.class)
 public class UserNameConverterTest {
 
     private static final String USER_NAME = "michael-1_a";
 
-    private static final String XML = XML_PREFIX + "<data userName=\"" + USER_NAME + "\"/>";
+    private static final String XML = XML_PREFIX + "<data userName=\""
+            + USER_NAME + "\"/>";
 
-    @Inject
     private ValueObjectConverter<String, UserName> testee;
+
+    @Before
+    public void setup() {
+        testee = new UserNameConverter();
+    }
+
+    @After
+    public void teardown() {
+        testee = null;
+    }
 
     @Test
     public final void testFactoryInjectable() {
@@ -88,12 +98,14 @@ public class UserNameConverterTest {
     @Test
     public final void testUnmarshalError() {
 
-        final String invalidUsernameInXmlData = XML_PREFIX + "<data userName=\"x\"/>";
+        final String invalidUsernameInXmlData = XML_PREFIX
+                + "<data userName=\"x\"/>";
         try {
             unmarshal(invalidUsernameInXmlData, Data.class);
             fail("Expected an exception");
         } catch (final RuntimeException ex) {
-            assertCauseCauseMessage(ex, "The argument 'userName' is not valid: 'x'");
+            assertCauseCauseMessage(ex,
+                    "The argument 'userName' is not valid: 'x'");
         }
 
     }
@@ -108,8 +120,8 @@ public class UserNameConverterTest {
         setPrivateField(data.userName, "str", "x");
         final Set<ConstraintViolation<Object>> violations = validate(data);
         assertThat(violations).hasSize(1);
-        assertThat(violations.iterator().next().getMessage()).isEqualTo(
-                "is not a well-formed user name");
+        assertThat(violations.iterator().next().getMessage())
+                .isEqualTo("is not a well-formed user name");
 
     }
 

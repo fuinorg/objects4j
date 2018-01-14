@@ -22,22 +22,29 @@ import static org.fuin.utils4j.JaxbUtils.XML_PREFIX;
 import static org.fuin.utils4j.JaxbUtils.marshal;
 import static org.fuin.utils4j.JaxbUtils.unmarshal;
 
-import javax.inject.Inject;
 import javax.xml.bind.JAXBException;
 
 import org.fuin.units4j.AbstractPersistenceTest;
-import org.fuin.units4j.WeldJUnit4Runner;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 // CHECKSTYLE:OFF
-@RunWith(WeldJUnit4Runner.class)
 public class ValueObjectStringConverterTest extends AbstractPersistenceTest {
 
     private static final String XML = XML_PREFIX + "<data any-str=\"abcd1234\"/>";
 
-    @Inject
     private ValueObjectStringConverter<AnyStr> testee;
+
+    @Before
+    public void setup() {
+        testee = new AnyStrConverter();
+    }
+
+    @After
+    public void teardown() {
+        testee = null;
+    }
 
     @Test
     public final void testFactoryInjectable() {

@@ -28,22 +28,30 @@ import static org.junit.Assert.fail;
 
 import java.util.Set;
 
-import javax.inject.Inject;
 import javax.validation.ConstraintViolation;
 import javax.xml.bind.JAXBException;
 
-import org.fuin.units4j.WeldJUnit4Runner;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 // CHECKSTYLE:OFF
-@RunWith(WeldJUnit4Runner.class)
 public class PasswordConverterTest {
 
-    private static final String XML = XML_PREFIX + "<data password=\"abcd1234\"/>";
+    private static final String XML = XML_PREFIX
+            + "<data password=\"abcd1234\"/>";
 
-    @Inject
     private ValueObjectConverter<String, Password> testee;
+
+    @Before
+    public void setup() {
+        testee = new PasswordConverter();
+    }
+
+    @After
+    public void teardown() {
+        testee = null;
+    }
 
     @Test
     public final void testFactoryInjectable() {
@@ -91,12 +99,14 @@ public class PasswordConverterTest {
     @Test
     public final void testUnmarshalError() {
 
-        final String invalidPasswordInXmlData = XML_PREFIX + "<data password=\"abcd123\"/>";
+        final String invalidPasswordInXmlData = XML_PREFIX
+                + "<data password=\"abcd123\"/>";
         try {
             unmarshal(invalidPasswordInXmlData, Data.class);
             fail("Expected an exception");
         } catch (final RuntimeException ex) {
-            assertCauseCauseMessage(ex, "The argument 'password' is not valid: 'abcd123'");
+            assertCauseCauseMessage(ex,
+                    "The argument 'password' is not valid: 'abcd123'");
         }
 
     }
@@ -111,7 +121,8 @@ public class PasswordConverterTest {
         setPrivateField(data.password, "str", "abc123");
         final Set<ConstraintViolation<Object>> violations = validate(data);
         assertThat(violations).hasSize(1);
-        assertThat(violations.iterator().next().getMessage()).isEqualTo("is not a valid password");
+        assertThat(violations.iterator().next().getMessage())
+                .isEqualTo("is not a valid password");
 
     }
 
