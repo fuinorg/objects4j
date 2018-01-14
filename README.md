@@ -11,6 +11,42 @@ A library with common Java types that are mostly immutable value objects.
 
 <a href="https://fuin-org.ci.cloudbees.com/job/objects4j"><img src="http://www.fuin.org/images/Button-Built-on-CB-1.png" width="213" height="72" border="0" alt="Built on CloudBees"/></a>
 
+# Features
+
+* [FileExists Validator](#file-exists-validator)
+* [IsDirectory Validator](#is-directory-validator)
+* [TraceStringCapable](#trace-string-capable)
+
+* * *
+
+# Description
+
+### FileExists Validator
+Verifies that the file exists (Bean validation JSR 303).
+```Java
+@FileExists
+private File myFile;
+```
+### IsDirectory Validator
+Verifies that it's a directory and not a file (Bean validation JSR 303).
+```Java
+@IsDirectory
+private File myDir;
+```
+### TraceStringCapable
+Marker interface for classes that provide a special representation for trace output.
+```Java
+public class MyClass implements TraceStringCapable {
+
+   @Override
+   public String toTraceString() {
+       return "A long and very detailed instance description for trace output"; 
+   }
+   
+}
+```
+
+
 ### Snapshots
 
 Snapshots can be found on the [OSS Sonatype Snapshots Repository](http://oss.sonatype.org/content/repositories/snapshots/org/fuin "Snapshot Repository"). 
