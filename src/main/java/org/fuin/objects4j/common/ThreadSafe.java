@@ -35,9 +35,13 @@ import java.lang.annotation.Target;
  * home: http://www.jcip.net
  * 
  * Original source: http://code.google.com/p/jsr-305/
+ * 
+ * @deprecated Use <code>javax.annotation.concurrent.ThreadSafe</code> from JSR 305 instead
+ *             (See Maven library "com.google.code.findbugs:jsr305").
  */
 @Documented
 @Target({ ElementType.TYPE, ElementType.ANNOTATION_TYPE })
 @Retention(RetentionPolicy.CLASS)
+@Deprecated
 public @interface ThreadSafe {
 }

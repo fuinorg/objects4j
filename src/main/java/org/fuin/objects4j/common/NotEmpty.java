@@ -35,6 +35,10 @@ import javax.validation.constraints.Size;
 
 /**
  * Checks if the string, collection, map or array is not null or empty.
+ * 
+ * @deprecated Use <code>javax.validation.constraints.NotEmpty</code> or
+ *             <code>javax.validation.constraints.NotBlank</code> from bean
+ *             validation 2.0 instead.
  */
 // CHECKSTYLE:OFF
 @Documented
@@ -43,6 +47,7 @@ import javax.validation.constraints.Size;
 @Retention(value = RUNTIME)
 @NotNull
 @Size(min = 1)
+@Deprecated
 public @interface NotEmpty {
     String message() default "{org.fuin.objects4j.common.NotEmpty.message}";
 

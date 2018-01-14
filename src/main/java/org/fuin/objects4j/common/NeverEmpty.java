@@ -27,11 +27,16 @@ import java.lang.annotation.Target;
 /**
  * Used to express that a method's return value is never <code>null</code> or
  * empty.
+ * 
+ * @deprecated Use <code>javax.validation.constraints.NotNull</code> from bean
+ *             validation instead. It wasn't allowed to use it for a return
+ *             value, but it is now.
  */
 // CHECKSTYLE:OFF
 @Documented
 @Target(value = { METHOD })
 @Retention(value = RUNTIME)
+@Deprecated
 public @interface NeverEmpty {
 }
 // CHECKSTYLE:ON
