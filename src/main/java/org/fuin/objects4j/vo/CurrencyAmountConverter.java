@@ -21,7 +21,7 @@ import java.util.Currency;
 
 import javax.persistence.AttributeConverter;
 
-import org.fuin.objects4j.common.ThreadSafe;
+import javax.annotation.concurrent.ThreadSafe;
 
 /**
  * Converts a {@link CurrencyAmount}.

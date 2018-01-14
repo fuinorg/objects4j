@@ -24,7 +24,7 @@ import javax.enterprise.inject.Vetoed;
 import javax.validation.constraints.NotNull;
 
 import org.fuin.objects4j.common.Contract;
-import org.fuin.objects4j.common.Immutable;
+import javax.annotation.concurrent.Immutable;
 
 /**
  * Size of a font including the unit.

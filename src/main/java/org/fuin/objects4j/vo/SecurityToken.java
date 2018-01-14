@@ -23,7 +23,7 @@ import java.security.SecureRandom;
 
 import javax.validation.constraints.NotNull;
 
-import org.fuin.objects4j.common.Immutable;
+import javax.annotation.concurrent.Immutable;
 
 /**
  * Creates a BASE64 encoded string based on a SHA1PRNG {@link SecureRandom}.

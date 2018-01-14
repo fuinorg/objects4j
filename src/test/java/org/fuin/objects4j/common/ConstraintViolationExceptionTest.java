@@ -23,6 +23,8 @@ import java.util.Set;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
+
 
 import org.junit.Test;
 

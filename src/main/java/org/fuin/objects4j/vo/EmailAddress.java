@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.common.ConstraintViolationException;
-import org.fuin.objects4j.common.Immutable;
+import javax.annotation.concurrent.Immutable;
 import org.fuin.objects4j.ui.Label;
 import org.fuin.objects4j.ui.ShortLabel;
 import org.fuin.objects4j.ui.Tooltip;

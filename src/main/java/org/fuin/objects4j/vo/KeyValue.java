@@ -24,7 +24,7 @@ import java.util.Map;
 import javax.validation.constraints.NotNull;
 
 import org.fuin.objects4j.common.Contract;
-import org.fuin.objects4j.common.Immutable;
+import javax.annotation.concurrent.Immutable;
 
 /**
  * Container for a key and a value.

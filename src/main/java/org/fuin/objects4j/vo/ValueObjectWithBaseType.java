@@ -17,7 +17,7 @@
  */
 package org.fuin.objects4j.vo;
 
-import org.fuin.objects4j.common.NeverNull;
+import javax.validation.constraints.NotNull;
 
 /**
  * Value object that may be expressed in a more general type with relaxed
@@ -35,7 +35,7 @@ public interface ValueObjectWithBaseType<BASE_TYPE> extends ValueObject {
      * 
      * @return A type that is less restricted than the VO itself.
      */
-    @NeverNull
+    @NotNull
     public Class<BASE_TYPE> getBaseType();
 
     /**
@@ -43,7 +43,7 @@ public interface ValueObjectWithBaseType<BASE_TYPE> extends ValueObject {
      * 
      * @return Converted value object.
      */
-    @NeverNull
+    @NotNull
     public BASE_TYPE asBaseType();
 
 }

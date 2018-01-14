@@ -19,7 +19,7 @@ package org.fuin.objects4j.ui;
 
 import javax.enterprise.inject.Vetoed;
 
-import org.fuin.objects4j.common.Immutable;
+import javax.annotation.concurrent.Immutable;
 
 /**
  * Stores some text.

@@ -17,7 +17,7 @@
  */
 package org.fuin.objects4j.vo;
 
-import org.fuin.objects4j.common.Nullable;
+import javax.annotation.Nullable;
 
 /**
  * Can convert a string into a type.
@@ -31,7 +31,8 @@ public interface ValueOfCapable<T> {
      * Parses a string and returns the converted type.
      * 
      * @param value
-     *            Value to convert. A <code>null</code> value returns <code>null</code>.
+     *            Value to convert. A <code>null</code> value returns
+     *            <code>null</code>.
      * 
      * @return Converted value.
      */

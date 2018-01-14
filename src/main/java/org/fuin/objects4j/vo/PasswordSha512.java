@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.common.ConstraintViolationException;
-import org.fuin.objects4j.common.Immutable;
+import javax.annotation.concurrent.Immutable;
 
 /**
  * SHA-512 hashed password that is HEX encoded.

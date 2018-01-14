@@ -25,6 +25,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.constraints.NotNull;
 import javax.validation.groups.Default;
+import javax.annotation.Nullable;
 
 /**
  * Utility class for assertions on objects.
