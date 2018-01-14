@@ -67,7 +67,8 @@ public final class AnnotationAnalyzer {
      * @return Label information - Never <code>null</code>.
      */
     public final ClassTextInfo createClassInfo(@NotNull final Class<?> clasz,
-            @NotNull final Locale locale, @NotNull final Class<? extends Annotation> annotationClasz) {
+            @NotNull final Locale locale,
+            @NotNull final Class<? extends Annotation> annotationClasz) {
 
         Contract.requireArgNotNull("clasz", clasz);
         Contract.requireArgNotNull("locale", locale);
@@ -79,9 +80,11 @@ public final class AnnotationAnalyzer {
         }
 
         try {
-            final ResourceBundle bundle = getResourceBundle(annotation, locale, clasz);
-            final String text = getText(bundle, annotation, clasz.getSimpleName() + "."
-                    + annotationClasz.getSimpleName());
+            final ResourceBundle bundle = getResourceBundle(annotation, locale,
+                    clasz);
+            final String text = getText(bundle, annotation,
+                    clasz.getSimpleName() + "."
+                            + annotationClasz.getSimpleName());
             return new ClassTextInfo(clasz, text);
         } catch (final MissingResourceException ex) {
             if (getValue(annotation).equals("")) {
@@ -94,7 +97,8 @@ public final class AnnotationAnalyzer {
 
     /**
      * Returns text annotation informations for all field of a class that are
-     * annotated with <code>annotationClasz</code>. All other fields are ignored.
+     * annotated with <code>annotationClasz</code>. All other fields are
+     * ignored.
      * 
      * @param clasz
      *            Class that contains the fields.
@@ -105,8 +109,9 @@ public final class AnnotationAnalyzer {
      * 
      * @return List of informations - Never <code>null</code>, but may be empty.
      */
-    public final List<FieldTextInfo> createFieldInfos(@NotNull final Class<?> clasz,
-            @NotNull final Locale locale, @NotNull final Class<? extends Annotation> annotationClasz) {
+    public final List<FieldTextInfo> createFieldInfos(
+            @NotNull final Class<?> clasz, @NotNull final Locale locale,
+            @NotNull final Class<? extends Annotation> annotationClasz) {
 
         Contract.requireArgNotNull("clasz", clasz);
         Contract.requireArgNotNull("locale", locale);
@@ -119,10 +124,11 @@ public final class AnnotationAnalyzer {
             final Annotation annotation = field.getAnnotation(annotationClasz);
             if (annotation != null) {
                 try {
-                    final ResourceBundle bundle = getResourceBundle(annotation, locale,
-                            field.getDeclaringClass());
-                    final String text = getText(bundle, annotation, field.getName() + "."
-                            + annotationClasz.getSimpleName());
+                    final ResourceBundle bundle = getResourceBundle(annotation,
+                            locale, field.getDeclaringClass());
+                    final String text = getText(bundle, annotation,
+                            field.getName() + "."
+                                    + annotationClasz.getSimpleName());
                     infos.add(new FieldTextInfo(field, text));
                 } catch (final MissingResourceException ex) {
                     final String text = toNullableString(getValue(annotation));
@@ -150,10 +156,12 @@ public final class AnnotationAnalyzer {
      * @param annotationClasz
      *            Type of annotation to find.
      * 
-     * @return Label information - Never <code>null</code>.
+     * @return Label information - May be <code>null</code> in case the
+     *         annotation was not found.
      */
     public final FieldTextInfo createFieldInfo(@NotNull final Field field,
-            @NotNull final Locale locale, @NotNull final Class<? extends Annotation> annotationClasz) {
+            @NotNull final Locale locale,
+            @NotNull final Class<? extends Annotation> annotationClasz) {
 
         Contract.requireArgNotNull("field", field);
         Contract.requireArgNotNull("locale", locale);
@@ -171,7 +179,8 @@ public final class AnnotationAnalyzer {
                     field.getName() + "." + annotationClasz.getSimpleName());
             return new FieldTextInfo(field, text);
         } catch (final MissingResourceException ex) {
-            return new FieldTextInfo(field, toNullableString(getValue(annotation)));
+            return new FieldTextInfo(field,
+                    toNullableString(getValue(annotation)));
         }
 
     }
@@ -194,7 +203,8 @@ public final class AnnotationAnalyzer {
      * @return Text or <code>null</code>.
      */
     private String getText(@NotNull final ResourceBundle bundle,
-            @NotNull final Annotation annotation, @NotNull final String defaultKey) {
+            @NotNull final Annotation annotation,
+            @NotNull final String defaultKey) {
 
         Contract.requireArgNotNull("bundle", bundle);
         Contract.requireArgNotNull("annotation", annotation);
@@ -233,8 +243,9 @@ public final class AnnotationAnalyzer {
      * 
      * @return Resource bundle - Never <code>null</code>.
      */
-    private ResourceBundle getResourceBundle(@NotNull final Annotation annotation,
-            @NotNull final Locale locale, @NotNull final Class<?> clasz) {
+    private ResourceBundle getResourceBundle(
+            @NotNull final Annotation annotation, @NotNull final Locale locale,
+            @NotNull final Class<?> clasz) {
 
         if (getBundle(annotation).equals("")) {
             final String path = clasz.getPackage().getName().replace('.', '/');
@@ -322,15 +333,17 @@ public final class AnnotationAnalyzer {
         if (argTypes == null) {
             argTypesIntern = new Class[] {};
             if (args != null) {
-                throw new IllegalArgumentException("The argument 'argTypes' is null but "
-                        + "'args' containes values!");
+                throw new IllegalArgumentException(
+                        "The argument 'argTypes' is null but "
+                                + "'args' containes values!");
             }
             argsIntern = new Object[] {};
         } else {
             argTypesIntern = argTypes;
             if (args == null) {
-                throw new IllegalArgumentException("The argument 'argTypes' contains classes "
-                        + "but 'args' is null!");
+                throw new IllegalArgumentException(
+                        "The argument 'argTypes' contains classes "
+                                + "but 'args' is null!");
             }
             argsIntern = args;
         }
@@ -338,7 +351,8 @@ public final class AnnotationAnalyzer {
 
         Class<?> returnType = null;
         try {
-            final Method method = obj.getClass().getMethod(methodName, argTypesIntern);
+            final Method method = obj.getClass().getMethod(methodName,
+                    argTypesIntern);
             if (method.getReturnType() == null) {
                 returnType = void.class;
             } else {
@@ -347,33 +361,35 @@ public final class AnnotationAnalyzer {
             return method.invoke(obj, argsIntern);
         } catch (final SecurityException ex) {
             throw new RuntimeException("Security problem with '"
-                    + getMethodSignature(returnType, methodName, argTypesIntern) + "'! ["
-                    + obj.getClass().getName() + "]", ex);
+                    + getMethodSignature(returnType, methodName, argTypesIntern)
+                    + "'! [" + obj.getClass().getName() + "]", ex);
         } catch (final NoSuchMethodException ex) {
             throw new RuntimeException("Method '"
-                    + getMethodSignature(returnType, methodName, argTypesIntern) + "' not found! ["
-                    + obj.getClass().getName() + "]", ex);
+                    + getMethodSignature(returnType, methodName, argTypesIntern)
+                    + "' not found! [" + obj.getClass().getName() + "]", ex);
         } catch (final IllegalArgumentException ex) {
             throw new RuntimeException("Argument problem with '"
-                    + getMethodSignature(returnType, methodName, argTypesIntern) + "'! ["
-                    + obj.getClass().getName() + "]", ex);
+                    + getMethodSignature(returnType, methodName, argTypesIntern)
+                    + "'! [" + obj.getClass().getName() + "]", ex);
         } catch (final IllegalAccessException ex) {
             throw new RuntimeException("Access problem with '"
-                    + getMethodSignature(returnType, methodName, argTypesIntern) + "'! ["
-                    + obj.getClass().getName() + "]", ex);
+                    + getMethodSignature(returnType, methodName, argTypesIntern)
+                    + "'! [" + obj.getClass().getName() + "]", ex);
         } catch (final InvocationTargetException ex) {
             throw new RuntimeException("Got an exception when calling '"
-                    + getMethodSignature(returnType, methodName, argTypesIntern) + "'! ["
-                    + obj.getClass().getName() + "]", ex);
+                    + getMethodSignature(returnType, methodName, argTypesIntern)
+                    + "'! [" + obj.getClass().getName() + "]", ex);
         }
 
     }
 
-    private static void checkSameLength(final Class<?>[] argTypes, final Object[] args) {
+    private static void checkSameLength(final Class<?>[] argTypes,
+            final Object[] args) {
         if (argTypes.length != args.length) {
-            throw new IllegalArgumentException("The argument 'argTypes' contains "
-                    + argTypes.length + " classes " + "but 'args' only contains " + args.length
-                    + " arguments!");
+            throw new IllegalArgumentException(
+                    "The argument 'argTypes' contains " + argTypes.length
+                            + " classes " + "but 'args' only contains "
+                            + args.length + " arguments!");
         }
     }
 

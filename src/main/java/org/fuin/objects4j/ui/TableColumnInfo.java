@@ -27,6 +27,8 @@ import javax.enterprise.inject.Vetoed;
 import javax.validation.constraints.NotNull;
 
 import org.fuin.objects4j.common.Contract;
+
+import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 /**
@@ -42,6 +44,8 @@ public final class TableColumnInfo implements Comparable<TableColumnInfo> {
 
     private final String shortText;
 
+    private final String tooltip;
+
     private final FontSize width;
 
     private final int pos;
@@ -49,7 +53,7 @@ public final class TableColumnInfo implements Comparable<TableColumnInfo> {
     private final String getter;
 
     /**
-     * Constructor with all data.
+     * Constructor without tooltip.
      * 
      * @param field
      *            The field.
@@ -64,8 +68,34 @@ public final class TableColumnInfo implements Comparable<TableColumnInfo> {
      * @param getter
      *            Name of the getter for the field.
      */
-    public TableColumnInfo(@NotNull final Field field, final String text, final String shortText,
-            final int pos, @NotNull final FontSize width, @NotNull final String getter) {
+    public TableColumnInfo(@NotNull final Field field, final String text,
+            final String shortText, final int pos,
+            @NotNull final FontSize width, @NotNull final String getter) {
+        this(field, text, shortText, null, pos, width, getter);
+    }
+
+    /**
+     * Constructor with all data.
+     * 
+     * @param field
+     *            The field.
+     * @param text
+     *            Text.
+     * @param shortText
+     *            Abbreviation of the text.
+     * @param tooltip
+     *            Tooltip.
+     * @param pos
+     *            Position of the column (starting with zero).
+     * @param width
+     *            Witdh of the column.
+     * @param getter
+     *            Name of the getter for the field.
+     */
+    public TableColumnInfo(@NotNull final Field field,
+            @Nullable final String text, @Nullable final String shortText,
+            @Nullable final String tooltip, final int pos,
+            @NotNull final FontSize width, @NotNull final String getter) {
         super();
 
         Contract.requireArgNotNull("field", field);
@@ -75,6 +105,7 @@ public final class TableColumnInfo implements Comparable<TableColumnInfo> {
         this.field = field;
         this.text = text;
         this.shortText = shortText;
+        this.tooltip = tooltip;
         this.pos = pos;
         this.width = width;
         this.getter = getter;
@@ -105,6 +136,15 @@ public final class TableColumnInfo implements Comparable<TableColumnInfo> {
      */
     public final String getShortText() {
         return shortText;
+    }
+
+    /**
+     * Returns the tooltip.
+     * 
+     * @return Tooltip text.
+     */
+    public final String getTooltip() {
+        return tooltip;
     }
 
     /**
@@ -207,7 +247,8 @@ public final class TableColumnInfo implements Comparable<TableColumnInfo> {
      * 
      * @return Information or <code>null</code>.
      */
-    public static TableColumnInfo create(@NotNull final Field field, @NotNull final Locale locale) {
+    public static TableColumnInfo create(@NotNull final Field field,
+            @NotNull final Locale locale) {
 
         Contract.requireArgNotNull("field", field);
         Contract.requireArgNotNull("locale", locale);
@@ -217,11 +258,15 @@ public final class TableColumnInfo implements Comparable<TableColumnInfo> {
             return null;
         }
         final AnnotationAnalyzer analyzer = new AnnotationAnalyzer();
-        final FieldTextInfo labelInfo = analyzer.createFieldInfo(field, locale, Label.class);
-        final FieldTextInfo shortLabelInfo = analyzer.createFieldInfo(field, locale,
-                ShortLabel.class);
+        final FieldTextInfo labelInfo = analyzer.createFieldInfo(field, locale,
+                Label.class);
+        final FieldTextInfo shortLabelInfo = analyzer.createFieldInfo(field,
+                locale, ShortLabel.class);
+        final FieldTextInfo tooltipInfo = analyzer.createFieldInfo(field,
+                locale, Tooltip.class);
         final int pos = tableColumn.pos();
-        final FontSize fontSize = new FontSize(tableColumn.width(), tableColumn.unit());
+        final FontSize fontSize = new FontSize(tableColumn.width(),
+                tableColumn.unit());
         final String getter = getGetter(tableColumn, field.getName());
 
         final String labelText;
@@ -238,7 +283,15 @@ public final class TableColumnInfo implements Comparable<TableColumnInfo> {
             shortLabelText = shortLabelInfo.getText();
         }
 
-        return new TableColumnInfo(field, labelText, shortLabelText, pos, fontSize, getter);
+        final String tooltipText;
+        if (tooltipInfo == null) {
+            tooltipText = null;
+        } else {
+            tooltipText = tooltipInfo.getText();
+        }
+
+        return new TableColumnInfo(field, labelText, shortLabelText,
+                tooltipText, pos, fontSize, getter);
 
     }
 
@@ -255,7 +308,8 @@ public final class TableColumnInfo implements Comparable<TableColumnInfo> {
      * 
      * @return Getter for the field.
      */
-    private static String getGetter(final TableColumn tableColumn, final String fieldName) {
+    private static String getGetter(final TableColumn tableColumn,
+            final String fieldName) {
         if (tableColumn.getter().equals("")) {
             return "get" + firstCharUpper(fieldName);
         }
