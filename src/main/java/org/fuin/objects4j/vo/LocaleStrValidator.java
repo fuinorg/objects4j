@@ -53,7 +53,7 @@ public final class LocaleStrValidator implements ConstraintValidator<LocaleStr, 
         if (value == null) {
             return true;
         }
-        Locale locale;
+        final Locale locale;
         final int p = value.indexOf("__");
         if (p > -1) {
             locale = new Locale(value.substring(0, p), null, value.substring(p + 2));
