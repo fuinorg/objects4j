@@ -33,9 +33,6 @@ Annotations that can be placed on plain objects but may be used by a user interf
 
 ## Package "vo"
 Provides Value Objects and utility classes for those immutable objects. 
-
-* * *
-
 ## Description "common"
 Base classes like utilities and general annotations.
 
@@ -181,7 +178,7 @@ Additionally some helper classes (like validators) are placed in this package.
 * [UserName](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/UserName.java) - User name with restricted character set and length. There is also a [UserNameConverter](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/UserNameConverter.java) and a [UserNameValidator](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/UserNameValidator.java) (```@UserNameStr```) available.
 
 **Validators**
-* [DateValidator](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/DateValidator.java) - Validates that a string is a date using the current locale [@DateStr](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/DateStr.java)
+* [DateValidator](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/DateValidator.java) - Validates that a string is a date using the current locale ([@DateStr](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/DateStr.java)).
 * [LocaleValidator](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/LocaleValidator.java) - Validates that a string is a valid locale ([@LocaleStr](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/LocaleStr.java)). There is also a [LocaleConverter](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/LocaleConverter.java) available. 
 * [PropertiesContainValidator](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/PropertiesContainValidator.java) - Validates that a string is one out of a list of constants ([@PropertiesContain("one", "two", "three")](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/PropertiesContain.java)).
 * [TrimmedNotEmptyValidator](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/TrimmedNotEmptyValidator.java) - Validates that a string is not empty after it was trimmed [@TrimmedNotEmpty](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/TrimmedNotEmpty.java)
@@ -190,6 +187,7 @@ Additionally some helper classes (like validators) are placed in this package.
 **Other**
 * [KeyValue](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/KeyValue.java) - Container for a key (String) and a value (Object).
 
+* * *
 
 ### Snapshots
 
