@@ -32,15 +32,12 @@ Annotations that can be placed on plain objects but may be used by a user interf
 
 
 ## Package "vo"
-Provides Value Objects (immutable objects) that represents an object whose equality isn't based on identity. 
-That means instances of this type are equal when they have the same value, not necessarily being the same object. 
-Additionally some helper classes are placed in this package.
-
-
+Provides Value Objects and utility classes for those immutable objects. 
 
 * * *
 
 ## Description "common"
+Base classes like utilities and general annotations.
 
 ### FileExists Validator
 Verifies that the file exists (Bean validation JSR 303).
@@ -157,6 +154,41 @@ for (TableColumnInfo column : columns) {
 }
 ```
 
+## Description "vo"
+Provides Value Objects (immutable objects) that represents an object whose equality isn't based on identity. 
+That means instances of this type are equal when they have the same value, not necessarily being the same object. 
+Additionally some helper classes (like validators) are placed in this package.
+
+**Interfaces**
+* [ValueObject](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/ValueObject.java) - Tag interface for value objects.
+* [ValueObjectConverter](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/ValueObjectConverter.java) - Converts a value object into it's base type and back.
+* [ValueObjectWithBaseType](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/ValueObjectWithBaseType.java) - Value object that may be expressed in a more general type with relaxed restrictions. Often basic Java types like String or numeric values (Long, Integer, ...) are used for this.
+* [ValueOfCapable](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/ValueOfCapable.java) - Classes that can convert a string into a type (They have a ```valueOf(String)``` method).
+* [AsStringCapable](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/AsStringCapable.java) - Classes that provides a string representation (They have a ```asString()``` method).
+
+**Base classes** that allow an easy implementation of concrete classes. 
+* [AbstractIntegerValueObject](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/AbstractIntegerValueObject.java) - A value object that is based on an integer.
+* [AbstractLongValueObject](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/AbstractLongValueObject.java) - A value object that is based on a long.
+* [AbstractStringValueObject](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/AbstractStringValueObject.java) - A value object that is based on a string.
+* [AbstractUuidValueObject](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/AbstractUuidValueObject.java) - A value object that is based on a UUID.
+* [AbstractValueObjectConverter](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/AbstractValueObjectConverter.java) - Converts value objects. It combines a JAXB [XmlAdapter](https://docs.oracle.com/javase/8/docs/api/javax/xml/bind/annotation/adapters/XmlAdapter.html), JPA [AttributeConverter](https://docs.oracle.com/javaee/7/api/javax/persistence/AttributeConverter.html) and [ValueObjectConverter](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/ValueObjectConverter.java).
+
+**Predefined Value Objects**
+* [CurrencyAmount](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/CurrencyAmount.java) - Combines a currency (like "USD" or "EUR") with a big decimal value. There is also a [CurrencyAmountConverter](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/CurrencyAmountConverter.java) and a [CurrencyAmountValidator](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/CurrencyAmountValidator.java) (```@CurrencyAmountStr```) available.
+* [EmailAddress](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/EmailAddress.java) - Email address. There is also a [EmailAddressConverter](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/EmailAddressConverter.java) and a [EmailAddressValidator](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/EmailAddressValidator.java) (```@EmailAddressStr```) available.
+* [Password](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/Password.java) - A password with a length between 8 and 20 characters. There is also a [PasswordConverter](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/PasswordConverter.java) and a [PasswordValidator](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/PasswordValidator.java) (```@PasswordStr```) available.
+* [PasswordSha512](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/PasswordSha512.java) - A SHA-512 hashed password that is HEX encoded. There is also a [PasswordSha512Converter](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/PasswordSha512Converter.java) and a [PasswordSha512Validator](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/PasswordSha512Validator.java) (```@PasswordSha512Str```) available.
+* [UserName](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/UserName.java) - User name with restricted character set and length. There is also a [UserNameConverter](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/UserNameConverter.java) and a [UserNameValidator](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/UserNameValidator.java) (```@UserNameStr```) available.
+
+**Validators**
+* [DateValidator](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/DateValidator.java) - Validates that a string is a date using the current locale [@DateStr](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/DateStr.java)
+* [LocaleValidator](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/LocaleValidator.java) - Validates that a string is a valid locale ([@LocaleStr](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/LocaleStr.java)). There is also a [LocaleConverter](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/LocaleConverter.java) available. 
+* [PropertiesContainValidator](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/PropertiesContainValidator.java) - Validates that a string is one out of a list of constants ([@PropertiesContain("one", "two", "three")](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/PropertiesContain.java)).
+* [TrimmedNotEmptyValidator](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/TrimmedNotEmptyValidator.java) - Validates that a string is not empty after it was trimmed [@TrimmedNotEmpty](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/TrimmedNotEmpty.java)
+* [UUIDValidator](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/UUIDValidator.java) - Validates that a string is a valid UUID ([@UUIDStr](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/UUIDStr.java)). There is also a [UUIDConverter](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/UUIDConverter.java) available. 
+
+**Other**
+* [KeyValue](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/vo/KeyValue.java) - Container for a key (String) and a value (Object).
 
 
 ### Snapshots
