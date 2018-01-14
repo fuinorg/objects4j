@@ -37,8 +37,9 @@ import java.lang.annotation.Target;
  * 
  * @see ThreadSafe
  * 
- * @deprecated Use <code>javax.annotation.concurrent.NotThreadSafe</code> from JSR 305 instead
- *             (See Maven library "com.google.code.findbugs:jsr305").
+ * @deprecated Use <code>javax.annotation.concurrent.NotThreadSafe</code> from
+ *             JSR 305 instead (See Maven library
+ *             "com.google.code.findbugs:jsr305").
  */
 @Documented
 @Target(ElementType.TYPE)

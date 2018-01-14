@@ -17,17 +17,17 @@
  */
 package org.fuin.objects4j.vo;
 
+import javax.annotation.concurrent.ThreadSafe;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
-
-import javax.annotation.concurrent.ThreadSafe;
 
 /**
  * Creates a {@link EmailAddress}.
  */
 @ThreadSafe
 @Converter(autoApply = true)
-public final class EmailAddressConverter extends AbstractValueObjectConverter<String, EmailAddress>
+public final class EmailAddressConverter
+        extends AbstractValueObjectConverter<String, EmailAddress>
         implements AttributeConverter<EmailAddress, String> {
 
     @Override

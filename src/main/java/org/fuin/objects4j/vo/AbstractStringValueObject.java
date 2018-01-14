@@ -20,10 +20,12 @@ package org.fuin.objects4j.vo;
 import java.io.Serializable;
 
 /**
- * Base class for value objects that that overrides {@link Object#hashCode()} and
- * {@link Object#equals(Object)} and implements comparable all based on the {@link #asBaseType()} method.
+ * Base class for value objects that that overrides {@link Object#hashCode()}
+ * and {@link Object#equals(Object)} and implements comparable all based on the
+ * {@link #asBaseType()} method.
  */
-public abstract class AbstractStringValueObject implements ValueObjectWithBaseType<String>,
+public abstract class AbstractStringValueObject
+        implements ValueObjectWithBaseType<String>,
         Comparable<AbstractStringValueObject>, Serializable, AsStringCapable {
 
     private static final long serialVersionUID = 1000L;

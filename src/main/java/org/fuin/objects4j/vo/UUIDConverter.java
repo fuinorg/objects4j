@@ -19,17 +19,16 @@ package org.fuin.objects4j.vo;
 
 import java.util.UUID;
 
+import javax.annotation.concurrent.ThreadSafe;
 import javax.persistence.AttributeConverter;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
-
-import javax.annotation.concurrent.ThreadSafe;
 
 /**
  * Converts a {@link UUID} into a String and back.
  */
 @ThreadSafe
-public final class UUIDConverter extends XmlAdapter<String, UUID> implements
-        AttributeConverter<UUID, String> {
+public final class UUIDConverter extends XmlAdapter<String, UUID>
+        implements AttributeConverter<UUID, String> {
 
     @Override
     public final String marshal(final UUID value) throws Exception {

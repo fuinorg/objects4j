@@ -20,17 +20,16 @@ package org.fuin.objects4j.vo;
 import java.util.Locale;
 import java.util.StringTokenizer;
 
+import javax.annotation.concurrent.ThreadSafe;
 import javax.persistence.AttributeConverter;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
-
-import javax.annotation.concurrent.ThreadSafe;
 
 /**
  * Converts a {@link Locale} into a String and back.
  */
 @ThreadSafe
-public final class LocaleConverter extends XmlAdapter<String, Locale> implements
-        AttributeConverter<Locale, String> {
+public final class LocaleConverter extends XmlAdapter<String, Locale>
+        implements AttributeConverter<Locale, String> {
 
     @Override
     public final String marshal(final Locale value) throws Exception {
@@ -71,7 +70,8 @@ public final class LocaleConverter extends XmlAdapter<String, Locale> implements
         final Locale locale;
         final int p = value.indexOf("__");
         if (p > -1) {
-            locale = new Locale(value.substring(0, p), null, value.substring(p + 2));
+            locale = new Locale(value.substring(0, p), null,
+                    value.substring(p + 2));
         } else {
             final StringTokenizer tok = new StringTokenizer(value, "_");
             if (tok.countTokens() == 1) {
@@ -79,9 +79,11 @@ public final class LocaleConverter extends XmlAdapter<String, Locale> implements
             } else if (tok.countTokens() == 2) {
                 locale = new Locale(tok.nextToken(), tok.nextToken());
             } else if (tok.countTokens() == 3) {
-                locale = new Locale(tok.nextToken(), tok.nextToken(), tok.nextToken());
+                locale = new Locale(tok.nextToken(), tok.nextToken(),
+                        tok.nextToken());
             } else {
-                throw new IllegalArgumentException("Cannot convert: '" + value + "'");
+                throw new IllegalArgumentException(
+                        "Cannot convert: '" + value + "'");
             }
         }
         return locale;

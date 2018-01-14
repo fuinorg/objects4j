@@ -28,8 +28,8 @@ import org.fuin.objects4j.common.ConstraintViolationException;
 /**
  * Check that a given string is an allowed HEX encoded SHA512 password.
  */
-public final class PasswordSha512StrValidator implements
-        ConstraintValidator<PasswordSha512Str, String> {
+public final class PasswordSha512StrValidator
+        implements ConstraintValidator<PasswordSha512Str, String> {
 
     private static final Pattern PATTERN = Pattern.compile("[0-9a-fA-F]*",
             java.util.regex.Pattern.CASE_INSENSITIVE);
@@ -39,7 +39,8 @@ public final class PasswordSha512StrValidator implements
     }
 
     @Override
-    public final boolean isValid(final String value, final ConstraintValidatorContext context) {
+    public final boolean isValid(final String value,
+            final ConstraintValidatorContext context) {
         return isValid(value);
     }
 
@@ -75,12 +76,12 @@ public final class PasswordSha512StrValidator implements
      *             The value was not valid.
      */
     // CHECKSTYLE:OFF:RedundantThrows
-    public static void requireArgValid(@NotNull final String name, @NotNull final String value)
-            throws ConstraintViolationException {
+    public static void requireArgValid(@NotNull final String name,
+            @NotNull final String value) throws ConstraintViolationException {
         // CHECKSTYLE:ON
         if (!isValid(value)) {
-            throw new ConstraintViolationException("The argument '" + name + "' is not valid: '"
-                    + value + "'");
+            throw new ConstraintViolationException("The argument '" + name
+                    + "' is not valid: '" + value + "'");
         }
     }
 

@@ -28,8 +28,8 @@ import javax.validation.ConstraintValidatorContext;
 /**
  * Check that a properties object contains a given number of expected keys.
  */
-public final class PropertiesContainValidator implements
-        ConstraintValidator<PropertiesContain, Properties> {
+public final class PropertiesContainValidator
+        implements ConstraintValidator<PropertiesContain, Properties> {
 
     private Set<String> expectedKeys;
 
@@ -40,7 +40,8 @@ public final class PropertiesContainValidator implements
     }
 
     @Override
-    public final boolean isValid(final Properties props, final ConstraintValidatorContext context) {
+    public final boolean isValid(final Properties props,
+            final ConstraintValidatorContext context) {
         if (props == null) {
             return true;
         }

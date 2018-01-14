@@ -26,14 +26,16 @@ import org.fuin.objects4j.common.ConstraintViolationException;
 /**
  * Check that a given string is an allowed password.
  */
-public final class PasswordStrValidator implements ConstraintValidator<PasswordStr, String> {
+public final class PasswordStrValidator
+        implements ConstraintValidator<PasswordStr, String> {
 
     @Override
     public final void initialize(final PasswordStr constraintAnnotation) {
     }
 
     @Override
-    public final boolean isValid(final String value, final ConstraintValidatorContext context) {
+    public final boolean isValid(final String value,
+            final ConstraintValidatorContext context) {
         return isValid(value);
     }
 
@@ -69,13 +71,13 @@ public final class PasswordStrValidator implements ConstraintValidator<PasswordS
      *             The value was not valid.
      */
     // CHECKSTYLE:OFF:RedundantThrows
-    public static void requireArgValid(@NotNull final String name, @NotNull final String value)
-            throws ConstraintViolationException {
+    public static void requireArgValid(@NotNull final String name,
+            @NotNull final String value) throws ConstraintViolationException {
         // CHECKSTYLE:ON
         final String trimmedValue = value.trim();
         if (!isValid(trimmedValue)) {
-            throw new ConstraintViolationException("The argument '" + name + "' is not valid: '"
-                    + trimmedValue + "'");
+            throw new ConstraintViolationException("The argument '" + name
+                    + "' is not valid: '" + trimmedValue + "'");
         }
     }
 

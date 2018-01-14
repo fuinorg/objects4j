@@ -30,7 +30,8 @@ import javax.validation.Payload;
 /**
  * The string has to be a well-formed email address.
  */
-@Target({ ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD, ElementType.ANNOTATION_TYPE })
+@Target({ ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD,
+        ElementType.ANNOTATION_TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = { EmailAddressStrValidator.class })
 @Documented

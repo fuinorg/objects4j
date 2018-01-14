@@ -66,7 +66,8 @@ public final class CurrencyAmount implements ValueObjectWithBaseType<String>,
      * @param currency
      *            Currency.
      */
-    public CurrencyAmount(@NotNull final BigDecimal amount, @NotNull final Currency currency) {
+    public CurrencyAmount(@NotNull final BigDecimal amount,
+            @NotNull final Currency currency) {
         super();
         Contract.requireArgNotNull("amount", amount);
         Contract.requireArgNotNull("currency", currency);
@@ -82,7 +83,8 @@ public final class CurrencyAmount implements ValueObjectWithBaseType<String>,
      * @param currency
      *            Currency.
      */
-    public CurrencyAmount(@NotNull final String amount, @NotNull final Currency currency) {
+    public CurrencyAmount(@NotNull final String amount,
+            @NotNull final Currency currency) {
         this(strToAmount(amount), currency);
     }
 
@@ -94,7 +96,8 @@ public final class CurrencyAmount implements ValueObjectWithBaseType<String>,
      * @param currencyCode
      *            ISO 4217 code of the currency.
      */
-    public CurrencyAmount(@NotNull final String amount, @NotNull final String currencyCode) {
+    public CurrencyAmount(@NotNull final String amount,
+            @NotNull final String currencyCode) {
         this(strToAmount(amount), Currency.getInstance(currencyCode));
     }
 
@@ -122,7 +125,8 @@ public final class CurrencyAmount implements ValueObjectWithBaseType<String>,
         if (!amount.equals(other.amount)) {
             return false;
         }
-        if (!currency.getCurrencyCode().equals(other.currency.getCurrencyCode())) {
+        if (!currency.getCurrencyCode()
+                .equals(other.currency.getCurrencyCode())) {
             return false;
         }
         return true;
@@ -177,7 +181,8 @@ public final class CurrencyAmount implements ValueObjectWithBaseType<String>,
     @Override
     public final String asBaseType() {
         if (stringCache == null) {
-            stringCache = amountToStr(amount) + " " + currency.getCurrencyCode();
+            stringCache = amountToStr(amount) + " "
+                    + currency.getCurrencyCode();
         }
         return stringCache;
     }
@@ -224,7 +229,8 @@ public final class CurrencyAmount implements ValueObjectWithBaseType<String>,
      * 
      * @return String as big decimal.
      */
-    public static BigDecimal strToAmount(@CurrencyAmountStr final String amount) {
+    public static BigDecimal strToAmount(
+            @CurrencyAmountStr final String amount) {
         if (amount == null) {
             return null;
         }

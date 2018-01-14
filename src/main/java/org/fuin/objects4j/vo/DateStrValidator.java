@@ -26,7 +26,8 @@ import javax.validation.ConstraintValidatorContext;
 /**
  * Check that a given string is a well-formed date/time based on a pattern.
  */
-public final class DateStrValidator implements ConstraintValidator<DateStr, String> {
+public final class DateStrValidator
+        implements ConstraintValidator<DateStr, String> {
 
     private SimpleDateFormat sdf;
 
@@ -37,7 +38,8 @@ public final class DateStrValidator implements ConstraintValidator<DateStr, Stri
     }
 
     @Override
-    public final boolean isValid(final String value, final ConstraintValidatorContext context) {
+    public final boolean isValid(final String value,
+            final ConstraintValidatorContext context) {
         if (value == null) {
             return true;
         }

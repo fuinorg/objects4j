@@ -28,7 +28,8 @@ import org.fuin.objects4j.common.ConstraintViolationException;
 /**
  * Check that a given string is a well-formed email address.
  */
-public final class EmailAddressStrValidator implements ConstraintValidator<EmailAddressStr, String> {
+public final class EmailAddressStrValidator
+        implements ConstraintValidator<EmailAddressStr, String> {
 
     @Override
     public final void initialize(final EmailAddressStr annotation) {
@@ -36,7 +37,8 @@ public final class EmailAddressStrValidator implements ConstraintValidator<Email
     }
 
     @Override
-    public boolean isValid(final String value, final ConstraintValidatorContext context) {
+    public boolean isValid(final String value,
+            final ConstraintValidatorContext context) {
         return isValid(value);
     }
 
@@ -77,14 +79,14 @@ public final class EmailAddressStrValidator implements ConstraintValidator<Email
      *             The value was not valid.
      */
     // CHECKSTYLE:OFF:RedundantThrows
-    public static void requireArgValid(@NotNull final String name, @NotNull final String value)
-            throws ConstraintViolationException {
+    public static void requireArgValid(@NotNull final String name,
+            @NotNull final String value) throws ConstraintViolationException {
         // CHECKSTYLE:ON
 
         final String trimmedLowerCaseValue = value.trim().toLowerCase();
         if (!isValid(trimmedLowerCaseValue)) {
-            throw new ConstraintViolationException("The argument '" + name + "' is not valid: '"
-                    + trimmedLowerCaseValue + "'");
+            throw new ConstraintViolationException("The argument '" + name
+                    + "' is not valid: '" + trimmedLowerCaseValue + "'");
         }
 
     }

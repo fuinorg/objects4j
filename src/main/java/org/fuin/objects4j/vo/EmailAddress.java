@@ -17,14 +17,14 @@
  */
 package org.fuin.objects4j.vo;
 
+import javax.annotation.concurrent.Immutable;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.common.ConstraintViolationException;
-import javax.annotation.concurrent.Immutable;
+import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.ui.Label;
 import org.fuin.objects4j.ui.ShortLabel;
 import org.fuin.objects4j.ui.Tooltip;
@@ -73,11 +73,13 @@ public final class EmailAddress extends AbstractStringValueObject {
         return asBaseType();
     }
 
-    private static InternetAddress parseArg(@NotNull final String name, @NotNull final String value) {
+    private static InternetAddress parseArg(@NotNull final String name,
+            @NotNull final String value) {
 
         final String trimmedLowerCaseValue = value.trim().toLowerCase();
         try {
-            final InternetAddress[] addr = InternetAddress.parse(trimmedLowerCaseValue, false);
+            final InternetAddress[] addr = InternetAddress
+                    .parse(trimmedLowerCaseValue, false);
             if (addr.length != 1) {
                 throw new ConstraintViolationException(
                         "The argument 'emailAddress' is not a single address: '"
@@ -85,8 +87,9 @@ public final class EmailAddress extends AbstractStringValueObject {
             }
             return addr[0];
         } catch (final AddressException ex) {
-            throw new ConstraintViolationException("The argument 'emailAddress' is not valid: '"
-                    + trimmedLowerCaseValue + "'");
+            throw new ConstraintViolationException(
+                    "The argument 'emailAddress' is not valid: '"
+                            + trimmedLowerCaseValue + "'");
         }
 
     }

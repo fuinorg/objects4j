@@ -17,18 +17,18 @@
  */
 package org.fuin.objects4j.vo;
 
+import javax.annotation.concurrent.ThreadSafe;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
-
-import javax.annotation.concurrent.ThreadSafe;
 
 /**
  * Creates a {@link Password}.
  */
 @ThreadSafe
 @Converter(autoApply = true)
-public class PasswordConverter extends AbstractValueObjectConverter<String, Password> implements
-        AttributeConverter<Password, String> {
+public class PasswordConverter
+        extends AbstractValueObjectConverter<String, Password>
+        implements AttributeConverter<Password, String> {
 
     @Override
     public final Class<String> getBaseTypeClass() {

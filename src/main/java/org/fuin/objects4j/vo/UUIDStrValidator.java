@@ -28,14 +28,16 @@ import org.fuin.objects4j.common.ConstraintViolationException;
 /**
  * Check that a given string is a valid {@link java.util.UUID}.
  */
-public final class UUIDStrValidator implements ConstraintValidator<UUIDStr, String> {
+public final class UUIDStrValidator
+        implements ConstraintValidator<UUIDStr, String> {
 
     @Override
     public final void initialize(final UUIDStr constraintAnnotation) {
     }
 
     @Override
-    public final boolean isValid(final String value, final ConstraintValidatorContext context) {
+    public final boolean isValid(final String value,
+            final ConstraintValidatorContext context) {
         return isValid(value);
     }
 
@@ -78,19 +80,19 @@ public final class UUIDStrValidator implements ConstraintValidator<UUIDStr, Stri
      *             The value was not valid.
      */
     // CHECKSTYLE:OFF:RedundantThrows
-    public static UUID parseArg(@NotNull final String name, @NotNull final String value)
-            throws ConstraintViolationException {
+    public static UUID parseArg(@NotNull final String name,
+            @NotNull final String value) throws ConstraintViolationException {
         // CHECKSTYLE:ON
 
         if (value.length() != 36) {
-            throw new ConstraintViolationException("The argument '" + name + "' is not valid: '"
-                    + value + "'");
+            throw new ConstraintViolationException("The argument '" + name
+                    + "' is not valid: '" + value + "'");
         }
         try {
             return UUID.fromString(value);
         } catch (final RuntimeException ex) {
-            throw new ConstraintViolationException("The argument '" + name + "' is not valid: '"
-                    + value + "'");
+            throw new ConstraintViolationException("The argument '" + name
+                    + "' is not valid: '" + value + "'");
         }
 
     }

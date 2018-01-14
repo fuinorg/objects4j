@@ -20,17 +20,15 @@ package org.fuin.objects4j.ui;
 import java.lang.reflect.Field;
 import java.util.Locale;
 
-import javax.enterprise.inject.Vetoed;
+import javax.annotation.concurrent.Immutable;
 import javax.validation.constraints.NotNull;
 
 import org.fuin.objects4j.common.Contract;
-import javax.annotation.concurrent.Immutable;
 
 /**
  * Information about a text field.
  */
 @Immutable
-@Vetoed
 public class TextFieldInfo {
 
     private final Field field;
@@ -106,7 +104,8 @@ public class TextFieldInfo {
      * 
      * @return Information or <code>null</code>.
      */
-    public static TextFieldInfo create(@NotNull final Field field, @NotNull final Locale locale) {
+    public static TextFieldInfo create(@NotNull final Field field,
+            @NotNull final Locale locale) {
 
         final TextField textField = field.getAnnotation(TextField.class);
         if (textField == null) {

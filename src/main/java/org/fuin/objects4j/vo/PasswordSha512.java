@@ -20,12 +20,12 @@ package org.fuin.objects4j.vo;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import javax.annotation.concurrent.Immutable;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.common.ConstraintViolationException;
-import javax.annotation.concurrent.Immutable;
+import org.fuin.objects4j.common.Contract;
 
 /**
  * SHA-512 hashed password that is HEX encoded.
@@ -36,8 +36,8 @@ public final class PasswordSha512 extends AbstractStringValueObject {
 
     private static final long serialVersionUID = -6285061339408965704L;
 
-    private static final char[] DIGITS = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a',
-            'b', 'c', 'd', 'e', 'f' };
+    private static final char[] DIGITS = { '0', '1', '2', '3', '4', '5', '6',
+            '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
 
     @NotNull
     @PasswordSha512Str
@@ -49,12 +49,14 @@ public final class PasswordSha512 extends AbstractStringValueObject {
      * @param hexEncodedHash
      *            Hash code as HEX encoded string.
      */
-    public PasswordSha512(@NotNull @PasswordSha512Str final String hexEncodedHash) {
+    public PasswordSha512(
+            @NotNull @PasswordSha512Str final String hexEncodedHash) {
         super();
         this.hash = hexEncodedHash;
         Contract.requireArgNotEmpty("hexEncodedHash", hexEncodedHash);
         if (!PasswordSha512StrValidator.isValid(hexEncodedHash)) {
-            throw new ConstraintViolationException("The argument 'hexEncodedHash' is not valid");
+            throw new ConstraintViolationException(
+                    "The argument 'hexEncodedHash' is not valid");
         }
     }
 

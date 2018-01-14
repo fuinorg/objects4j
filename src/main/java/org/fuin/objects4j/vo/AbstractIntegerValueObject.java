@@ -24,7 +24,8 @@ import java.io.Serializable;
  * and {@link Object#equals(Object)} and it implements comparable based on the
  * {@link #asBaseType()} method.
  */
-public abstract class AbstractIntegerValueObject implements ValueObjectWithBaseType<Integer>,
+public abstract class AbstractIntegerValueObject
+        implements ValueObjectWithBaseType<Integer>,
         Comparable<AbstractIntegerValueObject>, Serializable {
 
     private static final long serialVersionUID = 1000L;

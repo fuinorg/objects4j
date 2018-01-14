@@ -17,8 +17,10 @@
  */
 
 /**
- * Contains annotations that can be placed on plain objects but may be used by a 
+ * Contains annotations that can be placed on plain objects but may be used by a
  * user interface to render that object in some way.
  */
+@Vetoed
 package org.fuin.objects4j.ui;
 
+import javax.enterprise.inject.Vetoed;

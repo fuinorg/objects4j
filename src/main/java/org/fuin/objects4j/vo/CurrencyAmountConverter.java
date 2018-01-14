@@ -19,15 +19,15 @@ package org.fuin.objects4j.vo;
 
 import java.util.Currency;
 
-import javax.persistence.AttributeConverter;
-
 import javax.annotation.concurrent.ThreadSafe;
+import javax.persistence.AttributeConverter;
 
 /**
  * Converts a {@link CurrencyAmount}.
  */
 @ThreadSafe
-public final class CurrencyAmountConverter extends AbstractValueObjectConverter<String, CurrencyAmount>
+public final class CurrencyAmountConverter
+        extends AbstractValueObjectConverter<String, CurrencyAmount>
         implements AttributeConverter<CurrencyAmount, String> {
 
     @Override
@@ -52,7 +52,8 @@ public final class CurrencyAmountConverter extends AbstractValueObjectConverter<
         }
         final int p = value.indexOf(' ');
         if (p == -1) {
-            throw new IllegalArgumentException("No space character found in '" + value + "'");
+            throw new IllegalArgumentException(
+                    "No space character found in '" + value + "'");
         }
         final String amountStr = value.substring(0, p);
         final String currencyCode = value.substring(p + 1);

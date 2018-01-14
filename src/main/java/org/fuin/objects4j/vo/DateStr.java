@@ -30,7 +30,8 @@ import javax.validation.Payload;
 /**
  * The string is a well-formed date/time based on a pattern.
  */
-@Target({ ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD, ElementType.ANNOTATION_TYPE })
+@Target({ ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD,
+        ElementType.ANNOTATION_TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = { DateStrValidator.class })
 @Documented

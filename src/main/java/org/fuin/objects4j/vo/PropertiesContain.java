@@ -30,7 +30,8 @@ import javax.validation.Payload;
 /**
  * The properties object contains a number of expected keys.
  */
-@Target({ ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD, ElementType.ANNOTATION_TYPE })
+@Target({ ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD,
+        ElementType.ANNOTATION_TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = { PropertiesContainValidator.class })
 @Documented

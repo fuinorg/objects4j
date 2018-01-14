@@ -21,9 +21,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
-import javax.validation.constraints.NotNull;
-
 import javax.annotation.concurrent.Immutable;
+import javax.validation.constraints.NotNull;
 
 /**
  * Creates a BASE64 encoded string based on a SHA1PRNG {@link SecureRandom}.
@@ -33,8 +32,8 @@ public final class SecurityToken extends AbstractStringValueObject {
 
     private static final long serialVersionUID = 8737032520847641569L;
 
-    private static final char[] DIGITS = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a',
-            'b', 'c', 'd', 'e', 'f' };
+    private static final char[] DIGITS = { '0', '1', '2', '3', '4', '5', '6',
+            '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
 
     private static final SecureRandom SECURE_RANDOM;
 

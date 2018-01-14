@@ -26,7 +26,8 @@ import javax.validation.constraints.NotNull;
 /**
  * Checks if a given file is a file (and not a directory).
  */
-public class IsFileValidator implements ConstraintValidator<IsFile, File> {
+public final class IsFileValidator
+        implements ConstraintValidator<IsFile, File> {
 
     @Override
     public final void initialize(final IsFile constraintAnnotation) {
@@ -34,7 +35,8 @@ public class IsFileValidator implements ConstraintValidator<IsFile, File> {
     }
 
     @Override
-    public final boolean isValid(final File file, final ConstraintValidatorContext context) {
+    public final boolean isValid(final File file,
+            final ConstraintValidatorContext context) {
         if (file == null) {
             return true;
         }
@@ -54,11 +56,12 @@ public class IsFileValidator implements ConstraintValidator<IsFile, File> {
      */
     // CHECKSTYLE:OFF:RedundantThrows
     public static void requireArgValid(@NotNull final String name,
-            @FileExists @NotNull final File value) throws ConstraintViolationException {
+            @FileExists @NotNull final File value)
+            throws ConstraintViolationException {
         // CHECKSTYLE:ON
         if (!value.isFile()) {
-            throw new ConstraintViolationException("The argument '" + name + "' is not a file: '"
-                    + value + "'");
+            throw new ConstraintViolationException("The argument '" + name
+                    + "' is not a file: '" + value + "'");
         }
     }
 

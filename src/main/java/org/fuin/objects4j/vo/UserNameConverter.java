@@ -17,17 +17,17 @@
  */
 package org.fuin.objects4j.vo;
 
+import javax.annotation.concurrent.ThreadSafe;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
-
-import javax.annotation.concurrent.ThreadSafe;
 
 /**
  * Creates a {@link UserName}.
  */
 @ThreadSafe
 @Converter(autoApply = true)
-public final class UserNameConverter extends AbstractValueObjectConverter<String, UserName>
+public final class UserNameConverter
+        extends AbstractValueObjectConverter<String, UserName>
         implements AttributeConverter<UserName, String> {
 
     @Override

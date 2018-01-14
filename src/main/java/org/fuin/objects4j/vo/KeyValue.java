@@ -21,10 +21,10 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.annotation.concurrent.Immutable;
 import javax.validation.constraints.NotNull;
 
 import org.fuin.objects4j.common.Contract;
-import javax.annotation.concurrent.Immutable;
 
 /**
  * Container for a key and a value.
@@ -52,7 +52,8 @@ public final class KeyValue implements ValueObject {
      * @param value
      *            Value.
      */
-    public KeyValue(@NotNull @TrimmedNotEmpty final String key, final Object value) {
+    public KeyValue(@NotNull @TrimmedNotEmpty final String key,
+            final Object value) {
         super();
         Contract.requireArgNotNull("key", key);
         TrimmedNotEmptyValidator.requireArgValid("key", key);
@@ -89,7 +90,8 @@ public final class KeyValue implements ValueObject {
      * 
      * @return Replaced message.
      */
-    public static String replace(final String message, final KeyValue... keyValue) {
+    public static String replace(final String message,
+            final KeyValue... keyValue) {
         if (keyValue == null) {
             return message;
         }
@@ -127,7 +129,8 @@ public final class KeyValue implements ValueObject {
      * @return String with replaced variables. Unknown variables will remain
      *         unchanged.
      */
-    public static String replaceVars(final String str, final Map<String, String> vars) {
+    public static String replaceVars(final String str,
+            final Map<String, String> vars) {
 
         if (str == null) {
             return null;

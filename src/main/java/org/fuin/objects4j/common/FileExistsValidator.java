@@ -26,7 +26,8 @@ import javax.validation.constraints.NotNull;
 /**
  * Checks if the file exists.
  */
-public class FileExistsValidator implements ConstraintValidator<FileExists, File> {
+public final class FileExistsValidator
+        implements ConstraintValidator<FileExists, File> {
 
     @Override
     public final void initialize(final FileExists constraintAnnotation) {
@@ -34,7 +35,8 @@ public class FileExistsValidator implements ConstraintValidator<FileExists, File
     }
 
     @Override
-    public final boolean isValid(final File file, final ConstraintValidatorContext context) {
+    public final boolean isValid(final File file,
+            final ConstraintValidatorContext context) {
         if (file == null) {
             return true;
         }
@@ -53,8 +55,8 @@ public class FileExistsValidator implements ConstraintValidator<FileExists, File
      *             The file does not exist.
      */
     // CHECKSTYLE:OFF:RedundantThrows
-    public static void requireArgValid(@NotNull final String name, @NotNull final File value)
-            throws ConstraintViolationException {
+    public static void requireArgValid(@NotNull final String name,
+            @NotNull final File value) throws ConstraintViolationException {
         // CHECKSTYLE:ON
         if (!value.exists()) {
             throw new ConstraintViolationException("The argument '" + name

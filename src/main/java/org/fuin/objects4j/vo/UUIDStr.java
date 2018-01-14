@@ -33,7 +33,8 @@ import javax.validation.constraints.Size;
  * The string has to be a valid {@link java.util.UUID}.
  */
 @Size(min = 36, max = 36)
-@Target({ ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD, ElementType.ANNOTATION_TYPE })
+@Target({ ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD,
+        ElementType.ANNOTATION_TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = { UUIDStrValidator.class })
 @ReportAsSingleViolation

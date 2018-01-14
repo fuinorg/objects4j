@@ -41,7 +41,8 @@ import javax.validation.constraints.Size;
  * </ul>
  */
 @Size(min = 3, max = 20)
-@Target({ ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD, ElementType.ANNOTATION_TYPE })
+@Target({ ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD,
+        ElementType.ANNOTATION_TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = { UserNameStrValidator.class })
 @ReportAsSingleViolation

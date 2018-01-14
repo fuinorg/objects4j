@@ -17,17 +17,20 @@
  */
 
 /**
- * Contains immutable object that represents an object whose equality isn't based on
- * identity. That means instances of this type are equal when they have the same
- * value, not necessarily being the same object. Additionally some helper classes are placed in this package.
+ * Contains immutable object that represents an object whose equality isn't
+ * based on identity. That means instances of this type are equal when they have
+ * the same value, not necessarily being the same object. Additionally some
+ * helper classes are placed in this package.
  */
-@XmlJavaTypeAdapters({ @XmlJavaTypeAdapter(value = UUIDConverter.class, type = UUID.class),
+@Vetoed
+@XmlJavaTypeAdapters({
+        @XmlJavaTypeAdapter(value = UUIDConverter.class, type = UUID.class),
         @XmlJavaTypeAdapter(value = LocaleConverter.class, type = Locale.class) })
 package org.fuin.objects4j.vo;
 
 import java.util.Locale;
 import java.util.UUID;
 
+import javax.enterprise.inject.Vetoed;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapters;
-

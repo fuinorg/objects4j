@@ -23,8 +23,8 @@ import javax.validation.constraints.NotNull;
  * Exception that provides a number for the exception that is unique in the
  * context.
  */
-public abstract class UniquelyNumberedException extends Exception implements
-        UniquelyNumbered {
+public abstract class UniquelyNumberedException extends Exception
+        implements UniquelyNumbered {
 
     private static final long serialVersionUID = 1L;
 

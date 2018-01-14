@@ -28,8 +28,8 @@ import org.fuin.objects4j.common.ConstraintViolationException;
 /**
  * Check that a given string is a well-formed currency amount.
  */
-public final class CurrencyAmountStrValidator implements
-        ConstraintValidator<CurrencyAmountStr, String> {
+public final class CurrencyAmountStrValidator
+        implements ConstraintValidator<CurrencyAmountStr, String> {
 
     private static final String DECIMAL = "((\\+|-)?([0-9]+(\\.?[0-9]+)))";
 
@@ -42,7 +42,8 @@ public final class CurrencyAmountStrValidator implements
     }
 
     @Override
-    public final boolean isValid(final String value, final ConstraintValidatorContext context) {
+    public final boolean isValid(final String value,
+            final ConstraintValidatorContext context) {
         return isValid(value);
     }
 
@@ -97,13 +98,13 @@ public final class CurrencyAmountStrValidator implements
      *             The value was not valid.
      */
     // CHECKSTYLE:OFF:RedundantThrows
-    public static void requireArgValid(@NotNull final String name, @NotNull final String value)
-            throws ConstraintViolationException {
+    public static void requireArgValid(@NotNull final String name,
+            @NotNull final String value) throws ConstraintViolationException {
         // CHECKSTYLE:ON
 
         if (!isValid(value)) {
-            throw new ConstraintViolationException("The argument '" + name + "' is not valid: '"
-                    + value + "'");
+            throw new ConstraintViolationException("The argument '" + name
+                    + "' is not valid: '" + value + "'");
         }
 
     }

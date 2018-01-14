@@ -19,5 +19,7 @@
 /**
  * Contains base classes like utilities and general annotation.
  */
+@Vetoed
 package org.fuin.objects4j.common;
 
+import javax.enterprise.inject.Vetoed;

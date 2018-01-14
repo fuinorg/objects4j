@@ -22,10 +22,12 @@ import java.util.UUID;
 import java.util.regex.Pattern;
 
 /**
- * Base class for UUID value objects that that overrides {@link Object#hashCode()} and
- * {@link Object#equals(Object)} and it implements comparable based on the {@link #asBaseType()} method.
+ * Base class for UUID value objects that that overrides
+ * {@link Object#hashCode()} and {@link Object#equals(Object)} and it implements
+ * comparable based on the {@link #asBaseType()} method.
  */
-public abstract class AbstractUuidValueObject implements ValueObjectWithBaseType<UUID>,
+public abstract class AbstractUuidValueObject
+        implements ValueObjectWithBaseType<UUID>,
         Comparable<AbstractUuidValueObject>, Serializable {
 
     private static final long serialVersionUID = 1000L;
@@ -64,7 +66,8 @@ public abstract class AbstractUuidValueObject implements ValueObjectWithBaseType
      * Verifies that a given string is a valid UUID.
      * 
      * @param value
-     *            Value to check. A <code>null</code> value returns <code>true</code>.
+     *            Value to check. A <code>null</code> value returns
+     *            <code>true</code>.
      * 
      * @return TRUE if it's a valid key, else FALSE.
      */
@@ -72,7 +75,8 @@ public abstract class AbstractUuidValueObject implements ValueObjectWithBaseType
         if (value == null) {
             return true;
         }
-        final String uuidPattern = "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-" + "[0-9a-f]{4}-[0-9a-f]{12}$";
+        final String uuidPattern = "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-"
+                + "[0-9a-f]{4}-[0-9a-f]{12}$";
         return Pattern.matches(uuidPattern, value);
     }
 
