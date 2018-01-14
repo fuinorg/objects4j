@@ -18,9 +18,14 @@
 package org.fuin.objects4j.ui;
 
 import java.lang.reflect.Field;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.Tooltip;
+import javafx.scene.control.cell.PropertyValueFactory;
 import my.test.MyClass;
 
 /**
@@ -62,6 +67,21 @@ public class Examples {
         List<TableColumnInfo> columns = TableColumnInfo.create(MyClass.class, Locale.US);
         for (TableColumnInfo column : columns) {
             System.out.println(column.getText());
+        }
+
+        // --- JavaFX usage ---
+        TableView<MyClass> tableView = new TableView<>();
+        List<TableColumnInfo> tableCols = TableColumnInfo.create(MyClass.class, Locale.getDefault());
+        Collections.sort(tableCols);
+        for (TableColumnInfo column : tableCols) {
+            TableColumn<MyClass, String> tc = new TableColumn<>();
+            tc.setStyle("-fx-alignment: CENTER;");
+            javafx.scene.control.Label label = new javafx.scene.control.Label(column.getShortText());
+            label.setTooltip(new Tooltip(column.getTooltip()));
+            tc.setGraphic(label);
+            tc.setCellValueFactory(new PropertyValueFactory<MyClass, String>(column.getField().getName()));
+            tc.setPrefWidth(column.getWidth().getSize());
+            tableView.getColumns().add(tc);
         }
         
     }

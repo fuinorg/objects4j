@@ -146,14 +146,30 @@ Create a list of [TableColumnInfo](https://github.com/fuinorg/objects4j/blob/mas
 that combines [@Label](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/ui/Label.java), 
 [@ShortLabel](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/ui/ShortLabel.java) and 
 [@TableColumn](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/ui/TableColumn.java) annotations. 
-This allows easy creation of a table model for example for JavaFX.
 ```Java
-AnnotationAnalyzer analyzer = new AnnotationAnalyzer();
 List<TableColumnInfo> columns = TableColumnInfo.create(MyClass.class, Locale.US);
 for (TableColumnInfo column : columns) {
     System.out.println(column.getText());
 }
 ```
+
+This allows easy creation of a table model for example for JavaFX:
+```Java
+TableView<MyClass> tableView = new TableView<>();
+List<TableColumnInfo> tableCols = TableColumnInfo.create(MyClass.class, Locale.getDefault());
+Collections.sort(tableCols);
+for (TableColumnInfo column : tableCols) {
+    TableColumn<MyClass, String> tc = new TableColumn<>();
+    tc.setStyle("-fx-alignment: CENTER;");
+    Label label = new Label(column.getShortText());
+    label.setTooltip(new Tooltip(column.getTooltip()));
+    tc.setGraphic(label);
+    tc.setCellValueFactory(new PropertyValueFactory<MyClass, String>(column.getField().getName()));
+    tc.setPrefWidth(column.getWidth().getSize());
+    tableView.getColumns().add(tc);
+}
+```
+
 
 ## Description "vo"
 Provides Value Objects (immutable objects) that represents an object whose equality isn't based on identity. 
