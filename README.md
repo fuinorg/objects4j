@@ -134,7 +134,7 @@ System.out.println(labelInfoUs.getText());
 // Prints "Birthday"
 ```
 
-Read all ```@Label`` texts from a class:
+Read all ```@Label``` texts from a class:
 ```Java
 AnnotationAnalyzer analyzer = new AnnotationAnalyzer();
 List<FieldTextInfo> infos = analyzer.createFieldInfos(MyClass.class, Locale.US, Label.class);
