@@ -47,7 +47,7 @@ public final class EmailAddress extends AbstractStringValueObject {
     /**
      * Protected default constructor for deserialization.
      */
-    protected EmailAddress() {
+    protected EmailAddress() {//NO_SONAR Ignore JAXB default constructor
         super();
     }
 

@@ -29,6 +29,8 @@ import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+import javax.annotation.Nullable;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import org.fuin.objects4j.common.Contract;
@@ -310,7 +312,7 @@ public final class AnnotationAnalyzer {
      *            The object the underlying method is invoked from - Cannot be
      *            <code>null</code>.
      * @param methodName
-     *            Name of the Method - Cannot be <code>null</code>.
+     *            Name of the Method - Cannot be <code>null</code> or empty.
      * @param argTypes
      *            The list of parameters - May be <code>null</code>.
      * @param args
@@ -320,8 +322,8 @@ public final class AnnotationAnalyzer {
      * @return The result of dispatching the method represented by this object
      *         on <code>obj</code> with parameters <code>args</code>.
      */
-    private static Object invoke(final Object obj, final String methodName,
-            final Class<?>[] argTypes, final Object[] args) {
+    private static Object invoke(@NotNull final Object obj, @NotEmpty final String methodName,
+            @Nullable final Class<?>[] argTypes, @Nullable final Object[] args) {
 
         Contract.requireArgNotNull("obj", obj);
         Contract.requireArgNotNull("methodName", methodName);

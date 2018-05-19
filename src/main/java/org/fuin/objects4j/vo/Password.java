@@ -45,7 +45,7 @@ public final class Password extends AbstractStringValueObject {
     /**
      * Protected default constructor for deserialization.
      */
-    protected Password() {
+    protected Password() {//NO_SONAR Ignore JAXB default constructor
         super();
     }
 

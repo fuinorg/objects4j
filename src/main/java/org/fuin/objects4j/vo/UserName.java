@@ -51,7 +51,7 @@ public final class UserName extends AbstractStringValueObject {
     /**
      * Protected default constructor for deserialization.
      */
-    protected UserName() {
+    protected UserName() {//NO_SONAR Ignore JAXB default constructor
         super();
     }
 
