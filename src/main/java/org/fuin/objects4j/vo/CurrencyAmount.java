@@ -54,7 +54,7 @@ public final class CurrencyAmount implements ValueObjectWithBaseType<String>,
     /**
      * Protected default constructor for deserialization.
      */
-    protected CurrencyAmount() { //NO_SONAR Ignore JAXB default constructor
+    protected CurrencyAmount() { //NOSONAR Ignore JAXB default constructor
         super();
     }
 
