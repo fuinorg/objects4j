@@ -349,7 +349,7 @@ public final class AnnotationAnalyzer {
         }
         checkSameLength(argTypesIntern, argsIntern);
 
-        Class<?> returnType = null;
+        Class<?> returnType = UNKNOWN_CLASS.class;
         try {
             final Method method = obj.getClass().getMethod(methodName,
                     argTypesIntern);
@@ -424,7 +424,7 @@ public final class AnnotationAnalyzer {
         return sb.toString();
     }
 
-    private static String name(final Class<?> clasz) {
+    private static String name(@NotNull final Class<?> clasz) {
         final String name = CLASS_NAME_MAP.get(clasz);
         if (name == null) {
             return clasz.getName();
@@ -432,4 +432,8 @@ public final class AnnotationAnalyzer {
         return name;
     }
 
+    private static final class UNKNOWN_CLASS {
+	
+    }
+    
 }
