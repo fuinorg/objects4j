@@ -178,7 +178,7 @@ public final class Contract {
      */
     // CHECKSTYLE:OFF:RedundantThrows
     public static void requireArgMax(@NotNull final String name,
-            @NotNull final int value, final int max)
+            @NotNull final long value, final long max)
             throws ConstraintViolationException {
         // CHECKSTYLE:ON
         if (value > max) {
@@ -202,7 +202,7 @@ public final class Contract {
      */
     // CHECKSTYLE:OFF:RedundantThrows
     public static void requireArgMin(@NotNull final String name,
-            @NotNull final int value, final int min)
+            @NotNull final long value, final long min)
             throws ConstraintViolationException {
         // CHECKSTYLE:ON
         if (value < min) {
