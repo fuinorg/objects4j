@@ -236,16 +236,15 @@ public class ContractTest {
     public void testRequireArgMin() {
 
         // TEST
-        Contract.requireArgMin("name", 5, 4);
-
-        // TEST
-        Contract.requireArgMin("name", 4, 4);
-
-        // TEST
+        Contract.requireArgMin("name1", 5, 4);
+        Contract.requireArgMin("name3", 4, 4);
+        Contract.requireArgMin("name3", Integer.valueOf(5), Integer.valueOf(4));
+        Contract.requireArgMin("name4", 5L, 4L);
+        Contract.requireArgMin("name5", Long.valueOf(5), Long.valueOf(4));
         try {
-            Contract.requireArgMin("name", 3, 4);
+            Contract.requireArgMin("name6", 3, 4);
         } catch (final ConstraintViolationException ex) {
-            assertThat(ex.getMessage()).isEqualTo("Min value of argument 'name' is 4, but was: 3");
+            assertThat(ex.getMessage()).isEqualTo("Min value of argument 'name6' is 4, but was: 3");
         }
 
     }
