@@ -57,6 +57,6 @@ public class Data {
     @Valid
     @XmlAttribute(name = "any-str")
     public AnyStr anyStr;
-    
+
 }
 // CHECKSTYLE:ON

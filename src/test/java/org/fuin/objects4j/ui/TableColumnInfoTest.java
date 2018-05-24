@@ -45,8 +45,7 @@ public final class TableColumnInfoTest {
         final FontSize width = new FontSize(12, FontSizeUnit.POINT);
         final String getter = "getAbc";
 
-        final TableColumnInfo testee = new TableColumnInfo(field, text,
-                shortText, tooltipText, pos, width, getter);
+        final TableColumnInfo testee = new TableColumnInfo(field, text, shortText, tooltipText, pos, width, getter);
 
         assertThat(testee.getField()).isSameAs(field);
         assertThat(testee.getText()).isEqualTo(text);
@@ -55,82 +54,58 @@ public final class TableColumnInfoTest {
         assertThat(testee.getPos()).isEqualTo(pos);
         assertThat(testee.getWidth()).isSameAs(width);
         assertThat(testee.getGetter()).isEqualTo(getter);
-        
+
     }
 
     @Test
     public final void testCreateClassLocaleENGLISH() throws Exception {
 
-        final List<TableColumnInfo> list = TableColumnInfo.create(MyClass.class,
-                Locale.ENGLISH);
+        final List<TableColumnInfo> list = TableColumnInfo.create(MyClass.class, Locale.ENGLISH);
 
         assertThat(list).isNotNull();
         assertThat(list.size()).isEqualTo(4);
 
-        final TableColumnInfo tcFirstName = new TableColumnInfo(
-                MyClass.class.getDeclaredField("firstName"), "First name", null,
-                0, new FontSize(80, FontSizeUnit.PIXEL), "getFirstName");
-        final TableColumnInfo tcLastName = new TableColumnInfo(
-                MyClass.class.getDeclaredField("lastName"), "Last name", null,
-                1, new FontSize(100, FontSizeUnit.POINT), "getLastName");
-        final TableColumnInfo tcBirthday = new TableColumnInfo(
-                MyClass.class.getDeclaredField("birthday"),
-                "MyBundle_en birthday", "MyBundle_en birthday.short", 2,
-                new FontSize(40, FontSizeUnit.PIXEL), "getBirthday");
-        final TableColumnInfo tcPermanent = new TableColumnInfo(
-                MyClass.class.getDeclaredField("permanentEmployee"),
-                "Permanent employee", null, 3,
-                new FontSize(20, FontSizeUnit.PIXEL), "isPermanentEmployee");
+        final TableColumnInfo tcFirstName = new TableColumnInfo(MyClass.class.getDeclaredField("firstName"), "First name", null, 0,
+                new FontSize(80, FontSizeUnit.PIXEL), "getFirstName");
+        final TableColumnInfo tcLastName = new TableColumnInfo(MyClass.class.getDeclaredField("lastName"), "Last name", null, 1,
+                new FontSize(100, FontSizeUnit.POINT), "getLastName");
+        final TableColumnInfo tcBirthday = new TableColumnInfo(MyClass.class.getDeclaredField("birthday"), "MyBundle_en birthday",
+                "MyBundle_en birthday.short", 2, new FontSize(40, FontSizeUnit.PIXEL), "getBirthday");
+        final TableColumnInfo tcPermanent = new TableColumnInfo(MyClass.class.getDeclaredField("permanentEmployee"), "Permanent employee",
+                null, 3, new FontSize(20, FontSizeUnit.PIXEL), "isPermanentEmployee");
 
-        assertThat(list).contains(tcFirstName, tcLastName, tcBirthday,
-                tcPermanent);
+        assertThat(list).contains(tcFirstName, tcLastName, tcBirthday, tcPermanent);
 
-        assertEquals(tcFirstName, list.get(list.indexOf(tcFirstName)),
-                "tcFirstName");
-        assertEquals(tcLastName, list.get(list.indexOf(tcLastName)),
-                "tcLastName");
-        assertEquals(tcBirthday, list.get(list.indexOf(tcBirthday)),
-                "tcBirthday");
-        assertEquals(tcPermanent, list.get(list.indexOf(tcPermanent)),
-                "tcPermanent");
+        assertEquals(tcFirstName, list.get(list.indexOf(tcFirstName)), "tcFirstName");
+        assertEquals(tcLastName, list.get(list.indexOf(tcLastName)), "tcLastName");
+        assertEquals(tcBirthday, list.get(list.indexOf(tcBirthday)), "tcBirthday");
+        assertEquals(tcPermanent, list.get(list.indexOf(tcPermanent)), "tcPermanent");
 
     }
 
     @Test
     public final void testCreateClassLocaleGERMAN() throws Exception {
 
-        final List<TableColumnInfo> list = TableColumnInfo.create(MyClass.class,
-                Locale.GERMAN);
+        final List<TableColumnInfo> list = TableColumnInfo.create(MyClass.class, Locale.GERMAN);
 
         assertThat(list).isNotNull();
         assertThat(list.size()).isEqualTo(4);
 
-        final TableColumnInfo tcFirstName = new TableColumnInfo(
-                MyClass.class.getDeclaredField("firstName"), "First name", null,
-                0, new FontSize(80, FontSizeUnit.PIXEL), "getFirstName");
-        final TableColumnInfo tcLastName = new TableColumnInfo(
-                MyClass.class.getDeclaredField("lastName"), "Last name", null,
-                1, new FontSize(100, FontSizeUnit.POINT), "getLastName");
-        final TableColumnInfo tcBirthday = new TableColumnInfo(
-                MyClass.class.getDeclaredField("birthday"),
-                "MyBundle_de birthday", "MyBundle_de birthday.short", 2,
-                new FontSize(40, FontSizeUnit.PIXEL), "getBirthday");
-        final TableColumnInfo tcPermanent = new TableColumnInfo(
-                MyClass.class.getDeclaredField("permanentEmployee"),
-                "Permanent employee", null, 3,
-                new FontSize(20, FontSizeUnit.PIXEL), "isPermanentEmployee");
+        final TableColumnInfo tcFirstName = new TableColumnInfo(MyClass.class.getDeclaredField("firstName"), "First name", null, 0,
+                new FontSize(80, FontSizeUnit.PIXEL), "getFirstName");
+        final TableColumnInfo tcLastName = new TableColumnInfo(MyClass.class.getDeclaredField("lastName"), "Last name", null, 1,
+                new FontSize(100, FontSizeUnit.POINT), "getLastName");
+        final TableColumnInfo tcBirthday = new TableColumnInfo(MyClass.class.getDeclaredField("birthday"), "MyBundle_de birthday",
+                "MyBundle_de birthday.short", 2, new FontSize(40, FontSizeUnit.PIXEL), "getBirthday");
+        final TableColumnInfo tcPermanent = new TableColumnInfo(MyClass.class.getDeclaredField("permanentEmployee"), "Permanent employee",
+                null, 3, new FontSize(20, FontSizeUnit.PIXEL), "isPermanentEmployee");
 
-        assertThat(list).contains(tcFirstName, tcLastName, tcBirthday,
-                tcPermanent);
+        assertThat(list).contains(tcFirstName, tcLastName, tcBirthday, tcPermanent);
 
-        assertEquals(tcFirstName, list.get(list.indexOf(tcFirstName)),
-                "tcFirstName");
-        assertEquals(tcLastName, list.get(list.indexOf(tcLastName)),
-                "tcLastName");
-        assertEquals(tcBirthday, list.get(list.indexOf(tcBirthday)),
-                "tcBirthday");
-        assertEquals(tcPermanent, list.get(list.indexOf(tcPermanent)),
-                "tcPermanent");
+        assertEquals(tcFirstName, list.get(list.indexOf(tcFirstName)), "tcFirstName");
+        assertEquals(tcLastName, list.get(list.indexOf(tcLastName)), "tcLastName");
+        assertEquals(tcBirthday, list.get(list.indexOf(tcBirthday)), "tcBirthday");
+        assertEquals(tcPermanent, list.get(list.indexOf(tcPermanent)), "tcPermanent");
 
     }
 
@@ -138,11 +113,9 @@ public final class TableColumnInfoTest {
     public final void testCreateFieldLocaleENGLISH() throws Exception {
 
         final Field field = MyClass.class.getDeclaredField("birthday");
-        final TableColumnInfo testee = TableColumnInfo.create(field,
-                Locale.ENGLISH);
+        final TableColumnInfo testee = TableColumnInfo.create(field, Locale.ENGLISH);
 
-        final TableColumnInfo tcBirthday = new TableColumnInfo(field,
-                "MyBundle_en birthday", "MyBundle_en birthday.short", 2,
+        final TableColumnInfo tcBirthday = new TableColumnInfo(field, "MyBundle_en birthday", "MyBundle_en birthday.short", 2,
                 new FontSize(40, FontSizeUnit.PIXEL), "getBirthday");
 
         assertEquals(tcBirthday, testee, "tcBirthday");
@@ -153,44 +126,30 @@ public final class TableColumnInfoTest {
     public final void testCreateFieldLocaleGERMAN() throws Exception {
 
         final Field field = MyClass.class.getDeclaredField("birthday");
-        final TableColumnInfo testee = TableColumnInfo.create(field,
-                Locale.GERMAN);
+        final TableColumnInfo testee = TableColumnInfo.create(field, Locale.GERMAN);
 
-        final TableColumnInfo tcBirthday = new TableColumnInfo(field,
-                "MyBundle_de birthday", "MyBundle_de birthday.short", 2,
+        final TableColumnInfo tcBirthday = new TableColumnInfo(field, "MyBundle_de birthday", "MyBundle_de birthday.short", 2,
                 new FontSize(40, FontSizeUnit.PIXEL), "getBirthday");
 
         assertEquals(tcBirthday, testee, "tcBirthday");
 
     }
 
-    private void assertEquals(final TableColumnInfo expected,
-            final TableColumnInfo actual, final String descr) {
-        assertThat(actual.getField()).describedAs(descr)
-                .isEqualTo(expected.getField());
-        assertThat(actual.getGetter()).describedAs(descr)
-                .isEqualTo(expected.getGetter());
-        assertThat(actual.getPos()).describedAs(descr)
-                .isEqualTo(expected.getPos());
-        assertThat(actual.getShortText()).describedAs(descr)
-                .isEqualTo(expected.getShortText());
-        assertThat(actual.getText()).describedAs(descr)
-                .isEqualTo(expected.getText());
-        assertThat(actual.getWidth()).describedAs(descr)
-                .isEqualTo(expected.getWidth());
+    private void assertEquals(final TableColumnInfo expected, final TableColumnInfo actual, final String descr) {
+        assertThat(actual.getField()).describedAs(descr).isEqualTo(expected.getField());
+        assertThat(actual.getGetter()).describedAs(descr).isEqualTo(expected.getGetter());
+        assertThat(actual.getPos()).describedAs(descr).isEqualTo(expected.getPos());
+        assertThat(actual.getShortText()).describedAs(descr).isEqualTo(expected.getShortText());
+        assertThat(actual.getText()).describedAs(descr).isEqualTo(expected.getText());
+        assertThat(actual.getWidth()).describedAs(descr).isEqualTo(expected.getWidth());
     }
 
     @Test
     public void testEqualsHashCode() throws Exception {
         EqualsVerifier.forClass(TableColumnInfo.class)
-                .withPrefabValues(Field.class, C.class.getDeclaredField("c"),
-                        D.class.getDeclaredField("d2"))
-                .withPrefabValues(FontSize.class,
-                        new FontSize(40, FontSizeUnit.PIXEL),
-                        new FontSize(100, FontSizeUnit.POINT))
-                .suppress(Warning.NULL_FIELDS,
-                        Warning.ALL_FIELDS_SHOULD_BE_USED)
-                .verify();
+                .withPrefabValues(Field.class, C.class.getDeclaredField("c"), D.class.getDeclaredField("d2"))
+                .withPrefabValues(FontSize.class, new FontSize(40, FontSizeUnit.PIXEL), new FontSize(100, FontSizeUnit.POINT))
+                .suppress(Warning.NULL_FIELDS, Warning.ALL_FIELDS_SHOULD_BE_USED).verify();
     }
 
 }

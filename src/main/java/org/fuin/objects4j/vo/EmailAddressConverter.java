@@ -26,8 +26,7 @@ import javax.persistence.Converter;
  */
 @ThreadSafe
 @Converter(autoApply = true)
-public final class EmailAddressConverter
-        extends AbstractValueObjectConverter<String, EmailAddress>
+public final class EmailAddressConverter extends AbstractValueObjectConverter<String, EmailAddress>
         implements AttributeConverter<EmailAddress, String> {
 
     @Override

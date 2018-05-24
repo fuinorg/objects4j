@@ -26,9 +26,7 @@ import javax.persistence.Converter;
  */
 @ThreadSafe
 @Converter(autoApply = true)
-public class PasswordConverter
-        extends AbstractValueObjectConverter<String, Password>
-        implements AttributeConverter<Password, String> {
+public class PasswordConverter extends AbstractValueObjectConverter<String, Password> implements AttributeConverter<Password, String> {
 
     @Override
     public final Class<String> getBaseTypeClass() {

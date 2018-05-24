@@ -25,11 +25,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-
 /**
  * Test for the {@link TrimmedNotEmptyValidator} class.
  */
-//CHECKSTYLE:OFF
+// CHECKSTYLE:OFF
 public class TrimmedNotEmptyValidatorTest {
 
     private TrimmedNotEmptyValidator testee;
@@ -52,8 +51,8 @@ public class TrimmedNotEmptyValidatorTest {
         assertThat(testee.isValid(" a ", null)).isTrue();
         assertThat(testee.isValid(" ", null)).isFalse();
         assertThat(testee.isValid("", null)).isFalse();
-        
-    }    
+
+    }
 
     @Test
     public final void testRequireArgValid() {
@@ -71,9 +70,8 @@ public class TrimmedNotEmptyValidatorTest {
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo("The argument 'a' cannot be empty");
         }
-        
+
     }
-    
-    
+
 }
-//CHECKSTYLE:ON
+// CHECKSTYLE:ON

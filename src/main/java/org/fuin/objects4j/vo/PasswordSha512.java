@@ -36,8 +36,7 @@ public final class PasswordSha512 extends AbstractStringValueObject {
 
     private static final long serialVersionUID = -6285061339408965704L;
 
-    private static final char[] DIGITS = { '0', '1', '2', '3', '4', '5', '6',
-            '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+    private static final char[] DIGITS = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
 
     @NotNull
     @PasswordSha512Str
@@ -49,14 +48,12 @@ public final class PasswordSha512 extends AbstractStringValueObject {
      * @param hexEncodedHash
      *            Hash code as HEX encoded string.
      */
-    public PasswordSha512(
-            @NotNull @PasswordSha512Str final String hexEncodedHash) {
+    public PasswordSha512(@NotNull @PasswordSha512Str final String hexEncodedHash) {
         super();
         this.hash = hexEncodedHash;
         Contract.requireArgNotEmpty("hexEncodedHash", hexEncodedHash);
         if (!PasswordSha512StrValidator.isValid(hexEncodedHash)) {
-            throw new ConstraintViolationException(
-                    "The argument 'hexEncodedHash' is not valid");
+            throw new ConstraintViolationException("The argument 'hexEncodedHash' is not valid");
         }
     }
 

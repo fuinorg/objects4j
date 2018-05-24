@@ -41,14 +41,10 @@ public final class PasswordSha512StrValidatorTest {
     @Test
     public final void testIsValidTRUE() {
 
-        assertThat(
-                testee.isValid("b4d4b13a02230f9672c92fd45aa44fd202bdba7de3fda640ac84ee5d54c"
-                        + "57fde293b4bbddce1b9a56d63d674b47c4dd7e6d89536a1e126ebf0cd662e76e8bec3",
-                        null)).isTrue();
-        assertThat(
-                testee.isValid("aa3b7bdd98ec44af1f395bbd5f7f27a5cd9569d794d032747323bf4b1521fb"
-                        + "e7725875a68b440abdf0559de5015baf873bb9c01cae63ecea93ad547a7397416e",
-                        null)).isTrue();
+        assertThat(testee.isValid("b4d4b13a02230f9672c92fd45aa44fd202bdba7de3fda640ac84ee5d54c"
+                + "57fde293b4bbddce1b9a56d63d674b47c4dd7e6d89536a1e126ebf0cd662e76e8bec3", null)).isTrue();
+        assertThat(testee.isValid("aa3b7bdd98ec44af1f395bbd5f7f27a5cd9569d794d032747323bf4b1521fb"
+                + "e7725875a68b440abdf0559de5015baf873bb9c01cae63ecea93ad547a7397416e", null)).isTrue();
 
     }
 
@@ -64,26 +60,20 @@ public final class PasswordSha512StrValidatorTest {
 
     @Test
     public final void testIsValidTooShort() {
-        assertThat(
-                testee.isValid("b4d4b13a02230f9672c92fd45aa44fd202bdba7de3fda640ac84ee5d54c5"
-                        + "7fde293b4bbddce1b9a56d63d674b47c4dd7e6d89536a1e126ebf0cd662e76e8be",
-                        null)).isFalse();
+        assertThat(testee.isValid("b4d4b13a02230f9672c92fd45aa44fd202bdba7de3fda640ac84ee5d54c5"
+                + "7fde293b4bbddce1b9a56d63d674b47c4dd7e6d89536a1e126ebf0cd662e76e8be", null)).isFalse();
     }
 
     @Test
     public final void testIsValidTooLong() {
-        assertThat(
-                testee.isValid("b4d4b13a02230f9672c92fd45aa44fd202bdba7de3fda640ac84ee5d54c57fde"
-                        + "293b4bbddce1b9a56d63d674b47c4dd7e6d89536a1e126ebf0cd662e76e8bec31c",
-                        null)).isFalse();
+        assertThat(testee.isValid("b4d4b13a02230f9672c92fd45aa44fd202bdba7de3fda640ac84ee5d54c57fde"
+                + "293b4bbddce1b9a56d63d674b47c4dd7e6d89536a1e126ebf0cd662e76e8bec31c", null)).isFalse();
     }
 
     @Test
     public final void testIsValidIllegalCharacters() {
-        assertThat(
-                testee.isValid("fa 85d89c851dd338a70dcf5zzaa2a92fee7836dd6aff122yy83e88e0996"
-                        + "293f16bc009c652826e0fc5c706695a03cddce372f139eff4d13959da6f1f5d3eabe",
-                        null)).isFalse();
+        assertThat(testee.isValid("fa 85d89c851dd338a70dcf5zzaa2a92fee7836dd6aff122yy83e88e0996"
+                + "293f16bc009c652826e0fc5c706695a03cddce372f139eff4d13959da6f1f5d3eabe", null)).isFalse();
     }
 
 }

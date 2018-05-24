@@ -32,8 +32,7 @@ public final class SecurityToken extends AbstractStringValueObject {
 
     private static final long serialVersionUID = 8737032520847641569L;
 
-    private static final char[] DIGITS = { '0', '1', '2', '3', '4', '5', '6',
-            '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+    private static final char[] DIGITS = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
 
     private static final SecureRandom SECURE_RANDOM;
 

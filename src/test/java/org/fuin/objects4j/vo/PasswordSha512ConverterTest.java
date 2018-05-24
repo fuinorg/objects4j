@@ -40,8 +40,7 @@ public class PasswordSha512ConverterTest {
 
     private static final String HASH = "925f43c3cfb956bbe3c6aa8023ba7ad5cfa21d104186fffc69e768e55940d9653b1cd36fba614fba2e1844f4436da20f83750c6ec1db356da154691bdd71a9b1";
 
-    private static final String XML = XML_PREFIX + "<data passwordSha512=\""
-            + HASH + "\"/>";
+    private static final String XML = XML_PREFIX + "<data passwordSha512=\"" + HASH + "\"/>";
 
     private ValueObjectConverter<String, PasswordSha512> testee;
 
@@ -98,14 +97,12 @@ public class PasswordSha512ConverterTest {
     @Test
     public final void testUnmarshalError() {
 
-        final String invalidHashInXmlData = XML_PREFIX
-                + "<data passwordSha512=\"1\"/>";
+        final String invalidHashInXmlData = XML_PREFIX + "<data passwordSha512=\"1\"/>";
         try {
             unmarshal(invalidHashInXmlData, Data.class);
             fail("Expected an exception");
         } catch (final RuntimeException ex) {
-            assertCauseCauseMessage(ex,
-                    "The argument 'hexEncodedHash' is not valid");
+            assertCauseCauseMessage(ex, "The argument 'hexEncodedHash' is not valid");
         }
 
     }
@@ -120,8 +117,7 @@ public class PasswordSha512ConverterTest {
         setPrivateField(data.passwordSha512, "hash", "1");
         final Set<ConstraintViolation<Object>> violations = validate(data);
         assertThat(violations).hasSize(1);
-        assertThat(violations.iterator().next().getMessage())
-                .isEqualTo("is not a valid HEX encoded SHA512 password hash");
+        assertThat(violations.iterator().next().getMessage()).isEqualTo("is not a valid HEX encoded SHA512 password hash");
 
     }
 

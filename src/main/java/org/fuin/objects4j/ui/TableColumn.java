@@ -23,9 +23,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Use this annotation to assign preferred table column values to a field. The
- * information may be used by UI elements to configure a table column when the
- * field is displayed as a table column.
+ * Use this annotation to assign preferred table column values to a field. The information may be used by UI elements to configure a table
+ * column when the field is displayed as a table column.
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)

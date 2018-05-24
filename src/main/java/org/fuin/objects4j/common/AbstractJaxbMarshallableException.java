@@ -24,11 +24,9 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlElement;
 
 /**
- * Base class for checked exceptions that removes the stack trace and cause
- * while marshalling and unmarshalling using JAX-B.
+ * Base class for checked exceptions that removes the stack trace and cause while marshalling and unmarshalling using JAX-B.
  */
-public abstract class AbstractJaxbMarshallableException extends Exception
-        implements ExceptionJaxbMarshallable {
+public abstract class AbstractJaxbMarshallableException extends Exception implements ExceptionJaxbMarshallable {
 
     private static final long serialVersionUID = 1L;
 
@@ -47,31 +45,25 @@ public abstract class AbstractJaxbMarshallableException extends Exception
     /**
      * Constructs a new exception with the specified detail message and cause.
      * <p>
-     * Note that the detail message associated with {@code cause} is <i>not</i>
-     * automatically incorporated in this exception's detail message.
+     * Note that the detail message associated with {@code cause} is <i>not</i> automatically incorporated in this exception's detail
+     * message.
      *
      * @param message
-     *            the detail message (which is saved for later retrieval by the
-     *            {@link #getMessage()} method).
+     *            the detail message (which is saved for later retrieval by the {@link #getMessage()} method).
      * @param cause
-     *            the cause (which is saved for later retrieval by the
-     *            {@link #getCause()} method). (A <tt>null</tt> value is
-     *            permitted, and indicates that the cause is nonexistent or
-     *            unknown.)
+     *            the cause (which is saved for later retrieval by the {@link #getCause()} method). (A <tt>null</tt> value is permitted, and
+     *            indicates that the cause is nonexistent or unknown.)
      */
-    public AbstractJaxbMarshallableException(final String message,
-            final Throwable cause) {
+    public AbstractJaxbMarshallableException(final String message, final Throwable cause) {
         super(message, cause);
     }
 
     /**
-     * Constructs a new exception with the specified detail message. The cause
-     * is not initialized, and may subsequently be initialized by a call to
-     * {@link #initCause}.
+     * Constructs a new exception with the specified detail message. The cause is not initialized, and may subsequently be initialized by a
+     * call to {@link #initCause}.
      *
      * @param message
-     *            the detail message. The detail message is saved for later
-     *            retrieval by the {@link #getMessage()} method.
+     *            the detail message. The detail message is saved for later retrieval by the {@link #getMessage()} method.
      */
     public AbstractJaxbMarshallableException(final String message) {
         super(message);
@@ -81,8 +73,7 @@ public abstract class AbstractJaxbMarshallableException extends Exception
     /**
      * Invoked by Marshaller after it has created an instance of this object.
      * 
-     * This method will remove the stack trace before the exception is
-     * serialized. This avoids having empty stack trace elements.
+     * This method will remove the stack trace before the exception is serialized. This avoids having empty stack trace elements.
      * 
      * @param marshaller
      *            Current marshaller.
@@ -94,11 +85,9 @@ public abstract class AbstractJaxbMarshallableException extends Exception
     }
 
     /**
-     * Invoked by Marshaller after it has marshalled all properties of this
-     * object.
+     * Invoked by Marshaller after it has marshalled all properties of this object.
      * 
-     * This method will restore the stacktrace after the exception was
-     * serialized.
+     * This method will restore the stacktrace after the exception was serialized.
      * 
      * @param marshaller
      *            Current marshaller.
@@ -108,30 +97,26 @@ public abstract class AbstractJaxbMarshallableException extends Exception
     }
 
     /**
-     * This method is called after all the properties (except IDREF) are
-     * unmarshalled for this object, but before this object is set to the parent
-     * object.
+     * This method is called after all the properties (except IDREF) are unmarshalled for this object, but before this object is set to the
+     * parent object.
      * 
      * @param unmarshaller
      *            Unmarshaller.
      * @param parent
      *            Parent object.
      */
-    protected final void afterUnmarshal(final Unmarshaller unmarshaller,
-            final Object parent) {
+    protected final void afterUnmarshal(final Unmarshaller unmarshaller, final Object parent) {
         setPrivateField(this, "detailMessage", msg);
         setStackTrace(new StackTraceElement[] {});
     }
 
-    private static void setPrivateField(final Object obj, final String name,
-            final Object value) {
+    private static void setPrivateField(final Object obj, final String name, final Object value) {
         try {
             final Field field = Throwable.class.getDeclaredField(name);
             field.setAccessible(true);
             field.set(obj, value);
         } catch (final Exception ex) {
-            throw new RuntimeException("Failed to set field '" + name
-                    + "' in class '" + obj.getClass() + "'", ex);
+            throw new RuntimeException("Failed to set field '" + name + "' in class '" + obj.getClass() + "'", ex);
         }
     }
 

@@ -94,4 +94,4 @@ public final class UserNameStrValidatorTest {
     }
 
 }
-//CHECKSTYLE:ON
+// CHECKSTYLE:ON

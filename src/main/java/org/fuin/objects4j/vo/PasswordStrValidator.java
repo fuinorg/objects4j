@@ -26,16 +26,14 @@ import org.fuin.objects4j.common.ConstraintViolationException;
 /**
  * Check that a given string is an allowed password.
  */
-public final class PasswordStrValidator
-        implements ConstraintValidator<PasswordStr, String> {
+public final class PasswordStrValidator implements ConstraintValidator<PasswordStr, String> {
 
     @Override
     public final void initialize(final PasswordStr constraintAnnotation) {
     }
 
     @Override
-    public final boolean isValid(final String value,
-            final ConstraintValidatorContext context) {
+    public final boolean isValid(final String value, final ConstraintValidatorContext context) {
         return isValid(value);
     }
 
@@ -45,8 +43,7 @@ public final class PasswordStrValidator
      * @param value
      *            Value to check.
      * 
-     * @return Returns <code>true</code> if it's an allowed password else
-     *         <code>false</code> is returned.
+     * @return Returns <code>true</code> if it's an allowed password else <code>false</code> is returned.
      */
     public static final boolean isValid(final String value) {
         if (value == null) {
@@ -59,8 +56,7 @@ public final class PasswordStrValidator
     }
 
     /**
-     * Checks if the argument is valid and throws an exception if this is not
-     * the case.
+     * Checks if the argument is valid and throws an exception if this is not the case.
      * 
      * @param name
      *            Name of the value for a possible error message.
@@ -71,13 +67,11 @@ public final class PasswordStrValidator
      *             The value was not valid.
      */
     // CHECKSTYLE:OFF:RedundantThrows
-    public static void requireArgValid(@NotNull final String name,
-            @NotNull final String value) throws ConstraintViolationException {
+    public static void requireArgValid(@NotNull final String name, @NotNull final String value) throws ConstraintViolationException {
         // CHECKSTYLE:ON
         final String trimmedValue = value.trim();
         if (!isValid(trimmedValue)) {
-            throw new ConstraintViolationException("The argument '" + name
-                    + "' is not valid: '" + trimmedValue + "'");
+            throw new ConstraintViolationException("The argument '" + name + "' is not valid: '" + trimmedValue + "'");
         }
     }
 

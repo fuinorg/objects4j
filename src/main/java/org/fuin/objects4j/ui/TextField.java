@@ -23,9 +23,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Use this annotation to express the annotated attribute should be rendered as
- * a text field. User agents are expected to use this information as hint for
- * the rendering process.
+ * Use this annotation to express the annotated attribute should be rendered as a text field. User agents are expected to use this
+ * information as hint for the rendering process.
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)

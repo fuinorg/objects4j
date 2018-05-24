@@ -77,7 +77,7 @@ public final class EmailAddressStrValidatorTest {
             assertThat(ex.getMessage()).isEqualTo("The argument 'a' is not valid: 'abc@'");
         }
 
-    }    
-    
+    }
+
 }
 // TESTCODE:END

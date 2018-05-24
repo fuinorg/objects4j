@@ -46,13 +46,11 @@ public final class ClassTextInfoTest {
 
         final AnnotationAnalyzer annotationAnalyzer = new AnnotationAnalyzer();
 
-        ClassTextInfo testee = annotationAnalyzer.createClassInfo(
-                MyClass.class, Locale.ENGLISH, Label.class);
+        ClassTextInfo testee = annotationAnalyzer.createClassInfo(MyClass.class, Locale.ENGLISH, Label.class);
         assertThat(testee.getClasz()).isSameAs(MyClass.class);
         assertThat(testee.getText()).isEqualTo("MyClass_en label");
 
-        testee = annotationAnalyzer.createClassInfo(MyClass.class,
-                Locale.ENGLISH, ShortLabel.class);
+        testee = annotationAnalyzer.createClassInfo(MyClass.class, Locale.ENGLISH, ShortLabel.class);
         assertThat(testee.getClasz()).isSameAs(MyClass.class);
         assertThat(testee.getText()).isEqualTo("MyClass_en shortLabel");
 
@@ -63,13 +61,11 @@ public final class ClassTextInfoTest {
 
         final AnnotationAnalyzer annotationAnalyzer = new AnnotationAnalyzer();
 
-        ClassTextInfo testee = annotationAnalyzer.createClassInfo(
-                MyClass.class, Locale.GERMAN, Label.class);
+        ClassTextInfo testee = annotationAnalyzer.createClassInfo(MyClass.class, Locale.GERMAN, Label.class);
         assertThat(testee.getClasz()).isSameAs(MyClass.class);
         assertThat(testee.getText()).isEqualTo("MyClass_de label");
 
-        testee = annotationAnalyzer.createClassInfo(MyClass.class,
-                Locale.GERMAN, ShortLabel.class);
+        testee = annotationAnalyzer.createClassInfo(MyClass.class, Locale.GERMAN, ShortLabel.class);
         assertThat(testee.getClasz()).isSameAs(MyClass.class);
         assertThat(testee.getText()).isEqualTo("MyClass_de shortLabel");
 
@@ -77,8 +73,7 @@ public final class ClassTextInfoTest {
 
     @Test
     public void testEqualsHashCode() {
-        EqualsVerifier.forClass(ClassTextInfo.class)
-                .suppress(Warning.NULL_FIELDS, Warning.ALL_FIELDS_SHOULD_BE_USED).verify();
+        EqualsVerifier.forClass(ClassTextInfo.class).suppress(Warning.NULL_FIELDS, Warning.ALL_FIELDS_SHOULD_BE_USED).verify();
     }
 
 }

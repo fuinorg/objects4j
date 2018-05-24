@@ -73,7 +73,7 @@ public final class ClassTextInfo extends TextInfo {
             return false;
         }
         final ClassTextInfo other = (ClassTextInfo) obj;
-        return clasz.getName().equals(other.clasz.getName()); //NOSONAR
+        return clasz.getName().equals(other.clasz.getName()); // NOSONAR
     }
 
     @Override

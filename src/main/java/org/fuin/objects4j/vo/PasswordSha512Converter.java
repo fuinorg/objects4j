@@ -26,8 +26,7 @@ import javax.persistence.Converter;
  */
 @ThreadSafe
 @Converter(autoApply = true)
-public class PasswordSha512Converter
-        extends AbstractValueObjectConverter<String, PasswordSha512>
+public class PasswordSha512Converter extends AbstractValueObjectConverter<String, PasswordSha512>
         implements AttributeConverter<PasswordSha512, String> {
 
     @Override

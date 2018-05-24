@@ -36,7 +36,7 @@ public final class LocalDateTimeAdapterTest extends AbstractPersistenceTest {
     public final void testUnmarshalNull() {
         assertThat(new LocalDateTimeAdapter().unmarshal(null)).isNull();
     }
-    
+
     @Test
     public final void testConvertToDatabaseColumnNull() {
         assertThat(new LocalDateTimeAdapter().convertToDatabaseColumn(null)).isNull();
@@ -48,63 +48,62 @@ public final class LocalDateTimeAdapterTest extends AbstractPersistenceTest {
     }
 
     @Test
-	public final void testMarshalUnmarshal() {
+    public final void testMarshalUnmarshal() {
 
-		// PREPARE
-		final LocalDateTimeAdapter testee = new LocalDateTimeAdapter();
-		final LocalDateTime original = new LocalDateTime();
+        // PREPARE
+        final LocalDateTimeAdapter testee = new LocalDateTimeAdapter();
+        final LocalDateTime original = new LocalDateTime();
 
-		// TEST
-		final String str = testee.marshal(original);
-		final LocalDateTime copy = testee.unmarshal(str);
+        // TEST
+        final String str = testee.marshal(original);
+        final LocalDateTime copy = testee.unmarshal(str);
 
-		// VERIFY
-		assertThat(copy).isEqualTo(original);
+        // VERIFY
+        assertThat(copy).isEqualTo(original);
 
-	}
+    }
 
-	@Test
-	public final void testConvert() {
+    @Test
+    public final void testConvert() {
 
-		// PREPARE
-		final LocalDateTimeAdapter testee = new LocalDateTimeAdapter();
-		final LocalDateTime original = new LocalDateTime();
+        // PREPARE
+        final LocalDateTimeAdapter testee = new LocalDateTimeAdapter();
+        final LocalDateTime original = new LocalDateTime();
 
-		// TEST
-		final String str = testee.convertToDatabaseColumn(original);
-		final LocalDateTime copy = testee.convertToEntityAttribute(str);
+        // TEST
+        final String str = testee.convertToDatabaseColumn(original);
+        final LocalDateTime copy = testee.convertToEntityAttribute(str);
 
-		// VERIFY
-		assertThat(copy).isEqualTo(original);
+        // VERIFY
+        assertThat(copy).isEqualTo(original);
 
-	}
+    }
 
-	@Test
-	public void testJPA() {
+    @Test
+    public void testJPA() {
 
-		// PREPARE
-		final LocalDateTime localDateTime = new LocalDateTime();
+        // PREPARE
+        final LocalDateTime localDateTime = new LocalDateTime();
 
-		beginTransaction();
-		getEm().persist(new JodaParentEntity(1));
-		commitTransaction();
+        beginTransaction();
+        getEm().persist(new JodaParentEntity(1));
+        commitTransaction();
 
-		// TEST UPDATE
-		beginTransaction();
-		final JodaParentEntity entity = getEm()
-				.find(JodaParentEntity.class, 1L);
-		entity.setLocalDateTime(localDateTime);
-		commitTransaction();
+        // TEST UPDATE
+        beginTransaction();
+        final JodaParentEntity entity = getEm().find(JodaParentEntity.class, 1L);
+        entity.setLocalDateTime(localDateTime);
+        commitTransaction();
 
-		// VERIFY
-		beginTransaction();
-		final JodaParentEntity copy = getEm().find(JodaParentEntity.class, 1L);
-		assertThat(copy).isNotNull();
-		assertThat(copy.getId()).isEqualTo(1);
-		assertThat(copy.getLocalDateTime()).isEqualTo(localDateTime);
-		commitTransaction();
+        // VERIFY
+        beginTransaction();
+        final JodaParentEntity copy = getEm().find(JodaParentEntity.class, 1L);
+        assertThat(copy).isNotNull();
+        assertThat(copy.getId()).isEqualTo(1);
+        assertThat(copy.getLocalDateTime()).isEqualTo(localDateTime);
+        commitTransaction();
 
-	}
+    }
 
 }
 // TESTCODE:END

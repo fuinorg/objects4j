@@ -49,7 +49,7 @@ public final class UUIDStrValidatorTest {
         final String value = "089ba5d3-1027-421d-add7-7e65f95b6ed6";
         assertThat(testee.isValid(value, null)).isTrue();
         assertThat(UUIDStrValidator.parseArg("a", value)).isEqualTo(UUID.fromString(value));
-        
+
     }
 
     @Test
@@ -61,11 +61,11 @@ public final class UUIDStrValidatorTest {
 
     @Test
     public final void testValidNullValue() {
-        
+
         assertThat(testee.isValid(null, null)).isTrue();
-        
+
         // UUIDStrValidator.parseArg(..) does not allow NULL
-        
+
     }
 
     @Test
@@ -79,49 +79,48 @@ public final class UUIDStrValidatorTest {
     public final void testInvalidEmpty() {
 
         assertThat(testee.isValid("", null)).isFalse();
-        
+
         try {
             UUIDStrValidator.parseArg("a", "");
             fail();
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo("The argument 'a' is not valid: ''");
         }
-        
+
     }
 
     @Test
     public final void testInvalidSingleNumber() {
 
         assertThat(testee.isValid("1", null)).isFalse();
-        
+
         try {
             UUIDStrValidator.parseArg("a", "1");
             fail();
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo("The argument 'a' is not valid: '1'");
         }
-        
+
     }
 
     @Test
     public final void testInvalidSpecialCharacters() {
-        
+
         final String value = "089ba5d3-10ä7-421d-add7-7e65f95b6ed6";
         assertThat(testee.isValid(value, null)).isFalse();
-        
+
         try {
             UUIDStrValidator.parseArg("a", value);
             fail();
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo("The argument 'a' is not valid: '" + value + "'");
         }
-        
+
     }
 
     @Test
     public final void testParseArg() {
-        
-        
+
     }
 
 }

@@ -27,12 +27,9 @@ public class AbstractLongValueObjectTest {
 
     @Test
     public void testEqualsHashCode() {
-        EqualsVerifier
-                .forClass(TestLongVO.class)
-                .withRedefinedSuperclass()
-                .withPrefabValues(AbstractLongValueObject.class,
-                        new TestLongVO(1L), new TestLongVO(2L))
-                .suppress(Warning.NULL_FIELDS).verify();
+        EqualsVerifier.forClass(TestLongVO.class).withRedefinedSuperclass()
+                .withPrefabValues(AbstractLongValueObject.class, new TestLongVO(1L), new TestLongVO(2L)).suppress(Warning.NULL_FIELDS)
+                .verify();
 
     }
 

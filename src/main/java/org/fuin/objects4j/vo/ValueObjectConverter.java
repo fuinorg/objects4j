@@ -42,20 +42,18 @@ public interface ValueObjectConverter<BASE_TYPE, VO_TYPE extends ValueObjectWith
     public Class<VO_TYPE> getValueObjectClass();
 
     /**
-     * Verifies that the given value can be converted into a value object using
-     * the factory. A <code>null</code> parameter will return <code>true</code>.
+     * Verifies that the given value can be converted into a value object using the factory. A <code>null</code> parameter will return
+     * <code>true</code>.
      * 
      * @param value
      *            Value to check.
      * 
-     * @return <code>true</code> if the value can be converted, else
-     *         <code>false</code>.
+     * @return <code>true</code> if the value can be converted, else <code>false</code>.
      */
     public boolean isValid(BASE_TYPE value);
 
     /**
-     * Converts the base type into an value object. A <code>null</code>
-     * parameter will return <code>null</code>.
+     * Converts the base type into an value object. A <code>null</code> parameter will return <code>null</code>.
      * 
      * @param value
      *            Representation of the value object as base type.
@@ -65,8 +63,7 @@ public interface ValueObjectConverter<BASE_TYPE, VO_TYPE extends ValueObjectWith
     public VO_TYPE toVO(BASE_TYPE value);
 
     /**
-     * Converts the value object into an base type. A <code>null</code>
-     * parameter will return <code>null</code>.
+     * Converts the value object into an base type. A <code>null</code> parameter will return <code>null</code>.
      * 
      * @param value
      *            Value object.

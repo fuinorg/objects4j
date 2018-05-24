@@ -40,8 +40,7 @@ public class UserNameConverterTest {
 
     private static final String USER_NAME = "michael-1_a";
 
-    private static final String XML = XML_PREFIX + "<data userName=\""
-            + USER_NAME + "\"/>";
+    private static final String XML = XML_PREFIX + "<data userName=\"" + USER_NAME + "\"/>";
 
     private ValueObjectConverter<String, UserName> testee;
 
@@ -98,14 +97,12 @@ public class UserNameConverterTest {
     @Test
     public final void testUnmarshalError() {
 
-        final String invalidUsernameInXmlData = XML_PREFIX
-                + "<data userName=\"x\"/>";
+        final String invalidUsernameInXmlData = XML_PREFIX + "<data userName=\"x\"/>";
         try {
             unmarshal(invalidUsernameInXmlData, Data.class);
             fail("Expected an exception");
         } catch (final RuntimeException ex) {
-            assertCauseCauseMessage(ex,
-                    "The argument 'userName' is not valid: 'x'");
+            assertCauseCauseMessage(ex, "The argument 'userName' is not valid: 'x'");
         }
 
     }
@@ -120,8 +117,7 @@ public class UserNameConverterTest {
         setPrivateField(data.userName, "str", "x");
         final Set<ConstraintViolation<Object>> violations = validate(data);
         assertThat(violations).hasSize(1);
-        assertThat(violations.iterator().next().getMessage())
-                .isEqualTo("is not a well-formed user name");
+        assertThat(violations.iterator().next().getMessage()).isEqualTo("is not a well-formed user name");
 
     }
 

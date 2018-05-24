@@ -54,8 +54,7 @@ public final class FieldTextInfo extends TextInfo {
     }
 
     /**
-     * Returns the text of the label or the name of the field if the text is
-     * <code>null</code>.
+     * Returns the text of the label or the name of the field if the text is <code>null</code>.
      * 
      * @return Long text or field name - Never <code>null</code>.
      */

@@ -36,7 +36,7 @@ public final class AnyStr extends AbstractStringValueObject {
      * 
      * @param str
      *            String to convert.
-     *  
+     * 
      * @return New instance.
      */
     public static AnyStr valueOf(String str) {

@@ -26,9 +26,7 @@ import org.joda.time.format.ISODateTimeFormat;
 /**
  * Joda local date/time JAXB adapter and JPA converter.
  */
-public final class LocalDateTimeAdapter
-        extends XmlAdapter<String, LocalDateTime>
-        implements AttributeConverter<LocalDateTime, String> {
+public final class LocalDateTimeAdapter extends XmlAdapter<String, LocalDateTime> implements AttributeConverter<LocalDateTime, String> {
 
     @Override
     public final LocalDateTime unmarshal(final String str) {

@@ -50,8 +50,7 @@ public final class ConstraintViolationException extends RuntimeException {
      * @param constraintViolations
      *            Constraint violations.
      */
-    public ConstraintViolationException(final String message,
-            final Set<ConstraintViolation<Object>> constraintViolations) {
+    public ConstraintViolationException(final String message, final Set<ConstraintViolation<Object>> constraintViolations) {
         super(message);
         this.constraintViolations = constraintViolations;
     }
@@ -59,8 +58,7 @@ public final class ConstraintViolationException extends RuntimeException {
     /**
      * Returns the constraint violations.
      * 
-     * @return Immutable set of constraint violations or <code>null</code> if
-     *         only a message is available.
+     * @return Immutable set of constraint violations or <code>null</code> if only a message is available.
      */
     public final Set<ConstraintViolation<Object>> getConstraintViolations() {
         if (constraintViolations == null) {

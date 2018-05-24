@@ -36,8 +36,7 @@ import javax.validation.constraints.Size;
 /**
  * Checks if the string, collection, map or array is not null or empty.
  * 
- * @deprecated Use <code>javax.validation.constraints.NotEmpty</code> or
- *             <code>javax.validation.constraints.NotBlank</code> from bean
+ * @deprecated Use <code>javax.validation.constraints.NotEmpty</code> or <code>javax.validation.constraints.NotBlank</code> from bean
  *             validation 2.0 instead.
  */
 // CHECKSTYLE:OFF

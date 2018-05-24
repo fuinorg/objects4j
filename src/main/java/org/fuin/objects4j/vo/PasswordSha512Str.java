@@ -30,12 +30,10 @@ import javax.validation.constraints.Size;
 
 //CHECKSTYLE:OFF
 /**
- * The string has to be a HEX encoded SHA512 hash with a length of 128
- * characters.
+ * The string has to be a HEX encoded SHA512 hash with a length of 128 characters.
  */
 @Size(min = 128, max = 128)
-@Target({ ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD,
-        ElementType.ANNOTATION_TYPE })
+@Target({ ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD, ElementType.ANNOTATION_TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = { PasswordSha512StrValidator.class })
 @ReportAsSingleViolation

@@ -47,7 +47,7 @@ public final class EmailAddress extends AbstractStringValueObject {
     /**
      * Protected default constructor for deserialization.
      */
-    protected EmailAddress() {//NOSONAR Ignore JAXB default constructor
+    protected EmailAddress() {// NOSONAR Ignore JAXB default constructor
         super();
     }
 
@@ -73,23 +73,18 @@ public final class EmailAddress extends AbstractStringValueObject {
         return asBaseType();
     }
 
-    private static InternetAddress parseArg(@NotNull final String name,
-            @NotNull final String value) {
+    private static InternetAddress parseArg(@NotNull final String name, @NotNull final String value) {
 
         final String trimmedLowerCaseValue = value.trim().toLowerCase();
         try {
-            final InternetAddress[] addr = InternetAddress
-                    .parse(trimmedLowerCaseValue, false);
+            final InternetAddress[] addr = InternetAddress.parse(trimmedLowerCaseValue, false);
             if (addr.length != 1) {
                 throw new ConstraintViolationException(
-                        "The argument 'emailAddress' is not a single address: '"
-                                + trimmedLowerCaseValue + "'");
+                        "The argument 'emailAddress' is not a single address: '" + trimmedLowerCaseValue + "'");
             }
             return addr[0];
         } catch (final AddressException ex) {
-            throw new ConstraintViolationException(
-                    "The argument 'emailAddress' is not valid: '"
-                            + trimmedLowerCaseValue + "'");
+            throw new ConstraintViolationException("The argument 'emailAddress' is not valid: '" + trimmedLowerCaseValue + "'");
         }
 
     }

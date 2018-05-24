@@ -28,19 +28,16 @@ import org.fuin.objects4j.common.ConstraintViolationException;
 /**
  * Check that a given string is an allowed HEX encoded SHA512 password.
  */
-public final class PasswordSha512StrValidator
-        implements ConstraintValidator<PasswordSha512Str, String> {
+public final class PasswordSha512StrValidator implements ConstraintValidator<PasswordSha512Str, String> {
 
-    private static final Pattern PATTERN = Pattern.compile("[0-9a-fA-F]*",
-            java.util.regex.Pattern.CASE_INSENSITIVE);
+    private static final Pattern PATTERN = Pattern.compile("[0-9a-fA-F]*", java.util.regex.Pattern.CASE_INSENSITIVE);
 
     @Override
     public final void initialize(final PasswordSha512Str constraintAnnotation) {
     }
 
     @Override
-    public final boolean isValid(final String value,
-            final ConstraintValidatorContext context) {
+    public final boolean isValid(final String value, final ConstraintValidatorContext context) {
         return isValid(value);
     }
 
@@ -50,8 +47,7 @@ public final class PasswordSha512StrValidator
      * @param value
      *            Value to check.
      * 
-     * @return Returns <code>true</code> if it's an allowed value else
-     *         <code>false</code> is returned.
+     * @return Returns <code>true</code> if it's an allowed value else <code>false</code> is returned.
      */
     public static final boolean isValid(final String value) {
         if (value == null) {
@@ -64,8 +60,7 @@ public final class PasswordSha512StrValidator
     }
 
     /**
-     * Checks if the argument is valid and throws an exception if this is not
-     * the case.
+     * Checks if the argument is valid and throws an exception if this is not the case.
      * 
      * @param name
      *            Name of the value for a possible error message.
@@ -76,12 +71,10 @@ public final class PasswordSha512StrValidator
      *             The value was not valid.
      */
     // CHECKSTYLE:OFF:RedundantThrows
-    public static void requireArgValid(@NotNull final String name,
-            @NotNull final String value) throws ConstraintViolationException {
+    public static void requireArgValid(@NotNull final String name, @NotNull final String value) throws ConstraintViolationException {
         // CHECKSTYLE:ON
         if (!isValid(value)) {
-            throw new ConstraintViolationException("The argument '" + name
-                    + "' is not valid: '" + value + "'");
+            throw new ConstraintViolationException("The argument '" + name + "' is not valid: '" + value + "'");
         }
     }
 

@@ -23,8 +23,7 @@ package org.fuin.objects4j.ui;
 public enum FontSizeUnit {
 
     /**
-     * Traditionally used in print media - One point is equal to 1/72 of an
-     * inch.
+     * Traditionally used in print media - One point is equal to 1/72 of an inch.
      */
     POINT,
 

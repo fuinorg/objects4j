@@ -75,8 +75,8 @@ public class ContractTest {
     public final void testValidateWithValidator() {
 
         final Child child = new Child();
-        final Set<ConstraintViolation<Child>> violations = Contract
-                .validate(Validation.buildDefaultValidatorFactory().getValidator(), child);
+        final Set<ConstraintViolation<Child>> violations = Contract.validate(Validation.buildDefaultValidatorFactory().getValidator(),
+                child);
         assertThat(violations).isNotNull();
         assertThat(violations.size()).isGreaterThan(0);
         assertThat(violations.iterator().next().getMessageTemplate()).isEqualTo("{javax.validation.constraints.NotNull.message}");

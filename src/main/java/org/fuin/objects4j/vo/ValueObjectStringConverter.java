@@ -29,8 +29,7 @@ import org.fuin.objects4j.common.Contract;
  * @param <TYPE>
  *            Type to convert.
  */
-public abstract class ValueObjectStringConverter<TYPE extends AsStringCapable>
-        extends XmlAdapter<String, TYPE>
+public abstract class ValueObjectStringConverter<TYPE extends AsStringCapable> extends XmlAdapter<String, TYPE>
         implements AttributeConverter<TYPE, String> {
 
     private final ValueOfCapable<TYPE> vop;

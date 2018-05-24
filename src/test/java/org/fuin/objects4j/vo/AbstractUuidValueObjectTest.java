@@ -29,11 +29,9 @@ public class AbstractUuidValueObjectTest {
 
     @Test
     public void testEqualsHashCode() {
-        EqualsVerifier
-                .forClass(TestStringVO.class)
-                .withRedefinedSuperclass()
-                .withPrefabValues(AbstractUuidValueObject.class, new TestStringVO(UUID.randomUUID()),
-                        new TestStringVO(UUID.randomUUID())).suppress(Warning.NULL_FIELDS).verify();
+        EqualsVerifier.forClass(TestStringVO.class).withRedefinedSuperclass()
+                .withPrefabValues(AbstractUuidValueObject.class, new TestStringVO(UUID.randomUUID()), new TestStringVO(UUID.randomUUID()))
+                .suppress(Warning.NULL_FIELDS).verify();
 
     }
 

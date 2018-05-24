@@ -28,8 +28,7 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
  * Converts a {@link Locale} into a String and back.
  */
 @ThreadSafe
-public final class LocaleConverter extends XmlAdapter<String, Locale>
-        implements AttributeConverter<Locale, String> {
+public final class LocaleConverter extends XmlAdapter<String, Locale> implements AttributeConverter<Locale, String> {
 
     @Override
     public final String marshal(final Locale value) throws Exception {
@@ -58,8 +57,7 @@ public final class LocaleConverter extends XmlAdapter<String, Locale>
     }
 
     /**
-     * Returns the given string as locale. The locale is NOT checked against the
-     * Java list of avilable locales.
+     * Returns the given string as locale. The locale is NOT checked against the Java list of avilable locales.
      * 
      * @param value
      *            Value to convert into a locale.
@@ -70,8 +68,7 @@ public final class LocaleConverter extends XmlAdapter<String, Locale>
         final Locale locale;
         final int p = value.indexOf("__");
         if (p > -1) {
-            locale = new Locale(value.substring(0, p), null,
-                    value.substring(p + 2));
+            locale = new Locale(value.substring(0, p), null, value.substring(p + 2));
         } else {
             final StringTokenizer tok = new StringTokenizer(value, "_");
             if (tok.countTokens() == 1) {
@@ -79,11 +76,9 @@ public final class LocaleConverter extends XmlAdapter<String, Locale>
             } else if (tok.countTokens() == 2) {
                 locale = new Locale(tok.nextToken(), tok.nextToken());
             } else if (tok.countTokens() == 3) {
-                locale = new Locale(tok.nextToken(), tok.nextToken(),
-                        tok.nextToken());
+                locale = new Locale(tok.nextToken(), tok.nextToken(), tok.nextToken());
             } else {
-                throw new IllegalArgumentException(
-                        "Cannot convert: '" + value + "'");
+                throw new IllegalArgumentException("Cannot convert: '" + value + "'");
             }
         }
         return locale;

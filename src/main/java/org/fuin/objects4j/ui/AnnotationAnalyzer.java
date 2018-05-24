@@ -66,8 +66,7 @@ public final class AnnotationAnalyzer {
      * 
      * @return Label information - Never <code>null</code>.
      */
-    public final ClassTextInfo createClassInfo(@NotNull final Class<?> clasz,
-            @NotNull final Locale locale,
+    public final ClassTextInfo createClassInfo(@NotNull final Class<?> clasz, @NotNull final Locale locale,
             @NotNull final Class<? extends Annotation> annotationClasz) {
 
         Contract.requireArgNotNull("clasz", clasz);
@@ -80,11 +79,8 @@ public final class AnnotationAnalyzer {
         }
 
         try {
-            final ResourceBundle bundle = getResourceBundle(annotation, locale,
-                    clasz);
-            final String text = getText(bundle, annotation,
-                    clasz.getSimpleName() + "."
-                            + annotationClasz.getSimpleName());
+            final ResourceBundle bundle = getResourceBundle(annotation, locale, clasz);
+            final String text = getText(bundle, annotation, clasz.getSimpleName() + "." + annotationClasz.getSimpleName());
             return new ClassTextInfo(clasz, text);
         } catch (final MissingResourceException ex) {
             if (getValue(annotation).equals("")) {
@@ -96,9 +92,8 @@ public final class AnnotationAnalyzer {
     }
 
     /**
-     * Returns text annotation informations for all field of a class that are
-     * annotated with <code>annotationClasz</code>. All other fields are
-     * ignored.
+     * Returns text annotation informations for all field of a class that are annotated with <code>annotationClasz</code>. All other fields
+     * are ignored.
      * 
      * @param clasz
      *            Class that contains the fields.
@@ -109,8 +104,7 @@ public final class AnnotationAnalyzer {
      * 
      * @return List of informations - Never <code>null</code>, but may be empty.
      */
-    public final List<FieldTextInfo> createFieldInfos(
-            @NotNull final Class<?> clasz, @NotNull final Locale locale,
+    public final List<FieldTextInfo> createFieldInfos(@NotNull final Class<?> clasz, @NotNull final Locale locale,
             @NotNull final Class<? extends Annotation> annotationClasz) {
 
         Contract.requireArgNotNull("clasz", clasz);
@@ -124,11 +118,8 @@ public final class AnnotationAnalyzer {
             final Annotation annotation = field.getAnnotation(annotationClasz);
             if (annotation != null) {
                 try {
-                    final ResourceBundle bundle = getResourceBundle(annotation,
-                            locale, field.getDeclaringClass());
-                    final String text = getText(bundle, annotation,
-                            field.getName() + "."
-                                    + annotationClasz.getSimpleName());
+                    final ResourceBundle bundle = getResourceBundle(annotation, locale, field.getDeclaringClass());
+                    final String text = getText(bundle, annotation, field.getName() + "." + annotationClasz.getSimpleName());
                     infos.add(new FieldTextInfo(field, text));
                 } catch (final MissingResourceException ex) {
                     final String text = toNullableString(getValue(annotation));
@@ -156,11 +147,9 @@ public final class AnnotationAnalyzer {
      * @param annotationClasz
      *            Type of annotation to find.
      * 
-     * @return Label information - May be <code>null</code> in case the
-     *         annotation was not found.
+     * @return Label information - May be <code>null</code> in case the annotation was not found.
      */
-    public final FieldTextInfo createFieldInfo(@NotNull final Field field,
-            @NotNull final Locale locale,
+    public final FieldTextInfo createFieldInfo(@NotNull final Field field, @NotNull final Locale locale,
             @NotNull final Class<? extends Annotation> annotationClasz) {
 
         Contract.requireArgNotNull("field", field);
@@ -173,25 +162,19 @@ public final class AnnotationAnalyzer {
         }
 
         try {
-            final ResourceBundle bundle = getResourceBundle(annotation, locale,
-                    field.getDeclaringClass());
-            final String text = getText(bundle, annotation,
-                    field.getName() + "." + annotationClasz.getSimpleName());
+            final ResourceBundle bundle = getResourceBundle(annotation, locale, field.getDeclaringClass());
+            final String text = getText(bundle, annotation, field.getName() + "." + annotationClasz.getSimpleName());
             return new FieldTextInfo(field, text);
         } catch (final MissingResourceException ex) {
-            return new FieldTextInfo(field,
-                    toNullableString(getValue(annotation)));
+            return new FieldTextInfo(field, toNullableString(getValue(annotation)));
         }
 
     }
 
     /**
-     * Returns the text for the annotation. If no entry is found in the resource
-     * bundle for <code>Annotation#key()</code> then
-     * <code>Annotation#value()</code> will be returned instead. If
-     * <code>Annotation#value()</code> is also empty then <code>null</code> is
-     * returned. If <code>Annotation#key()</code> is empty
-     * <code>defaultKey</code> will be used as key in the properties file.
+     * Returns the text for the annotation. If no entry is found in the resource bundle for <code>Annotation#key()</code> then
+     * <code>Annotation#value()</code> will be returned instead. If <code>Annotation#value()</code> is also empty then <code>null</code> is
+     * returned. If <code>Annotation#key()</code> is empty <code>defaultKey</code> will be used as key in the properties file.
      * 
      * @param bundle
      *            Resource bundle to use.
@@ -202,9 +185,7 @@ public final class AnnotationAnalyzer {
      * 
      * @return Text or <code>null</code>.
      */
-    private String getText(@NotNull final ResourceBundle bundle,
-            @NotNull final Annotation annotation,
-            @NotNull final String defaultKey) {
+    private String getText(@NotNull final ResourceBundle bundle, @NotNull final Annotation annotation, @NotNull final String defaultKey) {
 
         Contract.requireArgNotNull("bundle", bundle);
         Contract.requireArgNotNull("annotation", annotation);
@@ -226,25 +207,20 @@ public final class AnnotationAnalyzer {
     }
 
     /**
-     * Returns the resource bundle for a given annotation. If
-     * <code>Annotation#bundle()</code> is empty the <code>clasz</code> is used
-     * to create a path and filename information.
+     * Returns the resource bundle for a given annotation. If <code>Annotation#bundle()</code> is empty the <code>clasz</code> is used to
+     * create a path and filename information.
      * 
      * @param annotation
      *            Annotation with bundle name.
      * @param locale
      *            Locale to use.
      * @param clasz
-     *            Class to use if the <code>Annotation#bundle()</code> is empty.
-     *            Example: <code>a.b.c.MyClass</code> is used as
-     *            <code>a/b/c/MyClass.properties</code> (default) or
-     *            <code>a/b/c/MyClass_en.properties</code> (with
-     *            {@link Locale#ENGLISH}).
+     *            Class to use if the <code>Annotation#bundle()</code> is empty. Example: <code>a.b.c.MyClass</code> is used as
+     *            <code>a/b/c/MyClass.properties</code> (default) or <code>a/b/c/MyClass_en.properties</code> (with {@link Locale#ENGLISH}).
      * 
      * @return Resource bundle - Never <code>null</code>.
      */
-    private ResourceBundle getResourceBundle(
-            @NotNull final Annotation annotation, @NotNull final Locale locale,
+    private ResourceBundle getResourceBundle(@NotNull final Annotation annotation, @NotNull final Locale locale,
             @NotNull final Class<?> clasz) {
 
         if (getBundle(annotation).equals("")) {
@@ -284,17 +260,14 @@ public final class AnnotationAnalyzer {
     }
 
     /**
-     * Calls a method with no arguments using reflection and maps all errors
-     * into a runtime exception.
+     * Calls a method with no arguments using reflection and maps all errors into a runtime exception.
      * 
      * @param obj
-     *            The object the underlying method is invoked from - Cannot be
-     *            <code>null</code>.
+     *            The object the underlying method is invoked from - Cannot be <code>null</code>.
      * @param methodName
      *            Name of the Method - Cannot be <code>null</code>.
      * 
-     * @return The result of dispatching the method represented by this object
-     *         on <code>obj</code> with parameters <code>args</code>.
+     * @return The result of dispatching the method represented by this object on <code>obj</code> with parameters <code>args</code>.
      * 
      * @param <T>
      *            Return type.
@@ -305,25 +278,21 @@ public final class AnnotationAnalyzer {
     }
 
     /**
-     * Calls a method with reflection and maps all errors into a runtime
-     * exception.
+     * Calls a method with reflection and maps all errors into a runtime exception.
      * 
      * @param obj
-     *            The object the underlying method is invoked from - Cannot be
-     *            <code>null</code>.
+     *            The object the underlying method is invoked from - Cannot be <code>null</code>.
      * @param methodName
      *            Name of the Method - Cannot be <code>null</code> or empty.
      * @param argTypes
      *            The list of parameters - May be <code>null</code>.
      * @param args
-     *            Arguments the arguments used for the method call - May be
-     *            <code>null</code> if "argTypes" is also <code>null</code>.
+     *            Arguments the arguments used for the method call - May be <code>null</code> if "argTypes" is also <code>null</code>.
      * 
-     * @return The result of dispatching the method represented by this object
-     *         on <code>obj</code> with parameters <code>args</code>.
+     * @return The result of dispatching the method represented by this object on <code>obj</code> with parameters <code>args</code>.
      */
-    private static Object invoke(@NotNull final Object obj, @NotEmpty final String methodName,
-            @Nullable final Class<?>[] argTypes, @Nullable final Object[] args) {
+    private static Object invoke(@NotNull final Object obj, @NotEmpty final String methodName, @Nullable final Class<?>[] argTypes,
+            @Nullable final Object[] args) {
 
         Contract.requireArgNotNull("obj", obj);
         Contract.requireArgNotNull("methodName", methodName);
@@ -333,17 +302,13 @@ public final class AnnotationAnalyzer {
         if (argTypes == null) {
             argTypesIntern = new Class[] {};
             if (args != null) {
-                throw new IllegalArgumentException(
-                        "The argument 'argTypes' is null but "
-                                + "'args' containes values!");
+                throw new IllegalArgumentException("The argument 'argTypes' is null but " + "'args' containes values!");
             }
             argsIntern = new Object[] {};
         } else {
             argTypesIntern = argTypes;
             if (args == null) {
-                throw new IllegalArgumentException(
-                        "The argument 'argTypes' contains classes "
-                                + "but 'args' is null!");
+                throw new IllegalArgumentException("The argument 'argTypes' contains classes " + "but 'args' is null!");
             }
             argsIntern = args;
         }
@@ -351,8 +316,7 @@ public final class AnnotationAnalyzer {
 
         Class<?> returnType = UNKNOWN_CLASS.class;
         try {
-            final Method method = obj.getClass().getMethod(methodName,
-                    argTypesIntern);
+            final Method method = obj.getClass().getMethod(methodName, argTypesIntern);
             if (method.getReturnType() == null) {
                 returnType = void.class;
             } else {
@@ -360,36 +324,28 @@ public final class AnnotationAnalyzer {
             }
             return method.invoke(obj, argsIntern);
         } catch (final SecurityException ex) {
-            throw new RuntimeException("Security problem with '"
-                    + getMethodSignature(returnType, methodName, argTypesIntern)
-                    + "'! [" + obj.getClass().getName() + "]", ex);
+            throw new RuntimeException("Security problem with '" + getMethodSignature(returnType, methodName, argTypesIntern) + "'! ["
+                    + obj.getClass().getName() + "]", ex);
         } catch (final NoSuchMethodException ex) {
-            throw new RuntimeException("Method '"
-                    + getMethodSignature(returnType, methodName, argTypesIntern)
-                    + "' not found! [" + obj.getClass().getName() + "]", ex);
+            throw new RuntimeException("Method '" + getMethodSignature(returnType, methodName, argTypesIntern) + "' not found! ["
+                    + obj.getClass().getName() + "]", ex);
         } catch (final IllegalArgumentException ex) {
-            throw new RuntimeException("Argument problem with '"
-                    + getMethodSignature(returnType, methodName, argTypesIntern)
-                    + "'! [" + obj.getClass().getName() + "]", ex);
+            throw new RuntimeException("Argument problem with '" + getMethodSignature(returnType, methodName, argTypesIntern) + "'! ["
+                    + obj.getClass().getName() + "]", ex);
         } catch (final IllegalAccessException ex) {
-            throw new RuntimeException("Access problem with '"
-                    + getMethodSignature(returnType, methodName, argTypesIntern)
-                    + "'! [" + obj.getClass().getName() + "]", ex);
+            throw new RuntimeException("Access problem with '" + getMethodSignature(returnType, methodName, argTypesIntern) + "'! ["
+                    + obj.getClass().getName() + "]", ex);
         } catch (final InvocationTargetException ex) {
-            throw new RuntimeException("Got an exception when calling '"
-                    + getMethodSignature(returnType, methodName, argTypesIntern)
+            throw new RuntimeException("Got an exception when calling '" + getMethodSignature(returnType, methodName, argTypesIntern)
                     + "'! [" + obj.getClass().getName() + "]", ex);
         }
 
     }
 
-    private static void checkSameLength(final Class<?>[] argTypes,
-            final Object[] args) {
+    private static void checkSameLength(final Class<?>[] argTypes, final Object[] args) {
         if (argTypes.length != args.length) {
-            throw new IllegalArgumentException(
-                    "The argument 'argTypes' contains " + argTypes.length
-                            + " classes " + "but 'args' only contains "
-                            + args.length + " arguments!");
+            throw new IllegalArgumentException("The argument 'argTypes' contains " + argTypes.length + " classes "
+                    + "but 'args' only contains " + args.length + " arguments!");
         }
     }
 
@@ -405,8 +361,8 @@ public final class AnnotationAnalyzer {
      * 
      * @return Textual signature of the method.
      */
-    public static String getMethodSignature(@NotNull final Class<?> returnType,
-            @NotNull final String methodName, final Class<?>[] argTypes) {
+    public static String getMethodSignature(@NotNull final Class<?> returnType, @NotNull final String methodName,
+            final Class<?>[] argTypes) {
         final StringBuffer sb = new StringBuffer();
         sb.append(name(returnType));
         sb.append(" ");
@@ -433,7 +389,7 @@ public final class AnnotationAnalyzer {
     }
 
     private static final class UNKNOWN_CLASS {
-	
+
     }
-    
+
 }

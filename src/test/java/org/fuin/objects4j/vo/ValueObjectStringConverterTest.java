@@ -94,6 +94,6 @@ public class ValueObjectStringConverterTest extends AbstractPersistenceTest {
         commitTransaction();
 
     }
-    
+
 }
 // CHECKSTYLE:OFF

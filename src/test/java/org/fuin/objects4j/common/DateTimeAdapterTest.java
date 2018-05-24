@@ -46,7 +46,7 @@ public final class DateTimeAdapterTest extends AbstractPersistenceTest {
     public final void testConvertToEntityAttributeNull() {
         assertThat(new DateTimeAdapter().convertToEntityAttribute(null)).isNull();
     }
-    
+
     @Test
     public final void testMarshalUnmarshal() {
 

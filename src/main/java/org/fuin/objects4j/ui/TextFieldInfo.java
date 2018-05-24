@@ -104,8 +104,7 @@ public class TextFieldInfo {
      * 
      * @return Information or <code>null</code>.
      */
-    public static TextFieldInfo create(@NotNull final Field field,
-            @NotNull final Locale locale) {
+    public static TextFieldInfo create(@NotNull final Field field, @NotNull final Locale locale) {
 
         final TextField textField = field.getAnnotation(TextField.class);
         if (textField == null) {

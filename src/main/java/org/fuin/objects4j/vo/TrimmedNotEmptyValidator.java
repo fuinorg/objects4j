@@ -25,11 +25,9 @@ import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.objects4j.common.Contract;
 
 /**
- * Check that a given string is not <code>null</code> and the trimmed length is
- * greater than zero.
+ * Check that a given string is not <code>null</code> and the trimmed length is greater than zero.
  */
-public class TrimmedNotEmptyValidator
-        implements ConstraintValidator<TrimmedNotEmpty, String> {
+public class TrimmedNotEmptyValidator implements ConstraintValidator<TrimmedNotEmpty, String> {
 
     @Override
     public final void initialize(final TrimmedNotEmpty constraintAnnotation) {
@@ -37,8 +35,7 @@ public class TrimmedNotEmptyValidator
     }
 
     @Override
-    public final boolean isValid(final String value,
-            final ConstraintValidatorContext context) {
+    public final boolean isValid(final String value, final ConstraintValidatorContext context) {
         if (value == null) {
             return true;
         }
@@ -57,8 +54,7 @@ public class TrimmedNotEmptyValidator
      *             The trimmed value was empty.
      */
     // CHECKSTYLE:OFF:RedundantThrows
-    public static void requireArgValid(@NotNull final String name,
-            @NotNull final String value) throws ConstraintViolationException {
+    public static void requireArgValid(@NotNull final String name, @NotNull final String value) throws ConstraintViolationException {
         // CHECKSTYLE:ON
         final String trimmedValue = value.trim();
         Contract.requireArgNotEmpty(name, trimmedValue);

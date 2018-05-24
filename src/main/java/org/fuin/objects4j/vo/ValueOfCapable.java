@@ -31,8 +31,7 @@ public interface ValueOfCapable<T> {
      * Parses a string and returns the converted type.
      * 
      * @param value
-     *            Value to convert. A <code>null</code> value returns
-     *            <code>null</code>.
+     *            Value to convert. A <code>null</code> value returns <code>null</code>.
      * 
      * @return Converted value.
      */

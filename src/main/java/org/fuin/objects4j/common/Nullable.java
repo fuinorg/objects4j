@@ -31,8 +31,7 @@ import java.lang.annotation.Target;
 /**
  * Used to express that a value may be <code>null</code>.
  * 
- * @deprecated Use <code>javax.annotation.Nullable</code> from JSR 305 instead
- *             (See Maven library "com.google.code.findbugs:jsr305").
+ * @deprecated Use <code>javax.annotation.Nullable</code> from JSR 305 instead (See Maven library "com.google.code.findbugs:jsr305").
  * 
  */
 // CHECKSTYLE:OFF

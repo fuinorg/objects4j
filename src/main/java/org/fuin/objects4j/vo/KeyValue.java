@@ -52,8 +52,7 @@ public final class KeyValue implements ValueObject {
      * @param value
      *            Value.
      */
-    public KeyValue(@NotNull @TrimmedNotEmpty final String key,
-            final Object value) {
+    public KeyValue(@NotNull @TrimmedNotEmpty final String key, final Object value) {
         super();
         Contract.requireArgNotNull("key", key);
         TrimmedNotEmptyValidator.requireArgValid("key", key);
@@ -80,8 +79,8 @@ public final class KeyValue implements ValueObject {
     }
 
     /**
-     * Replaces all variables in the format "${NAME}" with the corresponding
-     * value. NAME is the name of a key from the <code>keyValue</code> array.
+     * Replaces all variables in the format "${NAME}" with the corresponding value. NAME is the name of a key from the <code>keyValue</code>
+     * array.
      * 
      * @param message
      *            Message to replace.
@@ -90,8 +89,7 @@ public final class KeyValue implements ValueObject {
      * 
      * @return Replaced message.
      */
-    public static String replace(final String message,
-            final KeyValue... keyValue) {
+    public static String replace(final String message, final KeyValue... keyValue) {
         if (keyValue == null) {
             return message;
         }
@@ -120,17 +118,13 @@ public final class KeyValue implements ValueObject {
      * Replaces all variables inside a string with values from a map.
      * 
      * @param str
-     *            Text with variables (Format: ${key} ) - May be
-     *            <code>null</code> or empty.
+     *            Text with variables (Format: ${key} ) - May be <code>null</code> or empty.
      * @param vars
-     *            Map with key/values (both of type <code>String</code> - Cannot
-     *            be <code>null</code>.
+     *            Map with key/values (both of type <code>String</code> - Cannot be <code>null</code>.
      * 
-     * @return String with replaced variables. Unknown variables will remain
-     *         unchanged.
+     * @return String with replaced variables. Unknown variables will remain unchanged.
      */
-    public static String replaceVars(final String str,
-            final Map<String, String> vars) {
+    public static String replaceVars(final String str, final Map<String, String> vars) {
 
         if (str == null) {
             return null;

@@ -89,14 +89,12 @@ public class EmailAddressConverterTest {
     @Test
     public final void testUnmarshalError() {
 
-        final String invalidEmailInXmlData = XML_PREFIX
-                + "<data email=\"abc@\"/>";
+        final String invalidEmailInXmlData = XML_PREFIX + "<data email=\"abc@\"/>";
         try {
             unmarshal(invalidEmailInXmlData, Data.class);
             fail("Expected an exception");
         } catch (final RuntimeException ex) {
-            assertCauseCauseMessage(ex,
-                    "The argument 'emailAddress' is not valid: 'abc@'");
+            assertCauseCauseMessage(ex, "The argument 'emailAddress' is not valid: 'abc@'");
         }
 
     }

@@ -88,30 +88,26 @@ public final class KeyValueTest {
 
     @Test
     public final void testReplaceVarsMultipleVars1() {
-        assertThat(
-                KeyValue.replace(" ${one} ${two} ${3} ", new KeyValue("one", "1"), new KeyValue(
-                        "two", "2"), new KeyValue("3", "three"))).isEqualTo(" 1 2 three ");
+        assertThat(KeyValue.replace(" ${one} ${two} ${3} ", new KeyValue("one", "1"), new KeyValue("two", "2"), new KeyValue("3", "three")))
+                .isEqualTo(" 1 2 three ");
     }
 
     @Test
     public final void testReplaceVarsMultipleVars2() {
-        assertThat(
-                KeyValue.replace("${one} ${two} ${3} ", new KeyValue("one", "1"), new KeyValue(
-                        "two", "2"), new KeyValue("3", "three"))).isEqualTo("1 2 three ");
+        assertThat(KeyValue.replace("${one} ${two} ${3} ", new KeyValue("one", "1"), new KeyValue("two", "2"), new KeyValue("3", "three")))
+                .isEqualTo("1 2 three ");
     }
 
     @Test
     public final void testReplaceVarsMultipleVars3() {
-        assertThat(
-                KeyValue.replace("${one}${two}${3}", new KeyValue("one", "1"), new KeyValue("two",
-                        "2"), new KeyValue("3", "three"))).isEqualTo("12three");
+        assertThat(KeyValue.replace("${one}${two}${3}", new KeyValue("one", "1"), new KeyValue("two", "2"), new KeyValue("3", "three")))
+                .isEqualTo("12three");
     }
 
     @Test
     public final void testReplaceVarsMultipleVars4() {
-        assertThat(
-                KeyValue.replace(" ${one} ${two} ${3}", new KeyValue("one", "1"), new KeyValue(
-                        "two", "2"), new KeyValue("3", "three"))).isEqualTo(" 1 2 three");
+        assertThat(KeyValue.replace(" ${one} ${two} ${3}", new KeyValue("one", "1"), new KeyValue("two", "2"), new KeyValue("3", "three")))
+                .isEqualTo(" 1 2 three");
     }
 
     @Test
@@ -131,16 +127,12 @@ public final class KeyValueTest {
 
     @Test
     public final void testReplaceVarsUnknown4() {
-        assertThat(
-                KeyValue.replace("${one}${xyz}${two}", new KeyValue("one", "1"), new KeyValue(
-                        "two", "2"))).isEqualTo("1${xyz}2");
+        assertThat(KeyValue.replace("${one}${xyz}${two}", new KeyValue("one", "1"), new KeyValue("two", "2"))).isEqualTo("1${xyz}2");
     }
 
     @Test
     public final void testReplaceVarsNoClosingBracket() {
-        assertThat(
-                KeyValue.replace("${one}${two", new KeyValue("one", "1"), new KeyValue("two", "2")))
-                .isEqualTo("1${two");
+        assertThat(KeyValue.replace("${one}${two", new KeyValue("one", "1"), new KeyValue("two", "2"))).isEqualTo("1${two");
     }
 }
 // CHECKSTYLE:ON

@@ -58,9 +58,8 @@ public class CurrencyAmountConverterTest {
 
     @Test
     public final void testtoVO() {
-        assertThat(testee.toVO("1234.56 EUR")).isEqualTo(
-                new CurrencyAmount(new BigDecimal(1234.56).setScale(2, RoundingMode.HALF_UP),
-                        Currency.getInstance("EUR")));
+        assertThat(testee.toVO("1234.56 EUR"))
+                .isEqualTo(new CurrencyAmount(new BigDecimal(1234.56).setScale(2, RoundingMode.HALF_UP), Currency.getInstance("EUR")));
     }
 
     @Test

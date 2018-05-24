@@ -32,37 +32,39 @@ import my.test.MyClass;
  * Usage examples.
  */
 public class Examples {
-    
+
     /**
      * Main programm.
      * 
-     * @param args Not used.
+     * @param args
+     *            Not used.
      * 
-     * @throws Exception Something went wrong.  
+     * @throws Exception
+     *             Something went wrong.
      */
     public static void main(String[] args) throws Exception {
-        
+
         AnnotationAnalyzer analyzer = new AnnotationAnalyzer();
 
         // --- READ SINGLE FIELD ---
 
         Field field = MyClass.class.getDeclaredField("birthday");
-        
-        FieldTextInfo labelInfoGermany = analyzer.createFieldInfo(field, Locale.GERMANY, Label.class);        
+
+        FieldTextInfo labelInfoGermany = analyzer.createFieldInfo(field, Locale.GERMANY, Label.class);
         System.out.println(labelInfoGermany.getText());
         // Prints "MyBundle_de birthday"
 
-        FieldTextInfo labelInfoUs = analyzer.createFieldInfo(field, Locale.US, Label.class);        
+        FieldTextInfo labelInfoUs = analyzer.createFieldInfo(field, Locale.US, Label.class);
         System.out.println(labelInfoUs.getText());
         // Prints "MyBundle_en birthday"
 
-        // --- READ ALL FIELDS ---        
+        // --- READ ALL FIELDS ---
         List<FieldTextInfo> infos = analyzer.createFieldInfos(MyClass.class, Locale.US, Label.class);
         for (final FieldTextInfo info : infos) {
             // Text of the label or the name of the field if the text is null
             System.out.println(info.getTextOrField());
         }
-        
+
         // --- CREATE A LIST OF TABLE COLUMNS ---
         List<TableColumnInfo> columns = TableColumnInfo.create(MyClass.class, Locale.US);
         for (TableColumnInfo column : columns) {
@@ -83,7 +85,7 @@ public class Examples {
             tc.setPrefWidth(column.getWidth().getSize());
             tableView.getColumns().add(tc);
         }
-        
+
     }
 
 }

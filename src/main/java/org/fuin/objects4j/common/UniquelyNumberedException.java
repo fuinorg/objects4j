@@ -20,11 +20,9 @@ package org.fuin.objects4j.common;
 import javax.validation.constraints.NotNull;
 
 /**
- * Exception that provides a number for the exception that is unique in the
- * context.
+ * Exception that provides a number for the exception that is unique in the context.
  */
-public abstract class UniquelyNumberedException extends Exception
-        implements UniquelyNumbered {
+public abstract class UniquelyNumberedException extends Exception implements UniquelyNumbered {
 
     private static final long serialVersionUID = 1L;
 
@@ -38,8 +36,7 @@ public abstract class UniquelyNumberedException extends Exception
      * @param message
      *            The detail message.
      */
-    public UniquelyNumberedException(final long number,
-            @NotNull final String message) {
+    public UniquelyNumberedException(final long number, @NotNull final String message) {
         super(message);
         this.number = number;
     }
@@ -54,8 +51,7 @@ public abstract class UniquelyNumberedException extends Exception
      * @param cause
      *            The cause .
      */
-    public UniquelyNumberedException(final long number,
-            @NotNull final String message, @NotNull final Throwable cause) {
+    public UniquelyNumberedException(final long number, @NotNull final String message, @NotNull final Throwable cause) {
         super(message, cause);
         this.number = number;
     }
@@ -68,8 +64,7 @@ public abstract class UniquelyNumberedException extends Exception
      * @param cause
      *            The cause.
      */
-    public UniquelyNumberedException(final long number,
-            @NotNull final Throwable cause) {
+    public UniquelyNumberedException(final long number, @NotNull final Throwable cause) {
         super(cause);
         this.number = number;
     }

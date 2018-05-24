@@ -37,10 +37,8 @@ public final class PasswordSha512Test extends AbstractPersistenceTest {
 
     @Test
     public final void testCreateWithPasswordValid() {
-        assertThat(new PasswordSha512(new Password("very-secret"))).isEqualTo(
-                new PasswordSha512(new Password("very-secret")));
-        assertThat(new PasswordSha512(new Password("very-secret"))).isNotEqualTo(
-                new PasswordSha512(new Password("very-secret2")));
+        assertThat(new PasswordSha512(new Password("very-secret"))).isEqualTo(new PasswordSha512(new Password("very-secret")));
+        assertThat(new PasswordSha512(new Password("very-secret"))).isNotEqualTo(new PasswordSha512(new Password("very-secret2")));
     }
 
     @Test
@@ -79,8 +77,7 @@ public final class PasswordSha512Test extends AbstractPersistenceTest {
 
         // TEST UPDATE
         beginTransaction();
-        final PasswordSha512ParentEntity entity = getEm()
-                .find(PasswordSha512ParentEntity.class, 1L);
+        final PasswordSha512ParentEntity entity = getEm().find(PasswordSha512ParentEntity.class, 1L);
         entity.setPasswordSha512(new PasswordSha512(new Password("abcd1234")));
         commitTransaction();
 
@@ -90,8 +87,7 @@ public final class PasswordSha512Test extends AbstractPersistenceTest {
         assertThat(copy).isNotNull();
         assertThat(copy.getId()).isEqualTo(1);
         assertThat(copy.getPasswordSha512()).isNotNull();
-        assertThat(copy.getPasswordSha512())
-                .isEqualTo(new PasswordSha512(new Password("abcd1234")));
+        assertThat(copy.getPasswordSha512()).isEqualTo(new PasswordSha512(new Password("abcd1234")));
         commitTransaction();
 
     }

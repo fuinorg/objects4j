@@ -28,19 +28,16 @@ import org.fuin.objects4j.common.ConstraintViolationException;
 /**
  * Check that a given string is a well-formed user id.
  */
-public final class UserNameStrValidator
-        implements ConstraintValidator<UserNameStr, String> {
+public final class UserNameStrValidator implements ConstraintValidator<UserNameStr, String> {
 
-    private static final Pattern PATTERN = Pattern
-            .compile("[a-z][0-9a-z_\\-]*");
+    private static final Pattern PATTERN = Pattern.compile("[a-z][0-9a-z_\\-]*");
 
     @Override
     public final void initialize(final UserNameStr constraintAnnotation) {
     }
 
     @Override
-    public final boolean isValid(final String value,
-            final ConstraintValidatorContext context) {
+    public final boolean isValid(final String value, final ConstraintValidatorContext context) {
         return isValid(value);
     }
 
@@ -50,8 +47,7 @@ public final class UserNameStrValidator
      * @param value
      *            Value to check.
      * 
-     * @return Returns <code>true</code> if it's a valid user id else
-     *         <code>false</code> is returned.
+     * @return Returns <code>true</code> if it's a valid user id else <code>false</code> is returned.
      */
     public static final boolean isValid(final String value) {
         if (value == null) {
@@ -75,13 +71,11 @@ public final class UserNameStrValidator
      *             The value was not valid.
      */
     // CHECKSTYLE:OFF:RedundantThrows
-    public static void parseArg(@NotNull final String name,
-            @NotNull final String value) throws ConstraintViolationException {
+    public static void parseArg(@NotNull final String name, @NotNull final String value) throws ConstraintViolationException {
         // CHECKSTYLE:ON
         final String trimmed = value.trim().toLowerCase();
         if (!isValid(trimmed)) {
-            throw new ConstraintViolationException("The argument '" + name
-                    + "' is not valid: '" + trimmed + "'");
+            throw new ConstraintViolationException("The argument '" + name + "' is not valid: '" + trimmed + "'");
         }
     }
 

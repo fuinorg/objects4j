@@ -23,30 +23,26 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Use this annotation to assign a short label to a type of object or an
- * object's attribute. The label may be used by UI elements to display an
- * appropriate text for the field.
+ * Use this annotation to assign a short label to a type of object or an object's attribute. The label may be used by UI elements to display
+ * an appropriate text for the field.
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.TYPE, ElementType.FIELD })
 public @interface ShortLabel {
 
     /**
-     * Default label text. This is only used if no entry in the resource bundle
-     * can be found.
+     * Default label text. This is only used if no entry in the resource bundle can be found.
      */
     String value() default "";
 
     /**
-     * Resource name and path. If this is empty the resource bundle is expected
-     * to be in the same package and has the same name as the class of the field
-     * annotated.
+     * Resource name and path. If this is empty the resource bundle is expected to be in the same package and has the same name as the class
+     * of the field annotated.
      */
     String bundle() default "";
 
     /**
-     * Key within the resource bundle. If this is empty the field name itself is
-     * used as the key.
+     * Key within the resource bundle. If this is empty the field name itself is used as the key.
      */
     String key() default "";
 

@@ -20,9 +20,8 @@ package org.fuin.objects4j.vo;
 import javax.validation.constraints.NotNull;
 
 /**
- * Value object that may be expressed in a more general type with relaxed
- * restrictions. Often basic Java types like String or numeric values (Long,
- * Integer, ...) are used for this.
+ * Value object that may be expressed in a more general type with relaxed restrictions. Often basic Java types like String or numeric values
+ * (Long, Integer, ...) are used for this.
  * 
  * @param <BASE_TYPE>
  *            Base type that may represent this type of value object.
@@ -30,8 +29,7 @@ import javax.validation.constraints.NotNull;
 public interface ValueObjectWithBaseType<BASE_TYPE> extends ValueObject {
 
     /**
-     * Returns the base type that may be used to represent this value object.
-     * Often this is something like String or other basic Java types.
+     * Returns the base type that may be used to represent this value object. Often this is something like String or other basic Java types.
      * 
      * @return A type that is less restricted than the VO itself.
      */

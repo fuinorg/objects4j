@@ -33,8 +33,7 @@ import javax.validation.constraints.Size;
  * The string has to be a password with a length between 8 and 20 characters.
  */
 @Size(min = 8, max = 20)
-@Target({ ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD,
-        ElementType.ANNOTATION_TYPE })
+@Target({ ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD, ElementType.ANNOTATION_TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = { PasswordStrValidator.class })
 @ReportAsSingleViolation

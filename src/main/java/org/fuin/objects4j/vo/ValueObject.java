@@ -18,9 +18,8 @@
 package org.fuin.objects4j.vo;
 
 /**
- * Immutable object that represents an object whose equality isn't based on
- * identity. That means instances of this type are equal when they have the same
- * value, not necessarily being the same object.
+ * Immutable object that represents an object whose equality isn't based on identity. That means instances of this type are equal when they
+ * have the same value, not necessarily being the same object.
  */
 public interface ValueObject {
 

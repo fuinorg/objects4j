@@ -27,11 +27,8 @@ public class AbstractStringValueObjectTest {
 
     @Test
     public void testEqualsHashCode() {
-        EqualsVerifier
-                .forClass(TestStringVO.class)
-                .withRedefinedSuperclass()
-                .withPrefabValues(AbstractStringValueObject.class,
-                        new TestStringVO("A"), new TestStringVO("B"))
+        EqualsVerifier.forClass(TestStringVO.class).withRedefinedSuperclass()
+                .withPrefabValues(AbstractStringValueObject.class, new TestStringVO("A"), new TestStringVO("B"))
                 .suppress(Warning.NULL_FIELDS).verify();
 
     }

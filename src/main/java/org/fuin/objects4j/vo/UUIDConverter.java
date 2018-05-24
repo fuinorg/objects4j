@@ -27,8 +27,7 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
  * Converts a {@link UUID} into a String and back.
  */
 @ThreadSafe
-public final class UUIDConverter extends XmlAdapter<String, UUID>
-        implements AttributeConverter<UUID, String> {
+public final class UUIDConverter extends XmlAdapter<String, UUID> implements AttributeConverter<UUID, String> {
 
     @Override
     public final String marshal(final UUID value) throws Exception {

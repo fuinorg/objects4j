@@ -31,8 +31,7 @@ import javax.validation.Payload;
  * The string is a canonical string representation of a currency amount. <br>
  * Examples: '1234.56 EUR', '1691.35 USD' or '175701 JPY'
  */
-@Target({ ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD,
-        ElementType.ANNOTATION_TYPE })
+@Target({ ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD, ElementType.ANNOTATION_TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = { CurrencyAmountStrValidator.class })
 @Documented

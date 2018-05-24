@@ -26,8 +26,7 @@ import javax.persistence.Converter;
  */
 @ThreadSafe
 @Converter(autoApply = true)
-public final class UserNameConverter
-        extends AbstractValueObjectConverter<String, UserName>
+public final class UserNameConverter extends AbstractValueObjectConverter<String, UserName>
         implements AttributeConverter<UserName, String> {
 
     @Override

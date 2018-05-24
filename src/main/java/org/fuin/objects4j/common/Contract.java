@@ -36,9 +36,8 @@ public final class Contract {
     private static Validator validator;
 
     /**
-     * Sets the validator to use for contract validation. This method is NOT
-     * thread safe. It should only be called once per application during the
-     * initialization phase.
+     * Sets the validator to use for contract validation. This method is NOT thread safe. It should only be called once per application
+     * during the initialization phase.
      * 
      * @param newValidator
      *            Set the validator to a new value.
@@ -48,17 +47,14 @@ public final class Contract {
     }
 
     /**
-     * Returns the validator that is used for contract validation. This method
-     * is NOT thread safe - This may lead to concurrent initialization of the
-     * validator if it's not set yet.
+     * Returns the validator that is used for contract validation. This method is NOT thread safe - This may lead to concurrent
+     * initialization of the validator if it's not set yet.
      * 
-     * @return Current instance - If the validator is not set yet, a new default
-     *         validator will be created.
+     * @return Current instance - If the validator is not set yet, a new default validator will be created.
      */
     public static Validator getValidator() {
         if (validator == null) {
-            validator = Validation.buildDefaultValidatorFactory()
-                    .getValidator();
+            validator = Validation.buildDefaultValidatorFactory().getValidator();
         }
         return validator;
     }
@@ -67,8 +63,7 @@ public final class Contract {
      * Private constructor to avoid instantiation.
      */
     private Contract() {
-        throw new UnsupportedOperationException(
-                "You cannot create an instance of a utility class!");
+        throw new UnsupportedOperationException("You cannot create an instance of a utility class!");
     }
 
     /**
@@ -83,18 +78,15 @@ public final class Contract {
      *             The value was null.
      */
     // CHECKSTYLE:OFF:RedundantThrows
-    public static void requireArgNotNull(@NotNull final String name,
-            final Object value) throws ConstraintViolationException {
+    public static void requireArgNotNull(@NotNull final String name, final Object value) throws ConstraintViolationException {
         // CHECKSTYLE:ON
         if (value == null) {
-            throw new ConstraintViolationException(
-                    "The argument '" + name + "' cannot be null");
+            throw new ConstraintViolationException("The argument '" + name + "' cannot be null");
         }
     }
 
     /**
-     * Checks if the value is not <code>null</code> or empty. A single space is
-     * considered a valid value.
+     * Checks if the value is not <code>null</code> or empty. A single space is considered a valid value.
      * 
      * @param name
      *            Name of the value for a possible error message.
@@ -105,13 +97,11 @@ public final class Contract {
      *             The value was null or empty.
      */
     // CHECKSTYLE:OFF:RedundantThrows
-    public static void requireArgNotEmpty(@NotNull final String name,
-            final String value) throws ConstraintViolationException {
+    public static void requireArgNotEmpty(@NotNull final String name, final String value) throws ConstraintViolationException {
         // CHECKSTYLE:ON
         requireArgNotNull(name, value);
         if (value.length() < 1) {
-            throw new ConstraintViolationException(
-                    "The argument '" + name + "' cannot be empty");
+            throw new ConstraintViolationException("The argument '" + name + "' cannot be empty");
         }
     }
 
@@ -129,13 +119,11 @@ public final class Contract {
      *             The length was more than <code>max</code>.
      */
     // CHECKSTYLE:OFF:RedundantThrows
-    public static void requireArgMaxLength(@NotNull final String name,
-            @NotNull final String value, final int max)
+    public static void requireArgMaxLength(@NotNull final String name, @NotNull final String value, final int max)
             throws ConstraintViolationException {
         // CHECKSTYLE:ON
         if (value.length() > max) {
-            throw new ConstraintViolationException("Max length of argument '"
-                    + name + "' is " + max + ", but was: " + value.length());
+            throw new ConstraintViolationException("Max length of argument '" + name + "' is " + max + ", but was: " + value.length());
         }
     }
 
@@ -153,13 +141,11 @@ public final class Contract {
      *             The length was less than <code>min</code>.
      */
     // CHECKSTYLE:OFF:RedundantThrows
-    public static void requireArgMinLength(@NotNull final String name,
-            @NotNull final String value, final int min)
+    public static void requireArgMinLength(@NotNull final String name, @NotNull final String value, final int min)
             throws ConstraintViolationException {
         // CHECKSTYLE:ON
         if (value.length() < min) {
-            throw new ConstraintViolationException("Min length of argument '"
-                    + name + "' is " + min + ", but was: " + value.length());
+            throw new ConstraintViolationException("Min length of argument '" + name + "' is " + min + ", but was: " + value.length());
         }
     }
 
@@ -177,13 +163,11 @@ public final class Contract {
      *             The value was more than <code>max</code>.
      */
     // CHECKSTYLE:OFF:RedundantThrows
-    public static void requireArgMax(@NotNull final String name,
-            @NotNull final long value, final long max)
+    public static void requireArgMax(@NotNull final String name, @NotNull final long value, final long max)
             throws ConstraintViolationException {
         // CHECKSTYLE:ON
         if (value > max) {
-            throw new ConstraintViolationException("Max value of argument '"
-                    + name + "' is " + max + ", but was: " + value);
+            throw new ConstraintViolationException("Max value of argument '" + name + "' is " + max + ", but was: " + value);
         }
     }
 
@@ -201,13 +185,11 @@ public final class Contract {
      *             The value was less than <code>min</code>.
      */
     // CHECKSTYLE:OFF:RedundantThrows
-    public static void requireArgMin(@NotNull final String name,
-            @NotNull final long value, final long min)
+    public static void requireArgMin(@NotNull final String name, @NotNull final long value, final long min)
             throws ConstraintViolationException {
         // CHECKSTYLE:ON
         if (value < min) {
-            throw new ConstraintViolationException("Min value of argument '"
-                    + name + "' is " + min + ", but was: " + value);
+            throw new ConstraintViolationException("Min value of argument '" + name + "' is " + min + ", but was: " + value);
         }
     }
 
@@ -219,32 +201,27 @@ public final class Contract {
      * @param value
      *            Value to check.
      * @param groups
-     *            Group or list of groups targeted for validation (defaults to
-     *            {@link Default})
+     *            Group or list of groups targeted for validation (defaults to {@link Default})
      * 
      * @throws ConstraintViolationException
      *             The value is invalid.
      */
     // CHECKSTYLE:OFF:RedundantThrows
-    public static void requireValid(@NotNull final Validator validator,
-            @NotNull final Object value, @Nullable final Class<?>... groups)
+    public static void requireValid(@NotNull final Validator validator, @NotNull final Object value, @Nullable final Class<?>... groups)
             throws ConstraintViolationException {
         // CHECKSTYLE:ON
 
-        final Set<ConstraintViolation<Object>> constraintViolations = validator
-                .validate(value);
+        final Set<ConstraintViolation<Object>> constraintViolations = validator.validate(value);
         if (constraintViolations.size() > 0) {
             final StringBuffer sb = new StringBuffer();
             for (final ConstraintViolation<Object> constraintViolation : constraintViolations) {
                 if (sb.length() > 0) {
                     sb.append(", ");
                 }
-                sb.append("[" + constraintViolation.getPropertyPath() + "] "
-                        + constraintViolation.getMessage() + " {"
+                sb.append("[" + constraintViolation.getPropertyPath() + "] " + constraintViolation.getMessage() + " {"
                         + constraintViolation.getInvalidValue() + "}");
             }
-            throw new ConstraintViolationException(sb.toString(),
-                    constraintViolations);
+            throw new ConstraintViolationException(sb.toString(), constraintViolations);
         }
 
     }
@@ -255,16 +232,13 @@ public final class Contract {
      * @param value
      *            Value to check.
      * @param groups
-     *            Group or list of groups targeted for validation (defaults to
-     *            {@link Default})
+     *            Group or list of groups targeted for validation (defaults to {@link Default})
      * 
      * @throws ConstraintViolationException
      *             The value is invalid.
      */
     // CHECKSTYLE:OFF:RedundantThrows
-    public static void requireValid(@NotNull final Object value,
-            @Nullable final Class<?>... groups)
-            throws ConstraintViolationException {
+    public static void requireValid(@NotNull final Object value, @Nullable final Class<?>... groups) throws ConstraintViolationException {
         // CHECKSTYLE:ON
         requireValid(getValidator(), value, groups);
     }
@@ -277,8 +251,7 @@ public final class Contract {
      * @param value
      *            Value to validate.
      * @param groups
-     *            Group or list of groups targeted for validation (defaults to
-     *            {@link Default})
+     *            Group or list of groups targeted for validation (defaults to {@link Default})
      * 
      * @return List of constraint violations.
      * 
@@ -286,8 +259,7 @@ public final class Contract {
      *            Type of the validated object.
      */
     @NotNull
-    public static <TYPE> Set<ConstraintViolation<TYPE>> validate(
-            @NotNull final Validator validator, @Nullable final TYPE value,
+    public static <TYPE> Set<ConstraintViolation<TYPE>> validate(@NotNull final Validator validator, @Nullable final TYPE value,
             @Nullable final Class<?>... groups) {
         if (value == null) {
             return new HashSet<ConstraintViolation<TYPE>>();
@@ -301,8 +273,7 @@ public final class Contract {
      * @param value
      *            Value to validate.
      * @param groups
-     *            Group or list of groups targeted for validation (defaults to
-     *            {@link Default})
+     *            Group or list of groups targeted for validation (defaults to {@link Default})
      * 
      * @return List of constraint violations.
      * 
@@ -310,8 +281,7 @@ public final class Contract {
      *            Type of the validated object.
      */
     @NotNull
-    public static <TYPE> Set<ConstraintViolation<TYPE>> validate(
-            @Nullable final TYPE value, @Nullable final Class<?>... groups) {
+    public static <TYPE> Set<ConstraintViolation<TYPE>> validate(@Nullable final TYPE value, @Nullable final Class<?>... groups) {
         return validate(getValidator(), value, groups);
     }
 

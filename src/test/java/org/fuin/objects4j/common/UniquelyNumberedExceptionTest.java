@@ -29,14 +29,14 @@ public final class UniquelyNumberedExceptionTest {
 
         // PREPARE
         final String message = "A very important error message";
-        final long number = 1L;        
-        
+        final long number = 1L;
+
         // TEST
         final MyException testee = new MyException(number, message);
 
         // VERIFY
         assertThat(testee.getUniqueNumber()).isEqualTo(number);
-        
+
     }
 
     @Test
@@ -44,14 +44,14 @@ public final class UniquelyNumberedExceptionTest {
 
         // PREPARE
         final Exception cause = new NullPointerException();
-        final long number = 1L;        
-        
+        final long number = 1L;
+
         // TEST
         final MyException testee = new MyException(number, cause);
 
         // VERIFY
         assertThat(testee.getUniqueNumber()).isEqualTo(number);
-        
+
     }
 
     @Test
@@ -60,16 +60,16 @@ public final class UniquelyNumberedExceptionTest {
         // PREPARE
         final String message = "A very important error message";
         final Exception cause = new NullPointerException();
-        final long number = 1L;        
-        
+        final long number = 1L;
+
         // TEST
         final MyException testee = new MyException(number, message, cause);
 
         // VERIFY
         assertThat(testee.getUniqueNumber()).isEqualTo(number);
-        
+
     }
-    
+
     public static final class MyException extends UniquelyNumberedException {
 
         private static final long serialVersionUID = 1L;
@@ -85,8 +85,8 @@ public final class UniquelyNumberedExceptionTest {
         public MyException(long number, Throwable cause) {
             super(number, cause);
         }
-        
+
     }
-    
+
 }
 // TESTCODE:END

@@ -63,11 +63,8 @@ public class AbstractJaxbMarshallableExceptionTest {
         final String xml = marshal(original, TestException.class);
 
         // VERIFY
-        final Diff documentDiff = DiffBuilder
-                .compare(
-                        "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>" + "<test-exception>"
-                                + "<msg>My message</msg>" + "</test-exception>").withTest(xml)
-                .ignoreWhitespace().build();
+        final Diff documentDiff = DiffBuilder.compare("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>" + "<test-exception>"
+                + "<msg>My message</msg>" + "</test-exception>").withTest(xml).ignoreWhitespace().build();
 
         assertThat(documentDiff.hasDifferences()).describedAs(documentDiff.toString()).isFalse();
 

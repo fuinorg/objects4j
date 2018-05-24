@@ -30,9 +30,7 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
  */
 // CHECKSTYLE:OFF:LineLength
 public abstract class AbstractValueObjectConverter<BASE_TYPE, VO_TYPE extends ValueObjectWithBaseType<BASE_TYPE>>
-        extends XmlAdapter<BASE_TYPE, VO_TYPE>
-        implements AttributeConverter<VO_TYPE, BASE_TYPE>,
-        ValueObjectConverter<BASE_TYPE, VO_TYPE> {
+        extends XmlAdapter<BASE_TYPE, VO_TYPE> implements AttributeConverter<VO_TYPE, BASE_TYPE>, ValueObjectConverter<BASE_TYPE, VO_TYPE> {
     // CHECKSTYLE:ON:LineLength
 
     @Override

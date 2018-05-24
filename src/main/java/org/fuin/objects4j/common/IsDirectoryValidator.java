@@ -26,8 +26,7 @@ import javax.validation.constraints.NotNull;
 /**
  * Checks if a given file is a directory (and not a file).
  */
-public final class IsDirectoryValidator
-        implements ConstraintValidator<IsDirectory, File> {
+public final class IsDirectoryValidator implements ConstraintValidator<IsDirectory, File> {
 
     @Override
     public final void initialize(final IsDirectory constraintAnnotation) {
@@ -35,8 +34,7 @@ public final class IsDirectoryValidator
     }
 
     @Override
-    public final boolean isValid(final File file,
-            final ConstraintValidatorContext context) {
+    public final boolean isValid(final File file, final ConstraintValidatorContext context) {
         if (file == null) {
             return true;
         }
@@ -55,13 +53,11 @@ public final class IsDirectoryValidator
      *             The file does not exist.
      */
     // CHECKSTYLE:OFF:RedundantThrows
-    public static void requireArgValid(@NotNull final String name,
-            @FileExists @NotNull final File value)
+    public static void requireArgValid(@NotNull final String name, @FileExists @NotNull final File value)
             throws ConstraintViolationException {
         // CHECKSTYLE:ON
         if (!value.isDirectory()) {
-            throw new ConstraintViolationException("The argument '" + name
-                    + "' is not a directory: '" + value + "'");
+            throw new ConstraintViolationException("The argument '" + name + "' is not a directory: '" + value + "'");
         }
     }
 

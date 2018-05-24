@@ -25,14 +25,13 @@ import javax.validation.ConstraintViolation;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.NotEmpty;
 
-
 import org.junit.Test;
 
 //TESTCODE:BEGIN
 public final class ConstraintViolationExceptionTest {
 
     @Test
-    public final void testCreateMessage() {        
+    public final void testCreateMessage() {
         final String message = "A very important error message";
         final ConstraintViolationException ex = new ConstraintViolationException(message);
         assertThat(ex.getMessage()).isEqualTo(message);
@@ -40,23 +39,23 @@ public final class ConstraintViolationExceptionTest {
     }
 
     @Test
-    public final void testCreateMessageViolations() {        
+    public final void testCreateMessageViolations() {
         final String message = "A very important error message";
         final Set<ConstraintViolation<Object>> violations = Contract.getValidator().validate(new TestBean());
         final ConstraintViolationException ex = new ConstraintViolationException(message, violations);
         assertThat(ex.getMessage()).isEqualTo(message);
         assertThat(ex.getConstraintViolations()).hasSize(2);
     }
-    
+
     private static class TestBean {
-        
+
         @NotNull
         private Integer a;
-        
+
         @NotEmpty
         private String b;
-        
+
     }
-    
+
 }
 // TESTCODE:END
