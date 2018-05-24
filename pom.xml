@@ -12,7 +12,6 @@
 	<artifactId>objects4j</artifactId>
 	<packaging>bundle</packaging>
 	<version>0.6.9-SNAPSHOT</version>
-	<name>Objects4J</name>
 
 	<description>A library with common Java types that are mostly immutable value objects.</description>
 	<url>http://www.fuin.org/objects4j/</url>
