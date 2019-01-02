@@ -19,6 +19,9 @@ package org.fuin.objects4j.vo;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.fuin.objects4j.common.ConstraintViolationException;
 import org.junit.Test;
 
@@ -134,5 +137,24 @@ public final class KeyValueTest {
     public final void testReplaceVarsNoClosingBracket() {
         assertThat(KeyValue.replace("${one}${two", new KeyValue("one", "1"), new KeyValue("two", "2"))).isEqualTo("1${two");
     }
+
+    @Test
+    public final void testReplaceVarsNullVar() {
+        assertThat(KeyValue.replace("${one} ${two} three", new KeyValue("one", "1"), new KeyValue("two", null)))
+                .isEqualTo("1 null three");
+    }
+
+    @Test
+    public final void testReplaceVarsNullVarCollection() {
+
+        final List<String> values = new ArrayList<>();
+        values.add("a");
+        values.add(null);
+        values.add("c");
+
+        assertThat(KeyValue.replace("${one} (${two}) three", new KeyValue("one", "1"), new KeyValue("two", values)))
+                .isEqualTo("1 (a, null, c) three");
+    }
+
 }
 // CHECKSTYLE:ON

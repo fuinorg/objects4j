@@ -103,12 +103,12 @@ public final class KeyValue implements ValueObject {
                     if (count > 0) {
                         sb.append(", ");
                     }
-                    sb.append(entry.toString());
+                    sb.append(entry == null ? "null" : entry.toString());
                     count++;
                 }
                 map.put(kv.getKey(), sb.toString());
             } else {
-                map.put(kv.getKey(), kv.getValue().toString());
+                map.put(kv.getKey(), kv.getValue() == null ? "null" : kv.getValue().toString());
             }
         }
         return replaceVars(message, map);
