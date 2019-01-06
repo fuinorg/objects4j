@@ -79,6 +79,18 @@ public final class KeyValue implements ValueObject {
     }
 
     /**
+     * Returns the value as string.
+     * 
+     * @return Value or "null".
+     */
+    public final String getValueString() {
+        if (value == null) {
+            return "null";
+        }
+        return value.toString();
+    }
+    
+    /**
      * Replaces all variables in the format "${NAME}" with the corresponding value. NAME is the name of a key from the <code>keyValue</code>
      * array.
      * 
@@ -103,15 +115,22 @@ public final class KeyValue implements ValueObject {
                     if (count > 0) {
                         sb.append(", ");
                     }
-                    sb.append(entry == null ? "null" : entry.toString());
+                    sb.append(nullSafeAsString(entry));
                     count++;
                 }
                 map.put(kv.getKey(), sb.toString());
             } else {
-                map.put(kv.getKey(), kv.getValue() == null ? "null" : kv.getValue().toString());
+                map.put(kv.getKey(), kv.getValueString());
             }
         }
         return replaceVars(message, map);
+    }
+    
+    private static String nullSafeAsString(final Object obj) {
+        if (obj == null) {
+            return "null";
+        }
+        return obj.toString();
     }
 
     /**
