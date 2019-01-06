@@ -70,7 +70,7 @@ public final class PasswordSha512 extends AbstractStringValueObject {
             md.update(password.toString().getBytes());
             this.hash = toHex(md.digest());
         } catch (final NoSuchAlgorithmException ex) {
-            throw new RuntimeException("", ex);
+            throw new RuntimeException("Failed to create instance", ex);
         }
     }
 
