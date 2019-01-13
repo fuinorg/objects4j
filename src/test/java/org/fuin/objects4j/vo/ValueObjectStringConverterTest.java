@@ -18,6 +18,8 @@
 package org.fuin.objects4j.vo;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.fuin.objects4j.vo.JsonbHelper.fromJson;
+import static org.fuin.objects4j.vo.JsonbHelper.toJson;
 import static org.fuin.utils4j.JaxbUtils.XML_PREFIX;
 import static org.fuin.utils4j.JaxbUtils.marshal;
 import static org.fuin.utils4j.JaxbUtils.unmarshal;
@@ -34,6 +36,8 @@ public class ValueObjectStringConverterTest extends AbstractPersistenceTest {
 
     private static final String XML = XML_PREFIX + "<data any-str=\"abcd1234\"/>";
 
+    private static final String JSON = "{\"any-str\":\"abcd1234\"}";
+    
     private ValueObjectStringConverter<AnyStr> testee;
 
     @Before
@@ -65,6 +69,23 @@ public class ValueObjectStringConverterTest extends AbstractPersistenceTest {
 
         final Data data = unmarshal(XML, Data.class);
         assertThat(data.anyStr).isNotNull();
+        assertThat(data.anyStr).isEqualTo(new AnyStr("abcd1234"));
+
+    }
+
+    @Test
+    public final void testMarshalJsonb() {
+
+        final Data data = new Data();
+        data.anyStr = new AnyStr("abcd1234");
+        assertThat(toJson(data, new AnyStrConverter())).isEqualTo(JSON);
+
+    }
+
+    @Test
+    public final void testMarshalUnmarshalJsonb() {
+
+        final Data data = fromJson(JSON, Data.class, new AnyStrConverter());
         assertThat(data.anyStr).isEqualTo(new AnyStr("abcd1234"));
 
     }

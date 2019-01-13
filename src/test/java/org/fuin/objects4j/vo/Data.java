@@ -19,12 +19,13 @@ package org.fuin.objects4j.vo;
 
 import java.util.UUID;
 
+import javax.json.bind.annotation.JsonbProperty;
 import javax.validation.Valid;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * XML container used for tests.
+ * XML/JSON container used for tests.
  */
 // CHECKSTYLE:OFF
 @XmlRootElement
@@ -32,30 +33,37 @@ public class Data {
 
     @Valid
     @XmlAttribute
+    @JsonbProperty
     public EmailAddress email;
 
     @Valid
     @XmlAttribute
+    @JsonbProperty
     public Password password;
 
     @Valid
     @XmlAttribute
+    @JsonbProperty
     public PasswordSha512 passwordSha512;
 
     @Valid
     @XmlAttribute
+    @JsonbProperty
     public UserName userName;
 
     @Valid
     @XmlAttribute
+    @JsonbProperty
     public UUID uuid;
 
     @Valid
     @XmlAttribute(name = "ca")
+    @JsonbProperty("ca")
     public CurrencyAmount currencyAmount;
 
     @Valid
     @XmlAttribute(name = "any-str")
+    @JsonbProperty("any-str")
     public AnyStr anyStr;
 
 }

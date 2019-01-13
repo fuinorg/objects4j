@@ -18,7 +18,10 @@
 package org.fuin.objects4j.vo;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.fuin.objects4j.vo.JsonbHelper.fromJson;
+import static org.fuin.objects4j.vo.JsonbHelper.toJson;
 import static org.fuin.units4j.Units4JUtils.assertCauseCauseMessage;
+import static org.fuin.units4j.Units4JUtils.assertCauseMessage;
 import static org.fuin.units4j.Units4JUtils.setPrivateField;
 import static org.fuin.units4j.Units4JUtils.validate;
 import static org.fuin.utils4j.JaxbUtils.XML_PREFIX;
@@ -42,6 +45,8 @@ public class UserNameConverterTest {
 
     private static final String XML = XML_PREFIX + "<data userName=\"" + USER_NAME + "\"/>";
 
+    private static final String JSON = "{\"userName\":\"" + USER_NAME + "\"}";
+    
     private ValueObjectConverter<String, UserName> testee;
 
     @Before
@@ -118,6 +123,36 @@ public class UserNameConverterTest {
         final Set<ConstraintViolation<Object>> violations = validate(data);
         assertThat(violations).hasSize(1);
         assertThat(violations.iterator().next().getMessage()).isEqualTo("is not a well-formed user name");
+
+    }
+
+    @Test
+    public final void testMarshalJsonb() {
+
+        final Data data = new Data();
+        data.userName = new UserName(USER_NAME);
+        assertThat(toJson(data, new UserNameConverter())).isEqualTo(JSON);
+
+    }
+
+    @Test
+    public final void testMarshalUnmarshalJsonb() {
+
+        final Data data = fromJson(JSON, Data.class, new UserNameConverter());
+        assertThat(data.userName).isEqualTo(new UserName(USER_NAME));
+
+    }
+
+    @Test
+    public final void testUnmarshalErrorJsonb() {
+
+        final String invalidJsonData = "{\"userName\":\"x\"}";
+        try {
+            fromJson(invalidJsonData, Data.class, new UserNameConverter());
+            fail("Expected an exception");
+        } catch (final RuntimeException ex) {
+            assertCauseMessage(ex, "The argument 'userName' is not valid: 'x'");
+        }
 
     }
 

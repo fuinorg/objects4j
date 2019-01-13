@@ -18,7 +18,10 @@
 package org.fuin.objects4j.vo;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.fuin.objects4j.vo.JsonbHelper.fromJson;
+import static org.fuin.objects4j.vo.JsonbHelper.toJson;
 import static org.fuin.units4j.Units4JUtils.assertCauseCauseMessage;
+import static org.fuin.units4j.Units4JUtils.assertCauseMessage;
 import static org.fuin.units4j.Units4JUtils.setPrivateField;
 import static org.fuin.units4j.Units4JUtils.validate;
 import static org.fuin.utils4j.JaxbUtils.XML_PREFIX;
@@ -39,6 +42,8 @@ import org.junit.Test;
 public class PasswordConverterTest {
 
     private static final String XML = XML_PREFIX + "<data password=\"abcd1234\"/>";
+
+    private static final String JSON = "{\"password\":\"abcd1234\"}";
 
     private ValueObjectConverter<String, Password> testee;
 
@@ -119,6 +124,36 @@ public class PasswordConverterTest {
         final Set<ConstraintViolation<Object>> violations = validate(data);
         assertThat(violations).hasSize(1);
         assertThat(violations.iterator().next().getMessage()).isEqualTo("is not a valid password");
+
+    }
+
+    @Test
+    public final void testMarshalJsonb() {
+
+        final Data data = new Data();
+        data.password = new Password("abcd1234");
+        assertThat(toJson(data, new PasswordConverter())).isEqualTo(JSON);
+
+    }
+
+    @Test
+    public final void testMarshalUnmarshalJsonb() {
+
+        final Data data = fromJson(JSON, Data.class, new PasswordConverter());
+        assertThat(data.password).isEqualTo(new Password("abcd1234"));
+
+    }
+
+    @Test
+    public final void testUnmarshalErrorJsonb() {
+
+        final String invalidJsonData = "{\"password\":\"abcd123\"}";
+        try {
+            fromJson(invalidJsonData, Data.class, new PasswordConverter());
+            fail("Expected an exception");
+        } catch (final RuntimeException ex) {
+            assertCauseMessage(ex, "The argument 'password' is not valid: 'abcd123'");
+        }
 
     }
 

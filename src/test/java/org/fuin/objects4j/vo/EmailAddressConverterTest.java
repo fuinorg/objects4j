@@ -18,7 +18,10 @@
 package org.fuin.objects4j.vo;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.fuin.objects4j.vo.JsonbHelper.fromJson;
+import static org.fuin.objects4j.vo.JsonbHelper.toJson;
 import static org.fuin.units4j.Units4JUtils.assertCauseCauseMessage;
+import static org.fuin.units4j.Units4JUtils.assertCauseMessage;
 import static org.fuin.utils4j.JaxbUtils.XML_PREFIX;
 import static org.fuin.utils4j.JaxbUtils.marshal;
 import static org.fuin.utils4j.JaxbUtils.unmarshal;
@@ -34,6 +37,8 @@ import org.junit.Test;
 public class EmailAddressConverterTest {
 
     private static final String XML = XML_PREFIX + "<data email=\"a@b.c\"/>";
+
+    private static final String JSON = "{\"email\":\"a@b.c\"}";
 
     private ValueObjectConverter<String, EmailAddress> testee;
 
@@ -99,5 +104,35 @@ public class EmailAddressConverterTest {
 
     }
 
+    @Test
+    public final void testMarshalJsonb() {
+
+        final Data data = new Data();
+        data.email = new EmailAddress("a@b.c");
+        assertThat(toJson(data, new EmailAddressConverter())).isEqualTo(JSON);
+
+    }
+
+    @Test
+    public final void testMarshalUnmarshalJsonb() {
+
+        final Data data = fromJson(JSON, Data.class, new EmailAddressConverter());
+        assertThat(data.email).isEqualTo(new EmailAddress("a@b.c"));
+
+    }
+
+    @Test
+    public final void testUnmarshalErrorJsonb() {
+
+        final String invalidJsonData = "{\"email\":\"abc@\"}";
+        try {
+            fromJson(invalidJsonData, Data.class, new EmailAddressConverter());
+            fail("Expected an exception");
+        } catch (final RuntimeException ex) {
+            assertCauseMessage(ex, "The argument 'emailAddress' is not valid: 'abc@'");
+        }
+
+    }
+    
 }
 // CHECKSTYLE:ON

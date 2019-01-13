@@ -17,6 +17,7 @@
  */
 package org.fuin.objects4j.vo;
 
+import javax.json.bind.adapter.JsonbAdapter;
 import javax.persistence.AttributeConverter;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
@@ -30,9 +31,12 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
  */
 // CHECKSTYLE:OFF:LineLength
 public abstract class AbstractValueObjectConverter<BASE_TYPE, VO_TYPE extends ValueObjectWithBaseType<BASE_TYPE>>
-        extends XmlAdapter<BASE_TYPE, VO_TYPE> implements AttributeConverter<VO_TYPE, BASE_TYPE>, ValueObjectConverter<BASE_TYPE, VO_TYPE> {
+        extends XmlAdapter<BASE_TYPE, VO_TYPE>
+        implements AttributeConverter<VO_TYPE, BASE_TYPE>, ValueObjectConverter<BASE_TYPE, VO_TYPE>, JsonbAdapter<VO_TYPE, BASE_TYPE> {
     // CHECKSTYLE:ON:LineLength
 
+    // JAX-B
+            
     @Override
     public final BASE_TYPE marshal(final VO_TYPE value) throws Exception {
         return fromVO(value);
@@ -42,6 +46,8 @@ public abstract class AbstractValueObjectConverter<BASE_TYPE, VO_TYPE extends Va
     public final VO_TYPE unmarshal(final BASE_TYPE value) throws Exception {
         return toVO(value);
     }
+
+    // JPA
 
     @Override
     public final BASE_TYPE convertToDatabaseColumn(final VO_TYPE value) {
@@ -53,4 +59,16 @@ public abstract class AbstractValueObjectConverter<BASE_TYPE, VO_TYPE extends Va
         return toVO(value);
     }
 
+    // JSONB Adapter
+
+    @Override
+    public final BASE_TYPE adaptToJson(final VO_TYPE obj) throws Exception {
+        return fromVO(obj);
+    }
+
+    @Override
+    public final VO_TYPE adaptFromJson(final BASE_TYPE str) throws Exception {
+        return toVO(str);
+    }
+    
 }

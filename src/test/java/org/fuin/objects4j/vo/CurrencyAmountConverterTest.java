@@ -18,7 +18,10 @@
 package org.fuin.objects4j.vo;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.fuin.objects4j.vo.JsonbHelper.fromJson;
+import static org.fuin.objects4j.vo.JsonbHelper.toJson;
 import static org.fuin.units4j.Units4JUtils.assertCauseCauseMessage;
+import static org.fuin.units4j.Units4JUtils.assertCauseMessage;
 import static org.fuin.utils4j.JaxbUtils.XML_PREFIX;
 import static org.fuin.utils4j.JaxbUtils.marshal;
 import static org.fuin.utils4j.JaxbUtils.unmarshal;
@@ -39,6 +42,8 @@ public class CurrencyAmountConverterTest {
 
     private static final String XML = XML_PREFIX + "<data ca=\"1234.56 EUR\"/>";
 
+    private static final String JSON = "{\"ca\":\"1234.56 EUR\"}";
+    
     private ValueObjectConverter<String, CurrencyAmount> testee;
 
     @Before
@@ -77,7 +82,7 @@ public class CurrencyAmountConverterTest {
     }
 
     @Test
-    public final void testMarshal() throws JAXBException {
+    public final void testMarshalJaxb() throws JAXBException {
 
         final Data data = new Data();
         data.currencyAmount = new CurrencyAmount("1234.56", "EUR");
@@ -86,7 +91,7 @@ public class CurrencyAmountConverterTest {
     }
 
     @Test
-    public final void testMarshalUnmarshal() throws JAXBException {
+    public final void testMarshalUnmarshalJaxb() throws JAXBException {
 
         final Data data = unmarshal(XML, Data.class);
         assertThat(data.currencyAmount).isEqualTo(new CurrencyAmount("1234.56", "EUR"));
@@ -94,14 +99,44 @@ public class CurrencyAmountConverterTest {
     }
 
     @Test
-    public final void testUnmarshalError() {
+    public final void testUnmarshalErrorJaxb() {
 
-        final String invalidEmailInXmlData = XML_PREFIX + "<data ca=\"1234.56\"/>";
+        final String invalidXmlData = XML_PREFIX + "<data ca=\"1234.56\"/>";
         try {
-            unmarshal(invalidEmailInXmlData, Data.class);
+            unmarshal(invalidXmlData, Data.class);
             fail("Expected an exception");
         } catch (final RuntimeException ex) {
             assertCauseCauseMessage(ex, "No space character found in '1234.56'");
+        }
+
+    }
+    
+    @Test
+    public final void testMarshalJsonb() {
+
+        final Data data = new Data();
+        data.currencyAmount = new CurrencyAmount("1234.56", "EUR");
+        assertThat(toJson(data, new CurrencyAmountConverter())).isEqualTo(JSON);
+
+    }
+
+    @Test
+    public final void testMarshalUnmarshalJsonb() {
+
+        final Data data = fromJson(JSON, Data.class, new CurrencyAmountConverter());
+        assertThat(data.currencyAmount).isEqualTo(new CurrencyAmount("1234.56", "EUR"));
+
+    }
+
+    @Test
+    public final void testUnmarshalErrorJsonb() {
+
+        final String invalidJsonData = "{\"ca\":\"1234.56\"}";
+        try {
+            fromJson(invalidJsonData, Data.class, new CurrencyAmountConverter());
+            fail("Expected an exception");
+        } catch (final RuntimeException ex) {
+            assertCauseMessage(ex, "No space character found in '1234.56'");
         }
 
     }

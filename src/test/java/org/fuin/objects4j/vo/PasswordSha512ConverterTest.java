@@ -18,7 +18,10 @@
 package org.fuin.objects4j.vo;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.fuin.objects4j.vo.JsonbHelper.fromJson;
+import static org.fuin.objects4j.vo.JsonbHelper.toJson;
 import static org.fuin.units4j.Units4JUtils.assertCauseCauseMessage;
+import static org.fuin.units4j.Units4JUtils.assertCauseMessage;
 import static org.fuin.units4j.Units4JUtils.setPrivateField;
 import static org.fuin.units4j.Units4JUtils.validate;
 import static org.fuin.utils4j.JaxbUtils.XML_PREFIX;
@@ -42,6 +45,8 @@ public class PasswordSha512ConverterTest {
 
     private static final String XML = XML_PREFIX + "<data passwordSha512=\"" + HASH + "\"/>";
 
+    private static final String JSON = "{\"passwordSha512\":\"" + HASH + "\"}";
+    
     private ValueObjectConverter<String, PasswordSha512> testee;
 
     @Before
@@ -121,5 +126,35 @@ public class PasswordSha512ConverterTest {
 
     }
 
+    @Test
+    public final void testMarshalJsonb() {
+
+        final Data data = new Data();
+        data.passwordSha512 = new PasswordSha512(HASH);
+        assertThat(toJson(data, new PasswordSha512Converter())).isEqualTo(JSON);
+
+    }
+
+    @Test
+    public final void testMarshalUnmarshalJsonb() {
+
+        final Data data = fromJson(JSON, Data.class, new PasswordSha512Converter());
+        assertThat(data.passwordSha512).isEqualTo(new PasswordSha512(HASH));
+
+    }
+
+    @Test
+    public final void testUnmarshalErrorJsonb() {
+
+        final String invalidJsonData = "{\"passwordSha512\":\"1\"}";
+        try {
+            fromJson(invalidJsonData, Data.class, new PasswordSha512Converter());
+            fail("Expected an exception");
+        } catch (final RuntimeException ex) {
+            assertCauseMessage(ex, "The argument 'hexEncodedHash' is not valid");
+        }
+
+    }
+    
 }
 // CHECKSTYLE:OFF

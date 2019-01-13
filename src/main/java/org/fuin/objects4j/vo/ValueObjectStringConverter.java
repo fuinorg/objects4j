@@ -17,6 +17,7 @@
  */
 package org.fuin.objects4j.vo;
 
+import javax.json.bind.adapter.JsonbAdapter;
 import javax.persistence.AttributeConverter;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
@@ -30,7 +31,7 @@ import org.fuin.objects4j.common.Contract;
  *            Type to convert.
  */
 public abstract class ValueObjectStringConverter<TYPE extends AsStringCapable> extends XmlAdapter<String, TYPE>
-        implements AttributeConverter<TYPE, String> {
+        implements AttributeConverter<TYPE, String>, JsonbAdapter<TYPE, String> {
 
     private final ValueOfCapable<TYPE> vop;
 
@@ -46,6 +47,8 @@ public abstract class ValueObjectStringConverter<TYPE extends AsStringCapable> e
         this.vop = vop;
     }
 
+    // JAX-B
+    
     @Override
     public final TYPE unmarshal(final String value) {
         return vop.valueOf(value);
@@ -59,6 +62,8 @@ public abstract class ValueObjectStringConverter<TYPE extends AsStringCapable> e
         return value.asString();
     }
 
+    // JPA
+    
     @Override
     public final String convertToDatabaseColumn(final TYPE value) {
         return marshal(value);
@@ -69,4 +74,19 @@ public abstract class ValueObjectStringConverter<TYPE extends AsStringCapable> e
         return unmarshal(value);
     }
 
+    // JSONB Adapter
+
+    @Override
+    public final String adaptToJson(final TYPE obj) throws Exception {
+        if (obj == null) {
+            return null;
+        }
+        return obj.asString();
+    }
+
+    @Override
+    public final TYPE adaptFromJson(final String str) throws Exception {
+        return vop.valueOf(str);
+    }
+    
 }

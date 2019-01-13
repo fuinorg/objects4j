@@ -17,6 +17,7 @@
       <dependsOn package="javax.enterprise.context"/>
       <dependsOn package="javax.enterprise.inject" />
       <dependsOn package="javax.xml.bind"/>
+      <dependsOn package="javax.json.bind"/>
       <dependsOn package="org.joda.time"/>
   </alwaysAllowed>
   
