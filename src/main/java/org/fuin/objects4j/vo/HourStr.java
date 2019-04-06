@@ -46,7 +46,7 @@ import javax.validation.Payload;
 @Documented
 public @interface HourStr {
 
-    String message() default "{org.fuin.objects4j.vo.openinghours.HourStr.message}";
+    String message() default "{org.fuin.objects4j.vo.HourStr.message}";
 
     Class<?>[] groups() default {};
 
