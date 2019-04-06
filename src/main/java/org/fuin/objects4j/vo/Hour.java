@@ -58,9 +58,10 @@ public final class Hour extends AbstractStringValueObject {
 
     private static final Pattern PATTERN = Pattern.compile("^([01]\\d|2[0-3]):?([0-5]\\d)|24:00$");
 
-    @NotEmpty
-    private String value;
+    private int hour;
 
+    private int minute;
+    
     /**
      * Protected default constructor for deserialization.
      */
@@ -69,7 +70,7 @@ public final class Hour extends AbstractStringValueObject {
     }
 
     /**
-     * Constructor with hour.
+     * Constructor with string.
      * 
      * @param hour
      *            Hour like '00:00' (midnight new day), '24:00' (midnight prev. day), '12:00' (noon) or '23:59' (a minute before midnight).
@@ -78,18 +79,64 @@ public final class Hour extends AbstractStringValueObject {
         super();
         Contract.requireArgNotEmpty("hour", hour);
         requireArgValid("hour", hour);
-        this.value = hour;
+        this.hour = Integer.valueOf(hour.substring(0, 2));
+        this.minute = Integer.valueOf(hour.substring(3));
     }
 
+    /**
+     * Constructor with hour/minute.
+     * 
+     * @param hour
+     *            Hour 0-24.
+     * @param minute
+     *            Minute 0-59.
+     */
+    public Hour(final int hour, final int minute) {
+        super();
+        if (hour < 0 || hour > 24) {
+            throw new ConstraintViolationException(
+                    "The argument 'hour' is not a valid hour (0-24): '" + hour + "'");
+        }
+        if (minute < 0 || minute > 59) {
+            throw new ConstraintViolationException(
+                    "The argument 'minute' is not a valid minute (0-59): '" + minute + "'");
+        }
+        if (hour == 24 && minute != 0) {
+            throw new ConstraintViolationException(
+                    "The argument 'minute' must be '0' if the hour is '24': '" + minute + "'");
+        }
+        this.hour = hour;
+        this.minute = minute;
+    }
+    
     @Override
     @NotEmpty
     public String asBaseType() {
-        return value;
+        if (hour < 10) {
+            if (minute < 10) {
+                return "0" + hour + ":" + "0" + minute;
+            }
+            return "0" + hour + ":" + minute;
+        }
+        if (minute < 10) {
+            return hour + ":" + "0" + minute;
+        }
+        return hour + ":" + minute;
     }
 
     @Override
     public String toString() {
-        return value;
+        return asBaseType();
+    }
+    
+    /**
+     * Converts the hour into minutes of day.
+     * '00:00' = 0 and '24:00' = 1440.  
+     * 
+     * @return 0-1440
+     */
+    public int toMinutes() {
+        return (hour * 60) + minute;
     }
     
     /**
