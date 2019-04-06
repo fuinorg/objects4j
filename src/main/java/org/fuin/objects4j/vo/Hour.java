@@ -77,10 +77,7 @@ public final class Hour extends AbstractStringValueObject {
     public Hour(@NotNull @HourStr final String hour) {
         super();
         Contract.requireArgNotEmpty("hour", hour);
-        if (!isValid(hour)) {
-            throw new ConstraintViolationException(
-                    "The argument 'hour' does not represent a valid hour like '00:00' or '23:59' or '24:00': '" + hour + "'");
-        }
+        requireArgValid("hour", hour);
         this.value = hour;
     }
 
@@ -124,6 +121,28 @@ public final class Hour extends AbstractStringValueObject {
             return null;
         }
         return new Hour(str);
+    }
+
+    /**
+     * Checks if the argument is valid and throws an exception if this is not the case.
+     * 
+     * @param name
+     *            Name of the value for a possible error message.
+     * @param value
+     *            Value to check.
+     * 
+     * @throws ConstraintViolationException
+     *             The value was not valid.
+     */
+    // CHECKSTYLE:OFF:RedundantThrows
+    public static void requireArgValid(@NotNull final String name, @NotNull final String value) throws ConstraintViolationException {
+        // CHECKSTYLE:ON
+
+        if (!Hour.isValid(value)) {
+            throw new ConstraintViolationException(
+                    "The argument '" + name + "' does not represent a valid hour like '00:00' or '23:59' or '24:00': '" + value + "'");
+        }
+
     }
     
 }

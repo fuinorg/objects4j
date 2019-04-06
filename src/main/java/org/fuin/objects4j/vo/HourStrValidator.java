@@ -19,9 +19,6 @@ package org.fuin.objects4j.vo;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import javax.validation.constraints.NotNull;
-
-import org.fuin.objects4j.common.ConstraintViolationException;
 
 /**
  * Verifies the string is an hour of a day (24 hours, sometimes called Military Time).
@@ -57,28 +54,6 @@ public final class HourStrValidator implements ConstraintValidator<HourStr, Stri
      */
     public static final boolean isValid(final String value) {
         return Hour.isValid(value);
-    }
-
-    /**
-     * Checks if the argument is valid and throws an exception if this is not the case.
-     * 
-     * @param name
-     *            Name of the value for a possible error message.
-     * @param value
-     *            Value to check.
-     * 
-     * @throws ConstraintViolationException
-     *             The value was not valid.
-     */
-    // CHECKSTYLE:OFF:RedundantThrows
-    public static void requireArgValid(@NotNull final String name, @NotNull final String value) throws ConstraintViolationException {
-        // CHECKSTYLE:ON
-
-        if (!Hour.isValid(value)) {
-            throw new ConstraintViolationException(
-                    "The argument '" + name + "' does not represent a valid hour like '00:00' or '23:59' or '24:00': '" + value + "'");
-        }
-
     }
 
 }

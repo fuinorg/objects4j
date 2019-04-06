@@ -19,10 +19,6 @@ package org.fuin.objects4j.vo;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.fuin.objects4j.common.ConstraintViolationException;
-
-import static org.junit.Assert.fail;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -69,25 +65,6 @@ public final class HourStrValidatorTest {
         assertThat(testee.isValid("123:000", null)).isFalse();
         assertThat(testee.isValid("23.59", null)).isFalse();
         assertThat(testee.isValid("24:01", null)).isFalse();
-
-    }
-
-    @Test
-    public final void testRequireArgValid() {
-
-        try {
-            HourStrValidator.requireArgValid("a", "");
-            fail();
-        } catch (final ConstraintViolationException ex) {
-            assertThat(ex.getMessage()).isEqualTo("The argument 'a' does not represent a valid hour like '00:00' or '23:59' or '24:00': ''");
-        }
-
-        try {
-            HourStrValidator.requireArgValid("b", "23:");
-            fail();
-        } catch (final ConstraintViolationException ex) {
-            assertThat(ex.getMessage()).isEqualTo("The argument 'b' does not represent a valid hour like '00:00' or '23:59' or '24:00': '23:'");
-        }
 
     }
     

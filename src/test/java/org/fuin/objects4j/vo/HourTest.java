@@ -80,6 +80,27 @@ public class HourTest extends AbstractPersistenceTest {
     }
 
     @Test
+    public final void testRequireArgValid() {
+
+        try {
+            Hour.requireArgValid("a", "");
+            fail();
+        } catch (final ConstraintViolationException ex) {
+            assertThat(ex.getMessage())
+                    .isEqualTo("The argument 'a' does not represent a valid hour like '00:00' or '23:59' or '24:00': ''");
+        }
+
+        try {
+            Hour.requireArgValid("b", "23:");
+            fail();
+        } catch (final ConstraintViolationException ex) {
+            assertThat(ex.getMessage())
+                    .isEqualTo("The argument 'b' does not represent a valid hour like '00:00' or '23:59' or '24:00': '23:'");
+        }
+
+    }
+
+    @Test
     public void testJPA() {
 
         // PREPARE
@@ -103,6 +124,6 @@ public class HourTest extends AbstractPersistenceTest {
         commitTransaction();
 
     }
-    
+
 }
 // CHECKSTYLE:ON
