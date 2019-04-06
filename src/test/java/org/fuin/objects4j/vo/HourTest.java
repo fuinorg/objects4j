@@ -49,7 +49,7 @@ public class HourTest extends AbstractPersistenceTest {
     }
 
     @Test
-    public final void testIsValid() {
+    public final void testIsValidTRUE() {
 
         assertThat(Hour.isValid(null)).isTrue();
         assertThat(Hour.isValid("00:00")).isTrue();
@@ -60,6 +60,11 @@ public class HourTest extends AbstractPersistenceTest {
         assertThat(Hour.isValid("12:01")).isTrue();
         assertThat(Hour.isValid("23:59")).isTrue();
         assertThat(Hour.isValid("24:00")).isTrue();
+
+    }
+
+    @Test
+    public final void testIsValidFALSE() {
 
         assertThat(Hour.isValid("")).isFalse();
         assertThat(Hour.isValid("1")).isFalse();
