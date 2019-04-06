@@ -18,6 +18,7 @@
 		<class>org.fuin.objects4j.vo.LocaleParentEntity</class>
 		<class>org.fuin.objects4j.vo.JodaParentEntity</class>
 		<class>org.fuin.objects4j.vo.AnyStrParentEntity</class>
+        <class>org.fuin.objects4j.vo.HourParentEntity</class>
 		
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<properties>

@@ -66,5 +66,11 @@ public class Data {
     @JsonbProperty("any-str")
     public AnyStr anyStr;
 
+    @Valid
+    @XmlAttribute
+    @JsonbProperty
+    public Hour hour;
+
+    
 }
 // CHECKSTYLE:ON
