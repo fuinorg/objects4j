@@ -71,6 +71,10 @@ public class Data {
     @JsonbProperty
     public Hour hour;
 
+    @Valid
+    @XmlAttribute
+    @JsonbProperty
+    public HourRange hourRange;
     
 }
 // CHECKSTYLE:ON

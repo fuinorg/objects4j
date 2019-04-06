@@ -19,6 +19,7 @@
 		<class>org.fuin.objects4j.vo.JodaParentEntity</class>
 		<class>org.fuin.objects4j.vo.AnyStrParentEntity</class>
         <class>org.fuin.objects4j.vo.HourParentEntity</class>
+        <class>org.fuin.objects4j.vo.HourRangeParentEntity</class>
 		
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<properties>
