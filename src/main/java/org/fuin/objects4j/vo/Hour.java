@@ -33,7 +33,18 @@ import org.fuin.objects4j.ui.ShortLabel;
 import org.fuin.objects4j.ui.Tooltip;
 
 /**
- * Represents an hour of a day (24 hours, sometimes called Military Time).
+ * Represents an hour of a day (24 hours, sometimes called Military Time).<br>
+ * <br>
+ * Examples:
+ * <ul> 
+ * <li>'00:00' Midnight next/new day</li>
+ * <li>'01:00' One hour after midnight</li>
+ * <li>'11:30' Half hour before noon</li>
+ * <li>'12:00' Noon</li>
+ * <li>'13:00' One hour after noon</li>
+ * <li>'23:59' One minute before midnight</li>
+ * <li>'24:00' Midnight current day</li>
+ * </ul>
  */
 @Immutable
 @ShortLabel("HH")
