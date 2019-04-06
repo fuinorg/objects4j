@@ -17,6 +17,9 @@
  */
 package org.fuin.objects4j.vo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 import javax.validation.constraints.NotEmpty;
@@ -71,12 +74,21 @@ public final class HourRange extends AbstractStringValueObject {
      * @param hourRange
      *            Hour like '00:00-24:00' (24 hours).
      */
-    public HourRange(@NotNull @HourStr final String hourRange) {
+    public HourRange(@NotNull @HourRangeStr final String hourRange) {
         super();
         Contract.requireArgNotEmpty("hourRange", hourRange);
         requireArgValid("hourRange", hourRange);
         from = new Hour(hourRange.substring(0, 5));
         to = new Hour(hourRange.substring(6));
+        if (from.equals(to)) {
+            throw new ConstraintViolationException("The argument 'from' of the hour range cannot be equal 'to': '" + hourRange + "'");
+        }
+        if (from.equals(new Hour(24,0))) {
+            throw new ConstraintViolationException("The argument 'from' of the hour range cannot be '24:00'");
+        }
+        if (to.equals(new Hour(0,0))) {
+            throw new ConstraintViolationException("The argument 'to' of the hour range cannot be '00:00'");
+        }
     }
 
     /**
@@ -93,6 +105,15 @@ public final class HourRange extends AbstractStringValueObject {
         Contract.requireArgNotNull("to", to);
         this.from = from;
         this.to = to;
+        if (from.equals(to)) {
+            throw new ConstraintViolationException("The argument 'from' of the hour range cannot be equal 'to': " + from);
+        }
+        if (from.equals(new Hour(24,0))) {
+            throw new ConstraintViolationException("The argument 'from' of the hour range cannot be '24:00'");
+        }
+        if (to.equals(new Hour(0,0))) {
+            throw new ConstraintViolationException("The argument 'to' of the hour range cannot be '00:00'");
+        }
     }
     
     @Override
@@ -105,7 +126,55 @@ public final class HourRange extends AbstractStringValueObject {
     public String toString() {
         return asBaseType();
     }
+    
+    /**
+     * Determines if this range and the given range overlap. 
+     * 
+     * @param other Range to compare with.
+     * 
+     * @return {@literal true} if the two ranges overlap, else {@literal false}.
+     */
+    public boolean overlaps(@NotNull final HourRange other) {
+        Contract.requireArgNotNull("other", other);
+        if (this.equals(other)) {
+            return true;
+        }
+        final int otherFrom = other.from.toMinutes();
+        final int thisFrom = from.toMinutes();
+        final int otherTo = other.to.toMinutes();
+        final int thisTo = to.toMinutes();
+        if (otherFrom <= thisTo && otherFrom >= thisFrom) {
+            return true;
+        }
+        if (otherTo <= thisTo && otherTo >= thisFrom) {
+            return true;
+        }
+        if (thisFrom <= otherTo && thisFrom >= otherFrom) {
+            return true;
+        }
+        if (thisTo <= otherTo && thisTo >= otherFrom) {
+            return true;
+        }
+        return false;    
+    }
 
+    /**
+     * If the hour range represents two different days, this method returns two hour ranges, one for each day.
+     * Example: '18:00-03:00' will be splitted into '18:00-24:00' and '00:00-03:00'.
+     * 
+     * @return This range or range for today and tomorrow.
+     */
+    public List<HourRange> normalize() {
+        final List<HourRange> ranges = new ArrayList<>();        
+        if (this.from.toMinutes() > this.to.toMinutes()) {
+            ranges.add(new HourRange(this.from, new Hour(24,00)));
+            ranges.add(new HourRange(new Hour(0,0), this.to));
+        } else {
+            ranges.add(this);
+        }
+        return ranges;
+    }
+    
     /**
      * Verifies if the string is a valid hour range.
      * 
@@ -122,9 +191,23 @@ public final class HourRange extends AbstractStringValueObject {
         if (p != 5) {
             return false;
         }
-        final String from = hourRange.substring(0, 5);
-        final String to = hourRange.substring(6);
-        return Hour.isValid(from) && Hour.isValid(to);
+        final String fromStr = hourRange.substring(0, 5);
+        final String toStr = hourRange.substring(6);
+        if (!(Hour.isValid(fromStr) && Hour.isValid(toStr))) {
+            return false;
+        }
+        final Hour from = new Hour(fromStr);
+        final Hour to = new Hour(toStr);
+        if (from.equals(to)) {
+            return false;
+        }
+        if (from.equals(new Hour(24,0))) {
+            return false;
+        }
+        if (to.equals(new Hour(0,0))) {
+            return false;
+        }
+        return true;
     }
 
     /**

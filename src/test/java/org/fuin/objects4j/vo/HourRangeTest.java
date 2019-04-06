@@ -64,6 +64,37 @@ public class HourRangeTest extends AbstractPersistenceTest {
         }
         
     }
+    
+    @Test
+    public final void testOverlaps() {
+        
+        assertThat(new HourRange("12:00-18:00").overlaps(new HourRange("11:00-11:59"))).isFalse();
+        assertThat(new HourRange("11:00-11:59").overlaps(new HourRange("12:00-18:00"))).isFalse();
+        
+        assertThat(new HourRange("12:00-18:00").overlaps(new HourRange("11:59-12:00"))).isTrue();
+        assertThat(new HourRange("11:59-12:00").overlaps(new HourRange("12:00-18:00"))).isTrue();
+        
+        assertThat(new HourRange("12:00-18:00").overlaps(new HourRange("13:00-17:00"))).isTrue();
+        assertThat(new HourRange("13:00-17:00").overlaps(new HourRange("12:00-18:00"))).isTrue();
+        
+        assertThat(new HourRange("12:00-18:00").overlaps(new HourRange("18:00-18:01"))).isTrue();
+        assertThat(new HourRange("18:00-18:01").overlaps(new HourRange("12:00-18:00"))).isTrue();
+        
+        assertThat(new HourRange("12:00-18:00").overlaps(new HourRange("18:01-18:02"))).isFalse();
+        assertThat(new HourRange("18:01-18:02").overlaps(new HourRange("12:00-18:00"))).isFalse();
+        
+    }
+
+    @Test
+    public final void testNormalize() {
+        
+        assertThat(new HourRange("18:00-03:00").normalize()).containsExactly(new HourRange("18:00-24:00"), new HourRange("00:00-03:00"));
+        assertThat(new HourRange("09:00-06:00").normalize()).containsExactly(new HourRange("09:00-24:00"), new HourRange("00:00-06:00"));
+        assertThat(new HourRange("18:00-19:00").normalize()).containsExactly(new HourRange("18:00-19:00"));
+        assertThat(new HourRange("00:00-24:00").normalize()).containsExactly(new HourRange("00:00-24:00"));
+        
+    }
+    
 
     @Test
     public final void testIsValidTRUE() {
@@ -92,6 +123,10 @@ public class HourRangeTest extends AbstractPersistenceTest {
         assertThat(HourRange.isValid("12:0")).isFalse();
         assertThat(HourRange.isValid("12:00-13:000")).isFalse();
         assertThat(HourRange.isValid("12:00-13")).isFalse();
+        assertThat(HourRange.isValid("24:00-24:00")).isFalse();
+        assertThat(HourRange.isValid("24:00-01:00")).isFalse();
+        assertThat(HourRange.isValid("17:00-17:00")).isFalse();
+        assertThat(HourRange.isValid("01:00-00:00")).isFalse();
 
     }
     
