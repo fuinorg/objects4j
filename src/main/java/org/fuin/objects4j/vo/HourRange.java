@@ -55,10 +55,10 @@ public final class HourRange extends AbstractStringValueObject {
 
     private static final long serialVersionUID = 1000L;
 
-    @NotEmpty
+    @NotNull
     private Hour from;
 
-    @NotEmpty
+    @NotNull
     private Hour to;
 
     /**
