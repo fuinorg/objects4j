@@ -58,9 +58,9 @@ public final class Hour extends AbstractStringValueObject {
 
     private static final Pattern PATTERN = Pattern.compile("^([01]\\d|2[0-3]):?([0-5]\\d)|24:00$");
 
-    private int hour;
+    private int hourValue;
 
-    private int minute;
+    private int minuteValue;
     
     /**
      * Protected default constructor for deserialization.
@@ -79,8 +79,8 @@ public final class Hour extends AbstractStringValueObject {
         super();
         Contract.requireArgNotEmpty("hour", hour);
         requireArgValid("hour", hour);
-        this.hour = Integer.valueOf(hour.substring(0, 2));
-        this.minute = Integer.valueOf(hour.substring(3));
+        this.hourValue = Integer.valueOf(hour.substring(0, 2));
+        this.minuteValue = Integer.valueOf(hour.substring(3));
     }
 
     /**
@@ -105,23 +105,23 @@ public final class Hour extends AbstractStringValueObject {
             throw new ConstraintViolationException(
                     "The argument 'minute' must be '0' if the hour is '24': '" + minute + "'");
         }
-        this.hour = hour;
-        this.minute = minute;
+        this.hourValue = hour;
+        this.minuteValue = minute;
     }
     
     @Override
     @NotEmpty
     public String asBaseType() {
-        if (hour < 10) {
-            if (minute < 10) {
-                return "0" + hour + ":" + "0" + minute;
+        if (hourValue < 10) {
+            if (minuteValue < 10) {
+                return "0" + hourValue + ":" + "0" + minuteValue;
             }
-            return "0" + hour + ":" + minute;
+            return "0" + hourValue + ":" + minuteValue;
         }
-        if (minute < 10) {
-            return hour + ":" + "0" + minute;
+        if (minuteValue < 10) {
+            return hourValue + ":" + "0" + minuteValue;
         }
-        return hour + ":" + minute;
+        return hourValue + ":" + minuteValue;
     }
 
     @Override
@@ -136,7 +136,7 @@ public final class Hour extends AbstractStringValueObject {
      * @return 0-1440
      */
     public int toMinutes() {
-        return (hour * 60) + minute;
+        return (hourValue * 60) + minuteValue;
     }
     
     /**
