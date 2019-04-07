@@ -34,17 +34,17 @@ import org.junit.Before;
 import org.junit.Test;
 
 // CHECKSTYLE:OFF
-public class DayOfTheWeekConverterTest {
+public class MultiDayOfTheWeekConverterTest {
 
-    private static final String XML = XML_PREFIX + "<data dayOfTheWeek=\"FRI\"/>";
+    private static final String XML = XML_PREFIX + "<data multiDayOfTheWeek=\"MON/TUE\"/>";
 
-    private static final String JSON = "{\"dayOfTheWeek\":\"FRI\"}";
+    private static final String JSON = "{\"multiDayOfTheWeek\":\"MON/TUE\"}";
 
-    private DayOfTheWeekConverter testee;
+    private MultiDayOfTheWeekConverter testee;
 
     @Before
     public void setup() {
-        testee = new DayOfTheWeekConverter();
+        testee = new MultiDayOfTheWeekConverter();
     }
 
     @After
@@ -61,7 +61,7 @@ public class DayOfTheWeekConverterTest {
     public final void testMarshal() throws JAXBException {
 
         final Data data = new Data();
-        data.dayOfTheWeek = DayOfTheWeek.FRI;
+        data.multiDayOfTheWeek = new MultiDayOfTheWeek("Mon/Tue");
         assertThat(marshal(data, Data.class)).isEqualTo(XML);
 
     }
@@ -70,19 +70,19 @@ public class DayOfTheWeekConverterTest {
     public final void testMarshalUnmarshal() throws JAXBException {
 
         final Data data = unmarshal(XML, Data.class);
-        assertThat(data.dayOfTheWeek).isEqualTo(DayOfTheWeek.FRI);
+        assertThat(data.multiDayOfTheWeek).isEqualTo(new MultiDayOfTheWeek("Mon/Tue"));
 
     }
 
     @Test
     public final void testUnmarshalError() {
 
-        final String invalidEmailInXmlData = XML_PREFIX + "<data dayOfTheWeek=\"Monday\"/>";
+        final String invalidEmailInXmlData = XML_PREFIX + "<data multiDayOfTheWeek=\"Mon+Tue\"/>";
         try {
             unmarshal(invalidEmailInXmlData, Data.class);
             fail("Expected an exception");
         } catch (final RuntimeException ex) {
-            assertCauseCauseMessage(ex, "Unknown day of week: 'Monday'");
+            assertCauseCauseMessage(ex, "The argument 'multipleDayOfTheWeek' does not represent valid days of the week like 'Mon/Tue/Wed-Fri': 'Mon+Tue'");
         }
 
     }
@@ -91,28 +91,28 @@ public class DayOfTheWeekConverterTest {
     public final void testMarshalJsonb() {
 
         final Data data = new Data();
-        data.dayOfTheWeek = DayOfTheWeek.FRI;
-        assertThat(toJson(data, new DayOfTheWeekConverter())).isEqualTo(JSON);
+        data.multiDayOfTheWeek = new MultiDayOfTheWeek("Mon/Tue");
+        assertThat(toJson(data, new MultiDayOfTheWeekConverter())).isEqualTo(JSON);
 
     }
 
     @Test
     public final void testMarshalUnmarshalJsonb() {
 
-        final Data data = fromJson(JSON, Data.class, new DayOfTheWeekConverter());
-        assertThat(data.dayOfTheWeek).isEqualTo(DayOfTheWeek.FRI);
+        final Data data = fromJson(JSON, Data.class, new MultiDayOfTheWeekConverter());
+        assertThat(data.multiDayOfTheWeek).isEqualTo(new MultiDayOfTheWeek("Mon/Tue"));
 
     }
 
     @Test
     public final void testUnmarshalErrorJsonb() {
 
-        final String invalidJsonData = "{\"dayOfTheWeek\":\"Monday\"}";
+        final String invalidJsonData = "{\"multiDayOfTheWeek\":\"Mon+Tue\"}";
         try {
-            fromJson(invalidJsonData, Data.class, new DayOfTheWeekConverter());
+            fromJson(invalidJsonData, Data.class, new MultiDayOfTheWeekConverter());
             fail("Expected an exception");
         } catch (final RuntimeException ex) {
-            assertCauseMessage(ex, "Unknown day of week: 'Monday'");
+            assertCauseMessage(ex, "The argument 'multipleDayOfTheWeek' does not represent valid days of the week like 'Mon/Tue/Wed-Fri': 'Mon+Tue'");
         }
 
     }
