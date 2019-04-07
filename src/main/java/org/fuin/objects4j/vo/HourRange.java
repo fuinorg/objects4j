@@ -201,10 +201,7 @@ public final class HourRange extends AbstractStringValueObject {
         if (from.equals(new Hour(24,0))) {
             return false;
         }
-        if (to.equals(new Hour(0,0))) {
-            return false;
-        }
-        return true;
+        return !to.equals(new Hour(0,0));
     }
 
     /**
