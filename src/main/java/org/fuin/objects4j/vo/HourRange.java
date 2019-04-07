@@ -152,10 +152,7 @@ public final class HourRange extends AbstractStringValueObject {
         if (thisFrom <= otherTo && thisFrom >= otherFrom) {
             return true;
         }
-        if (thisTo <= otherTo && thisTo >= otherFrom) {
-            return true;
-        }
-        return false;    
+        return (thisTo <= otherTo && thisTo >= otherFrom);
     }
 
     /**
