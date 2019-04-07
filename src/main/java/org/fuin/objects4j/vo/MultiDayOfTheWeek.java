@@ -18,6 +18,7 @@
 package org.fuin.objects4j.vo;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -127,6 +128,15 @@ public final class MultiDayOfTheWeek extends AbstractStringValueObject {
         return asBaseType();
     }
 
+    /**
+     * Returns the list of days represented by this instance.
+     * 
+     * @return Immutable list of one or more days of the week
+     */
+    public List<DayOfTheWeek> getList() {
+        return Collections.unmodifiableList(multipleDayOfTheWeek);
+    }
+    
     /**
      * Verifies if the string is valid and could be converted into an object.
      * 

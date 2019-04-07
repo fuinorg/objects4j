@@ -48,7 +48,7 @@ public class MultiDayOfTheWeekTest extends AbstractPersistenceTest {
         }
 
     }
-
+    
     @Test
     public final void testIsValidTRUE() {
 
@@ -97,6 +97,15 @@ public class MultiDayOfTheWeekTest extends AbstractPersistenceTest {
                 new MultiDayOfTheWeek(DayOfTheWeek.MON, DayOfTheWeek.TUE, DayOfTheWeek.THU, DayOfTheWeek.SAT, DayOfTheWeek.SUN).toString())
                         .isEqualTo("MON/TUE/THU/SAT/SUN");
 
+    }
+    
+    @Test
+    public final void testList() {
+    
+        assertThat(new MultiDayOfTheWeek("Mon").getList()).containsExactly(DayOfTheWeek.MON);
+        assertThat(new MultiDayOfTheWeek("Mon/Tue").getList()).containsExactly(DayOfTheWeek.MON, DayOfTheWeek.TUE);
+        assertThat(new MultiDayOfTheWeek("Mon-Wed").getList()).containsExactly(DayOfTheWeek.MON, DayOfTheWeek.TUE, DayOfTheWeek.WED);
+        
     }
 
     @Test
