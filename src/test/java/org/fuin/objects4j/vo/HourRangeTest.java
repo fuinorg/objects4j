@@ -67,6 +67,8 @@ public class HourRangeTest extends AbstractPersistenceTest {
     
     @Test
     public final void testOverlaps() {
+
+        assertThat(new HourRange("12:00-18:00").overlaps(new HourRange("12:00-18:00"))).isTrue();
         
         assertThat(new HourRange("12:00-18:00").overlaps(new HourRange("11:00-11:59"))).isFalse();
         assertThat(new HourRange("11:00-11:59").overlaps(new HourRange("12:00-18:00"))).isFalse();
