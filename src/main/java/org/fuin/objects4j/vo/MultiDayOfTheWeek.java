@@ -90,8 +90,8 @@ public final class MultiDayOfTheWeek extends AbstractStringValueObject {
     /**
      * Constructor with multiple day of the week array.
      * 
-     * @param multipleDayOfTheWeek
-     *            Ranges.
+     * @param dayOfTheWeek
+     *            Multiple day of the week.
      */
     public MultiDayOfTheWeek(@NotEmpty final DayOfTheWeek... dayOfTheWeek) {
         super();
