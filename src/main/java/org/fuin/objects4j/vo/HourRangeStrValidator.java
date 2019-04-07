@@ -36,6 +36,7 @@ public final class HourRangeStrValidator implements ConstraintValidator<HourRang
 
     @Override
     public final void initialize(final HourRangeStr constraintAnnotation) {
+        // No initialization required
     }
 
     @Override
