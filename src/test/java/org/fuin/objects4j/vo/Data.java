@@ -81,5 +81,11 @@ public class Data {
     @JsonbProperty
     public HourRanges hourRanges;
     
+
+    @Valid
+    @XmlAttribute
+    @JsonbProperty
+    public DayOfTheWeek dayOfTheWeek;
+    
 }
 // CHECKSTYLE:ON

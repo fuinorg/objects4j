@@ -21,6 +21,7 @@
         <class>org.fuin.objects4j.vo.HourParentEntity</class>
         <class>org.fuin.objects4j.vo.HourRangeParentEntity</class>
         <class>org.fuin.objects4j.vo.HourRangesParentEntity</class>
+        <class>org.fuin.objects4j.vo.DayOfTheWeekParentEntity</class>
 		
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<properties>
