@@ -91,5 +91,11 @@ public class Data {
     @JsonbProperty
     public MultiDayOfTheWeek multiDayOfTheWeek;
     
+
+    @Valid
+    @XmlAttribute
+    @JsonbProperty
+    public DayOpeningHours dayOpeningHours;
+    
 }
 // CHECKSTYLE:ON

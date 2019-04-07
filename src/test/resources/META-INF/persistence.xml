@@ -23,6 +23,7 @@
         <class>org.fuin.objects4j.vo.HourRangesParentEntity</class>
         <class>org.fuin.objects4j.vo.DayOfTheWeekParentEntity</class>
         <class>org.fuin.objects4j.vo.MultiDayOfTheWeekParentEntity</class>        
+        <class>org.fuin.objects4j.vo.DayOpeningHoursParentEntity</class>        
 		
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<properties>
