@@ -80,7 +80,7 @@ public class Data {
     @XmlAttribute
     @JsonbProperty
     public HourRanges hourRanges;
-    
+
     @Valid
     @XmlAttribute
     @JsonbProperty
@@ -90,12 +90,16 @@ public class Data {
     @XmlAttribute
     @JsonbProperty
     public MultiDayOfTheWeek multiDayOfTheWeek;
-    
 
     @Valid
     @XmlAttribute
     @JsonbProperty
     public DayOpeningHours dayOpeningHours;
-    
+
+    @Valid
+    @XmlAttribute
+    @JsonbProperty
+    public WeeklyOpeningHours weeklyOpeningHours;
+
 }
 // CHECKSTYLE:ON
