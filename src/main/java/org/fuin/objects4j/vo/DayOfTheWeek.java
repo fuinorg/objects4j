@@ -17,7 +17,9 @@
  */
 package org.fuin.objects4j.vo;
 
-import java.util.regex.Pattern;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
@@ -45,16 +47,35 @@ public final class DayOfTheWeek extends AbstractStringValueObject {
 
     private static final long serialVersionUID = 1000L;
 
-    private static final Pattern PATTERN = Pattern.compile("^Mon|Tue|Wed|Thu|Fri|Sat|Sun|PH$", Pattern.CASE_INSENSITIVE);
+    /** Monday. */
+    public static final DayOfTheWeek MON = new DayOfTheWeek(1, "MON");
+    
+    /** Tuesday. */
+    public static final DayOfTheWeek TUE = new DayOfTheWeek(2, "TUE");
+    
+    /** Wednesday. */
+    public static final DayOfTheWeek WED = new DayOfTheWeek(3, "WED");
+    
+    /** Thursday. */
+    public static final DayOfTheWeek THU = new DayOfTheWeek(4, "THU");
+    
+    /** Friday. */
+    public static final DayOfTheWeek FRI = new DayOfTheWeek(5, "FRI");
+    
+    /** Saturday. */
+    public static final DayOfTheWeek SAT = new DayOfTheWeek(6, "SAT");
+    
+    /** Sunday. */
+    public static final DayOfTheWeek SUN = new DayOfTheWeek(7, "SUN");
+    
+    /** Public Holiday. */
+    public static final DayOfTheWeek PH = new DayOfTheWeek(8, "PH");
 
-    private String value;
-
-    /**
-     * Protected default constructor for deserialization.
-     */
-    protected DayOfTheWeek() {// NOSONAR Ignore JAXB default constructor
-        super();
-    }
+    private static final DayOfTheWeek[] ALL = new DayOfTheWeek[] { MON, TUE, WED, THU, FRI, SAT, SUN, PH };
+    
+    private final int id;
+    
+    private final String value;
 
     /**
      * Constructor with string.
@@ -62,10 +83,9 @@ public final class DayOfTheWeek extends AbstractStringValueObject {
      * @param dayOfTheWeek
      *            Day of the week 'Mon'-'Sun'(from Monday to Sunday) plus 'PH' (Public Holiday).
      */
-    public DayOfTheWeek(@NotNull @DayOfTheWeekStr final String dayOfTheWeek) {
+    private DayOfTheWeek(final int id, @NotNull @DayOfTheWeekStr final String dayOfTheWeek) {
         super();
-        Contract.requireArgNotEmpty("dayOfTheWeek", dayOfTheWeek);
-        requireArgValid("dayOfTheWeek", dayOfTheWeek);
+        this.id = id;
         this.value = dayOfTheWeek.toUpperCase();
     }
 
@@ -75,6 +95,37 @@ public final class DayOfTheWeek extends AbstractStringValueObject {
         return value;
     }
 
+    /**
+     * Returns the information this day of the week logically follows directly the given one.
+     * Example TUE.follows(MON) would be true, but MON.follows(TUE) or WED.follows(MON) is not.
+     * Public holidays does not follow any other day. 
+     * 
+     * @param other Day to compare with.
+     * 
+     * @return {@literal true} if this day of the week is the one right after the given one. 
+     */
+    public boolean follows(@NotNull final DayOfTheWeek other) {
+        Contract.requireArgNotNull("other", other);
+        if (this == PH || other == PH) {
+            return false;
+        }
+        return this.id == (other.id + 1); 
+    }
+
+    /**
+     * Returns the information this day of the week logically follows after the given one.
+     * Example TUE.follows(MON) or FRI.follows(MON) would be true, but MON.follows(TUE) is not.
+     * Public holidays does not follow any other day. 
+     * 
+     * @param other Day to compare with.
+     * 
+     * @return {@literal true} if this day of the week is later in the week than the given one. 
+     */
+    public boolean after(@NotNull final DayOfTheWeek other) {
+        Contract.requireArgNotNull("other", other);
+        return this.id > other.id; 
+    }
+    
     @Override
     public String toString() {
         return value;
@@ -92,7 +143,12 @@ public final class DayOfTheWeek extends AbstractStringValueObject {
         if (dayOfTheWeek == null) {
             return true;
         }
-        return PATTERN.matcher(dayOfTheWeek).matches();
+        for (final DayOfTheWeek dow : ALL) {
+            if (dow.value.equalsIgnoreCase(dayOfTheWeek)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -108,7 +164,12 @@ public final class DayOfTheWeek extends AbstractStringValueObject {
         if (str == null) {
             return null;
         }
-        return new DayOfTheWeek(str);
+        for (final DayOfTheWeek dow : ALL) {
+            if (dow.value.equalsIgnoreCase(str)) {
+                return dow;
+            }
+        }
+        throw new IllegalArgumentException("Unknown day of week: '" + str + "'");
     }
 
     /**
@@ -133,5 +194,33 @@ public final class DayOfTheWeek extends AbstractStringValueObject {
         }
 
     }
+    
+    /**
+     * Returns a list of the weekdays ordered by the id (Mon-Sun,PH). 
+     * 
+     * @return Unmodifiable list.
+     */
+    public static List<DayOfTheWeek> getAll() {
+        final List<DayOfTheWeek> days = new ArrayList<>();
+        for (final DayOfTheWeek day : ALL) {
+            days.add(day);
+        }
+        return Collections.unmodifiableList(days);
+    }
 
+    /**
+     * Returns a list of the weekdays ordered by the id from/to the given days. 
+     * 
+     * @return Unmodifiable list.
+     */
+    public static List<DayOfTheWeek> getPart(@NotNull final DayOfTheWeek from, @NotNull final DayOfTheWeek to) {
+        final List<DayOfTheWeek> days = new ArrayList<>();
+        for (final DayOfTheWeek day : ALL) {
+            if (day.id >= from.id && day.id <= to.id) {
+                days.add(day);
+            }
+        }
+        return Collections.unmodifiableList(days);
+    }
+    
 }

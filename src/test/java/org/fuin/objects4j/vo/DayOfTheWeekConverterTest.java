@@ -61,7 +61,7 @@ public class DayOfTheWeekConverterTest {
     public final void testMarshal() throws JAXBException {
 
         final Data data = new Data();
-        data.dayOfTheWeek = new DayOfTheWeek("Fri");
+        data.dayOfTheWeek = DayOfTheWeek.FRI;
         assertThat(marshal(data, Data.class)).isEqualTo(XML);
 
     }
@@ -70,7 +70,7 @@ public class DayOfTheWeekConverterTest {
     public final void testMarshalUnmarshal() throws JAXBException {
 
         final Data data = unmarshal(XML, Data.class);
-        assertThat(data.dayOfTheWeek).isEqualTo(new DayOfTheWeek("Fri"));
+        assertThat(data.dayOfTheWeek).isEqualTo(DayOfTheWeek.FRI);
 
     }
 
@@ -91,7 +91,7 @@ public class DayOfTheWeekConverterTest {
     public final void testMarshalJsonb() {
 
         final Data data = new Data();
-        data.dayOfTheWeek = new DayOfTheWeek("Fri");
+        data.dayOfTheWeek = DayOfTheWeek.FRI;
         assertThat(toJson(data, new DayOfTheWeekConverter())).isEqualTo(JSON);
 
     }
@@ -100,7 +100,7 @@ public class DayOfTheWeekConverterTest {
     public final void testMarshalUnmarshalJsonb() {
 
         final Data data = fromJson(JSON, Data.class, new DayOfTheWeekConverter());
-        assertThat(data.dayOfTheWeek).isEqualTo(new DayOfTheWeek("Fri"));
+        assertThat(data.dayOfTheWeek).isEqualTo(DayOfTheWeek.FRI);
 
     }
 
