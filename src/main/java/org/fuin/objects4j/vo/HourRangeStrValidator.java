@@ -44,12 +44,12 @@ public final class HourRangeStrValidator implements ConstraintValidator<HourRang
     }
 
     /**
-     * Check that a given string is a valid {@link org.fuin.objects4j.vo.Hour}.
+     * Check that a given string is a valid {@link org.fuin.objects4j.vo.HourRange}.
      * 
      * @param value
      *            Value to check.
      * 
-     * @return Returns <code>true</code> if it's a valid Hourd else <code>false</code> is returned.
+     * @return Returns <code>true</code> if it's a valid string representation else <code>false</code> is returned.
      */
     public static final boolean isValid(final String value) {
         return HourRange.isValid(value);
