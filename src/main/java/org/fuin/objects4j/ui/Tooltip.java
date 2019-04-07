@@ -32,17 +32,23 @@ public @interface Tooltip {
 
     /**
      * Default tooltip text. This is only used if no entry in the resource bundle can be found.
+     * 
+     * @return Value.
      */
     String value() default "";
 
     /**
      * Resource name and path. If this is empty the resource bundle is expected to be in the same package and has the same name as the class
      * of the field annotated.
+     * 
+     * @return Bundle.
      */
     String bundle() default "";
 
     /**
      * Key within the resource bundle. If this is empty the field name itself is used as the key.
+     * 
+     * @return Key.
      */
     String key() default "";
 

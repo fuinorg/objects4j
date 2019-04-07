@@ -32,21 +32,29 @@ public @interface TableColumn {
 
     /**
      * Preferred column width in a table.
+     * 
+     * @return Width.
      */
     float width();
 
     /**
      * Unit of the preferred column width.
+     * 
+     * @return Unit.
      */
     FontSizeUnit unit() default FontSizeUnit.PIXEL;
 
     /**
      * Preferred column in a table (0..n).
+     * 
+     * @return Position.
      */
     int pos();
 
     /**
      * Defines a getter other than "getFieldName".
+     * 
+     * @return Getter.
      */
     String getter() default "";
 

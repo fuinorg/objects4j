@@ -49,32 +49,32 @@ public final class DayOfTheWeek extends AbstractStringValueObject {
 
     /** Monday. */
     public static final DayOfTheWeek MON = new DayOfTheWeek(1, "MON");
-    
+
     /** Tuesday. */
     public static final DayOfTheWeek TUE = new DayOfTheWeek(2, "TUE");
-    
+
     /** Wednesday. */
     public static final DayOfTheWeek WED = new DayOfTheWeek(3, "WED");
-    
+
     /** Thursday. */
     public static final DayOfTheWeek THU = new DayOfTheWeek(4, "THU");
-    
+
     /** Friday. */
     public static final DayOfTheWeek FRI = new DayOfTheWeek(5, "FRI");
-    
+
     /** Saturday. */
     public static final DayOfTheWeek SAT = new DayOfTheWeek(6, "SAT");
-    
+
     /** Sunday. */
     public static final DayOfTheWeek SUN = new DayOfTheWeek(7, "SUN");
-    
+
     /** Public Holiday. */
     public static final DayOfTheWeek PH = new DayOfTheWeek(8, "PH");
 
     private static final DayOfTheWeek[] ALL = new DayOfTheWeek[] { MON, TUE, WED, THU, FRI, SAT, SUN, PH };
-    
+
     private final int id;
-    
+
     private final String value;
 
     /**
@@ -96,36 +96,36 @@ public final class DayOfTheWeek extends AbstractStringValueObject {
     }
 
     /**
-     * Returns the information this day of the week logically follows directly the given one.
-     * Example TUE.follows(MON) would be true, but MON.follows(TUE) or WED.follows(MON) is not.
-     * Public holidays does not follow any other day. 
+     * Returns the information this day of the week logically follows directly the given one. Example TUE.follows(MON) would be true, but
+     * MON.follows(TUE) or WED.follows(MON) is not. Public holidays does not follow any other day.
      * 
-     * @param other Day to compare with.
+     * @param other
+     *            Day to compare with.
      * 
-     * @return {@literal true} if this day of the week is the one right after the given one. 
+     * @return {@literal true} if this day of the week is the one right after the given one.
      */
     public boolean follows(@NotNull final DayOfTheWeek other) {
         Contract.requireArgNotNull("other", other);
         if (this == PH || other == PH) {
             return false;
         }
-        return this.id == (other.id + 1); 
+        return this.id == (other.id + 1);
     }
 
     /**
-     * Returns the information this day of the week logically follows after the given one.
-     * Example TUE.follows(MON) or FRI.follows(MON) would be true, but MON.follows(TUE) is not.
-     * Public holidays does not follow any other day. 
+     * Returns the information this day of the week logically follows after the given one. Example TUE.follows(MON) or FRI.follows(MON)
+     * would be true, but MON.follows(TUE) is not. Public holidays does not follow any other day.
      * 
-     * @param other Day to compare with.
+     * @param other
+     *            Day to compare with.
      * 
-     * @return {@literal true} if this day of the week is later in the week than the given one. 
+     * @return {@literal true} if this day of the week is later in the week than the given one.
      */
     public boolean after(@NotNull final DayOfTheWeek other) {
         Contract.requireArgNotNull("other", other);
-        return this.id > other.id; 
+        return this.id > other.id;
     }
-    
+
     @Override
     public String toString() {
         return value;
@@ -194,9 +194,9 @@ public final class DayOfTheWeek extends AbstractStringValueObject {
         }
 
     }
-    
+
     /**
-     * Returns a list of the weekdays ordered by the id (Mon-Sun,PH). 
+     * Returns a list of the weekdays ordered by the id (Mon-Sun,PH).
      * 
      * @return Unmodifiable list.
      */
@@ -209,7 +209,12 @@ public final class DayOfTheWeek extends AbstractStringValueObject {
     }
 
     /**
-     * Returns a list of the weekdays ordered by the id from/to the given days. 
+     * Returns a list of the weekdays ordered by the id from/to the given days.
+     *
+     * @param from
+     *            From day of the week (inclusive).
+     * @param to
+     *            To day of the week (inclusive).
      * 
      * @return Unmodifiable list.
      */
@@ -222,5 +227,5 @@ public final class DayOfTheWeek extends AbstractStringValueObject {
         }
         return Collections.unmodifiableList(days);
     }
-    
+
 }

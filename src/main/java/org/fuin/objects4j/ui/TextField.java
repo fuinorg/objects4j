@@ -32,6 +32,8 @@ public @interface TextField {
 
     /**
      * Number of characters to be shown.
+     * 
+     * @return Width.
      */
     int width() default 0;
 
