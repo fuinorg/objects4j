@@ -24,6 +24,8 @@ import static org.fuin.objects4j.vo.DayOfTheWeek.SAT;
 import static org.fuin.objects4j.vo.DayOfTheWeek.THU;
 import static org.fuin.objects4j.vo.DayOfTheWeek.TUE;
 import static org.fuin.objects4j.vo.DayOfTheWeek.WED;
+import static org.fuin.objects4j.vo.HourRanges.ChangeType.ADDED;
+import static org.fuin.objects4j.vo.HourRanges.ChangeType.REMOVED;
 import static org.junit.Assert.fail;
 
 import org.fuin.objects4j.common.ConstraintViolationException;
@@ -165,6 +167,34 @@ public class WeeklyOpeningHoursTest extends AbstractPersistenceTest {
                 .containsOnly(c(MON, ChangeType.ADDED, "08:00-09:00"), c(TUE, ChangeType.ADDED, "08:00-09:00"),
                         c(WED, ChangeType.ADDED, "08:00-09:00"), c(THU, ChangeType.ADDED, "08:00-09:00"),
                         c(FRI, ChangeType.ADDED, "08:00-09:00"), c(SAT, ChangeType.ADDED, "12:00-13:00"));
+
+        org.assertj.core.api.Assertions.assertThat(w("Mon-Fri 09:00-18:00").diff(w("Mon-Thu 09:00-18:00")))
+                .containsOnly(c(FRI, ChangeType.REMOVED, "09:00-18:00"));
+
+        org.assertj.core.api.Assertions.assertThat(w("Mon-Thu 09:00-18:00").diff(w("Mon-Fri 09:00-18:00")))
+        .containsOnly(c(FRI, ChangeType.ADDED, "09:00-18:00"));
+        
+    }
+
+    @Test
+    public void testAsRemovedChanges() {
+
+        org.assertj.core.api.Assertions.assertThat(w("Mon 06:00-12:00,Tue 08:00-13:00").asRemovedChanges())
+                .containsOnly(c(MON, REMOVED, "06:00-12:00"), c(TUE, REMOVED, "08:00-13:00"));
+
+        org.assertj.core.api.Assertions.assertThat(w("Mon 06:00-12:00+13:00-17:00").asRemovedChanges())
+                .containsOnly(c(MON, REMOVED, "06:00-12:00"), c(MON, REMOVED, "13:00-17:00"));
+
+    }
+
+    @Test
+    public void testAsAddedChanges() {
+
+        org.assertj.core.api.Assertions.assertThat(w("Mon 06:00-12:00,Tue 08:00-13:00").asAddedChanges())
+                .containsOnly(c(MON, ADDED, "06:00-12:00"), c(TUE, ADDED, "08:00-13:00"));
+
+        org.assertj.core.api.Assertions.assertThat(w("Mon 06:00-12:00+13:00-17:00").asAddedChanges())
+                .containsOnly(c(MON, ADDED, "06:00-12:00"), c(MON, ADDED, "13:00-17:00"));
 
     }
 

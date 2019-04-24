@@ -33,6 +33,7 @@ import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.ui.Prompt;
 import org.fuin.objects4j.vo.DayOpeningHours.Change;
+import org.fuin.objects4j.vo.HourRanges.ChangeType;
 
 /**
  * Represents weekly opening hours separated by a comma ','.<br>
@@ -192,6 +193,34 @@ public final class WeeklyOpeningHours extends AbstractStringValueObject implemen
 
     }
 
+    /**
+     * Returns all days and hour ranges as if they were removed.
+     * 
+     * @return Removed day changes.
+     */
+    public List<Change> asRemovedChanges() {
+        final WeeklyOpeningHours normalized = this.normalize();
+        final List<Change> changes = new ArrayList<>();
+        for (final DayOpeningHours doh : normalized) {
+            changes.addAll(doh.asRemovedChanges());
+        }
+        return changes;
+    }
+
+    /**
+     * Returns all days and hour ranges as if they were added.
+     * 
+     * @return Added day changes.
+     */
+    public List<Change> asAddedChanges() {
+        final WeeklyOpeningHours normalized = this.normalize();
+        final List<Change> changes = new ArrayList<>();
+        for (final DayOpeningHours doh : normalized) {
+            changes.addAll(doh.asAddedChanges());
+        }
+        return changes;
+    }
+    
     private DayOpeningHours findDay(final DayOpeningHours toFind) {
         final int idx = weeklyOpeningHours.indexOf(toFind);
         if (idx < 0) {
