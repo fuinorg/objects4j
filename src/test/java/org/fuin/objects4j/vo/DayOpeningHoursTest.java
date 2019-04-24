@@ -18,9 +18,14 @@
 package org.fuin.objects4j.vo;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.fuin.objects4j.vo.HourRanges.ChangeType.ADDED;
+import static org.fuin.objects4j.vo.HourRanges.ChangeType.REMOVED;
+import static org.fuin.objects4j.vo.DayOfTheWeek.*;
 import static org.junit.Assert.fail;
 
 import org.fuin.objects4j.common.ConstraintViolationException;
+import org.fuin.objects4j.vo.DayOpeningHours.Change;
+import org.fuin.objects4j.vo.HourRanges.ChangeType;
 import org.fuin.units4j.AbstractPersistenceTest;
 import org.junit.Test;
 
@@ -36,18 +41,19 @@ public class DayOpeningHoursTest extends AbstractPersistenceTest {
     @Test
     public final void testConstruct() {
 
-        assertThat(new DayOpeningHours("Mon 13:00-14:00")).isEqualTo(new DayOpeningHours(DayOfTheWeek.valueOf("Mon"), new HourRanges("13:00-14:00")));
+        assertThat(new DayOpeningHours("Mon 13:00-14:00"))
+                .isEqualTo(new DayOpeningHours(DayOfTheWeek.valueOf("Mon"), new HourRanges("13:00-14:00")));
 
         try {
             new DayOpeningHours("Monday 13-14:00");
             fail();
         } catch (final ConstraintViolationException ex) {
-            assertThat(ex.getMessage())
-                    .isEqualTo("The argument 'dayOpeningHours' does not represent a valid hour range like 'Mon 09:00-12:00+13:00-17:00': 'Monday 13-14:00'");
+            assertThat(ex.getMessage()).isEqualTo(
+                    "The argument 'dayOpeningHours' does not represent a valid hour range like 'Mon 09:00-12:00+13:00-17:00': 'Monday 13-14:00'");
         }
 
     }
-    
+
     @Test
     public final void testIsValidTRUE() {
 
@@ -71,11 +77,12 @@ public class DayOpeningHoursTest extends AbstractPersistenceTest {
         assertThat(DayOpeningHours.isValid("Mon09:00-12:00")).isFalse();
 
     }
-    
+
     @Test
     public final void testValueOf() {
         assertThat(DayOpeningHours.valueOf(null)).isNull();
-        assertThat(DayOpeningHours.valueOf("Mon 00:00-24:00")).isEqualTo(new DayOpeningHours(DayOfTheWeek.valueOf("Mon"), new HourRanges("13:00-14:00")));
+        assertThat(DayOpeningHours.valueOf("Mon 00:00-24:00"))
+                .isEqualTo(new DayOpeningHours(DayOfTheWeek.valueOf("Mon"), new HourRanges("13:00-14:00")));
     }
 
     @Test
@@ -122,6 +129,71 @@ public class DayOpeningHoursTest extends AbstractPersistenceTest {
         assertThat(copy.getDayOpeningHours().toString()).isEqualTo("MON 00:00-24:00");
         commitTransaction();
 
+    }
+
+    @Test
+    public void testNormalize() {
+
+        assertThat(h("MON 00:00-24:00").normalize()).containsOnly(h("MON 00:00-24:00"));
+        assertThat(h("WED 08:00-18:00").normalize()).containsOnly(h("WED 08:00-18:00"));
+        assertThat(h("WED 09:00-12:00+13:00-17:00").normalize()).containsOnly(h("WED 09:00-12:00+13:00-17:00"));
+        assertThat(h("FRI 18:00-03:00").normalize()).containsOnly(h("FRI 18:00-24:00"), h("SAT 00:00-03:00"));
+        assertThat(h("FRI 18:00-03:00+06:00-12:00").normalize()).containsOnly(h("FRI 06:00-12:00+18:00-24:00"), h("SAT 00:00-03:00"));
+        assertThat(h("FRI 09:00-14:00+18:00-03:00").normalize()).containsOnly(h("FRI 09:00-14:00+18:00-24:00"), h("SAT 00:00-03:00"));
+        assertThat(h("FRI 23:00-22:00").normalize()).containsOnly(h("FRI 23:00-24:00"), h("SAT 00:00-22:00"));
+
+    }
+
+    @Test
+    public void testDiffDifferentDays() {
+
+        try {
+            h("MON 00:00-24:00").diff(h("TUE 00:00-24:00"));
+            fail();
+        } catch (final ConstraintViolationException ex) {
+            assertThat(ex.getMessage())
+                    .isEqualTo("Expected same day (MON) for argument 'toOther', but was: TUE");
+        }
+        
+    }
+    
+    @Test
+    public void testDiffSameDay() {
+
+        // Both equal
+        assertThat(h("MON 00:00-24:00").diff(h("MON 00:00-24:00"))).isEmpty();
+
+        // From = 1 day / To = 1 day
+        test(h("MON 00:00-24:00"), h("MON 00:00-23:00"), c(MON, REMOVED, "23:00-24:00"));
+        test(h("MON 09:00-18:00"), h("MON 08:00-18:00"), c(MON, ADDED, "08:00-09:00"));
+        test(h("MON 09:00-17:00"), h("MON 08:00-18:00"), c(MON, ADDED, "08:00-09:00"), c(MON, ADDED, "17:00-18:00"));
+        test(h("MON 08:00-17:00"), h("MON 09:00-18:00"), c(MON, REMOVED, "08:00-09:00"), c(MON, ADDED, "17:00-18:00"));
+        test(h("MON 09:00-12:00"), h("MON 09:00-12:00+13:00-17:00"), c(MON, ADDED, "13:00-17:00"));
+        test(h("MON 09:00-12:00"), h("MON 13:00-17:00"), c(MON, REMOVED, "09:00-12:00"), c(MON, ADDED, "13:00-17:00"));
+
+        // From = 1 day / To = 2 days
+        test(h("FRI 18:00-23:00"), h("FRI 17:00-02:00"), c(FRI, ADDED, "17:00-18:00"), c(FRI, ADDED, "23:00-24:00"),
+                c(SAT, ADDED, "00:00-02:00"));
+
+        // From = 2 days / To = 1 day
+        test(h("FRI 18:00-03:00"), h("FRI 17:00-23:00"), c(FRI, ADDED, "17:00-18:00"), c(FRI, REMOVED, "23:00-24:00"),
+                c(SAT, REMOVED, "00:00-03:00"));
+
+        // From = 2 days / To = 2 days
+        test(h("FRI 18:00-03:00"), h("FRI 17:00-02:00"), c(FRI, ADDED, "17:00-18:00"), c(SAT, REMOVED, "02:00-03:00"));
+
+    }
+
+    private void test(DayOpeningHours from, DayOpeningHours to, Change... changes) {
+        assertThat(from.diff(to)).containsOnly(changes);
+    }
+
+    private DayOpeningHours h(final String str) {
+        return new DayOpeningHours(str);
+    }
+
+    private Change c(final DayOfTheWeek day, final ChangeType type, final String range) {
+        return new Change(type, day, new HourRange(range));
     }
 
 }
