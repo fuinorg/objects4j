@@ -126,6 +126,45 @@ public final class DayOfTheWeek extends AbstractStringValueObject {
         return this.id > other.id;
     }
 
+    /**
+     * Returns the next day.
+     * 
+     * @return Day that follows this one. In case of {@link #PH} {@literal null} is returned.
+     */
+    public DayOfTheWeek next() {
+        if (this == PH) {
+            return null;
+        }
+        final int nextId = id + 1;
+        if (nextId == PH.id) {
+            return MON;
+        }
+        for (final DayOfTheWeek dow : ALL) {
+            if (dow.id == nextId) {
+                return dow;
+            }
+        }
+        throw new IllegalStateException("Wasn't able to find next day for: " + this);
+    }
+    
+    /**
+     * Returns the previous day.
+     * 
+     * @return Day before this one. In case of {@link #PH} {@literal null} is returned.
+     */
+    public DayOfTheWeek previous() {
+        if (this == PH) {
+            return null;
+        }
+        final int nextId = id - 1;
+        for (final DayOfTheWeek dow : ALL) {
+            if (dow.id == nextId) {
+                return dow;
+            }
+        }
+        return SUN;
+    }
+    
     @Override
     public String toString() {
         return value;

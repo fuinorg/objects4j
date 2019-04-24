@@ -160,5 +160,29 @@ public class DayOfTheWeekTest extends AbstractPersistenceTest {
 
     }
 
+    @Test
+    public void testNext() {
+        assertThat(DayOfTheWeek.PH.next()).isNull();
+        assertThat(DayOfTheWeek.MON.next()).isEqualTo(DayOfTheWeek.TUE);
+        assertThat(DayOfTheWeek.TUE.next()).isEqualTo(DayOfTheWeek.WED);
+        assertThat(DayOfTheWeek.WED.next()).isEqualTo(DayOfTheWeek.THU);
+        assertThat(DayOfTheWeek.THU.next()).isEqualTo(DayOfTheWeek.FRI);
+        assertThat(DayOfTheWeek.FRI.next()).isEqualTo(DayOfTheWeek.SAT);
+        assertThat(DayOfTheWeek.SAT.next()).isEqualTo(DayOfTheWeek.SUN);
+        assertThat(DayOfTheWeek.SUN.next()).isEqualTo(DayOfTheWeek.MON);
+    }
+
+    @Test
+    public void testPrevious() {
+        assertThat(DayOfTheWeek.PH.previous()).isNull();
+        assertThat(DayOfTheWeek.MON.previous()).isEqualTo(DayOfTheWeek.SUN);
+        assertThat(DayOfTheWeek.TUE.previous()).isEqualTo(DayOfTheWeek.MON);
+        assertThat(DayOfTheWeek.WED.previous()).isEqualTo(DayOfTheWeek.TUE);
+        assertThat(DayOfTheWeek.THU.previous()).isEqualTo(DayOfTheWeek.WED);
+        assertThat(DayOfTheWeek.FRI.previous()).isEqualTo(DayOfTheWeek.THU);
+        assertThat(DayOfTheWeek.SAT.previous()).isEqualTo(DayOfTheWeek.FRI);
+        assertThat(DayOfTheWeek.SUN.previous()).isEqualTo(DayOfTheWeek.SAT);
+    }
+    
 }
 // CHECKSTYLE:ON
