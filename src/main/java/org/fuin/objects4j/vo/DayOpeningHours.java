@@ -223,6 +223,17 @@ public final class DayOpeningHours implements ValueObjectWithBaseType<String>, C
         return changes;
     }
 
+    /**
+     * Determines of the hours of both days overlap. The day is ignored for this comparison.
+     * 
+     * @param other Other day to compare the hours with.
+     * 
+     * @return {@literal true} if at least one minute is the same for both days.
+     */
+    public final boolean overlaps(@NotNull final DayOpeningHours other) {
+        return hourRanges.overlaps(other.hourRanges);
+    }
+
     private static List<Change> changes(final ChangeType type, final DayOfTheWeek dayOfTheWeek, final HourRanges ranges) {
         final List<Change> changes = new ArrayList<>();
         for (final HourRange hr : ranges) {
