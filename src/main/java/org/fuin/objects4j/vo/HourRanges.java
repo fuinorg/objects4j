@@ -32,6 +32,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.ui.Prompt;
+import org.jboss.weld.exceptions.IllegalStateException;
 
 /**
  * Represents multiple ranges of hours of a day (24 hour representation) separated by a '+'.<br>
@@ -70,6 +71,7 @@ public final class HourRanges extends AbstractStringValueObject implements Itera
         while (tok.hasMoreTokens()) {
             this.ranges.add(new HourRange(tok.nextToken()));
         }
+        Collections.sort(this.ranges);
         
     }
 
@@ -109,6 +111,34 @@ public final class HourRanges extends AbstractStringValueObject implements Itera
     @Override
     public final Iterator<HourRange> iterator() {
         return Collections.unmodifiableList(ranges).iterator();
+    }
+    
+    /**
+     * If the hour ranges represent two different days, this method returns two hour ranges, one for each day.
+     * Example: '09:00-14:00+18:00-03:00' will be splitted into '09:00-14:00+18:00-24:00' and '00:00-03:00'.
+     * 
+     * @return This range or range for today and tomorrow.
+     */
+    public final List<HourRanges> normalize() {
+        final List<HourRange> today = new ArrayList<>();
+        final List<HourRange> tommorrow = new ArrayList<>();
+        for (final HourRange range : ranges) {
+            final List<HourRange> nr = range.normalize();
+            if (nr.size() == 1) {
+                today.add(nr.get(0));                
+            } else if (nr.size() == 2) {
+                today.add(nr.get(0));
+                tommorrow.add(nr.get(1));
+            } else {
+                throw new IllegalStateException("Normalized hour range returned an unexpected number of elements: " + nr);
+            }
+        }
+        final List<HourRanges> list = new ArrayList<>();
+        list .add(new HourRanges(today.toArray(new HourRange[today.size()])));
+        if (tommorrow.size() > 0) {
+            list .add(new HourRanges(tommorrow.toArray(new HourRange[tommorrow.size()])));
+        }
+        return list;
     }
     
     @Override
@@ -179,4 +209,82 @@ public final class HourRanges extends AbstractStringValueObject implements Itera
 
     }
 
+    /**
+     * Types of changes.
+     */
+    public static enum ChangeType {
+
+        /** An hour range was added. */
+        ADDED,
+
+        /** An hour range was removed. */
+        REMOVED
+
+    }
+
+    /**
+     * Represents a single change of opening hours.
+     */
+    public static final class Change {
+
+        private final ChangeType type;
+
+        private final HourRange range;
+
+        private final boolean nextDay;
+
+        /**
+         * Constructor with all data.
+         * 
+         * @param type
+         *            Type of change.
+         * @param range
+         *            The changed hours.
+         * @param nextDay
+         *            Is this a change for hours of the next day?
+         */
+        public Change(@NotNull final ChangeType type, @NotNull final HourRange range, final boolean nextDay) {
+            super();
+            Contract.requireArgNotNull("type", type);
+            Contract.requireArgNotNull("range", range);
+            this.type = type;
+            this.range = range;
+            this.nextDay = nextDay;
+        }
+
+        /**
+         * Returns the type of change.
+         * 
+         * @return Type.
+         */
+        public final ChangeType getType() {
+            return type;
+        }
+
+        /**
+         * Returns the changed hours.
+         * 
+         * @return Hours.
+         */
+        public final HourRange getRange() {
+            return range;
+        }
+
+        /**
+         * Determines if this change is for the next day.
+         * 
+         * @return {@literal true} if the hour range changed for the next day.
+         */
+        public final boolean isNextDay() {
+            return nextDay;
+        }
+
+        
+        @Override
+        public String toString() {
+            return type + " " + range;
+        }
+
+    }
+    
 }

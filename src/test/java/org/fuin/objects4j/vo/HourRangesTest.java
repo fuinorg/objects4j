@@ -143,5 +143,22 @@ public class HourRangesTest extends AbstractPersistenceTest {
         
     }
 
+    @Test
+    public void testNormalize() {
+        
+        org.assertj.core.api.Assertions.assertThat(h("00:00-24:00").normalize()).containsOnly(h("00:00-24:00"));
+        org.assertj.core.api.Assertions.assertThat(h("08:00-18:00").normalize()).containsOnly(h("08:00-18:00"));
+        org.assertj.core.api.Assertions.assertThat(h("09:00-12:00+13:00-17:00").normalize()).containsOnly(h("09:00-12:00+13:00-17:00"));
+        org.assertj.core.api.Assertions.assertThat(h("18:00-03:00").normalize()).containsOnly(h("18:00-24:00"), h("00:00-03:00"));
+        org.assertj.core.api.Assertions.assertThat(h("18:00-03:00+06:00-12:00").normalize()).containsOnly(h("06:00-12:00+18:00-24:00"), h("00:00-03:00"));
+        org.assertj.core.api.Assertions.assertThat(h("09:00-14:00+18:00-03:00").normalize()).containsOnly(h("09:00-14:00+18:00-24:00"), h("00:00-03:00"));
+        org.assertj.core.api.Assertions.assertThat(h("23:00-22:00").normalize()).containsOnly(h("23:00-24:00"), h("00:00-22:00"));
+        
+    }
+    
+    private HourRanges h(final String str) {
+        return new HourRanges(str);
+    }
+    
 }
 // CHECKSTYLE:ON
