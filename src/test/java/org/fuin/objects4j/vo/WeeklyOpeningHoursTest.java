@@ -17,10 +17,18 @@
  */
 package org.fuin.objects4j.vo;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.fuin.objects4j.vo.DayOfTheWeek.FRI;
+import static org.fuin.objects4j.vo.DayOfTheWeek.MON;
+import static org.fuin.objects4j.vo.DayOfTheWeek.SAT;
+import static org.fuin.objects4j.vo.DayOfTheWeek.THU;
+import static org.fuin.objects4j.vo.DayOfTheWeek.TUE;
+import static org.fuin.objects4j.vo.DayOfTheWeek.WED;
 import static org.junit.Assert.fail;
 
 import org.fuin.objects4j.common.ConstraintViolationException;
+import org.fuin.objects4j.vo.DayOpeningHours.Change;
+import org.fuin.objects4j.vo.HourRanges.ChangeType;
 import org.fuin.units4j.AbstractPersistenceTest;
 import org.junit.Test;
 
@@ -36,18 +44,18 @@ public class WeeklyOpeningHoursTest extends AbstractPersistenceTest {
     @Test
     public final void testConstruct() {
 
-        assertThat(new WeeklyOpeningHours("Mon/Tue 09:00-17:00")).isEqualTo(new WeeklyOpeningHours(new DayOpeningHours("Mon 09:00-17:00"), new DayOpeningHours("Tue 09:00-17:00")));
+        assertThat(w("Mon/Tue 09:00-17:00")).isEqualTo(new WeeklyOpeningHours(d("Mon 09:00-17:00"), d("Tue 09:00-17:00")));
 
         try {
-            new WeeklyOpeningHours("Mon+Tue 13:00-14:00*17:00-19:00");
+            w("Mon+Tue 13:00-14:00*17:00-19:00");
             fail();
         } catch (final ConstraintViolationException ex) {
-            assertThat(ex.getMessage())
-                    .isEqualTo("The argument 'weeklyOpeningHours' does not represent valid weekly opening hours like 'Mon-Fri 09:00-12:00+13:00-17:00,Sat/Sun 09:-12:00': 'Mon+Tue 13:00-14:00*17:00-19:00'");
+            assertThat(ex.getMessage()).isEqualTo(
+                    "The argument 'weeklyOpeningHours' does not represent valid weekly opening hours like 'Mon-Fri 09:00-12:00+13:00-17:00,Sat/Sun 09:-12:00': 'Mon+Tue 13:00-14:00*17:00-19:00'");
         }
-        
+
     }
-    
+
     @Test
     public final void testIsValidTRUE() {
 
@@ -58,6 +66,7 @@ public class WeeklyOpeningHoursTest extends AbstractPersistenceTest {
         assertThat(WeeklyOpeningHours.isValid("Mon-Tue 07:00-09:00")).isTrue();
         assertThat(WeeklyOpeningHours.isValid("Mon-Sun 06:00-18:00")).isTrue();
         assertThat(WeeklyOpeningHours.isValid("Mon-Fri 06:00-18:00,Sat/Sun 06:00-12:00")).isTrue();
+        assertThat(WeeklyOpeningHours.isValid("Mon 04:00-18:00,Sun 18:00-03:00")).isTrue();
 
     }
 
@@ -69,26 +78,26 @@ public class WeeklyOpeningHoursTest extends AbstractPersistenceTest {
         assertThat(WeeklyOpeningHours.isValid(", ")).isFalse();
         assertThat(WeeklyOpeningHours.isValid("Mon 00:00-24:00,Mon 01:00-02:00")).isFalse();
         assertThat(WeeklyOpeningHours.isValid("Mon-Fri 00:00-24:00,Wed 00:00-24:00")).isFalse();
+        assertThat(WeeklyOpeningHours.isValid("Mon 00:00-03:00,Sun 18:00-03:00")).isFalse();
 
     }
-    
+
     @Test
     public final void testValueOf() {
         assertThat(WeeklyOpeningHours.valueOf(null)).isNull();
-        assertThat(WeeklyOpeningHours.valueOf("Mon/Tue 06:00-18:00,Wed 06:00-12:00")).isEqualTo(
-                new WeeklyOpeningHours(new DayOpeningHours("Mon 06:00-18:00"),
-                        new DayOpeningHours("Tue 06:00-18:00"),
-                        new DayOpeningHours("Wed 06:00-12:00")));
+        assertThat(WeeklyOpeningHours.valueOf("Mon/Tue 06:00-18:00,Wed 06:00-12:00"))
+                .isEqualTo(new WeeklyOpeningHours(d("Mon 06:00-18:00"), d("Tue 06:00-18:00"), d("Wed 06:00-12:00")));
     }
 
     @Test
     public final void testToString() {
-        
+
         assertThat(WeeklyOpeningHours.valueOf("Mon 06:00-18:00").toString()).isEqualTo("MON 06:00-18:00");
-        assertThat(WeeklyOpeningHours.valueOf("Mon/Tue 06:00-18:00,Wed 06:00-12:00").toString()).isEqualTo("MON 06:00-18:00,TUE 06:00-18:00,WED 06:00-12:00");
-        
+        assertThat(WeeklyOpeningHours.valueOf("Mon/Tue 06:00-18:00,Wed 06:00-12:00").toString())
+                .isEqualTo("MON 06:00-18:00,TUE 06:00-18:00,WED 06:00-12:00");
+
     }
-    
+
     @Test
     public final void testRequireArgValid() {
 
@@ -96,16 +105,16 @@ public class WeeklyOpeningHoursTest extends AbstractPersistenceTest {
             WeeklyOpeningHours.requireArgValid("a", "");
             fail();
         } catch (final ConstraintViolationException ex) {
-            assertThat(ex.getMessage())
-                    .isEqualTo("The argument 'a' does not represent valid weekly opening hours like 'Mon-Fri 09:00-12:00+13:00-17:00,Sat/Sun 09:-12:00': ''");
+            assertThat(ex.getMessage()).isEqualTo(
+                    "The argument 'a' does not represent valid weekly opening hours like 'Mon-Fri 09:00-12:00+13:00-17:00,Sat/Sun 09:-12:00': ''");
         }
 
         try {
             WeeklyOpeningHours.requireArgValid("b", "Mon 17-18,Tue 19-20");
             fail();
         } catch (final ConstraintViolationException ex) {
-            assertThat(ex.getMessage())
-                    .isEqualTo("The argument 'b' does not represent valid weekly opening hours like 'Mon-Fri 09:00-12:00+13:00-17:00,Sat/Sun 09:-12:00': 'Mon 17-18,Tue 19-20'");
+            assertThat(ex.getMessage()).isEqualTo(
+                    "The argument 'b' does not represent valid weekly opening hours like 'Mon-Fri 09:00-12:00+13:00-17:00,Sat/Sun 09:-12:00': 'Mon 17-18,Tue 19-20'");
         }
 
     }
@@ -121,7 +130,7 @@ public class WeeklyOpeningHoursTest extends AbstractPersistenceTest {
         // TEST UPDATE
         beginTransaction();
         final WeeklyOpeningHoursParentEntity entity = getEm().find(WeeklyOpeningHoursParentEntity.class, 1L);
-        entity.setWeeklyOpeningHours(new WeeklyOpeningHours("Mon/Tue 06:00-18:00,Wed 06:00-12:00"));
+        entity.setWeeklyOpeningHours(w("Mon/Tue 06:00-18:00,Wed 06:00-12:00"));
         commitTransaction();
 
         // VERIFY
@@ -133,6 +142,42 @@ public class WeeklyOpeningHoursTest extends AbstractPersistenceTest {
         assertThat(copy.getWeeklyOpeningHours().toString()).isEqualTo("MON 06:00-18:00,TUE 06:00-18:00,WED 06:00-12:00");
         commitTransaction();
 
+    }
+
+    @Test
+    public void testNormalize() {
+
+        assertThat(w("Fri 18:00-24:00,Sat 09:00-18:00").normalize()).isEqualTo(w("Fri 18:00-24:00,Sat 09:00-18:00"));
+
+        assertThat(w("Fri 18:00-03:00,Sat 09:00-18:00").normalize()).isEqualTo(w("Fri 18:00-24:00,Sat 00:00-03:00+09:00-18:00"));
+
+    }
+
+    @Test
+    public void testDiff() {
+
+        org.assertj.core.api.Assertions.assertThat(w("Mon-Fri 09:00-18:00,Sat 09:00-12:00").diff(w("Mon-Fri 09:00-18:00,Sat 09:00-12:00")))
+                .isEmpty();
+
+        org.assertj.core.api.Assertions.assertThat(w("Mon-Sun 00:00-24:00").diff(w("Mon-Fri 00:00-24:00,Sat/Sun 00:00-24:00"))).isEmpty();
+
+        org.assertj.core.api.Assertions.assertThat(w("Mon-Fri 09:00-18:00,Sat 09:00-12:00").diff(w("Mon-Fri 08:00-18:00,Sat 09:00-13:00")))
+                .containsOnly(c(MON, ChangeType.ADDED, "08:00-09:00"), c(TUE, ChangeType.ADDED, "08:00-09:00"),
+                        c(WED, ChangeType.ADDED, "08:00-09:00"), c(THU, ChangeType.ADDED, "08:00-09:00"),
+                        c(FRI, ChangeType.ADDED, "08:00-09:00"), c(SAT, ChangeType.ADDED, "12:00-13:00"));
+
+    }
+
+    private WeeklyOpeningHours w(final String str) {
+        return new WeeklyOpeningHours(str);
+    }
+
+    private DayOpeningHours d(final String str) {
+        return new DayOpeningHours(str);
+    }
+
+    private Change c(final DayOfTheWeek day, final ChangeType type, final String range) {
+        return new Change(type, day, new HourRange(range));
     }
 
 }

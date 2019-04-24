@@ -17,7 +17,7 @@
  */
 package org.fuin.objects4j.vo;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.fuin.objects4j.vo.JsonbHelper.fromJson;
 import static org.fuin.objects4j.vo.JsonbHelper.toJson;
 import static org.fuin.units4j.Units4JUtils.assertCauseCauseMessage;

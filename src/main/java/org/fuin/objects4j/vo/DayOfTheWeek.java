@@ -17,6 +17,7 @@
  */
 package org.fuin.objects4j.vo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -43,7 +44,7 @@ import org.fuin.objects4j.ui.Tooltip;
 @Tooltip("The days of the week 'Mon'-'Sun'(from Monday to Sunday) plus 'PH' (Public Holiday)")
 @Prompt("Fri")
 @XmlJavaTypeAdapter(DayOfTheWeekConverter.class)
-public final class DayOfTheWeek extends AbstractStringValueObject {
+public final class DayOfTheWeek implements ValueObjectWithBaseType<String>, Comparable<DayOfTheWeek>, Serializable, AsStringCapable {
 
     private static final long serialVersionUID = 1000L;
 
@@ -165,6 +166,63 @@ public final class DayOfTheWeek extends AbstractStringValueObject {
         return SUN;
     }
     
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + id;
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        DayOfTheWeek other = (DayOfTheWeek) obj;
+        if (id != other.id) {
+            return false;
+        }
+        return true;
+    }
+    
+    /**
+     * Returns the length.
+     * 
+     * @return Number of characters.
+     */
+    public final int length() {
+        return asBaseType().length();
+    }
+
+
+    @Override
+    public int compareTo(final DayOfTheWeek other) {
+        if (id > other.id) {
+            return 1;
+        }
+        if (id < other.id) {
+            return -1;
+        }
+        return 0;
+    }
+    
+    @Override
+    public final Class<String> getBaseType() {
+        return String.class;
+    }
+
+    @Override
+    public final String asString() {
+        return asBaseType();
+    }
+
     @Override
     public String toString() {
         return value;

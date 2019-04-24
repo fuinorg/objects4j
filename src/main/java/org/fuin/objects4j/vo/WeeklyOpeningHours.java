@@ -18,6 +18,8 @@
 package org.fuin.objects4j.vo;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -30,21 +32,23 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.ui.Prompt;
+import org.fuin.objects4j.vo.DayOpeningHours.Change;
 
 /**
  * Represents weekly opening hours separated by a comma ','.<br>
- * Example: 'Mon-Fri 09:00-12:00+13:00-17:00,Sat/Sun 09:-12:00'.
+ * Example: 'Mon-Fri 09:00-12:00+13:00-17:00,Sat/Sun 09:-12:00'.<br>
+ * Daily hours should not overlap - That is why 'Sun 18:00-03:00+Mon 02:00-03:00' is not valid.<br>
  */
 @Immutable
 @Prompt("Mon-Fri 09:00-12:00+13:00-17:00,Sat/Sun 09:-12:00")
 @XmlJavaTypeAdapter(WeeklyOpeningHoursConverter.class)
-public final class WeeklyOpeningHours extends AbstractStringValueObject {
+public final class WeeklyOpeningHours extends AbstractStringValueObject implements Iterable<DayOpeningHours> {
 
     private static final long serialVersionUID = 1000L;
 
     @NotEmpty
     private List<DayOpeningHours> weeklyOpeningHours;
-    
+
     /**
      * Protected default constructor for deserialization.
      */
@@ -62,7 +66,7 @@ public final class WeeklyOpeningHours extends AbstractStringValueObject {
         super();
         Contract.requireArgNotEmpty("weeklyOpeningHours", weeklyOpeningHours);
         requireArgValid("weeklyOpeningHours", weeklyOpeningHours);
-        
+
         this.weeklyOpeningHours = new ArrayList<>();
         final StringTokenizer tok = new StringTokenizer(weeklyOpeningHours, ",");
         while (tok.hasMoreTokens()) {
@@ -70,12 +74,13 @@ public final class WeeklyOpeningHours extends AbstractStringValueObject {
             final int p = part.indexOf(' ');
             final MultiDayOfTheWeek dayPart = MultiDayOfTheWeek.valueOf(part.substring(0, p));
             final HourRanges hourPart = new HourRanges(part.substring(p + 1));
-            for (DayOfTheWeek dow : dayPart.getList()) {
+            for (DayOfTheWeek dow : dayPart) {
                 final DayOpeningHours doh = new DayOpeningHours(dow, hourPart);
                 this.weeklyOpeningHours.add(doh);
-            }            
+            }
         }
-        
+        Collections.sort(this.weeklyOpeningHours);
+
     }
 
     /**
@@ -84,7 +89,7 @@ public final class WeeklyOpeningHours extends AbstractStringValueObject {
      * @param dayOpeningHours
      *            Ranges.
      */
-    public WeeklyOpeningHours(@NotEmpty final DayOpeningHours...dayOpeningHours) {
+    public WeeklyOpeningHours(@NotEmpty final DayOpeningHours... dayOpeningHours) {
         super();
         Contract.requireArgNotNull("dayOpeningHours", dayOpeningHours);
         if (dayOpeningHours.length == 0) {
@@ -100,7 +105,7 @@ public final class WeeklyOpeningHours extends AbstractStringValueObject {
             }
         }
     }
-    
+
     @Override
     @NotEmpty
     public String asBaseType() {
@@ -114,11 +119,92 @@ public final class WeeklyOpeningHours extends AbstractStringValueObject {
         return sb.toString();
     }
 
+    /**
+     * Removes all opening hours that span more than one day and puts them as an extra range into the other day. Example: 'Fri
+     * 18:00-03:00,Sat 09:00-18:00' will be converted to 'Fri 18:00-24:00,Sat 00:00-03:00+09:00-18:00'.
+     * 
+     * @return Weekly opening hours with all opening hours inside the day.
+     */
+    public WeeklyOpeningHours normalize() {
+
+        final List<DayOpeningHours> days = new ArrayList<>();
+
+        for (final DayOpeningHours doh : weeklyOpeningHours) {
+            final List<DayOpeningHours> normalized = doh.normalize();
+            for (final DayOpeningHours normalizedDay : normalized) {
+                final int idx = days.indexOf(normalizedDay);
+                if (idx < 0) {
+                    days.add(normalizedDay);
+                } else {
+                    final DayOpeningHours found = days.get(idx);
+                    final DayOpeningHours replacement = found.addHourRanges(normalizedDay);
+                    days.set(idx, replacement);
+                }
+            }
+        }
+        
+        Collections.sort(days);
+
+        return new WeeklyOpeningHours(days.toArray(new DayOpeningHours[days.size()]));
+
+    }
+
+    @Override
+    public Iterator<DayOpeningHours> iterator() {
+        return Collections.unmodifiableList(weeklyOpeningHours).iterator();
+    }
+
+    /**
+     * Returns the added/removed opening hours from this week to the other one. 
+     * 
+     * @param toOther New weekly information to compare with.
+     * 
+     * @return Changes from this week to the new one.
+     */
+    public List<Change> diff(@NotNull final WeeklyOpeningHours toOther) {
+
+        Contract.requireArgNotNull("toOther", toOther);
+
+        final WeeklyOpeningHours thisNormalized = this.normalize();
+        final WeeklyOpeningHours otherNormalized = toOther.normalize();
+
+        final List<Change> changes = new ArrayList<>();
+        
+        for (final DayOpeningHours thisDoh : thisNormalized) {
+            final DayOpeningHours otherDoh = otherNormalized.findDay(thisDoh);
+            if (otherDoh == null) {
+                // A day was completely deleted
+                changes.addAll(thisDoh.asRemovedChanges());
+            } else {
+                // Day exists, but hours may have changed
+                changes.addAll(thisDoh.diff(otherDoh));
+            }
+        }
+        for (final DayOpeningHours otherDoh : otherNormalized) {
+            final DayOpeningHours thisDoh = thisNormalized.findDay(otherDoh);
+            if (thisDoh == null) {
+                // A new day was added
+                changes.addAll(otherDoh.asAddedChanges());
+            }
+        }
+
+        return changes;
+
+    }
+
+    private DayOpeningHours findDay(final DayOpeningHours toFind) {
+        final int idx = weeklyOpeningHours.indexOf(toFind);
+        if (idx < 0) {
+            return null;
+        }
+        return weeklyOpeningHours.get(idx);
+    }
+
     @Override
     public String toString() {
         return asBaseType();
     }
-    
+
     /**
      * Verifies if the string is valid and could be converted into an object.
      * 
@@ -131,22 +217,22 @@ public final class WeeklyOpeningHours extends AbstractStringValueObject {
         if (weeklyOpeningHours == null) {
             return true;
         }
-        
+
         final List<DayOpeningHours> all = new ArrayList<>();
-        
+
         final StringTokenizer tok = new StringTokenizer(weeklyOpeningHours, ",");
         if (tok.countTokens() == 0) {
             return false;
         }
         while (tok.hasMoreTokens()) {
             final String part = tok.nextToken();
-            
+
             // Find divider between day(s) and hours
             final int p = part.indexOf(' ');
             if (p < 0) {
                 return false;
             }
-            
+
             // Make sure first part is one or more days
             final String dayPartStr = part.substring(0, p);
             if (!MultiDayOfTheWeek.isValid(dayPartStr)) {
@@ -162,14 +248,29 @@ public final class WeeklyOpeningHours extends AbstractStringValueObject {
             final HourRanges hourPart = new HourRanges(hourPartStr);
 
             // Avoid duplicate days
-            for (DayOfTheWeek dow : dayPart.getList()) {
+            for (DayOfTheWeek dow : dayPart) {
                 final DayOpeningHours doh = new DayOpeningHours(dow, hourPart);
                 if (all.contains(doh)) {
                     return false;
                 }
                 all.add(doh);
             }
-            
+
+            // Make sure the hours of the days do not overlap
+            for (final DayOpeningHours doh : all) {
+                final List<DayOpeningHours> normalized = doh.normalize();
+                if (normalized.size() == 2) {
+                    final DayOpeningHours secondDay = normalized.get(1);
+                    final int idx = all.indexOf(secondDay);
+                    if (idx > -1) {
+                        final DayOpeningHours day = all.get(idx);
+                        if (day.overlaps(secondDay)) {
+                            return false;
+                        }
+                    }
+                }
+            }
+
         }
         return true;
     }
@@ -207,7 +308,8 @@ public final class WeeklyOpeningHours extends AbstractStringValueObject {
 
         if (!isValid(value)) {
             throw new ConstraintViolationException("The argument '" + name
-                    + "' does not represent valid weekly opening hours like 'Mon-Fri 09:00-12:00+13:00-17:00,Sat/Sun 09:-12:00': '" + value + "'");
+                    + "' does not represent valid weekly opening hours like 'Mon-Fri 09:00-12:00+13:00-17:00,Sat/Sun 09:-12:00': '" + value
+                    + "'");
         }
 
     }
