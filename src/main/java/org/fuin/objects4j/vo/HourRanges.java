@@ -283,7 +283,7 @@ public final class HourRanges extends AbstractStringValueObject implements Itera
      * 
      * @return New instance.
      */
-    public static HourRanges valueOf(@NotNull final BitSet minutes) {
+    public static HourRanges valueOf(@Nullable final BitSet minutes) {
         if (minutes == null) {
             return null;
         }
