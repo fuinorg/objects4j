@@ -136,11 +136,16 @@ public class DayOpeningHoursTest extends AbstractPersistenceTest {
 
         org.assertj.core.api.Assertions.assertThat(h("MON 00:00-24:00").normalize()).containsOnly(h("MON 00:00-24:00"));
         org.assertj.core.api.Assertions.assertThat(h("WED 08:00-18:00").normalize()).containsOnly(h("WED 08:00-18:00"));
-        org.assertj.core.api.Assertions.assertThat(h("WED 09:00-12:00+13:00-17:00").normalize()).containsOnly(h("WED 09:00-12:00+13:00-17:00"));
-        org.assertj.core.api.Assertions.assertThat(h("FRI 18:00-03:00").normalize()).containsOnly(h("FRI 18:00-24:00"), h("SAT 00:00-03:00"));
-        org.assertj.core.api.Assertions.assertThat(h("FRI 18:00-03:00+06:00-12:00").normalize()).containsOnly(h("FRI 06:00-12:00+18:00-24:00"), h("SAT 00:00-03:00"));
-        org.assertj.core.api.Assertions.assertThat(h("FRI 09:00-14:00+18:00-03:00").normalize()).containsOnly(h("FRI 09:00-14:00+18:00-24:00"), h("SAT 00:00-03:00"));
-        org.assertj.core.api.Assertions.assertThat(h("FRI 23:00-22:00").normalize()).containsOnly(h("FRI 23:00-24:00"), h("SAT 00:00-22:00"));
+        org.assertj.core.api.Assertions.assertThat(h("WED 09:00-12:00+13:00-17:00").normalize())
+                .containsOnly(h("WED 09:00-12:00+13:00-17:00"));
+        org.assertj.core.api.Assertions.assertThat(h("FRI 18:00-03:00").normalize()).containsOnly(h("FRI 18:00-24:00"),
+                h("SAT 00:00-03:00"));
+        org.assertj.core.api.Assertions.assertThat(h("FRI 18:00-03:00+06:00-12:00").normalize())
+                .containsOnly(h("FRI 06:00-12:00+18:00-24:00"), h("SAT 00:00-03:00"));
+        org.assertj.core.api.Assertions.assertThat(h("FRI 09:00-14:00+18:00-03:00").normalize())
+                .containsOnly(h("FRI 09:00-14:00+18:00-24:00"), h("SAT 00:00-03:00"));
+        org.assertj.core.api.Assertions.assertThat(h("FRI 23:00-22:00").normalize()).containsOnly(h("FRI 23:00-24:00"),
+                h("SAT 00:00-22:00"));
 
     }
 
@@ -151,12 +156,11 @@ public class DayOpeningHoursTest extends AbstractPersistenceTest {
             h("MON 00:00-24:00").diff(h("TUE 00:00-24:00"));
             fail();
         } catch (final ConstraintViolationException ex) {
-            assertThat(ex.getMessage())
-                    .isEqualTo("Expected same day (MON) for argument 'toOther', but was: TUE");
+            assertThat(ex.getMessage()).isEqualTo("Expected same day (MON) for argument 'toOther', but was: TUE");
         }
-        
+
     }
-    
+
     @Test
     public void testDiffSameDay() {
 
@@ -183,14 +187,32 @@ public class DayOpeningHoursTest extends AbstractPersistenceTest {
         test(h("FRI 18:00-03:00"), h("FRI 17:00-02:00"), c(FRI, ADDED, "17:00-18:00"), c(SAT, REMOVED, "02:00-03:00"));
 
     }
-    
+
     @Test
     public void testOverlaps() {
-        
+
         assertThat(h("Mon 00:00-24:00").overlaps(h("Mon 00:00-24:00"))).isTrue();
         assertThat(h("Mon 00:00-12:00").overlaps(h("Mon 12:00-24:00"))).isFalse();
         assertThat(h("Mon 00:00-00:02").overlaps(h("Mon 00:01-00:02"))).isTrue();
         assertThat(h("Mon 00:08-17:00").overlaps(h("Mon 08:00-12:00+12:00-17:00"))).isTrue();
+
+    }
+
+    @Test
+    public void testAsRemovedChanges() {
+
+        org.assertj.core.api.Assertions.assertThat(h("Mon 06:00-12:00").asRemovedChanges()).containsOnly(c(MON, REMOVED, "06:00-12:00"));
+        org.assertj.core.api.Assertions.assertThat(h("Mon 06:00-12:00+13:00-17:00").asRemovedChanges())
+                .containsOnly(c(MON, REMOVED, "06:00-12:00"), c(MON, REMOVED, "13:00-17:00"));
+
+    }
+
+    @Test
+    public void testAsAddedChanges() {
+
+        org.assertj.core.api.Assertions.assertThat(h("Mon 06:00-12:00").asAddedChanges()).containsOnly(c(MON, ADDED, "06:00-12:00"));
+        org.assertj.core.api.Assertions.assertThat(h("Mon 06:00-12:00+13:00-17:00").asAddedChanges())
+                .containsOnly(c(MON, ADDED, "06:00-12:00"), c(MON, ADDED, "13:00-17:00"));
         
     }
 

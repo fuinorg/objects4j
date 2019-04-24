@@ -176,10 +176,10 @@ public final class DayOpeningHours implements ValueObjectWithBaseType<String>, C
      * @return List of changes or an empty list if both are equal.
      */
     public final List<Change> diff(final DayOpeningHours toOther) {
-        Contract.requireArgNotNull("dayOfTheWeek", dayOfTheWeek);
+        Contract.requireArgNotNull("toOther", toOther);
         if (dayOfTheWeek != toOther.dayOfTheWeek) {
             throw new ConstraintViolationException(
-                    "Expected same day (" + dayOfTheWeek + ") for argument 'toOther', but was: " + toOther.dayOfTheWeek );
+                    "Expected same day (" + dayOfTheWeek + ") for argument 'toOther', but was: " + toOther.dayOfTheWeek);
         }
 
         final List<DayOpeningHours> fromDays = normalize();
@@ -226,12 +226,63 @@ public final class DayOpeningHours implements ValueObjectWithBaseType<String>, C
     /**
      * Determines of the hours of both days overlap. The day is ignored for this comparison.
      * 
-     * @param other Other day to compare the hours with.
+     * @param other
+     *            Other day to compare the hours with.
      * 
      * @return {@literal true} if at least one minute is the same for both days.
      */
     public final boolean overlaps(@NotNull final DayOpeningHours other) {
+        Contract.requireArgNotNull("other", other);
         return hourRanges.overlaps(other.hourRanges);
+    }
+
+    /**
+     * Adds the hours from the given day to this one. It is expected, that the hour ranges do not overlap. The day is ignored.
+     * 
+     * @param other
+     *            Opening hours to add.
+     * 
+     * @return New instance with added hour ranges.
+     */
+    public DayOpeningHours addHourRanges(@NotNull final DayOpeningHours other) {
+        Contract.requireArgNotNull("other", other);
+        if (overlaps(other)) {
+            throw new ConstraintViolationException("The argument 'other' overls with this instance: this=" + this + ", other=" + other);
+        }
+        final List<HourRange> ranges = new ArrayList<>();
+        for (final HourRange hr : hourRanges) {
+            ranges.add(hr);
+        }
+        for (final HourRange hr : other.hourRanges) {
+            ranges.add(hr);
+        }
+        return new DayOpeningHours(dayOfTheWeek, new HourRanges(ranges.toArray(new HourRange[ranges.size()])));
+    }
+
+    /**
+     * Returns all hour ranges of this day as if they were removed.
+     * 
+     * @return Removed day changes.
+     */
+    public List<Change> asRemovedChanges() {
+        final List<Change> changes = new ArrayList<>();
+        for (final HourRange hr : hourRanges) {
+            changes.add(new Change(ChangeType.REMOVED, dayOfTheWeek, hr));
+        }
+        return changes;
+    }
+
+    /**
+     * Returns all hour ranges of this day as if they were added.
+     * 
+     * @return Added day changes.
+     */
+    public List<Change> asAddedChanges() {
+        final List<Change> changes = new ArrayList<>();
+        for (final HourRange hr : hourRanges) {
+            changes.add(new Change(ChangeType.ADDED, dayOfTheWeek, hr));
+        }
+        return changes;
     }
 
     private static List<Change> changes(final ChangeType type, final DayOfTheWeek dayOfTheWeek, final HourRanges ranges) {
