@@ -18,6 +18,8 @@
 package org.fuin.objects4j.vo;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -38,7 +40,7 @@ import org.fuin.objects4j.ui.Prompt;
 @Immutable
 @Prompt("09:00-12:00+13:00-17:00")
 @XmlJavaTypeAdapter(HourRangesConverter.class)
-public final class HourRanges extends AbstractStringValueObject {
+public final class HourRanges extends AbstractStringValueObject implements Iterable<HourRange> {
 
     private static final long serialVersionUID = 1000L;
 
@@ -104,6 +106,11 @@ public final class HourRanges extends AbstractStringValueObject {
         return sb.toString();
     }
 
+    @Override
+    public final Iterator<HourRange> iterator() {
+        return Collections.unmodifiableList(ranges).iterator();
+    }
+    
     @Override
     public String toString() {
         return asBaseType();

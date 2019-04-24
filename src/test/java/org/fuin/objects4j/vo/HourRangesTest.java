@@ -17,8 +17,10 @@
  */
 package org.fuin.objects4j.vo;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.Assert.fail;
+
+import java.util.Iterator;
 
 import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.units4j.AbstractPersistenceTest;
@@ -123,6 +125,22 @@ public class HourRangesTest extends AbstractPersistenceTest {
         assertThat(copy.getHourRanges().toString()).isEqualTo("00:00-24:00");
         commitTransaction();
 
+    }
+    
+    @Test
+    public void testIterable() {
+        
+        final Iterator<HourRange> itA = new HourRanges("00:00-24:00").iterator();
+        assertThat(itA.next()).isEqualTo(new HourRange("00:00-24:00"));
+        assertThat(itA.hasNext()).isFalse();
+
+        final Iterator<HourRange> itB = new HourRanges("00:00-05:00+06:00-11:00+12:00-17:00+18:00-23:00").iterator();
+        assertThat(itB.next()).isEqualTo(new HourRange("00:00-05:00"));
+        assertThat(itB.next()).isEqualTo(new HourRange("06:00-11:00"));
+        assertThat(itB.next()).isEqualTo(new HourRange("12:00-17:00"));
+        assertThat(itB.next()).isEqualTo(new HourRange("18:00-23:00"));
+        assertThat(itB.hasNext()).isFalse();
+        
     }
 
 }
