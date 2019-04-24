@@ -19,6 +19,7 @@ package org.fuin.objects4j.vo;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -45,7 +46,7 @@ import org.fuin.objects4j.ui.Prompt;
 @Immutable
 @Prompt("Mon/Tue/Wed-Fri")
 @XmlJavaTypeAdapter(MultiDayOfTheWeekConverter.class)
-public final class MultiDayOfTheWeek extends AbstractStringValueObject {
+public final class MultiDayOfTheWeek extends AbstractStringValueObject implements Iterable<DayOfTheWeek> {
 
     private static final long serialVersionUID = 1000L;
 
@@ -128,13 +129,9 @@ public final class MultiDayOfTheWeek extends AbstractStringValueObject {
         return asBaseType();
     }
 
-    /**
-     * Returns the list of days represented by this instance.
-     * 
-     * @return Immutable list of one or more days of the week
-     */
-    public List<DayOfTheWeek> getList() {
-        return Collections.unmodifiableList(multipleDayOfTheWeek);
+    @Override
+    public Iterator<DayOfTheWeek> iterator() {
+        return Collections.unmodifiableList(multipleDayOfTheWeek).iterator();
     }
     
     /**
