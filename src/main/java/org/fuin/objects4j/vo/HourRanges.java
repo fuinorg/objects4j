@@ -214,6 +214,21 @@ public final class HourRanges extends AbstractStringValueObject implements Itera
 
     }
 
+
+    /**
+     * Determines of the hours of both days overlap. The day is ignored for this comparison.
+     * 
+     * @param other Other day to compare the hours with.
+     * 
+     * @return {@literal true} if at least one minute is the same for both days.
+     */
+    public final boolean overlaps(@NotNull final HourRanges other) {
+        final BitSet thisMinutes = this.toMinutes();
+        final BitSet otherMinutes = other.toMinutes();
+        thisMinutes.and(otherMinutes);        
+        return !thisMinutes.isEmpty();
+    }
+    
     @Override
     public String toString() {
         return asBaseType();

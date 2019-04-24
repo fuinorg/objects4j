@@ -220,7 +220,7 @@ public class HourRangesTest extends AbstractPersistenceTest {
         }
 
     }
-
+    
     @Test
     public void testDiffSingleDay() {
 
@@ -237,6 +237,17 @@ public class HourRangesTest extends AbstractPersistenceTest {
         test(h("09:00-12:00"), h("13:00-17:00"), c(REMOVED, "09:00-12:00"), c(ADDED, "13:00-17:00"));
 
     }
+    
+    @Test
+    public void testOverlaps() {
+        
+        assertThat(h("00:00-24:00").overlaps(h("00:00-24:00"))).isTrue();
+        assertThat(h("00:00-12:00").overlaps(h("12:00-24:00"))).isFalse();
+        assertThat(h("00:00-00:02").overlaps(h("00:01-00:02"))).isTrue();
+        assertThat(h("00:08-17:00").overlaps(h("08:00-12:00+12:00-17:00"))).isTrue();
+        
+    }
+    
 
     private void test(HourRanges from, HourRanges to, Change... changes) {
         org.assertj.core.api.Assertions.assertThat(from.diff(to)).containsOnly(changes);
