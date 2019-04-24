@@ -17,8 +17,10 @@
  */
 package org.fuin.objects4j.vo;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.Assert.fail;
+
+import java.util.BitSet;
 
 import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.units4j.AbstractPersistenceTest;
@@ -90,10 +92,10 @@ public class HourRangeTest extends AbstractPersistenceTest {
     @Test
     public final void testNormalize() {
         
-        assertThat(new HourRange("18:00-03:00").normalize()).containsExactly(new HourRange("18:00-24:00"), new HourRange("00:00-03:00"));
-        assertThat(new HourRange("09:00-06:00").normalize()).containsExactly(new HourRange("09:00-24:00"), new HourRange("00:00-06:00"));
-        assertThat(new HourRange("18:00-19:00").normalize()).containsExactly(new HourRange("18:00-19:00"));
-        assertThat(new HourRange("00:00-24:00").normalize()).containsExactly(new HourRange("00:00-24:00"));
+        org.assertj.core.api.Assertions.assertThat(new HourRange("18:00-03:00").normalize()).containsExactly(new HourRange("18:00-24:00"), new HourRange("00:00-03:00"));
+        org.assertj.core.api.Assertions.assertThat(new HourRange("09:00-06:00").normalize()).containsExactly(new HourRange("09:00-24:00"), new HourRange("00:00-06:00"));
+        org.assertj.core.api.Assertions.assertThat(new HourRange("18:00-19:00").normalize()).containsExactly(new HourRange("18:00-19:00"));
+        org.assertj.core.api.Assertions.assertThat(new HourRange("00:00-24:00").normalize()).containsExactly(new HourRange("00:00-24:00"));
         
     }
     
@@ -183,6 +185,71 @@ public class HourRangeTest extends AbstractPersistenceTest {
         commitTransaction();
 
     }
+    
+    @Test
+    public void testToMinutesMultipleDays() {
+        
+        try {
+            new HourRange("18:00-03:00").toMinutes();
+            fail();
+        } catch (final IllegalArgumentException ex) {
+            assertThat(ex.getMessage()).contains("[18:00-24:00, 00:00-03:00]");
+        }
+        
+    }
+    
+    @Test
+    public void testToMinutesSingleDay() {
+        
+        assertThat(new HourRange("00:00-00:01").toMinutes()).isEqualTo(new BitSetBuilder().minute(0).build());
+        assertThat(new HourRange("11:00-12:00").toMinutes()).isEqualTo(new BitSetBuilder().hour(11).build());
+        assertThat(new HourRange("11:15-11:30").toMinutes()).isEqualTo(new BitSetBuilder().hourMinutes(11, 15, 30).build());
+        assertThat(new HourRange("23:59-24:00").toMinutes()).isEqualTo(new BitSetBuilder().minute(1439).build());
+        
+    }
+   
+    /**
+     * Helps building a bit set for hour/minutes.
+     */
+    private static class BitSetBuilder {
+        
+        private BitSet bitSet;
+        
+        public BitSetBuilder() {
+            super();
+            this.bitSet = new BitSet(1440);
+        }
+        
+        public BitSetBuilder minute(int minute) {
+            bitSet.set(minute);
+            return this;
+        }
+        
+        public BitSetBuilder hour(int hour) {
+            final int start = hour * 60;
+            final int end = start + 60; 
+            for (int i = start; i < end; i++) {
+                bitSet.set(i);
+            }
+            return this;
+        }
 
+        public BitSetBuilder hourMinutes(int hour, int minuteFrom, int minuteTo) {
+            final int start = (hour * 60) + minuteFrom;
+            final int end = (hour * 60) + minuteTo; 
+            for (int i = start; i < end; i++) {
+                bitSet.set(i);
+            }
+            return this;
+        }
+        
+        public BitSet build() {
+            final BitSet set = bitSet;
+            bitSet = new BitSet(1440);
+            return set;
+        }
+        
+    }
+    
 }
 // CHECKSTYLE:ON

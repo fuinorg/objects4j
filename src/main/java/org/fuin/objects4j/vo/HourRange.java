@@ -18,6 +18,7 @@
 package org.fuin.objects4j.vo;
 
 import java.util.ArrayList;
+import java.util.BitSet;
 import java.util.List;
 
 import javax.annotation.Nullable;
@@ -83,10 +84,10 @@ public final class HourRange extends AbstractStringValueObject {
         if (from.equals(to)) {
             throw new ConstraintViolationException("The argument 'from' of the hour range cannot be equal 'to': '" + hourRange + "'");
         }
-        if (from.equals(new Hour(24,0))) {
+        if (from.equals(new Hour(24, 0))) {
             throw new ConstraintViolationException("The argument 'from' of the hour range cannot be '24:00'");
         }
-        if (to.equals(new Hour(0,0))) {
+        if (to.equals(new Hour(0, 0))) {
             throw new ConstraintViolationException("The argument 'to' of the hour range cannot be '00:00'");
         }
     }
@@ -108,33 +109,61 @@ public final class HourRange extends AbstractStringValueObject {
         if (from.equals(to)) {
             throw new ConstraintViolationException("The argument 'from' of the hour range cannot be equal 'to': " + from);
         }
-        if (from.equals(new Hour(24,0))) {
+        if (from.equals(new Hour(24, 0))) {
             throw new ConstraintViolationException("The argument 'from' of the hour range cannot be '24:00'");
         }
-        if (to.equals(new Hour(0,0))) {
+        if (to.equals(new Hour(0, 0))) {
             throw new ConstraintViolationException("The argument 'to' of the hour range cannot be '00:00'");
         }
     }
-    
+
     @Override
     @NotEmpty
-    public String asBaseType() {
+    public final String asBaseType() {
         return from + "-" + to;
     }
 
+    /**
+     * Returns the range as a set of minutes. A value of {@literal false} means 'closed' and a value of {@literal true} means 'open'. It is
+     * only allowed to call this method if the hour range represents only one day. This means a value like '18:00-03:00' will lead to an
+     * error. To avoid this, call the {@link #normalize()} function before this one and pass the result per day as an argument to this
+     * method.
+     * 
+     * @return Bitset representing the minutes of a day (0 = 00:00 - 1439 = 23:59).
+     */
+    public final BitSet toMinutes() {
+        ensureSingleDayOnly(this);
+        
+        final BitSet minutes = new BitSet(1440);
+        for (int i = from.toMinutes(); i < to.toMinutes(); i++) {
+            minutes.set(i);
+        }
+        return minutes;
+        
+    }
+
+    private static void ensureSingleDayOnly(final HourRange range) {
+        final List<HourRange> list = range.normalize();
+        if (list.size() > 1) {
+            throw new IllegalArgumentException("Cannot convert an hour range to minutes that spans two days (" + list
+                    + ") - Please use 'normalize()' method and pass then the hour range per day to this method!");
+        }
+    }
+
     @Override
-    public String toString() {
+    public final String toString() {
         return asBaseType();
     }
-    
+
     /**
-     * Determines if this range and the given range overlap. 
+     * Determines if this range and the given range overlap.
      * 
-     * @param other Range to compare with.
+     * @param other
+     *            Range to compare with.
      * 
      * @return {@literal true} if the two ranges overlap, else {@literal false}.
      */
-    public boolean overlaps(@NotNull final HourRange other) {
+    public final boolean overlaps(@NotNull final HourRange other) {
         Contract.requireArgNotNull("other", other);
         if (this.equals(other)) {
             return true;
@@ -156,22 +185,22 @@ public final class HourRange extends AbstractStringValueObject {
     }
 
     /**
-     * If the hour range represents two different days, this method returns two hour ranges, one for each day.
-     * Example: '18:00-03:00' will be splitted into '18:00-24:00' and '00:00-03:00'.
+     * If the hour range represents two different days, this method returns two hour ranges, one for each day. Example: '18:00-03:00' will
+     * be splitted into '18:00-24:00' and '00:00-03:00'.
      * 
      * @return This range or range for today and tomorrow.
      */
-    public List<HourRange> normalize() {
-        final List<HourRange> ranges = new ArrayList<>();        
+    public final List<HourRange> normalize() {
+        final List<HourRange> ranges = new ArrayList<>();
         if (this.from.toMinutes() > this.to.toMinutes()) {
-            ranges.add(new HourRange(this.from, new Hour(24,00)));
-            ranges.add(new HourRange(new Hour(0,0), this.to));
+            ranges.add(new HourRange(this.from, new Hour(24, 00)));
+            ranges.add(new HourRange(new Hour(0, 0), this.to));
         } else {
             ranges.add(this);
         }
         return ranges;
     }
-    
+
     /**
      * Verifies if the string is a valid hour range.
      * 
@@ -198,10 +227,10 @@ public final class HourRange extends AbstractStringValueObject {
         if (from.equals(to)) {
             return false;
         }
-        if (from.equals(new Hour(24,0))) {
+        if (from.equals(new Hour(24, 0))) {
             return false;
         }
-        return !to.equals(new Hour(0,0));
+        return !to.equals(new Hour(0, 0));
     }
 
     /**
@@ -242,4 +271,5 @@ public final class HourRange extends AbstractStringValueObject {
 
     }
 
+    
 }
