@@ -20,8 +20,6 @@ package org.fuin.objects4j.vo;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.Assert.fail;
 
-import java.util.BitSet;
-
 import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.units4j.AbstractPersistenceTest;
 import org.junit.Test;
@@ -201,53 +199,10 @@ public class HourRangeTest extends AbstractPersistenceTest {
     @Test
     public void testToMinutesSingleDay() {
         
-        assertThat(new HourRange("00:00-00:01").toMinutes()).isEqualTo(new BitSetBuilder().minute(0).build());
-        assertThat(new HourRange("11:00-12:00").toMinutes()).isEqualTo(new BitSetBuilder().hour(11).build());
-        assertThat(new HourRange("11:15-11:30").toMinutes()).isEqualTo(new BitSetBuilder().hourMinutes(11, 15, 30).build());
-        assertThat(new HourRange("23:59-24:00").toMinutes()).isEqualTo(new BitSetBuilder().minute(1439).build());
-        
-    }
-   
-    /**
-     * Helps building a bit set for hour/minutes.
-     */
-    private static class BitSetBuilder {
-        
-        private BitSet bitSet;
-        
-        public BitSetBuilder() {
-            super();
-            this.bitSet = new BitSet(1440);
-        }
-        
-        public BitSetBuilder minute(int minute) {
-            bitSet.set(minute);
-            return this;
-        }
-        
-        public BitSetBuilder hour(int hour) {
-            final int start = hour * 60;
-            final int end = start + 60; 
-            for (int i = start; i < end; i++) {
-                bitSet.set(i);
-            }
-            return this;
-        }
-
-        public BitSetBuilder hourMinutes(int hour, int minuteFrom, int minuteTo) {
-            final int start = (hour * 60) + minuteFrom;
-            final int end = (hour * 60) + minuteTo; 
-            for (int i = start; i < end; i++) {
-                bitSet.set(i);
-            }
-            return this;
-        }
-        
-        public BitSet build() {
-            final BitSet set = bitSet;
-            bitSet = new BitSet(1440);
-            return set;
-        }
+        assertThat(new HourRange("00:00-00:01").toMinutes()).isEqualTo(new MinutesBitSetBuilder().minute(0).build());
+        assertThat(new HourRange("11:00-12:00").toMinutes()).isEqualTo(new MinutesBitSetBuilder().hour(11).build());
+        assertThat(new HourRange("11:15-11:30").toMinutes()).isEqualTo(new MinutesBitSetBuilder().hourMinutes(11, 15, 30).build());
+        assertThat(new HourRange("23:59-24:00").toMinutes()).isEqualTo(new MinutesBitSetBuilder().minute(1439).build());
         
     }
     
