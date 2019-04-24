@@ -17,8 +17,10 @@
  */
 package org.fuin.objects4j.vo;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.Assert.fail;
+
+import java.util.Iterator;
 
 import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.units4j.AbstractPersistenceTest;
@@ -100,11 +102,22 @@ public class MultiDayOfTheWeekTest extends AbstractPersistenceTest {
     }
     
     @Test
-    public final void testList() {
+    public final void testIterator() {
     
-        assertThat(new MultiDayOfTheWeek("Mon").getList()).containsExactly(DayOfTheWeek.MON);
-        assertThat(new MultiDayOfTheWeek("Mon/Tue").getList()).containsExactly(DayOfTheWeek.MON, DayOfTheWeek.TUE);
-        assertThat(new MultiDayOfTheWeek("Mon-Wed").getList()).containsExactly(DayOfTheWeek.MON, DayOfTheWeek.TUE, DayOfTheWeek.WED);
+        final Iterator<DayOfTheWeek> itA = new MultiDayOfTheWeek("Mon").iterator();
+        assertThat(itA.next()).isEqualTo(DayOfTheWeek.MON);
+        assertThat(itA.hasNext()).isFalse();
+
+        final Iterator<DayOfTheWeek> itB = new MultiDayOfTheWeek("Mon/Tue").iterator();
+        assertThat(itB.next()).isEqualTo(DayOfTheWeek.MON);
+        assertThat(itB.next()).isEqualTo(DayOfTheWeek.TUE);
+        assertThat(itB.hasNext()).isFalse();
+
+        final Iterator<DayOfTheWeek> itC = new MultiDayOfTheWeek("Mon-Wed").iterator();
+        assertThat(itC.next()).isEqualTo(DayOfTheWeek.MON);
+        assertThat(itC.next()).isEqualTo(DayOfTheWeek.TUE);
+        assertThat(itC.next()).isEqualTo(DayOfTheWeek.WED);
+        assertThat(itB.hasNext()).isFalse();
         
     }
 
