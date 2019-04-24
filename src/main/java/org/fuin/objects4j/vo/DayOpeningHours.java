@@ -315,7 +315,7 @@ public final class DayOpeningHours implements ValueObjectWithBaseType<String>, C
          * 
          * @param day
          *            DayOf the week.
-         * @param ranges
+         * @param change
          *            The changed hour ranges.
          */
         public Change(@NotNull final DayOfTheWeek day, @NotNull final HourRanges.Change change) {

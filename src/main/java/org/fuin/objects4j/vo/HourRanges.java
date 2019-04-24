@@ -266,7 +266,7 @@ public final class HourRanges extends AbstractStringValueObject implements Itera
      * @param minutes
      *            Bitset representing the minutes of a day (0 = 00:00 - 1439 = 23:59).
      * 
-     * @return
+     * @return New instance.
      */
     public static HourRanges valueOf(@NotNull final BitSet minutes) {
         if (minutes == null) {
