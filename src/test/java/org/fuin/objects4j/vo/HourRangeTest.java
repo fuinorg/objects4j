@@ -202,6 +202,7 @@ public class HourRangeTest extends AbstractPersistenceTest {
         assertThat(new HourRange("00:00-00:01").toMinutes()).isEqualTo(new MinutesBitSetBuilder().minute(0).build());
         assertThat(new HourRange("11:00-12:00").toMinutes()).isEqualTo(new MinutesBitSetBuilder().hour(11).build());
         assertThat(new HourRange("11:15-11:30").toMinutes()).isEqualTo(new MinutesBitSetBuilder().hourMinutes(11, 15, 30).build());
+        assertThat(new HourRange("00:00-24:00").toMinutes()).isEqualTo(new MinutesBitSetBuilder().fromTo(0, 0, 24, 00).build());
         assertThat(new HourRange("23:59-24:00").toMinutes()).isEqualTo(new MinutesBitSetBuilder().minute(1439).build());
         
     }

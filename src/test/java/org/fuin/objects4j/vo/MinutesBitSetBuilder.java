@@ -104,6 +104,44 @@ public final class MinutesBitSetBuilder {
     }
 
     /**
+     * Sets a range of minutes from/to hour/minute.
+     * 
+     * @param fromHour
+     *            Hour of the day (0..23).
+     * @param fromMinute
+     *            Minute of the day (0..59).
+     * @param toHour
+     *            Hour of the day (0..23).
+     * @param toMinute
+     *            Minute of the day (0..59).
+     * 
+     * @return Builder.
+     */
+    public MinutesBitSetBuilder fromTo(int fromHour, int fromMinute, int toHour, int toMinute) {
+        Contract.requireArgMin("fromHour", fromHour, 0);
+        Contract.requireArgMax("fromHour", fromHour, 24);        
+        Contract.requireArgMin("fromMinute", fromMinute, 0);
+        Contract.requireArgMax("fromMinute", fromMinute, 59);
+        
+        Contract.requireArgMin("toHour", toHour, 0);
+        Contract.requireArgMax("toHour", toHour, 24);
+        Contract.requireArgMin("toMinute", toMinute, 0);
+        Contract.requireArgMax("toMinute", toMinute, 59);
+        
+        if (fromHour > toHour) {
+            throw new ConstraintViolationException(
+                    "Value 'fromHour' (" + fromHour + ") cannot be greater than 'toHour' (" + toHour + ")");
+        }
+
+        final int start = (fromHour * 60) + fromMinute;
+        final int end = (toHour * 60) + toMinute;
+        for (int i = start; i < end; i++) {
+            bitSet.set(i);
+        }
+        return this;
+    }
+    
+    /**
      * Returns the current instance and sets a new one internally.
      * 
      * @return New instance.
