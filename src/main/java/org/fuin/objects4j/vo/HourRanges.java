@@ -18,6 +18,7 @@
 package org.fuin.objects4j.vo;
 
 import java.util.ArrayList;
+import java.util.BitSet;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -32,7 +33,6 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.ui.Prompt;
-import org.jboss.weld.exceptions.IllegalStateException;
 
 /**
  * Represents multiple ranges of hours of a day (24 hour representation) separated by a '+'.<br>
@@ -47,7 +47,7 @@ public final class HourRanges extends AbstractStringValueObject implements Itera
 
     @NotEmpty
     private List<HourRange> ranges;
-    
+
     /**
      * Protected default constructor for deserialization.
      */
@@ -65,14 +65,14 @@ public final class HourRanges extends AbstractStringValueObject implements Itera
         super();
         Contract.requireArgNotEmpty("ranges", ranges);
         requireArgValid("ranges", ranges);
-        
+
         this.ranges = new ArrayList<>();
         final StringTokenizer tok = new StringTokenizer(ranges, "+");
         while (tok.hasMoreTokens()) {
             this.ranges.add(new HourRange(tok.nextToken()));
         }
         Collections.sort(this.ranges);
-        
+
     }
 
     /**
@@ -81,7 +81,7 @@ public final class HourRanges extends AbstractStringValueObject implements Itera
      * @param ranges
      *            Ranges.
      */
-    public HourRanges(@NotEmpty final HourRange...ranges) {
+    public HourRanges(@NotEmpty final HourRange... ranges) {
         super();
         Contract.requireArgNotNull("ranges", ranges);
         if (ranges.length == 0) {
@@ -94,7 +94,7 @@ public final class HourRanges extends AbstractStringValueObject implements Itera
             }
         }
     }
-    
+
     @Override
     @NotEmpty
     public String asBaseType() {
@@ -112,10 +112,10 @@ public final class HourRanges extends AbstractStringValueObject implements Itera
     public final Iterator<HourRange> iterator() {
         return Collections.unmodifiableList(ranges).iterator();
     }
-    
+
     /**
-     * If the hour ranges represent two different days, this method returns two hour ranges, one for each day.
-     * Example: '09:00-14:00+18:00-03:00' will be splitted into '09:00-14:00+18:00-24:00' and '00:00-03:00'.
+     * If the hour ranges represent two different days, this method returns two hour ranges, one for each day. Example:
+     * '09:00-14:00+18:00-03:00' will be splitted into '09:00-14:00+18:00-24:00' and '00:00-03:00'.
      * 
      * @return This range or range for today and tomorrow.
      */
@@ -125,7 +125,7 @@ public final class HourRanges extends AbstractStringValueObject implements Itera
         for (final HourRange range : ranges) {
             final List<HourRange> nr = range.normalize();
             if (nr.size() == 1) {
-                today.add(nr.get(0));                
+                today.add(nr.get(0));
             } else if (nr.size() == 2) {
                 today.add(nr.get(0));
                 tommorrow.add(nr.get(1));
@@ -134,18 +134,91 @@ public final class HourRanges extends AbstractStringValueObject implements Itera
             }
         }
         final List<HourRanges> list = new ArrayList<>();
-        list .add(new HourRanges(today.toArray(new HourRange[today.size()])));
+        list.add(new HourRanges(today.toArray(new HourRange[today.size()])));
         if (tommorrow.size() > 0) {
-            list .add(new HourRanges(tommorrow.toArray(new HourRange[tommorrow.size()])));
+            list.add(new HourRanges(tommorrow.toArray(new HourRange[tommorrow.size()])));
         }
         return list;
     }
-    
+
+    /**
+     * Returns the difference when changing this opening hours to the other one.
+     * 
+     * @param toOther
+     *            Opening hours to compare with.
+     * 
+     * @return List of changes or an empty list if both are equal.
+     */
+    public final List<Change> diff(final HourRanges toOther) {
+
+        ensureSingleDayOnly("from", this);
+        ensureSingleDayOnly("to", toOther);
+
+        final BitSet thisMinutes = this.toMinutes();
+        final BitSet otherMinutes = toOther.toMinutes();
+
+        final BitSet addedMinutes = new BitSet(1440);
+        final BitSet removedMinutes = new BitSet(1440);
+        for (int i = 0; i < 1440; i++) {
+            if (thisMinutes.get(i) && !otherMinutes.get(i)) {
+                removedMinutes.set(i);
+            }
+            if (!thisMinutes.get(i) && otherMinutes.get(i)) {
+                addedMinutes.set(i);
+            }
+        }
+
+        final List<Change> changes = new ArrayList<>();
+
+        if (!removedMinutes.isEmpty()) {
+            final HourRanges removed = HourRanges.valueOf(removedMinutes);
+            for (final HourRange hr : removed) {
+                changes.add(new Change(ChangeType.REMOVED, hr));
+            }
+        }
+        if (!addedMinutes.isEmpty()) {
+            final HourRanges added = HourRanges.valueOf(addedMinutes);
+            for (final HourRange hr : added) {
+                changes.add(new Change(ChangeType.ADDED, hr));
+            }
+        }
+
+        return changes;
+
+    }
+
+    private static void ensureSingleDayOnly(final String name, final HourRanges ranges) {
+        final List<HourRanges> list = ranges.normalize();
+        if (list.size() > 1) {
+            throw new ConstraintViolationException("Cannot calculate the difference for hour ranges that spans two days (" + name + "="
+                    + list + ") - Please use 'normalize()' method and pass then the hour ranges per day to this method!");
+        }
+    }
+
+    /**
+     * Returns the ranges as a set of minutes. A value of {@literal false} means 'closed' and a value of {@literal true} means 'open'. It is
+     * only allowed to call this method if the hour ranges represents only one day. This means a value like '18:00-03:00' will lead to an
+     * error. To avoid this, call the {@link #normalize()} function before this one and pass the result per day as an argument to this
+     * method.
+     * 
+     * @return Bitset representing the minutes of a day (0 = 00:00 - 1439 = 23:59).
+     */
+    public final BitSet toMinutes() {
+        ensureSingleDayOnly("this", this);
+
+        final BitSet minutes = new BitSet(1440);
+        for (final HourRange range : ranges) {
+            minutes.or(range.toMinutes());
+        }
+        return minutes;
+
+    }
+
     @Override
     public String toString() {
         return asBaseType();
     }
-    
+
     /**
      * Verifies if the string is valid and could be converted into an object.
      * 
@@ -188,6 +261,59 @@ public final class HourRanges extends AbstractStringValueObject implements Itera
     }
 
     /**
+     * Converts a given bit set with the minutes of the day into an instance of this class.
+     * 
+     * @param minutes
+     *            Bitset representing the minutes of a day (0 = 00:00 - 1439 = 23:59).
+     * 
+     * @return
+     */
+    public static HourRanges valueOf(@NotNull final BitSet minutes) {
+        if (minutes == null) {
+            return null;
+        }
+        if (minutes.length() > 1440) {
+            throw new IllegalArgumentException("Expected bitset length of max. 1440, but was " + minutes.length() + ": " + minutes);
+        }
+
+        Integer startHour = null;
+        Integer startMinute = null;
+
+        final List<HourRange> ranges = new ArrayList<>();
+        for (int i = 0; i < minutes.length(); i++) {
+            if (minutes.get(i)) {
+                if (startHour == null) {
+                    startHour = (i / 60);
+                    startMinute = i - (startHour * 60);
+                }
+            } else {
+                if (startHour != null) {
+                    ranges.add(createHourRange(startHour, startMinute, i));
+                    startHour = null;
+                    startMinute = 0;
+                }
+            }
+        }
+        if (startHour != null) {
+            ranges.add(createHourRange(startHour, startMinute, minutes.length()));
+        }
+
+        return new HourRanges(ranges.toArray(new HourRange[ranges.size()]));
+
+    }
+
+    private static HourRange createHourRange(final int startHour, final int startMinute, final int minute) {
+        final int endHour = (minute / 60);
+        final int endMinute;
+        if (endHour == 24) {
+            endMinute = 0;
+        } else {
+            endMinute = minute - (endHour * 60);
+        }
+        return new HourRange(new Hour(startHour, startMinute), new Hour(endHour, endMinute));
+    }
+
+    /**
      * Checks if the argument is valid and throws an exception if this is not the case.
      * 
      * @param name
@@ -203,8 +329,8 @@ public final class HourRanges extends AbstractStringValueObject implements Itera
         // CHECKSTYLE:ON
 
         if (!isValid(value)) {
-            throw new ConstraintViolationException("The argument '" + name
-                    + "' does not represent a valid hour range like '09:00-12:00+13:00-17:00': '" + value + "'");
+            throw new ConstraintViolationException(
+                    "The argument '" + name + "' does not represent a valid hour range like '09:00-12:00+13:00-17:00': '" + value + "'");
         }
 
     }
@@ -231,8 +357,6 @@ public final class HourRanges extends AbstractStringValueObject implements Itera
 
         private final HourRange range;
 
-        private final boolean nextDay;
-
         /**
          * Constructor with all data.
          * 
@@ -240,16 +364,13 @@ public final class HourRanges extends AbstractStringValueObject implements Itera
          *            Type of change.
          * @param range
          *            The changed hours.
-         * @param nextDay
-         *            Is this a change for hours of the next day?
          */
-        public Change(@NotNull final ChangeType type, @NotNull final HourRange range, final boolean nextDay) {
+        public Change(@NotNull final ChangeType type, @NotNull final HourRange range) {
             super();
             Contract.requireArgNotNull("type", type);
             Contract.requireArgNotNull("range", range);
             this.type = type;
             this.range = range;
-            this.nextDay = nextDay;
         }
 
         /**
@@ -270,21 +391,45 @@ public final class HourRanges extends AbstractStringValueObject implements Itera
             return range;
         }
 
-        /**
-         * Determines if this change is for the next day.
-         * 
-         * @return {@literal true} if the hour range changed for the next day.
-         */
-        public final boolean isNextDay() {
-            return nextDay;
+        @Override
+        public final int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + ((range == null) ? 0 : range.hashCode());
+            result = prime * result + ((type == null) ? 0 : type.hashCode());
+            return result;
         }
 
-        
         @Override
-        public String toString() {
+        public final boolean equals(final Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            Change other = (Change) obj;
+            if (range == null) {
+                if (other.range != null) {
+                    return false;
+                }
+            } else if (!range.equals(other.range)) {
+                return false;
+            }
+            if (type != other.type) {
+                return false;
+            }
+            return true;
+        }
+
+        @Override
+        public final String toString() {
             return type + " " + range;
         }
 
     }
-    
+
 }
