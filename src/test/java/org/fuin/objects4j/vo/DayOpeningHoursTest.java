@@ -225,7 +225,7 @@ public class DayOpeningHoursTest extends AbstractPersistenceTest {
     }
 
     @Test
-    public void testOpenAt() {
+    public void testOpenAtHourRange() {
         
         assertThat(d("Mon 00:00-24:00").openAt(r("00:00-24:00"))).isTrue();
         assertThat(d("Mon 00:00-24:00").openAt(r("00:00-00:01"))).isTrue();
@@ -237,6 +237,24 @@ public class DayOpeningHoursTest extends AbstractPersistenceTest {
         assertThat(d("Mon 08:00-18:00").openAt(r("07:55-08:10"))).isFalse();
         assertThat(d("Mon 08:00-12:00+13:00-17:00").openAt(r("11:59-12:01"))).isFalse();
         assertThat(d("Mon 08:00-12:00+13:00-17:00").openAt(r("12:00-13:00"))).isFalse();
+        
+    }
+
+    @Test
+    public void testOpenAtDayOpeningHours() {
+        
+        assertThat(d("Mon 00:00-24:00").openAt(d("Mon 00:00-24:00"))).isTrue();
+        assertThat(d("Mon 00:00-24:00").openAt(d("Mon 00:00-00:01"))).isTrue();
+        assertThat(d("Mon 00:00-24:00").openAt(d("Mon 23:59-24:00"))).isTrue();
+        assertThat(d("Mon 08:00-12:00+12:00-18:00").openAt(d("Mon 11:55-12:10"))).isTrue();
+        assertThat(d("Mon 08:00-12:00+13:00-17:00").openAt(d("Mon 11:55-12:00"))).isTrue();
+        assertThat(d("Mon 08:00-18:00").openAt(d("Mon 10:00-11:00+12:00-13:00+17:00-18:00"))).isTrue();
+        
+        assertThat(d("Mon 08:00-18:00").openAt(d("Tue 08:00-18:00"))).isFalse();
+        assertThat(d("Mon 08:00-18:00").openAt(d("Mon 07:30-08:00+17:30-18:30"))).isFalse();
+        assertThat(d("Mon 08:00-18:00").openAt(d("Mon 07:55-08:10"))).isFalse();
+        assertThat(d("Mon 08:00-12:00+13:00-17:00").openAt(d("Mon 11:59-12:01"))).isFalse();
+        assertThat(d("Mon 08:00-12:00+13:00-17:00").openAt(d("Mon 12:00-13:00"))).isFalse();
         
     }
     

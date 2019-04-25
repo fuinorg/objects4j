@@ -165,11 +165,10 @@ public final class DayOpeningHours implements ValueObjectWithBaseType<String>, C
         }
         return list;
     }
-    
+
     /**
-     * Determines if this instance contains more than one day.
-     * For example 'FRI 18:00-03:00' will return {@literal true}
-     * while 'FRI 00:00-24:00' will not.<br>
+     * Determines if this instance contains more than one day. For example 'FRI 18:00-03:00' will return {@literal true} while 'FRI
+     * 00:00-24:00' will not.<br>
      * 
      * @return {@literal true} if the time range overlaps into the next day.
      */
@@ -309,6 +308,30 @@ public final class DayOpeningHours implements ValueObjectWithBaseType<String>, C
     public boolean openAt(@NotNull final HourRange range) {
         Contract.requireArgNotNull("range", range);
         return hourRanges.openAt(range);
+    }
+
+    /**
+     * Determines if this instance if "open" at the given time range. It is only allowed to call this method if the hour ranges represents
+     * only one day. This means a value like 'Fri 18:00-03:00' will lead to an error. To avoid this, call the {@link #normalize()} function
+     * before this one and pass the result per day as an argument to this method. If the day of the week of the parameter is different from
+     * this one the method will return {@literal false}.
+     * 
+     * @param range
+     *            Time range to verify.
+     * 
+     * @return {@literal true} if open else {@literal false} if not open.
+     */
+    public boolean openAt(@NotNull final DayOpeningHours other) {
+        Contract.requireArgNotNull("other", other);
+        if (dayOfTheWeek != other.dayOfTheWeek) {
+            return false;
+        }
+        for (final HourRange otherRange : other.hourRanges) {
+            if (!hourRanges.openAt(otherRange)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private static List<Change> changes(final ChangeType type, final DayOfTheWeek dayOfTheWeek, final HourRanges ranges) {
