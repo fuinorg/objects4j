@@ -272,6 +272,28 @@ public class HourRangesTest extends AbstractPersistenceTest {
         
     }
     
+    @Test
+    public void testAdd() {
+        
+        assertThat(h("00:00-24:00").add(h("00:00-24:00"))).isEqualTo(h("00:00-24:00"));
+        assertThat(h("00:00-12:00").add(h("12:00-24:00"))).isEqualTo(h("00:00-24:00"));
+        assertThat(h("06:00-12:00").add(h("12:00-18:00"))).isEqualTo(h("06:00-18:00"));
+        assertThat(h("06:00-12:00").add(h("10:00-18:00"))).isEqualTo(h("06:00-18:00"));
+        assertThat(h("06:00-12:00").add(h("05:00-13:00"))).isEqualTo(h("05:00-13:00"));
+        
+    }
+    
+    @Test
+    public void testRemove() {
+        
+        assertThat(h("00:00-24:00").remove(h("00:00-24:00"))).isNull();
+        assertThat(h("00:00-24:00").remove(h("00:00-00:01"))).isEqualTo(h("00:01-24:00"));
+        assertThat(h("00:00-24:00").remove(h("23:59-24:00"))).isEqualTo(h("00:00-23:59"));
+        assertThat(h("09:00-17:00").remove(h("12:00-13:00"))).isEqualTo(h("09:00-12:00+13:00-17:00"));
+        assertThat(h("09:00-17:00").remove(h("12:00-13:00"))).isEqualTo(h("09:00-12:00+13:00-17:00"));
+        
+        
+    }
 
     private void test(HourRanges from, HourRanges to, Change... changes) {
         org.assertj.core.api.Assertions.assertThat(from.diff(to)).containsOnly(changes);

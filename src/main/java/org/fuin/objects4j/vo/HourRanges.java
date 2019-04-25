@@ -239,9 +239,11 @@ public final class HourRanges extends AbstractStringValueObject implements Itera
     }
 
     /**
-     * Determines if this instance if "open" at the given time range. It is only allowed to call this method if the hour ranges represents
-     * only one day. This means a value like '18:00-03:00' will lead to an error. To avoid this, call the {@link #normalize()} function
-     * before this one and pass the result per day as an argument to this method.
+     * Determines if this instance if "open" at the given time range.<br>
+     * <br>
+     * It is only allowed to call this method if the hour ranges represents only one day. This means a value like '18:00-03:00' will lead to
+     * an error. To avoid this, call the {@link #normalize()} function before this one and pass the result per day as an argument to this
+     * method.
      * 
      * @param range
      *            Time range to verify.
@@ -257,6 +259,63 @@ public final class HourRanges extends AbstractStringValueObject implements Itera
         anded.and(this.toMinutes());
 
         return anded.equals(original);
+
+    }
+
+    /**
+     * Adds some hour ranges to this instance and returns a new one.<br>
+     * <br>
+     * It is only allowed to call this method if the hour ranges represents only one day. This means a value like '18:00-03:00' will lead to
+     * an error. To avoid this, call the {@link #normalize()} function before this one and pass the result per day as an argument to this
+     * method.
+     * 
+     * @param ranges
+     *            Ranges to add.
+     * 
+     * @return New instance with added times.
+     */
+    @NotNull
+    public final HourRanges add(@NotNull final HourRanges other) {
+        Contract.requireArgNotNull("other", other);
+        ensureSingleDayOnly("this", this);
+        ensureSingleDayOnly("other", other);
+
+        final BitSet thisMinutes = this.toMinutes();
+        final BitSet otherMinutes = other.toMinutes();
+        thisMinutes.or(otherMinutes);
+
+        return HourRanges.valueOf(thisMinutes);
+
+    }
+
+    /**
+     * Removes some hour ranges from this instance and returns a new one.<br>
+     * <br>
+     * It is only allowed to call this method if the hour ranges represents only one day. This means a value like '18:00-03:00' will lead to
+     * an error. To avoid this, call the {@link #normalize()} function before this one and pass the result per day as an argument to this
+     * method.
+     * 
+     * @param other
+     *            Ranges to remove.
+     * 
+     * @return New instance with removed times or {@literal null} if all times where removed.
+     */
+    @Nullable
+    public final HourRanges remove(@NotNull final HourRanges other) {
+        Contract.requireArgNotNull("other", other);
+        ensureSingleDayOnly("this", this);
+        ensureSingleDayOnly("other", other);
+
+        final BitSet thisMinutes = this.toMinutes();
+        final BitSet otherMinutes = other.toMinutes();
+        otherMinutes.flip(0, 1440);
+        thisMinutes.and(otherMinutes);
+
+        if (thisMinutes.isEmpty()) {
+            return null;
+        }
+
+        return HourRanges.valueOf(thisMinutes);
 
     }
 
