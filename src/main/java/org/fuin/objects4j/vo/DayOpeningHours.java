@@ -247,7 +247,7 @@ public final class DayOpeningHours implements ValueObjectWithBaseType<String>, C
     public DayOpeningHours addHourRanges(@NotNull final DayOpeningHours other) {
         Contract.requireArgNotNull("other", other);
         if (overlaps(other)) {
-            throw new ConstraintViolationException("The argument 'other' overls with this instance: this=" + this + ", other=" + other);
+            throw new ConstraintViolationException("The argument 'other' overlaps with this instance: this=" + this + ", other=" + other);
         }
         final List<HourRange> ranges = new ArrayList<>();
         for (final HourRange hr : hourRanges) {
@@ -283,6 +283,21 @@ public final class DayOpeningHours implements ValueObjectWithBaseType<String>, C
             changes.add(new Change(ChangeType.ADDED, dayOfTheWeek, hr));
         }
         return changes;
+    }
+
+    /**
+     * Determines if this instance if "open" at the given time range. It is only allowed to call this method if the hour ranges represents
+     * only one day. This means a value like '18:00-03:00' will lead to an error. To avoid this, call the {@link #normalize()} function
+     * before this one and pass the result per day as an argument to this method.
+     * 
+     * @param range
+     *            Time range to verify.
+     * 
+     * @return {@literal true} if open else {@literal false} if not open.
+     */
+    public boolean openAt(@NotNull final HourRange range) {
+        Contract.requireArgNotNull("range", range);
+        return hourRanges.openAt(range);
     }
 
     private static List<Change> changes(final ChangeType type, final DayOfTheWeek dayOfTheWeek, final HourRanges ranges) {
