@@ -253,7 +253,7 @@ public final class DayOpeningHours implements ValueObjectWithBaseType<String>, C
      * an error. To avoid this, call the {@link #normalize()} function before this one and pass the result per day as an argument to this
      * method.
      * 
-     * @param ranges
+     * @param other
      *            Ranges to add.
      * 
      * @return New instance with added times.
@@ -272,7 +272,7 @@ public final class DayOpeningHours implements ValueObjectWithBaseType<String>, C
      * an error. To avoid this, call the {@link #normalize()} function before this one and pass the result per day as an argument to this
      * method.
      * 
-     * @param ranges
+     * @param other
      *            Ranges to add.
      * 
      * @return New instance with added times.
