@@ -18,6 +18,7 @@
 package org.fuin.objects4j.vo;
 
 import java.io.Serializable;
+import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -147,7 +148,7 @@ public final class DayOfTheWeek implements ValueObjectWithBaseType<String>, Comp
         }
         throw new IllegalStateException("Wasn't able to find next day for: " + this);
     }
-    
+
     /**
      * Returns the previous day.
      * 
@@ -165,7 +166,7 @@ public final class DayOfTheWeek implements ValueObjectWithBaseType<String>, Comp
         }
         return SUN;
     }
-    
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -191,7 +192,7 @@ public final class DayOfTheWeek implements ValueObjectWithBaseType<String>, Comp
         }
         return true;
     }
-    
+
     /**
      * Returns the length.
      * 
@@ -200,7 +201,6 @@ public final class DayOfTheWeek implements ValueObjectWithBaseType<String>, Comp
     public final int length() {
         return asBaseType().length();
     }
-
 
     @Override
     public int compareTo(final DayOfTheWeek other) {
@@ -212,7 +212,7 @@ public final class DayOfTheWeek implements ValueObjectWithBaseType<String>, Comp
         }
         return 0;
     }
-    
+
     @Override
     public final Class<String> getBaseType() {
         return String.class;
@@ -221,6 +221,18 @@ public final class DayOfTheWeek implements ValueObjectWithBaseType<String>, Comp
     @Override
     public final String asString() {
         return asBaseType();
+    }
+
+    /**
+     * Converts the instance into java time instance.
+     * 
+     * @return Day of week.
+     */
+    public final DayOfWeek toDayOfWeek() {
+        if (this == PH) {
+            throw new UnsupportedOperationException("Cannot convert public holiday into java time instance");
+        }
+        return DayOfWeek.of(id);
     }
 
     @Override
@@ -267,6 +279,25 @@ public final class DayOfTheWeek implements ValueObjectWithBaseType<String>, Comp
             }
         }
         throw new IllegalArgumentException("Unknown day of week: '" + str + "'");
+    }
+
+    /**
+     * Converts the instance into java time instance.
+     * 
+     * @return Day of week.
+     */
+    @Nullable
+    public static DayOfTheWeek valueOf(@Nullable final DayOfWeek dayOfWeek) {
+        if (dayOfWeek == null) {
+            return null;
+        }
+        final int value = dayOfWeek.getValue();
+        for (final DayOfTheWeek dow : ALL) {
+            if (value == dow.id) {
+                return dow;
+            }
+        }
+        throw new IllegalArgumentException("Unknown day week: " + dayOfWeek);
     }
 
     /**

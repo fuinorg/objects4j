@@ -20,6 +20,8 @@ package org.fuin.objects4j.vo;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
+import java.time.DayOfWeek;
+
 import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.units4j.AbstractPersistenceTest;
 import org.junit.Test;
@@ -74,11 +76,38 @@ public class DayOfTheWeekTest extends AbstractPersistenceTest {
     }
 
     @Test
-    public final void testValueOf() {
-        assertThat(DayOfTheWeek.valueOf(null)).isNull();
+    public final void testValueOfString() {
+        assertThat(DayOfTheWeek.valueOf((String)null)).isNull();
         assertThat(DayOfTheWeek.valueOf("Fri")).isEqualTo(DayOfTheWeek.FRI);
     }
 
+    @Test
+    public final void testToDayOfWeek() {
+
+        assertThat(DayOfTheWeek.MON.toDayOfWeek()).isEqualTo(DayOfWeek.MONDAY);
+        assertThat(DayOfTheWeek.TUE.toDayOfWeek()).isEqualTo(DayOfWeek.TUESDAY);
+        assertThat(DayOfTheWeek.WED.toDayOfWeek()).isEqualTo(DayOfWeek.WEDNESDAY);
+        assertThat(DayOfTheWeek.THU.toDayOfWeek()).isEqualTo(DayOfWeek.THURSDAY);
+        assertThat(DayOfTheWeek.FRI.toDayOfWeek()).isEqualTo(DayOfWeek.FRIDAY);
+        assertThat(DayOfTheWeek.SAT.toDayOfWeek()).isEqualTo(DayOfWeek.SATURDAY);
+        assertThat(DayOfTheWeek.SUN.toDayOfWeek()).isEqualTo(DayOfWeek.SUNDAY);
+        
+    }
+    
+    @Test
+    public final void testValueOfDayOfWeek() {
+
+        assertThat(DayOfTheWeek.valueOf((DayOfWeek)null)).isNull();
+        assertThat(DayOfTheWeek.valueOf(DayOfWeek.MONDAY)).isEqualTo(DayOfTheWeek.MON);
+        assertThat(DayOfTheWeek.valueOf(DayOfWeek.TUESDAY)).isEqualTo(DayOfTheWeek.TUE);
+        assertThat(DayOfTheWeek.valueOf(DayOfWeek.WEDNESDAY)).isEqualTo(DayOfTheWeek.WED);
+        assertThat(DayOfTheWeek.valueOf(DayOfWeek.THURSDAY)).isEqualTo(DayOfTheWeek.THU);
+        assertThat(DayOfTheWeek.valueOf(DayOfWeek.FRIDAY)).isEqualTo(DayOfTheWeek.FRI);
+        assertThat(DayOfTheWeek.valueOf(DayOfWeek.SATURDAY)).isEqualTo(DayOfTheWeek.SAT);
+        assertThat(DayOfTheWeek.valueOf(DayOfWeek.SUNDAY)).isEqualTo(DayOfTheWeek.SUN);
+
+    }
+    
     @Test
     public final void testRequireArgValid() {
 
