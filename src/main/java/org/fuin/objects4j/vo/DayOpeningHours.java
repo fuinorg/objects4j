@@ -316,8 +316,8 @@ public final class DayOpeningHours implements ValueObjectWithBaseType<String>, C
      * before this one and pass the result per day as an argument to this method. If the day of the week of the parameter is different from
      * this one the method will return {@literal false}.
      * 
-     * @param range
-     *            Time range to verify.
+     * @param other
+     *            Day/time ranges to verify.
      * 
      * @return {@literal true} if open else {@literal false} if not open.
      */

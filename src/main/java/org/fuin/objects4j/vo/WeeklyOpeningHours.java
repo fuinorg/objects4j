@@ -236,7 +236,7 @@ public final class WeeklyOpeningHours extends AbstractStringValueObject implemen
      * 
      * 
      * @param dayOpeningHours
-     *            Day & times to verify.
+     *            Day and times to verify.
      * 
      * @return {@literal true} if open else {@literal false} if not open.
      */
