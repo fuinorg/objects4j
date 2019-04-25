@@ -198,6 +198,28 @@ public class WeeklyOpeningHoursTest extends AbstractPersistenceTest {
 
     }
 
+    @Test
+    public void testOpenAt() {
+        
+        assertThat(w("Mon 00:00-24:00").openAt(d("Mon 00:00-24:00"))).isTrue();
+        assertThat(w("Mon 00:00-24:00").openAt(d("Mon 00:00-00:01"))).isTrue();
+        assertThat(w("Mon 00:00-24:00").openAt(d("Mon 23:59-24:00"))).isTrue();
+        assertThat(w("Mon 08:00-12:00+12:00-18:00").openAt(d("Mon 11:55-12:10"))).isTrue();
+        assertThat(w("Mon 08:00-12:00+13:00-17:00").openAt(d("Mon 11:55-12:00"))).isTrue();
+        assertThat(w("Mon-Fri 08:00-18:00").openAt(d("Mon 08:00-12:00"))).isTrue();
+        assertThat(w("Mon-Fri 08:00-18:00,Sat 09:00-13:00").openAt(d("Fri 08:00-18:00"))).isTrue();
+        assertThat(w("Mon-Fri 08:00-18:00,Sat 09:00-13:00").openAt(d("Sat 11:00-12:00"))).isTrue();
+        
+        assertThat(w("Mon 08:00-18:00").openAt(d("Mon 07:30-08:00"))).isFalse();
+        assertThat(w("Mon 08:00-18:00").openAt(d("Mon 07:55-08:10"))).isFalse();
+        assertThat(w("Mon 08:00-12:00+13:00-17:00").openAt(d("Mon 11:59-12:01"))).isFalse();
+        assertThat(w("Mon 08:00-12:00+13:00-17:00").openAt(d("Mon 12:00-13:00"))).isFalse();
+        assertThat(w("Mon-Fri 08:00-18:00,Sat 09:00-13:00").openAt(d("Fri 08:00-18:01"))).isFalse();
+        assertThat(w("Mon-Fri 08:00-18:00,Sat 09:00-13:00").openAt(d("Sat 08:00-14:00"))).isFalse();
+        
+    }
+    
+    
     private WeeklyOpeningHours w(final String str) {
         return new WeeklyOpeningHours(str);
     }

@@ -33,7 +33,6 @@ import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.ui.Prompt;
 import org.fuin.objects4j.vo.DayOpeningHours.Change;
-import org.fuin.objects4j.vo.HourRanges.ChangeType;
 
 /**
  * Represents weekly opening hours separated by a comma ','.<br>
@@ -143,7 +142,7 @@ public final class WeeklyOpeningHours extends AbstractStringValueObject implemen
                 }
             }
         }
-        
+
         Collections.sort(days);
 
         return new WeeklyOpeningHours(days.toArray(new DayOpeningHours[days.size()]));
@@ -156,9 +155,10 @@ public final class WeeklyOpeningHours extends AbstractStringValueObject implemen
     }
 
     /**
-     * Returns the added/removed opening hours from this week to the other one. 
+     * Returns the added/removed opening hours from this week to the other one.
      * 
-     * @param toOther New weekly information to compare with.
+     * @param toOther
+     *            New weekly information to compare with.
      * 
      * @return Changes from this week to the new one.
      */
@@ -170,7 +170,7 @@ public final class WeeklyOpeningHours extends AbstractStringValueObject implemen
         final WeeklyOpeningHours otherNormalized = toOther.normalize();
 
         final List<Change> changes = new ArrayList<>();
-        
+
         for (final DayOpeningHours thisDoh : thisNormalized) {
             final DayOpeningHours otherDoh = otherNormalized.findDay(thisDoh);
             if (otherDoh == null) {
@@ -220,13 +220,43 @@ public final class WeeklyOpeningHours extends AbstractStringValueObject implemen
         }
         return changes;
     }
-    
+
     private DayOpeningHours findDay(final DayOpeningHours toFind) {
         final int idx = weeklyOpeningHours.indexOf(toFind);
         if (idx < 0) {
             return null;
         }
         return weeklyOpeningHours.get(idx);
+    }
+
+    /**
+     * Determines if this instance if "open" at the given day and time ranges. It is only allowed to call this method if the parameter
+     * 'dayOpeningHours' represents only one day. This means a value like 'Fri 18:00-03:00' will lead to an error. To avoid this, call the
+     * {@link DayOpeningHours#normalize()} function before this one and pass the result per day as an argument to this method.
+     * 
+     * 
+     * @param dayOpeningHours
+     *            Day & times to verify.
+     * 
+     * @return {@literal true} if open else {@literal false} if not open.
+     */
+    public boolean openAt(@NotNull final DayOpeningHours dayOpeningHours) {
+        Contract.requireArgNotNull("dayOpeningHours", dayOpeningHours);
+        if (!dayOpeningHours.isNormalized()) {
+            throw new ConstraintViolationException(
+                    "The argument 'dayOpeningHours' is expected to have only hours of a single day, but was: " + dayOpeningHours);
+        }
+
+        final int idx = weeklyOpeningHours.indexOf(dayOpeningHours);
+        if (idx < 0) {
+            return false;
+        }
+        final DayOpeningHours found = weeklyOpeningHours.get(idx);
+        final List<DayOpeningHours> normalized = found.normalize();
+        final DayOpeningHours day = normalized.get(0); 
+        
+        return day.openAt(dayOpeningHours);
+        
     }
 
     @Override
