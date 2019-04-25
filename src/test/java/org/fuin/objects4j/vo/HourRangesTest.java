@@ -201,6 +201,14 @@ public class HourRangesTest extends AbstractPersistenceTest {
         org.assertj.core.api.Assertions.assertThat(h("23:00-22:00").normalize()).containsOnly(h("23:00-24:00"), h("00:00-22:00"));
 
     }
+    
+    @Test
+    public void testIsNormalized() {
+        
+        assertThat(h("00:00-24:00").isNormalized()).isTrue();
+        assertThat(h("18:00-03:00").isNormalized()).isFalse();
+        
+    }    
 
     @Test
     public void testDiffTwoDays() {

@@ -142,6 +142,16 @@ public final class HourRanges extends AbstractStringValueObject implements Itera
     }
 
     /**
+     * Determines if this instance contains logically more than one day. For example '18:00-03:00' will return {@literal true} while
+     * '00:00-24:00' will not.<br>
+     * 
+     * @return {@literal true} if the time range overlaps into the next day.
+     */
+    public final boolean isNormalized() {
+        return normalize().size() == 1;
+    }
+
+    /**
      * Returns the difference when changing this opening hours to the other one.
      * 
      * @param toOther
