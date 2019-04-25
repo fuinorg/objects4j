@@ -247,26 +247,82 @@ public final class DayOpeningHours implements ValueObjectWithBaseType<String>, C
     }
 
     /**
-     * Adds the hours from the given day to this one. It is expected, that the hour ranges do not overlap. The day is ignored.
+     * Adds some hour ranges to this instance and returns a new one.<br>
+     * <br>
+     * It is only allowed to call this method if the hour ranges represents only one day. This means a value like '18:00-03:00' will lead to
+     * an error. To avoid this, call the {@link #normalize()} function before this one and pass the result per day as an argument to this
+     * method.
+     * 
+     * @param ranges
+     *            Ranges to add.
+     * 
+     * @return New instance with added times.
+     */
+    @NotNull
+    public final DayOpeningHours add(@NotNull final HourRanges other) {
+        Contract.requireArgNotNull("other", other);
+        final HourRanges added = this.hourRanges.add(other);
+        return new DayOpeningHours(dayOfTheWeek, added);
+    }
+
+    /**
+     * Adds some hour ranges to this instance and returns a new one. The day of the argument is ignored.<br>
+     * <br>
+     * It is only allowed to call this method if the hour ranges represents only one day. This means a value like '18:00-03:00' will lead to
+     * an error. To avoid this, call the {@link #normalize()} function before this one and pass the result per day as an argument to this
+     * method.
+     * 
+     * @param ranges
+     *            Ranges to add.
+     * 
+     * @return New instance with added times.
+     */
+    @NotNull
+    public final DayOpeningHours add(@NotNull final DayOpeningHours other) {
+        Contract.requireArgNotNull("other", other);
+        return this.add(other.hourRanges);
+    }
+    
+    /**
+     * Removes some hour ranges from this instance and returns a new one.<br>
+     * <br>
+     * It is only allowed to call this method if the hour ranges represents only one day. This means a value like '18:00-03:00' will lead to
+     * an error. To avoid this, call the {@link #normalize()} function before this one and pass the result per day as an argument to this
+     * method.
      * 
      * @param other
-     *            Opening hours to add.
+     *            Ranges to remove.
      * 
-     * @return New instance with added hour ranges.
+     * @return New instance with removed times or {@literal null} if all times where removed.
      */
-    public DayOpeningHours addHourRanges(@NotNull final DayOpeningHours other) {
+    @Nullable
+    public final DayOpeningHours remove(@NotNull final HourRanges other) {
         Contract.requireArgNotNull("other", other);
-        if (overlaps(other)) {
-            throw new ConstraintViolationException("The argument 'other' overlaps with this instance: this=" + this + ", other=" + other);
+        final HourRanges removed = this.hourRanges.remove(other);
+        if (removed == null) {
+            return null;
         }
-        final List<HourRange> ranges = new ArrayList<>();
-        for (final HourRange hr : hourRanges) {
-            ranges.add(hr);
-        }
-        for (final HourRange hr : other.hourRanges) {
-            ranges.add(hr);
-        }
-        return new DayOpeningHours(dayOfTheWeek, new HourRanges(ranges.toArray(new HourRange[ranges.size()])));
+        return new DayOpeningHours(dayOfTheWeek, removed);
+
+    }
+
+    /**
+     * Removes some hour ranges from this instance and returns a new one. The day of the argument is ignored.<br>
+     * <br>
+     * It is only allowed to call this method if the hour ranges represents only one day. This means a value like '18:00-03:00' will lead to
+     * an error. To avoid this, call the {@link #normalize()} function before this one and pass the result per day as an argument to this
+     * method.
+     * 
+     * @param other
+     *            Ranges to remove.
+     * 
+     * @return New instance with removed times or {@literal null} if all times where removed.
+     */
+    @Nullable
+    public final DayOpeningHours remove(@NotNull final DayOpeningHours other) {
+        Contract.requireArgNotNull("other", other);
+        return this.remove(other.hourRanges);
+
     }
 
     /**

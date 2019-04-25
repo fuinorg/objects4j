@@ -137,7 +137,7 @@ public final class WeeklyOpeningHours extends AbstractStringValueObject implemen
                     days.add(normalizedDay);
                 } else {
                     final DayOpeningHours found = days.get(idx);
-                    final DayOpeningHours replacement = found.addHourRanges(normalizedDay);
+                    final DayOpeningHours replacement = found.add(normalizedDay);
                     days.set(idx, replacement);
                 }
             }

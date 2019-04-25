@@ -18,9 +18,11 @@
 package org.fuin.objects4j.vo;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.fuin.objects4j.vo.DayOfTheWeek.FRI;
+import static org.fuin.objects4j.vo.DayOfTheWeek.MON;
+import static org.fuin.objects4j.vo.DayOfTheWeek.SAT;
 import static org.fuin.objects4j.vo.HourRanges.ChangeType.ADDED;
 import static org.fuin.objects4j.vo.HourRanges.ChangeType.REMOVED;
-import static org.fuin.objects4j.vo.DayOfTheWeek.*;
 import static org.junit.Assert.fail;
 
 import org.fuin.objects4j.common.ConstraintViolationException;
@@ -151,12 +153,12 @@ public class DayOpeningHoursTest extends AbstractPersistenceTest {
 
     @Test
     public void testIsNormalized() {
-        
+
         assertThat(d("MON 00:00-24:00").isNormalized()).isTrue();
         assertThat(d("FRI 18:00-03:00").isNormalized()).isFalse();
-        
-    }    
-    
+
+    }
+
     @Test
     public void testDiffDifferentDays() {
 
@@ -221,43 +223,87 @@ public class DayOpeningHoursTest extends AbstractPersistenceTest {
         org.assertj.core.api.Assertions.assertThat(d("Mon 06:00-12:00").asAddedChanges()).containsOnly(c(MON, ADDED, "06:00-12:00"));
         org.assertj.core.api.Assertions.assertThat(d("Mon 06:00-12:00+13:00-17:00").asAddedChanges())
                 .containsOnly(c(MON, ADDED, "06:00-12:00"), c(MON, ADDED, "13:00-17:00"));
-        
+
     }
 
     @Test
     public void testOpenAtHourRange() {
-        
+
         assertThat(d("Mon 00:00-24:00").openAt(r("00:00-24:00"))).isTrue();
         assertThat(d("Mon 00:00-24:00").openAt(r("00:00-00:01"))).isTrue();
         assertThat(d("Mon 00:00-24:00").openAt(r("23:59-24:00"))).isTrue();
         assertThat(d("Mon 08:00-12:00+12:00-18:00").openAt(r("11:55-12:10"))).isTrue();
         assertThat(d("Mon 08:00-12:00+13:00-17:00").openAt(r("11:55-12:00"))).isTrue();
-        
+
         assertThat(d("Mon 08:00-18:00").openAt(r("07:30-08:00"))).isFalse();
         assertThat(d("Mon 08:00-18:00").openAt(r("07:55-08:10"))).isFalse();
         assertThat(d("Mon 08:00-12:00+13:00-17:00").openAt(r("11:59-12:01"))).isFalse();
         assertThat(d("Mon 08:00-12:00+13:00-17:00").openAt(r("12:00-13:00"))).isFalse();
-        
+
     }
 
     @Test
     public void testOpenAtDayOpeningHours() {
-        
+
         assertThat(d("Mon 00:00-24:00").openAt(d("Mon 00:00-24:00"))).isTrue();
         assertThat(d("Mon 00:00-24:00").openAt(d("Mon 00:00-00:01"))).isTrue();
         assertThat(d("Mon 00:00-24:00").openAt(d("Mon 23:59-24:00"))).isTrue();
         assertThat(d("Mon 08:00-12:00+12:00-18:00").openAt(d("Mon 11:55-12:10"))).isTrue();
         assertThat(d("Mon 08:00-12:00+13:00-17:00").openAt(d("Mon 11:55-12:00"))).isTrue();
         assertThat(d("Mon 08:00-18:00").openAt(d("Mon 10:00-11:00+12:00-13:00+17:00-18:00"))).isTrue();
-        
+
         assertThat(d("Mon 08:00-18:00").openAt(d("Tue 08:00-18:00"))).isFalse();
         assertThat(d("Mon 08:00-18:00").openAt(d("Mon 07:30-08:00+17:30-18:30"))).isFalse();
         assertThat(d("Mon 08:00-18:00").openAt(d("Mon 07:55-08:10"))).isFalse();
         assertThat(d("Mon 08:00-12:00+13:00-17:00").openAt(d("Mon 11:59-12:01"))).isFalse();
         assertThat(d("Mon 08:00-12:00+13:00-17:00").openAt(d("Mon 12:00-13:00"))).isFalse();
-        
+
     }
-    
+
+    @Test
+    public void testAddHourRanges() {
+
+        assertThat(d("Mon 00:00-24:00").add(h("00:00-24:00"))).isEqualTo(d("Mon 00:00-24:00"));
+        assertThat(d("Mon 00:00-12:00").add(h("12:00-24:00"))).isEqualTo(d("Mon 00:00-24:00"));
+        assertThat(d("Mon 06:00-12:00").add(h("12:00-18:00"))).isEqualTo(d("Mon 06:00-18:00"));
+        assertThat(d("Mon 06:00-12:00").add(h("10:00-18:00"))).isEqualTo(d("Mon 06:00-18:00"));
+        assertThat(d("Mon 06:00-12:00").add(h("05:00-13:00"))).isEqualTo(d("Mon 05:00-13:00"));
+
+    }
+
+    @Test
+    public void testAddDayOpeningHours() {
+
+        assertThat(d("Mon 00:00-24:00").add(d("Mon 00:00-24:00"))).isEqualTo(d("Mon 00:00-24:00"));
+        assertThat(d("Mon 00:00-12:00").add(d("Mon 12:00-24:00"))).isEqualTo(d("Mon 00:00-24:00"));
+        assertThat(d("Mon 06:00-12:00").add(d("Mon 12:00-18:00"))).isEqualTo(d("Mon 06:00-18:00"));
+        assertThat(d("Mon 06:00-12:00").add(d("Mon 10:00-18:00"))).isEqualTo(d("Mon 06:00-18:00"));
+        assertThat(d("Mon 06:00-12:00").add(d("Mon 05:00-13:00"))).isEqualTo(d("Mon 05:00-13:00"));
+
+    }
+
+    @Test
+    public void testRemoveHourRanges() {
+
+        assertThat(d("Mon 00:00-24:00").remove(h("00:00-24:00"))).isNull();
+        assertThat(d("Mon 00:00-24:00").remove(h("00:00-00:01"))).isEqualTo(d("Mon 00:01-24:00"));
+        assertThat(d("Mon 00:00-24:00").remove(h("23:59-24:00"))).isEqualTo(d("Mon 00:00-23:59"));
+        assertThat(d("Mon 09:00-17:00").remove(h("12:00-13:00"))).isEqualTo(d("Mon 09:00-12:00+13:00-17:00"));
+        assertThat(d("Mon 09:00-17:00").remove(h("12:00-13:00"))).isEqualTo(d("Mon 09:00-12:00+13:00-17:00"));
+
+    }
+
+    @Test
+    public void testRemoveDayOpeningHours() {
+
+        assertThat(d("Mon 00:00-24:00").remove(d("Mon 00:00-24:00"))).isNull();
+        assertThat(d("Mon 00:00-24:00").remove(d("Mon 00:00-00:01"))).isEqualTo(d("Mon 00:01-24:00"));
+        assertThat(d("Mon 00:00-24:00").remove(d("Mon 23:59-24:00"))).isEqualTo(d("Mon 00:00-23:59"));
+        assertThat(d("Mon 09:00-17:00").remove(d("Mon 12:00-13:00"))).isEqualTo(d("Mon 09:00-12:00+13:00-17:00"));
+        assertThat(d("Mon 09:00-17:00").remove(d("Mon 12:00-13:00"))).isEqualTo(d("Mon 09:00-12:00+13:00-17:00"));
+
+    }
+
     private void test(DayOpeningHours from, DayOpeningHours to, Change... changes) {
         org.assertj.core.api.Assertions.assertThat(from.diff(to)).containsOnly(changes);
     }
@@ -265,7 +311,11 @@ public class DayOpeningHoursTest extends AbstractPersistenceTest {
     private HourRange r(final String str) {
         return new HourRange(str);
     }
-    
+
+    private HourRanges h(final String str) {
+        return new HourRanges(str);
+    }
+
     private DayOpeningHours d(final String str) {
         return new DayOpeningHours(str);
     }
