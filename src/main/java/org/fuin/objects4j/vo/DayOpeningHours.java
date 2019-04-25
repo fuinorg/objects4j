@@ -165,6 +165,17 @@ public final class DayOpeningHours implements ValueObjectWithBaseType<String>, C
         }
         return list;
     }
+    
+    /**
+     * Determines if this instance contains more than one day.
+     * For example 'FRI 18:00-03:00' will return {@literal true}
+     * while 'FRI 00:00-24:00' will not.<br>
+     * 
+     * @return {@literal true} if the time range overlaps into the next day.
+     */
+    public boolean isNormalized() {
+        return hourRanges.isNormalized();
+    }
 
     /**
      * Returns the difference when changing this opening hours to the other one. The day of the week must be equal for both compared

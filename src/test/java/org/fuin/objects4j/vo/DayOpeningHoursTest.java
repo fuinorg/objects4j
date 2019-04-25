@@ -150,6 +150,14 @@ public class DayOpeningHoursTest extends AbstractPersistenceTest {
     }
 
     @Test
+    public void testIsNormalized() {
+        
+        assertThat(d("MON 00:00-24:00").isNormalized()).isTrue();
+        assertThat(d("FRI 18:00-03:00").isNormalized()).isFalse();
+        
+    }    
+    
+    @Test
     public void testDiffDifferentDays() {
 
         try {
