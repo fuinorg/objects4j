@@ -217,14 +217,14 @@ public class HourRangesTest extends AbstractPersistenceTest {
             h("18:00-03:00").diff(h("18:00-23:00"));
             fail();
         } catch (final ConstraintViolationException ex) {
-            assertThat(ex.getMessage()).contains("from=[18:00-24:00, 00:00-03:00]");
+            assertThat(ex.getMessage()).contains("from=18:00-03:00");
         }
 
         try {
             h("18:00-23:00").diff(h("18:00-03:00"));
             fail();
         } catch (final ConstraintViolationException ex) {
-            assertThat(ex.getMessage()).contains("to=[18:00-24:00, 00:00-03:00]");
+            assertThat(ex.getMessage()).contains("to=18:00-03:00");
         }
 
     }
