@@ -198,10 +198,9 @@ public final class HourRanges extends AbstractStringValueObject implements Itera
     }
 
     private static void ensureSingleDayOnly(final String name, final HourRanges ranges) {
-        final List<HourRanges> list = ranges.normalize();
-        if (list.size() > 1) {
+        if (!ranges.isNormalized()) {
             throw new ConstraintViolationException("Cannot calculate the difference for hour ranges that spans two days (" + name + "="
-                    + list + ") - Please use 'normalize()' method and pass then the hour ranges per day to this method!");
+                    + ranges + ") - Please use 'normalize()' method and pass then the hour ranges per day to this method!");
         }
     }
 
