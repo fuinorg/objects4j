@@ -31,31 +31,40 @@ import org.fuin.units4j.AbstractPersistenceTest;
 import org.junit.Test;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
 
 // CHECKSTYLE:OFF
 public class HourRangesTest extends AbstractPersistenceTest {
 
-    public final void testEqualsHashCode() {
-        EqualsVerifier.forClass(HourRanges.class).verify();
-    }
-
     @Test
-    public final void testConstruct() {
+    public final void testEqualsHashCode() {
+
+        EqualsVerifier.forClass(HourRanges.class).withRedefinedSuperclass().withIgnoredFields("ranges").suppress(Warning.NULL_FIELDS)
+                .verify();
 
         assertThat(h("13:00-14:00")).isEqualTo(h(r("13:00-14:00")));
+        assertThat(h("13:00-14:00")).isNotEqualTo(h(r("13:00-14:01")));
+
         assertThat(h("09:00-12:00+13:00-17:00")).isEqualTo(h(r("09:00-12:00"), r("13:00-17:00")));
+        assertThat(h("09:00-12:00+13:00-17:00")).isNotEqualTo(h(r("09:00-12:01"), r("13:00-17:00")));
 
         assertThat(h("13:00-14:00+16:00-17:00")).isEqualTo(h("16:00-17:00+13:00-14:00"));
-        assertThat(h("13:00-14:00+16:00-17:00")).isEqualTo(h(r("13:00-14:00"),r("16:00-17:00")));
+        assertThat(h("13:00-14:00+16:00-17:00")).isEqualTo(h(r("13:00-14:00"), r("16:00-17:00")));
         assertThat(h(r("13:00-14:00"), r("16:00-17:00"))).isEqualTo(h("13:00-14:00+16:00-17:00"));
-        assertThat(h(r("13:00-14:00"), r("16:00-17:00"))).isEqualTo(h(r("13:00-14:00"),r("16:00-17:00")));
+        assertThat(h(r("13:00-14:00"), r("16:00-17:00"))).isEqualTo(h(r("13:00-14:00"), r("16:00-17:00")));
 
         assertThat(h(r("13:00-14:00"), r("16:00-17:00")).asBaseType()).isEqualTo("13:00-14:00+16:00-17:00");
         assertThat(h("13:00-14:00+16:00-17:00").asBaseType()).isEqualTo("13:00-14:00+16:00-17:00");
         assertThat(h(r("16:00-17:00"), r("13:00-14:00")).asBaseType()).isEqualTo("13:00-14:00+16:00-17:00");
         assertThat(h("16:00-17:00+13:00-14:00").asBaseType()).isEqualTo("13:00-14:00+16:00-17:00");
-        
-        
+
+        assertThat(h("18:00-03:00+03:00-06:00").asBaseType()).isEqualTo("03:00-06:00+18:00-03:00");
+
+    }
+
+    @Test
+    public final void testConstruct() {
+
         try {
             new HourRanges("13:00-14:00*17:00-19:00");
             fail();
@@ -63,7 +72,7 @@ public class HourRangesTest extends AbstractPersistenceTest {
             assertThat(ex.getMessage()).isEqualTo(
                     "The argument 'ranges' does not represent a valid hour range like '09:00-12:00+13:00-17:00': '13:00-14:00*17:00-19:00'");
         }
-
+        
     }
 
     @Test
@@ -301,6 +310,27 @@ public class HourRangesTest extends AbstractPersistenceTest {
         assertThat(h("00:00-24:00").remove(h("23:59-24:00"))).isEqualTo(h("00:00-23:59"));
         assertThat(h("09:00-17:00").remove(h("12:00-13:00"))).isEqualTo(h("09:00-12:00+13:00-17:00"));
         assertThat(h("09:00-17:00").remove(h("12:00-13:00"))).isEqualTo(h("09:00-12:00+13:00-17:00"));
+
+    }
+
+    @Test
+    public void testIsSimilarTo() {
+
+        assertThat(h("13:00-14:00+14:00-16:00").isSimilarTo(h("13:00-16:00"))).isTrue();
+        assertThat(h("18:00-21:00+21:00-03:00").isSimilarTo(h("18:00-03:00"))).isTrue();
+        assertThat(h("12:00-15:00+18:00-21:00+21:00-03:00").isSimilarTo(h("12:00-15:00+18:00-03:00"))).isTrue();
+
+        assertThat(h("15:00-16:00+13:00-14:00").isSimilarTo(h("13:00-16:00"))).isFalse();
+        
+    }
+
+    @Test
+    public void testCompress() {
+
+        assertThat(h("13:00-14:00+14:00-16:00").compress()).isEqualTo(h("13:00-16:00"));
+        assertThat(h("18:00-21:00+21:00-03:00").compress()).isEqualTo(h("18:00-03:00"));
+        assertThat(h("00:00-06:00+06:00-18:00+18:00-24:00").compress()).isEqualTo(h("00:00-24:00"));
+        assertThat(h("12:00-15:00+18:00-21:00+21:00-03:00").compress()).isEqualTo(h("12:00-15:00+18:00-03:00"));
 
     }
 
