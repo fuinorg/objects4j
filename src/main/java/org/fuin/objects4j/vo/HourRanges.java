@@ -93,6 +93,7 @@ public final class HourRanges extends AbstractStringValueObject implements Itera
                 this.ranges.add(range);
             }
         }
+        Collections.sort(this.ranges);
     }
 
     @Override

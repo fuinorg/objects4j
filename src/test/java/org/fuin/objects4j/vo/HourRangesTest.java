@@ -42,10 +42,20 @@ public class HourRangesTest extends AbstractPersistenceTest {
     @Test
     public final void testConstruct() {
 
-        assertThat(new HourRanges("13:00-14:00")).isEqualTo(new HourRanges(new HourRange("13:00-14:00")));
-        assertThat(new HourRanges("09:00-12:00+13:00-17:00"))
-                .isEqualTo(new HourRanges(new HourRange("09:00-12:00"), new HourRange("13:00-17:00")));
+        assertThat(h("13:00-14:00")).isEqualTo(h(r("13:00-14:00")));
+        assertThat(h("09:00-12:00+13:00-17:00")).isEqualTo(h(r("09:00-12:00"), r("13:00-17:00")));
 
+        assertThat(h("13:00-14:00+16:00-17:00")).isEqualTo(h("16:00-17:00+13:00-14:00"));
+        assertThat(h("13:00-14:00+16:00-17:00")).isEqualTo(h(r("13:00-14:00"),r("16:00-17:00")));
+        assertThat(h(r("13:00-14:00"), r("16:00-17:00"))).isEqualTo(h("13:00-14:00+16:00-17:00"));
+        assertThat(h(r("13:00-14:00"), r("16:00-17:00"))).isEqualTo(h(r("13:00-14:00"),r("16:00-17:00")));
+
+        assertThat(h(r("13:00-14:00"), r("16:00-17:00")).asBaseType()).isEqualTo("13:00-14:00+16:00-17:00");
+        assertThat(h("13:00-14:00+16:00-17:00").asBaseType()).isEqualTo("13:00-14:00+16:00-17:00");
+        assertThat(h(r("16:00-17:00"), r("13:00-14:00")).asBaseType()).isEqualTo("13:00-14:00+16:00-17:00");
+        assertThat(h("16:00-17:00+13:00-14:00").asBaseType()).isEqualTo("13:00-14:00+16:00-17:00");
+        
+        
         try {
             new HourRanges("13:00-14:00*17:00-19:00");
             fail();
@@ -102,18 +112,18 @@ public class HourRangesTest extends AbstractPersistenceTest {
                 .isEqualTo(HourRanges.valueOf("08:00-12:00+13:00-17:00"));
 
     }
-    
+
     @Test
     public final void testToMinutesTwoDays() {
-        
+
         try {
             new HourRanges("18:00-03:00").toMinutes();
             fail();
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).contains("two days");
         }
-        
-    }    
+
+    }
 
     @Test
     public final void testToMinutesSingleDay() {
@@ -201,14 +211,14 @@ public class HourRangesTest extends AbstractPersistenceTest {
         org.assertj.core.api.Assertions.assertThat(h("23:00-22:00").normalize()).containsOnly(h("23:00-24:00"), h("00:00-22:00"));
 
     }
-    
+
     @Test
     public void testIsNormalized() {
-        
+
         assertThat(h("00:00-24:00").isNormalized()).isTrue();
         assertThat(h("18:00-03:00").isNormalized()).isFalse();
-        
-    }    
+
+    }
 
     @Test
     public void testDiffTwoDays() {
@@ -228,7 +238,7 @@ public class HourRangesTest extends AbstractPersistenceTest {
         }
 
     }
-    
+
     @Test
     public void testDiffSingleDay() {
 
@@ -245,54 +255,53 @@ public class HourRangesTest extends AbstractPersistenceTest {
         test(h("09:00-12:00"), h("13:00-17:00"), c(REMOVED, "09:00-12:00"), c(ADDED, "13:00-17:00"));
 
     }
-    
+
     @Test
     public void testOverlaps() {
-        
+
         assertThat(h("00:00-24:00").overlaps(h("00:00-24:00"))).isTrue();
         assertThat(h("00:00-12:00").overlaps(h("12:00-24:00"))).isFalse();
         assertThat(h("00:00-00:02").overlaps(h("00:01-00:02"))).isTrue();
         assertThat(h("00:08-17:00").overlaps(h("08:00-12:00+12:00-17:00"))).isTrue();
-        
+
     }
-    
+
     @Test
     public void testOpenAt() {
-        
+
         assertThat(h("00:00-24:00").openAt(r("00:00-24:00"))).isTrue();
         assertThat(h("00:00-24:00").openAt(r("00:00-00:01"))).isTrue();
         assertThat(h("00:00-24:00").openAt(r("23:59-24:00"))).isTrue();
         assertThat(h("08:00-12:00+12:00-18:00").openAt(r("11:55-12:10"))).isTrue();
         assertThat(h("08:00-12:00+13:00-17:00").openAt(r("11:55-12:00"))).isTrue();
-        
+
         assertThat(h("08:00-18:00").openAt(r("07:30-08:00"))).isFalse();
         assertThat(h("08:00-18:00").openAt(r("07:55-08:10"))).isFalse();
         assertThat(h("08:00-12:00+13:00-17:00").openAt(r("11:59-12:01"))).isFalse();
         assertThat(h("08:00-12:00+13:00-17:00").openAt(r("12:00-13:00"))).isFalse();
-        
+
     }
-    
+
     @Test
     public void testAdd() {
-        
+
         assertThat(h("00:00-24:00").add(h("00:00-24:00"))).isEqualTo(h("00:00-24:00"));
         assertThat(h("00:00-12:00").add(h("12:00-24:00"))).isEqualTo(h("00:00-24:00"));
         assertThat(h("06:00-12:00").add(h("12:00-18:00"))).isEqualTo(h("06:00-18:00"));
         assertThat(h("06:00-12:00").add(h("10:00-18:00"))).isEqualTo(h("06:00-18:00"));
         assertThat(h("06:00-12:00").add(h("05:00-13:00"))).isEqualTo(h("05:00-13:00"));
-        
+
     }
-    
+
     @Test
     public void testRemove() {
-        
+
         assertThat(h("00:00-24:00").remove(h("00:00-24:00"))).isNull();
         assertThat(h("00:00-24:00").remove(h("00:00-00:01"))).isEqualTo(h("00:01-24:00"));
         assertThat(h("00:00-24:00").remove(h("23:59-24:00"))).isEqualTo(h("00:00-23:59"));
         assertThat(h("09:00-17:00").remove(h("12:00-13:00"))).isEqualTo(h("09:00-12:00+13:00-17:00"));
         assertThat(h("09:00-17:00").remove(h("12:00-13:00"))).isEqualTo(h("09:00-12:00+13:00-17:00"));
-        
-        
+
     }
 
     private void test(HourRanges from, HourRanges to, Change... changes) {
@@ -306,9 +315,13 @@ public class HourRangesTest extends AbstractPersistenceTest {
     private HourRange r(final String str) {
         return new HourRange(str);
     }
-    
+
     private HourRanges h(final String str) {
         return new HourRanges(str);
+    }
+
+    private HourRanges h(final HourRange... ranges) {
+        return new HourRanges(ranges);
     }
 
 }
