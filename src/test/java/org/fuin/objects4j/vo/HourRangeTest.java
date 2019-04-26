@@ -250,5 +250,21 @@ public class HourRangeTest extends AbstractPersistenceTest {
 
     }
 
+    @Test
+    public void testGetOpenMinutes() {
+        
+        assertThat(new HourRange("00:00-24:00").getOpenMinutes()).isEqualTo(1440);
+        assertThat(new HourRange("00:00-23:59").getOpenMinutes()).isEqualTo(1439);
+        
+    }
+
+    @Test
+    public void testGetClosedMinutes() {
+        
+        assertThat(new HourRange("00:00-24:00").getClosedMinutes()).isEqualTo(0);
+        assertThat(new HourRange("00:00-23:59").getClosedMinutes()).isEqualTo(1);
+        
+    }
+    
 }
 // CHECKSTYLE:ON

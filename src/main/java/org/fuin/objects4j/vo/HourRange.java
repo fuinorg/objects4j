@@ -200,7 +200,25 @@ public final class HourRange extends AbstractStringValueObject {
         }
         return ranges;
     }
+    
+    /**
+     * Returns the number of minutes the instance is 'open'.
+     * 
+     * @return Minutes (1-1440)
+     */
+    public final int getOpenMinutes() {
+        return to.toMinutes() - from.toMinutes();
+    }
 
+    /**
+     * Returns the number of minutes the instance is 'closed'.
+     * 
+     * @return Minutes (0-1439)
+     */
+    public final int getClosedMinutes() {
+        return 1440 - getOpenMinutes();
+    }
+    
     /**
      * Appends a single hour range to this one and returns a new instance. This is only allowed if this instance has 'to=24:00' and
      * 'from=00:00' for the other instance.
@@ -219,9 +237,9 @@ public final class HourRange extends AbstractStringValueObject {
             throw new ConstraintViolationException(
                     "The 'from' hour value of the other instance is not '00:00', but was: '" + other.from + "'");
         }
-        final int restMinutes = 1440 - (this.to.toMinutes() - this.from.toMinutes());
-        final int otherMinutes = other.to.toMinutes() - other.from.toMinutes();
-        if (otherMinutes > restMinutes) {
+        final int thisClosedMinutes = getClosedMinutes();
+        final int otherOpenMinutes = other.getOpenMinutes();
+        if (otherOpenMinutes > thisClosedMinutes) {
             throw new ConstraintViolationException(
                     "The hour range of the other instance cannot be greater than hours not used by this instance: this='" + this
                             + "', other='" + other + "'");
