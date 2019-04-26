@@ -25,12 +25,14 @@ import org.fuin.units4j.AbstractPersistenceTest;
 import org.junit.Test;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
 
 // CHECKSTYLE:OFF
 public class HourRangeTest extends AbstractPersistenceTest {
 
+    @Test
     public final void testEqualsHashCode() {
-        EqualsVerifier.forClass(HourRange.class).verify();
+        EqualsVerifier.forClass(HourRange.class).withRedefinedSuperclass().suppress(Warning.NULL_FIELDS).verify();
     }
 
     @Test
@@ -43,60 +45,59 @@ public class HourRangeTest extends AbstractPersistenceTest {
             new HourRange("13-14:00");
             fail();
         } catch (final ConstraintViolationException ex) {
-            assertThat(ex.getMessage())
-                    .isEqualTo("The argument 'hourRange' does not represent a valid hour range like '00:00-24:00' or '06:00-21:00': '13-14:00'");
+            assertThat(ex.getMessage()).isEqualTo(
+                    "The argument 'hourRange' does not represent a valid hour range like '00:00-24:00' or '06:00-21:00': '13-14:00'");
         }
 
         try {
             new HourRange(null, new Hour("12:00"));
             fail();
         } catch (final ConstraintViolationException ex) {
-            assertThat(ex.getMessage())
-                    .isEqualTo("The argument 'from' cannot be null");
+            assertThat(ex.getMessage()).isEqualTo("The argument 'from' cannot be null");
         }
-        
+
         try {
             new HourRange(new Hour("12:00"), null);
             fail();
         } catch (final ConstraintViolationException ex) {
-            assertThat(ex.getMessage())
-                    .isEqualTo("The argument 'to' cannot be null");
+            assertThat(ex.getMessage()).isEqualTo("The argument 'to' cannot be null");
         }
-        
+
     }
-    
+
     @Test
     public final void testOverlaps() {
 
         assertThat(new HourRange("12:00-18:00").overlaps(new HourRange("12:00-18:00"))).isTrue();
-        
+
         assertThat(new HourRange("12:00-18:00").overlaps(new HourRange("11:00-11:59"))).isFalse();
         assertThat(new HourRange("11:00-11:59").overlaps(new HourRange("12:00-18:00"))).isFalse();
-        
+
         assertThat(new HourRange("12:00-18:00").overlaps(new HourRange("11:59-12:00"))).isTrue();
         assertThat(new HourRange("11:59-12:00").overlaps(new HourRange("12:00-18:00"))).isTrue();
-        
+
         assertThat(new HourRange("12:00-18:00").overlaps(new HourRange("13:00-17:00"))).isTrue();
         assertThat(new HourRange("13:00-17:00").overlaps(new HourRange("12:00-18:00"))).isTrue();
-        
+
         assertThat(new HourRange("12:00-18:00").overlaps(new HourRange("18:00-18:01"))).isTrue();
         assertThat(new HourRange("18:00-18:01").overlaps(new HourRange("12:00-18:00"))).isTrue();
-        
+
         assertThat(new HourRange("12:00-18:00").overlaps(new HourRange("18:01-18:02"))).isFalse();
         assertThat(new HourRange("18:01-18:02").overlaps(new HourRange("12:00-18:00"))).isFalse();
-        
+
     }
 
     @Test
     public final void testNormalize() {
-        
-        org.assertj.core.api.Assertions.assertThat(new HourRange("18:00-03:00").normalize()).containsExactly(new HourRange("18:00-24:00"), new HourRange("00:00-03:00"));
-        org.assertj.core.api.Assertions.assertThat(new HourRange("09:00-06:00").normalize()).containsExactly(new HourRange("09:00-24:00"), new HourRange("00:00-06:00"));
+
+        org.assertj.core.api.Assertions.assertThat(new HourRange("18:00-03:00").normalize()).containsExactly(new HourRange("18:00-24:00"),
+                new HourRange("00:00-03:00"));
+        org.assertj.core.api.Assertions.assertThat(new HourRange("09:00-06:00").normalize()).containsExactly(new HourRange("09:00-24:00"),
+                new HourRange("00:00-06:00"));
         org.assertj.core.api.Assertions.assertThat(new HourRange("18:00-19:00").normalize()).containsExactly(new HourRange("18:00-19:00"));
         org.assertj.core.api.Assertions.assertThat(new HourRange("00:00-24:00").normalize()).containsExactly(new HourRange("00:00-24:00"));
-        
+
     }
-    
 
     @Test
     public final void testIsValidTRUE() {
@@ -131,7 +132,7 @@ public class HourRangeTest extends AbstractPersistenceTest {
         assertThat(HourRange.isValid("01:00-00:00")).isFalse();
 
     }
-    
+
     @Test
     public final void testValueOf() {
         assertThat(HourRange.valueOf(null)).isNull();
@@ -183,29 +184,71 @@ public class HourRangeTest extends AbstractPersistenceTest {
         commitTransaction();
 
     }
-    
+
     @Test
     public void testToMinutesMultipleDays() {
-        
+
         try {
             new HourRange("18:00-03:00").toMinutes();
             fail();
         } catch (final IllegalArgumentException ex) {
             assertThat(ex.getMessage()).contains("[18:00-24:00, 00:00-03:00]");
         }
-        
+
     }
-    
+
     @Test
     public void testToMinutesSingleDay() {
-        
+
         assertThat(new HourRange("00:00-00:01").toMinutes()).isEqualTo(new MinutesBitSetBuilder().minute(0).build());
         assertThat(new HourRange("11:00-12:00").toMinutes()).isEqualTo(new MinutesBitSetBuilder().hour(11).build());
         assertThat(new HourRange("11:15-11:30").toMinutes()).isEqualTo(new MinutesBitSetBuilder().hourMinutes(11, 15, 30).build());
         assertThat(new HourRange("00:00-24:00").toMinutes()).isEqualTo(new MinutesBitSetBuilder().fromTo(0, 0, 24, 00).build());
         assertThat(new HourRange("23:59-24:00").toMinutes()).isEqualTo(new MinutesBitSetBuilder().minute(1439).build());
-        
+
     }
-    
+
+    @Test
+    public void testJoinWithNextDayFails() {
+
+        try {
+            new HourRange("18:00-23:00").joinWithNextDay(new HourRange("00:00-03:00"));
+            fail();
+        } catch (final ConstraintViolationException ex) {
+            assertThat(ex.getMessage()).isEqualTo("The 'to' hour value of this instance is not '24:00', but was: '23:00'");
+        }
+
+        try {
+            new HourRange("18:00-24:00").joinWithNextDay(new HourRange("01:00-03:00"));
+            fail();
+        } catch (final ConstraintViolationException ex) {
+            assertThat(ex.getMessage()).isEqualTo("The 'from' hour value of the other instance is not '00:00', but was: '01:00'");
+        }
+
+        try {
+            new HourRange("00:00-24:00").joinWithNextDay(new HourRange("00:00-03:00"));
+            fail();
+        } catch (final ConstraintViolationException ex) {
+            assertThat(ex.getMessage()).isEqualTo("The hour range of the other instance cannot be greater than hours not used by this instance: this='00:00-24:00', other='00:00-03:00'");
+        }
+
+        try {
+            new HourRange("00:01-24:00").joinWithNextDay(new HourRange("00:00-00:02"));
+            fail();
+        } catch (final ConstraintViolationException ex) {
+            assertThat(ex.getMessage()).isEqualTo("The hour range of the other instance cannot be greater than hours not used by this instance: this='00:01-24:00', other='00:00-00:02'");
+        }
+
+    }
+
+    @Test
+    public void testJoinWithNextDayOK() {
+
+        assertThat(new HourRange("18:00-24:00").joinWithNextDay(new HourRange("00:00-03:00"))).isEqualTo(new HourRange("18:00-03:00"));
+        assertThat(new HourRange("01:00-24:00").joinWithNextDay(new HourRange("00:00-01:00"))).isEqualTo(new HourRange("00:00-24:00"));
+        assertThat(new HourRange("00:01-24:00").joinWithNextDay(new HourRange("00:00-00:01"))).isEqualTo(new HourRange("00:00-24:00"));
+
+    }
+
 }
 // CHECKSTYLE:ON

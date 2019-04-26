@@ -133,13 +133,13 @@ public final class HourRange extends AbstractStringValueObject {
      */
     public final BitSet toMinutes() {
         ensureSingleDayOnly(this);
-        
+
         final BitSet minutes = new BitSet(1440);
         for (int i = from.toMinutes(); i < to.toMinutes(); i++) {
             minutes.set(i);
         }
         return minutes;
-        
+
     }
 
     private static void ensureSingleDayOnly(final HourRange range) {
@@ -199,6 +199,37 @@ public final class HourRange extends AbstractStringValueObject {
             ranges.add(this);
         }
         return ranges;
+    }
+
+    /**
+     * Appends a single hour range to this one and returns a new instance. This is only allowed if this instance has 'to=24:00' and
+     * 'from=00:00' for the other instance.
+     * 
+     * @param other
+     *            Range start starts with '00:00'
+     * 
+     * @return New instance with "from" taken from this instance and 'to' taken from the other one.
+     */
+    public HourRange joinWithNextDay(@NotNull final HourRange other) {
+        Contract.requireArgNotNull("other", other);
+        if (!this.to.equals(new Hour(24, 0))) {
+            throw new ConstraintViolationException("The 'to' hour value of this instance is not '24:00', but was: '" + this.to + "'");
+        }
+        if (!other.from.equals(new Hour(0, 0))) {
+            throw new ConstraintViolationException(
+                    "The 'from' hour value of the other instance is not '00:00', but was: '" + other.from + "'");
+        }
+        final int restMinutes = 1440 - (this.to.toMinutes() - this.from.toMinutes());
+        final int otherMinutes = other.to.toMinutes() - other.from.toMinutes();
+        if (otherMinutes > restMinutes) {
+            throw new ConstraintViolationException(
+                    "The hour range of the other instance cannot be greater than hours not used by this instance: this='" + this
+                            + "', other='" + other + "'");
+        }
+        if (this.from.equals(other.to)) {
+            return new HourRange("00:00-24:00");
+        }
+        return new HourRange(this.from, other.to);
     }
 
     /**
@@ -271,5 +302,4 @@ public final class HourRange extends AbstractStringValueObject {
 
     }
 
-    
 }
