@@ -255,6 +255,9 @@ public class HourRangeTest extends AbstractPersistenceTest {
         
         assertThat(new HourRange("00:00-24:00").getOpenMinutes()).isEqualTo(1440);
         assertThat(new HourRange("00:00-23:59").getOpenMinutes()).isEqualTo(1439);
+
+        // The minutes from '00:00-03:00' are not counted because they are in the next day
+        assertThat(new HourRange("21:00-03:00").getOpenMinutes()).isEqualTo(180);
         
     }
 
@@ -263,6 +266,9 @@ public class HourRangeTest extends AbstractPersistenceTest {
         
         assertThat(new HourRange("00:00-24:00").getClosedMinutes()).isEqualTo(0);
         assertThat(new HourRange("00:00-23:59").getClosedMinutes()).isEqualTo(1);
+
+        // The minutes from '00:00-03:00' are not counted because they are in the next day
+        assertThat(new HourRange("21:00-03:00").getClosedMinutes()).isEqualTo(1260);
         
     }
     

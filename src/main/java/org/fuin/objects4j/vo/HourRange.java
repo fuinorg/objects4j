@@ -203,15 +203,20 @@ public final class HourRange extends AbstractStringValueObject {
     
     /**
      * Returns the number of minutes the instance is 'open'.
+     * CAUTION: Minutes that overlap to the next day are ignored!
+     * This means '21:00-03:00' returns 180 minutes (and not 360).
      * 
      * @return Minutes (1-1440)
      */
     public final int getOpenMinutes() {
-        return to.toMinutes() - from.toMinutes();
+        final HourRange hr = normalize().get(0);        
+        return hr.to.toMinutes() - hr.from.toMinutes();
     }
 
     /**
      * Returns the number of minutes the instance is 'closed'.
+     * CAUTION: Minutes that overlap to the next day are ignored!
+     * This means '21:00-03:00' returns 1260 minutes.
      * 
      * @return Minutes (0-1439)
      */
