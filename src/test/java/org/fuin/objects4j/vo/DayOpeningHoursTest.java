@@ -45,6 +45,9 @@ public class DayOpeningHoursTest extends AbstractPersistenceTest {
 
         assertThat(new DayOpeningHours("Mon 13:00-14:00"))
                 .isEqualTo(new DayOpeningHours(DayOfTheWeek.valueOf("Mon"), new HourRanges("13:00-14:00")));
+        
+        assertThat(new DayOpeningHours("Mon 13:00-14:00").getDayOfTheWeek()).isSameAs(DayOfTheWeek.MON);
+        assertThat(new DayOpeningHours("Mon 13:00-14:00").getHourRanges()).isEqualTo(new HourRanges("13:00-14:00"));
 
         try {
             new DayOpeningHours("Monday 13-14:00");

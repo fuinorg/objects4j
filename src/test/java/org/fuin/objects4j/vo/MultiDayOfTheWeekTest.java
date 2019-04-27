@@ -80,6 +80,7 @@ public class MultiDayOfTheWeekTest extends AbstractPersistenceTest {
     public final void testValueOf() {
         assertThat(MultiDayOfTheWeek.valueOf(null)).isNull();
         assertThat(MultiDayOfTheWeek.valueOf("Mon/Tue")).isEqualTo(new MultiDayOfTheWeek(DayOfTheWeek.MON, DayOfTheWeek.TUE));
+        assertThat(MultiDayOfTheWeek.valueOf("Mon-Fri")).isEqualTo(new MultiDayOfTheWeek("MON-FRI"));
     }
 
     @Test
