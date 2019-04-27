@@ -55,7 +55,7 @@ public final class MultiDayOfTheWeek extends AbstractStringValueObject implement
 
     @NotNull
     private final String value;
-    
+
     /**
      * Constructor with multiple days of the week string.
      * 
@@ -82,7 +82,7 @@ public final class MultiDayOfTheWeek extends AbstractStringValueObject implement
                 this.multipleDayOfTheWeek.add(DayOfTheWeek.valueOf(part));
             }
         }
-        
+
         Collections.sort(this.multipleDayOfTheWeek);
         this.value = multipleDayOfTheWeek.toUpperCase();
 
@@ -106,10 +106,10 @@ public final class MultiDayOfTheWeek extends AbstractStringValueObject implement
                 this.multipleDayOfTheWeek.add(dow);
             }
         }
-        
+
         Collections.sort(this.multipleDayOfTheWeek);
         this.value = asStr(multipleDayOfTheWeek);
-        
+
     }
 
     @Override
@@ -127,9 +127,48 @@ public final class MultiDayOfTheWeek extends AbstractStringValueObject implement
     public Iterator<DayOfTheWeek> iterator() {
         return Collections.unmodifiableList(multipleDayOfTheWeek).iterator();
     }
-    
-    
-    private static String asStr(final List<DayOfTheWeek>  days) {
+
+    /**
+     * Returns a compressed version of this instance. Compressed means, that for example 'Mo/Tue/Wed/Thu/Fri' will be returned as 'Mon-Fri'.
+     * 
+     * @return Shortened version.
+     */
+    public MultiDayOfTheWeek compress() {
+
+        if (multipleDayOfTheWeek.size() == 1) {
+            return this;
+        }
+
+        DayOfTheWeek start = null;
+        final StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < multipleDayOfTheWeek.size(); i++) {
+            final DayOfTheWeek current = multipleDayOfTheWeek.get(i);
+            if (start == null) {
+                sb.append(current);
+                start = current;
+            } else {
+                if (i == multipleDayOfTheWeek.size() - 1) {
+                    sb.append(separator(start, current));
+                    sb.append(current);
+                } else if (!current.next().follows(current)) {
+                    sb.append(separator(start, current.previous()));
+                    sb.append(current);
+                    start = null;
+                }
+            }
+        }
+        return new MultiDayOfTheWeek(sb.toString());
+
+    }
+
+    private String separator(DayOfTheWeek start, final DayOfTheWeek current) {
+        if (current.follows(start)) {
+            return "/";
+        }
+        return "-";
+    }
+
+    private static String asStr(final List<DayOfTheWeek> days) {
         final StringBuilder sb = new StringBuilder();
         for (final DayOfTheWeek dow : days) {
             if (sb.length() > 0) {
@@ -139,7 +178,7 @@ public final class MultiDayOfTheWeek extends AbstractStringValueObject implement
         }
         return sb.toString();
     }
-    
+
     /**
      * Verifies if the string is valid and could be converted into an object.
      * 

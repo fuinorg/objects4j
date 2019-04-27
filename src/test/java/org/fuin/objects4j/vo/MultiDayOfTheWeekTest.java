@@ -27,22 +27,25 @@ import org.fuin.units4j.AbstractPersistenceTest;
 import org.junit.Test;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
 
 // CHECKSTYLE:OFF
 public class MultiDayOfTheWeekTest extends AbstractPersistenceTest {
 
+    @Test
     public final void testEqualsHashCode() {
-        EqualsVerifier.forClass(MultiDayOfTheWeek.class).verify();
+        EqualsVerifier.forClass(MultiDayOfTheWeek.class).withRedefinedSuperclass().withIgnoredFields("multipleDayOfTheWeek")
+                .suppress(Warning.NULL_FIELDS).verify();
     }
 
     @Test
     public final void testConstruct() {
 
-        assertThat(new MultiDayOfTheWeek("Mon/Tue")).isEqualTo(new MultiDayOfTheWeek(DayOfTheWeek.MON, DayOfTheWeek.TUE));
-        assertThat(new MultiDayOfTheWeek("Mon")).isEqualTo(new MultiDayOfTheWeek(DayOfTheWeek.MON));
+        assertThat(m("Mon/Tue")).isEqualTo(new MultiDayOfTheWeek(DayOfTheWeek.MON, DayOfTheWeek.TUE));
+        assertThat(m("Mon")).isEqualTo(new MultiDayOfTheWeek(DayOfTheWeek.MON));
 
         try {
-            new MultiDayOfTheWeek("MON+TUE");
+            m("MON+TUE");
             fail();
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo(
@@ -50,7 +53,7 @@ public class MultiDayOfTheWeekTest extends AbstractPersistenceTest {
         }
 
     }
-    
+
     @Test
     public final void testIsValidTRUE() {
 
@@ -80,7 +83,7 @@ public class MultiDayOfTheWeekTest extends AbstractPersistenceTest {
     public final void testValueOf() {
         assertThat(MultiDayOfTheWeek.valueOf(null)).isNull();
         assertThat(MultiDayOfTheWeek.valueOf("Mon/Tue")).isEqualTo(new MultiDayOfTheWeek(DayOfTheWeek.MON, DayOfTheWeek.TUE));
-        assertThat(MultiDayOfTheWeek.valueOf("Mon-Fri")).isEqualTo(new MultiDayOfTheWeek("MON-FRI"));
+        assertThat(MultiDayOfTheWeek.valueOf("Mon-Fri")).isEqualTo(m("MON-FRI"));
     }
 
     @Test
@@ -101,25 +104,25 @@ public class MultiDayOfTheWeekTest extends AbstractPersistenceTest {
                         .isEqualTo("MON/TUE/THU/SAT/SUN");
 
     }
-    
+
     @Test
     public final void testIterator() {
-    
-        final Iterator<DayOfTheWeek> itA = new MultiDayOfTheWeek("Mon").iterator();
+
+        final Iterator<DayOfTheWeek> itA = m("Mon").iterator();
         assertThat(itA.next()).isEqualTo(DayOfTheWeek.MON);
         assertThat(itA.hasNext()).isFalse();
 
-        final Iterator<DayOfTheWeek> itB = new MultiDayOfTheWeek("Mon/Tue").iterator();
+        final Iterator<DayOfTheWeek> itB = m("Mon/Tue").iterator();
         assertThat(itB.next()).isEqualTo(DayOfTheWeek.MON);
         assertThat(itB.next()).isEqualTo(DayOfTheWeek.TUE);
         assertThat(itB.hasNext()).isFalse();
 
-        final Iterator<DayOfTheWeek> itC = new MultiDayOfTheWeek("Mon-Wed").iterator();
+        final Iterator<DayOfTheWeek> itC = m("Mon-Wed").iterator();
         assertThat(itC.next()).isEqualTo(DayOfTheWeek.MON);
         assertThat(itC.next()).isEqualTo(DayOfTheWeek.TUE);
         assertThat(itC.next()).isEqualTo(DayOfTheWeek.WED);
         assertThat(itB.hasNext()).isFalse();
-        
+
     }
 
     @Test
@@ -153,7 +156,7 @@ public class MultiDayOfTheWeekTest extends AbstractPersistenceTest {
         // TEST UPDATE
         beginTransaction();
         final MultiDayOfTheWeekParentEntity entity = getEm().find(MultiDayOfTheWeekParentEntity.class, 1L);
-        entity.setMultiDayOfTheWeek(new MultiDayOfTheWeek("MON/TUE"));
+        entity.setMultiDayOfTheWeek(m("MON/TUE"));
         commitTransaction();
 
         // VERIFY
@@ -165,6 +168,25 @@ public class MultiDayOfTheWeekTest extends AbstractPersistenceTest {
         assertThat(copy.getMultiDayOfTheWeek().toString()).isEqualTo("MON/TUE");
         commitTransaction();
 
+    }
+
+    @Test
+    public final void testCompress() {
+
+        assertThat(m("Mon").compress()).isEqualTo(m("Mon"));
+        assertThat(m("Mon/Tue").compress()).isEqualTo(m("Mon/Tue"));
+        assertThat(m("Mon-Fri").compress()).isEqualTo(m("Mon-Fri"));
+        assertThat(m("Mon/Tue/Wed").compress()).isEqualTo(m("Mon-Wed"));
+        assertThat(m("Mon/Tue/Wed-Fri").compress()).isEqualTo(m("Mon-Fri"));
+        assertThat(m("Mon/Tue/Wed/Thu/Fri/Sat/Sun").compress()).isEqualTo(m("Mon-Sun"));
+        assertThat(m("Mon/Tue/Wed-Fri").compress()).isEqualTo(m("Mon-Fri"));
+        assertThat(m("Mon-Wed/Thu-Fri").compress()).isEqualTo(m("Mon-Fri"));
+        assertThat(m("Mon-Thu/Fri").compress()).isEqualTo(m("Mon-Fri"));
+
+    }
+    
+    private  MultiDayOfTheWeek m(final String str) {
+        return new MultiDayOfTheWeek(str);
     }
 
 }
