@@ -144,16 +144,21 @@ public final class MultiDayOfTheWeek extends AbstractStringValueObject implement
         for (int i = 0; i < multipleDayOfTheWeek.size(); i++) {
             final DayOfTheWeek current = multipleDayOfTheWeek.get(i);
             if (start == null) {
-                sb.append(current);
+                if (i > 0) {
+                    sb.append("/");
+                }
                 start = current;
+                sb.append(start);
             } else {
                 if (i == multipleDayOfTheWeek.size() - 1) {
                     sb.append(separator(start, current));
                     sb.append(current);
-                } else if (!current.next().follows(current)) {
-                    sb.append(separator(start, current.previous()));
-                    sb.append(current);
-                    start = null;
+                } else {
+                    if (multipleDayOfTheWeek.get(i + 1).previous() != current) {
+                        sb.append(separator(start, current));
+                        sb.append(current);
+                        start = null;
+                    }
                 }
             }
         }
@@ -195,19 +200,39 @@ public final class MultiDayOfTheWeek extends AbstractStringValueObject implement
         if (tok.countTokens() == 0) {
             return false;
         }
+        final List<DayOfTheWeek> days = new ArrayList<>();
         while (tok.hasMoreTokens()) {
             final String part = tok.nextToken();
             final int p = part.indexOf('-');
             if (p > -1) {
-                final DayOfTheWeek from = DayOfTheWeek.valueOf(part.substring(0, p));
-                final DayOfTheWeek to = DayOfTheWeek.valueOf(part.substring(p + 1));
+                // dd-dd
+                final String part1 = part.substring(0, p);
+                final String part2 = part.substring(p + 1);
+                if (!DayOfTheWeek.isValid(part1) || !DayOfTheWeek.isValid(part2)) {
+                    return false;
+                }
+                final DayOfTheWeek from = DayOfTheWeek.valueOf(part1);
+                final DayOfTheWeek to = DayOfTheWeek.valueOf(part2);
                 if (from == to || from.after(to)) {
                     return false;
                 }
+                for (final DayOfTheWeek dow : DayOfTheWeek.getPart(from, to)) {
+                    if (days.contains(dow)) {
+                        return false;
+                    }
+                    days.add(dow);                    
+                }
+                
             } else {
+                // dd
                 if (!DayOfTheWeek.isValid(part)) {
                     return false;
                 }
+                final DayOfTheWeek dow = DayOfTheWeek.valueOf(part);
+                if (days.contains(dow)) {
+                    return false;
+                }
+                days.add(dow);                    
             }
         }
         return true;

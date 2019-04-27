@@ -51,7 +51,7 @@ public class MultiDayOfTheWeekTest extends AbstractPersistenceTest {
             assertThat(ex.getMessage()).isEqualTo(
                     "The argument 'multipleDayOfTheWeek' does not represent valid days of the week like 'Mon/Tue/Wed-Fri': 'MON+TUE'");
         }
-
+        
     }
 
     @Test
@@ -76,6 +76,18 @@ public class MultiDayOfTheWeekTest extends AbstractPersistenceTest {
         assertThat(MultiDayOfTheWeek.isValid("//")).isFalse();
         assertThat(MultiDayOfTheWeek.isValid("Mon+Tue")).isFalse();
         assertThat(MultiDayOfTheWeek.isValid("Mon/Tue/Sat+Sun")).isFalse();
+        assertThat(MultiDayOfTheWeek.isValid("Mon-Thu/Wed-Sat/Sun")).isFalse();
+        assertThat(MultiDayOfTheWeek.isValid("Mon/xxx/Wed")).isFalse();
+        assertThat(MultiDayOfTheWeek.isValid("Mon+Tue")).isFalse();
+        assertThat(MultiDayOfTheWeek.isValid("xxx/Tue")).isFalse();
+        assertThat(MultiDayOfTheWeek.isValid("Mon/xxx")).isFalse();
+        assertThat(MultiDayOfTheWeek.isValid("xxx+Tue")).isFalse();
+        assertThat(MultiDayOfTheWeek.isValid("Mon+xxx")).isFalse();
+        assertThat(MultiDayOfTheWeek.isValid("xxx-yyyy")).isFalse();
+        assertThat(MultiDayOfTheWeek.isValid("Mon-yyyy")).isFalse();
+        assertThat(MultiDayOfTheWeek.isValid("xxx-Tue")).isFalse();
+        assertThat(MultiDayOfTheWeek.isValid("Mon/Tue/Mon/Tue")).isFalse();
+        assertThat(MultiDayOfTheWeek.isValid("Mon-Mon")).isFalse();
 
     }
 
@@ -182,6 +194,11 @@ public class MultiDayOfTheWeekTest extends AbstractPersistenceTest {
         assertThat(m("Mon/Tue/Wed-Fri").compress()).isEqualTo(m("Mon-Fri"));
         assertThat(m("Mon-Wed/Thu-Fri").compress()).isEqualTo(m("Mon-Fri"));
         assertThat(m("Mon-Thu/Fri").compress()).isEqualTo(m("Mon-Fri"));
+        assertThat(m("Mon/Tue/Fri").compress()).isEqualTo(m("Mon/Tue/Fri"));
+        assertThat(m("Mon/Tue/Fri/Sat").compress()).isEqualTo(m("Mon/Tue/Fri/Sat"));
+        assertThat(m("Mon/Tue/Wed/Fri/Sat/Sun").compress()).isEqualTo(m("Mon-Wed/Fri-Sun"));
+        assertThat(m("Mon/Tue/Wed/Sat/Sun").compress()).isEqualTo(m("Mon-Wed/Sat/Sun"));
+        assertThat(m("Mon-Wed/Thu-Sat/Sun").compress()).isEqualTo(m("Mon-Sun"));
 
     }
     
