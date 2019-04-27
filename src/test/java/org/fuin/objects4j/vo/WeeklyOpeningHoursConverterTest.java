@@ -36,9 +36,11 @@ import org.junit.Test;
 // CHECKSTYLE:OFF
 public class WeeklyOpeningHoursConverterTest {
 
-    private static final String XML = XML_PREFIX + "<data weeklyOpeningHours=\"MON 06:00-18:00,TUE 06:00-18:00,WED 06:00-18:00,THU 06:00-18:00,FRI 06:00-18:00,SAT 06:00-12:00,SUN 06:00-12:00\"/>";
+    private static final String HOURS = "MON-FRI 06:00-18:00,SAT/SUN 06:00-12:00";
 
-    private static final String JSON = "{\"weeklyOpeningHours\":\"MON 06:00-18:00,TUE 06:00-18:00,WED 06:00-18:00,THU 06:00-18:00,FRI 06:00-18:00,SAT 06:00-12:00,SUN 06:00-12:00\"}";
+    private static final String XML = XML_PREFIX + "<data weeklyOpeningHours=\"" + HOURS + "\"/>";
+
+    private static final String JSON = "{\"weeklyOpeningHours\":\"" + HOURS + "\"}";
 
     private WeeklyOpeningHoursConverter testee;
 
@@ -61,7 +63,7 @@ public class WeeklyOpeningHoursConverterTest {
     public final void testMarshal() throws JAXBException {
 
         final Data data = new Data();
-        data.weeklyOpeningHours = new WeeklyOpeningHours("Mon-Fri 06:00-18:00,Sat/Sun 06:00-12:00");
+        data.weeklyOpeningHours = new WeeklyOpeningHours(HOURS);
         assertThat(marshal(data, Data.class)).isEqualTo(XML);
 
     }
@@ -70,7 +72,7 @@ public class WeeklyOpeningHoursConverterTest {
     public final void testMarshalUnmarshal() throws JAXBException {
 
         final Data data = unmarshal(XML, Data.class);
-        assertThat(data.weeklyOpeningHours).isEqualTo(new WeeklyOpeningHours("Mon-Fri 06:00-18:00,Sat/Sun 06:00-12:00"));
+        assertThat(data.weeklyOpeningHours).isEqualTo(new WeeklyOpeningHours(HOURS));
 
     }
 
@@ -82,7 +84,8 @@ public class WeeklyOpeningHoursConverterTest {
             unmarshal(invalidEmailInXmlData, Data.class);
             fail("Expected an exception");
         } catch (final RuntimeException ex) {
-            assertCauseCauseMessage(ex, "The argument 'weeklyOpeningHours' does not represent valid weekly opening hours like 'Mon-Fri 09:00-12:00+13:00-17:00,Sat/Sun 09:-12:00': '17-18+19-20'");
+            assertCauseCauseMessage(ex,
+                    "The argument 'weeklyOpeningHours' does not represent valid weekly opening hours like 'Mon-Fri 09:00-12:00+13:00-17:00,Sat/Sun 09:-12:00': '17-18+19-20'");
         }
 
     }
@@ -91,7 +94,7 @@ public class WeeklyOpeningHoursConverterTest {
     public final void testMarshalJsonb() {
 
         final Data data = new Data();
-        data.weeklyOpeningHours = new WeeklyOpeningHours("Mon-Fri 06:00-18:00,Sat/Sun 06:00-12:00");
+        data.weeklyOpeningHours = new WeeklyOpeningHours(HOURS);
         assertThat(toJson(data, new WeeklyOpeningHoursConverter())).isEqualTo(JSON);
 
     }
@@ -100,7 +103,7 @@ public class WeeklyOpeningHoursConverterTest {
     public final void testMarshalUnmarshalJsonb() {
 
         final Data data = fromJson(JSON, Data.class, new WeeklyOpeningHoursConverter());
-        assertThat(data.weeklyOpeningHours).isEqualTo(new WeeklyOpeningHours("Mon-Fri 06:00-18:00,Sat/Sun 06:00-12:00"));
+        assertThat(data.weeklyOpeningHours).isEqualTo(new WeeklyOpeningHours(HOURS));
 
     }
 
@@ -112,7 +115,8 @@ public class WeeklyOpeningHoursConverterTest {
             fromJson(invalidJsonData, Data.class, new WeeklyOpeningHoursConverter());
             fail("Expected an exception");
         } catch (final RuntimeException ex) {
-            assertCauseMessage(ex, "The argument 'weeklyOpeningHours' does not represent valid weekly opening hours like 'Mon-Fri 09:00-12:00+13:00-17:00,Sat/Sun 09:-12:00': '17-18+19-20'");
+            assertCauseMessage(ex,
+                    "The argument 'weeklyOpeningHours' does not represent valid weekly opening hours like 'Mon-Fri 09:00-12:00+13:00-17:00,Sat/Sun 09:-12:00': '17-18+19-20'");
         }
 
     }
