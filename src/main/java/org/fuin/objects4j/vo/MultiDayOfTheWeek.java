@@ -51,15 +51,11 @@ public final class MultiDayOfTheWeek extends AbstractStringValueObject implement
     private static final long serialVersionUID = 1000L;
 
     @NotEmpty
-    private List<DayOfTheWeek> multipleDayOfTheWeek;
+    private final List<DayOfTheWeek> multipleDayOfTheWeek;
 
-    /**
-     * Protected default constructor for deserialization.
-     */
-    protected MultiDayOfTheWeek() {// NOSONAR Ignore JAXB default constructor
-        super();
-    }
-
+    @NotNull
+    private final String value;
+    
     /**
      * Constructor with multiple days of the week string.
      * 
@@ -86,6 +82,9 @@ public final class MultiDayOfTheWeek extends AbstractStringValueObject implement
                 this.multipleDayOfTheWeek.add(DayOfTheWeek.valueOf(part));
             }
         }
+        
+        Collections.sort(this.multipleDayOfTheWeek);
+        this.value = multipleDayOfTheWeek.toUpperCase();
 
     }
 
@@ -107,31 +106,38 @@ public final class MultiDayOfTheWeek extends AbstractStringValueObject implement
                 this.multipleDayOfTheWeek.add(dow);
             }
         }
+        
+        Collections.sort(this.multipleDayOfTheWeek);
+        this.value = asStr(multipleDayOfTheWeek);
+        
     }
 
     @Override
     @NotEmpty
     public String asBaseType() {
-        final StringBuilder sb = new StringBuilder();
-        
-        for (final DayOfTheWeek dow : this.multipleDayOfTheWeek) {
-            if (sb.length() > 0) {
-                sb.append("/");
-            }
-            sb.append(dow);
-        }
-        
-        return sb.toString();
+        return value;
     }
 
     @Override
     public String toString() {
-        return asBaseType();
+        return value;
     }
 
     @Override
     public Iterator<DayOfTheWeek> iterator() {
         return Collections.unmodifiableList(multipleDayOfTheWeek).iterator();
+    }
+    
+    
+    private static String asStr(final List<DayOfTheWeek>  days) {
+        final StringBuilder sb = new StringBuilder();
+        for (final DayOfTheWeek dow : days) {
+            if (sb.length() > 0) {
+                sb.append("/");
+            }
+            sb.append(dow);
+        }
+        return sb.toString();
     }
     
     /**
