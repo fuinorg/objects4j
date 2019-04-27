@@ -19,8 +19,10 @@ package org.fuin.objects4j.vo;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 import javax.annotation.Nullable;
@@ -47,14 +49,9 @@ public final class WeeklyOpeningHours extends AbstractStringValueObject implemen
     private static final long serialVersionUID = 1000L;
 
     @NotEmpty
-    private List<DayOpeningHours> weeklyOpeningHours;
+    private final List<DayOpeningHours> weeklyOpeningHours;
 
-    /**
-     * Protected default constructor for deserialization.
-     */
-    protected WeeklyOpeningHours() {// NOSONAR Ignore JAXB default constructor
-        super();
-    }
+    private final String value;
 
     /**
      * Constructor with string.
@@ -68,6 +65,7 @@ public final class WeeklyOpeningHours extends AbstractStringValueObject implemen
         requireArgValid("weeklyOpeningHours", weeklyOpeningHours);
 
         this.weeklyOpeningHours = new ArrayList<>();
+
         final StringTokenizer tok = new StringTokenizer(weeklyOpeningHours, ",");
         while (tok.hasMoreTokens()) {
             final String part = tok.nextToken();
@@ -76,10 +74,18 @@ public final class WeeklyOpeningHours extends AbstractStringValueObject implemen
             final HourRanges hourPart = new HourRanges(part.substring(p + 1));
             for (DayOfTheWeek dow : dayPart) {
                 final DayOpeningHours doh = new DayOpeningHours(dow, hourPart);
-                this.weeklyOpeningHours.add(doh);
+                final List<DayOpeningHours> normalized = doh.normalize();
+                if (normalized.size() == 1) {
+                    addOrUpdate(normalized.get(0));
+                } else {
+                    addOrUpdate(normalized.get(0));
+                    addOrUpdate(normalized.get(1));
+                }
             }
         }
+
         Collections.sort(this.weeklyOpeningHours);
+        this.value = weeklyOpeningHours.toUpperCase();
 
     }
 
@@ -101,22 +107,28 @@ public final class WeeklyOpeningHours extends AbstractStringValueObject implemen
                 if (this.weeklyOpeningHours.contains(doh)) {
                     throw new ConstraintViolationException("The argument 'dayOpeningHours' cannot contain duplicates: " + doh);
                 }
-                this.weeklyOpeningHours.add(doh);
+                addOrUpdate(doh);
             }
+        }
+
+        Collections.sort(this.weeklyOpeningHours);
+        this.value = asString(this.weeklyOpeningHours);
+
+    }
+
+    private void addOrUpdate(final DayOpeningHours doh) {
+        final int idx = this.weeklyOpeningHours.indexOf(doh);
+        if (idx < 0) {
+            this.weeklyOpeningHours.add(doh);
+        } else {
+            this.weeklyOpeningHours.set(idx, this.weeklyOpeningHours.get(idx).add(doh));
         }
     }
 
     @Override
     @NotEmpty
     public String asBaseType() {
-        final StringBuilder sb = new StringBuilder();
-        for (final DayOpeningHours dow : weeklyOpeningHours) {
-            if (sb.length() > 0) {
-                sb.append(",");
-            }
-            sb.append(dow.toString());
-        }
-        return sb.toString();
+        return this.value;
     }
 
     /**
@@ -240,7 +252,7 @@ public final class WeeklyOpeningHours extends AbstractStringValueObject implemen
      * 
      * @return {@literal true} if open else {@literal false} if not open.
      */
-    public boolean openAt(@NotNull final DayOpeningHours dayOpeningHours) {
+    public final boolean openAt(@NotNull final DayOpeningHours dayOpeningHours) {
         Contract.requireArgNotNull("dayOpeningHours", dayOpeningHours);
         if (!dayOpeningHours.isNormalized()) {
             throw new ConstraintViolationException(
@@ -253,15 +265,75 @@ public final class WeeklyOpeningHours extends AbstractStringValueObject implemen
         }
         final DayOpeningHours found = weeklyOpeningHours.get(idx);
         final List<DayOpeningHours> normalized = found.normalize();
-        final DayOpeningHours day = normalized.get(0); 
-        
+        final DayOpeningHours day = normalized.get(0);
+
         return day.openAt(dayOpeningHours);
+
+    }
+    
+    /**
+     * Returns the information if this instance is similar to the other one.<br>
+     * For example is 'Mon 00:00-24:00' similar to 'Fri 18:00-24:00,Sat 00:00-03:00'.
+     * 
+     * @param other Instance to compare with.
+     * 
+     * @return {@literal true} if the instance is simlar.
+     */
+    public boolean isSimilarTo(final WeeklyOpeningHours other) {
+        
+        return compress().equals(other.compress());
         
     }
 
+    /**
+     * Creates a compressed version of this instance. The string representing this instance will be shortened.<br>
+     * For example 'Mon 09:00-17:00,Tue 09:00-17:00' will become 'Mon/Tue 09:00-17:00'.
+     * 
+     * @return New shortened instance.
+     */
+    public final WeeklyOpeningHours compress() {
+
+        final Map<HourRanges, List<DayOfTheWeek>> map = new HashMap<>();
+        for (final DayOpeningHours doh : weeklyOpeningHours) {
+            final HourRanges ranges = doh.getHourRanges().compress();
+            List<DayOfTheWeek> dayList = map.get(ranges);
+            if (dayList == null) {
+                dayList = new ArrayList<>();
+                map.put(ranges, dayList);
+            }
+            dayList.add(doh.getDayOfTheWeek());
+        }
+
+        final StringBuilder sb = new StringBuilder();
+        final Iterator<HourRanges> it = map.keySet().iterator();
+        while (it.hasNext()) {
+            final HourRanges ranges = it.next();
+            final List<DayOfTheWeek> days = map.get(ranges);
+            Collections.sort(days);
+            if (sb.length() > 0) {
+                sb.append(",");
+            }
+            sb.append(new MultiDayOfTheWeek(days.toArray(new DayOfTheWeek[days.size()])).compress().asBaseType() + " " + ranges);
+        }
+
+        return new WeeklyOpeningHours(sb.toString());
+
+    }
+
     @Override
-    public String toString() {
-        return asBaseType();
+    public final String toString() {
+        return value;
+    }
+
+    private static String asString(final List<DayOpeningHours> weeklyOpeningHours) {
+        final StringBuilder sb = new StringBuilder();
+        for (final DayOpeningHours dow : weeklyOpeningHours) {
+            if (sb.length() > 0) {
+                sb.append(",");
+            }
+            sb.append(dow.toString());
+        }
+        return sb.toString();
     }
 
     /**
