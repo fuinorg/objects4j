@@ -148,6 +148,24 @@ public final class DayOpeningHours implements ValueObjectWithBaseType<String>, C
     public final String toString() {
         return asBaseType();
     }
+    
+    /**
+     * Returns the day of the week.
+     * 
+     * @return Day of the week.
+     */
+    public final DayOfTheWeek getDayOfTheWeek() {
+        return dayOfTheWeek;
+    }
+    
+    /**
+     * Returns the hour ranges.
+     * 
+     * @return Hour ranges.
+     */
+    public final HourRanges getHourRanges() {
+        return hourRanges;
+    }
 
     /**
      * Returns a normalized version of the hour ranges. A day may contain hours that belong logically to the next day.<br>
