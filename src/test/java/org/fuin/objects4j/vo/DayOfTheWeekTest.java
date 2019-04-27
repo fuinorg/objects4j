@@ -27,17 +27,20 @@ import org.fuin.units4j.AbstractPersistenceTest;
 import org.junit.Test;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
 
 // CHECKSTYLE:OFF
 public class DayOfTheWeekTest extends AbstractPersistenceTest {
 
+    @Test
     public final void testEqualsHashCode() {
-        EqualsVerifier.forClass(DayOfTheWeek.class).verify();
+        EqualsVerifier.forClass(DayOfTheWeek.class).withIgnoredFields("value").suppress(Warning.NULL_FIELDS)
+                .verify();
     }
 
     @Test
     public void testToString() {
-        
+
         assertThat(DayOfTheWeek.MON.toString()).isEqualTo("MON");
         assertThat(DayOfTheWeek.TUE.toString()).isEqualTo("TUE");
         assertThat(DayOfTheWeek.WED.toString()).isEqualTo("WED");
@@ -46,9 +49,9 @@ public class DayOfTheWeekTest extends AbstractPersistenceTest {
         assertThat(DayOfTheWeek.SAT.toString()).isEqualTo("SAT");
         assertThat(DayOfTheWeek.SUN.toString()).isEqualTo("SUN");
         assertThat(DayOfTheWeek.PH.toString()).isEqualTo("PH");
-        
+
     }
-    
+
     @Test
     public final void testIsValidTRUE() {
 
@@ -77,7 +80,7 @@ public class DayOfTheWeekTest extends AbstractPersistenceTest {
 
     @Test
     public final void testValueOfString() {
-        assertThat(DayOfTheWeek.valueOf((String)null)).isNull();
+        assertThat(DayOfTheWeek.valueOf((String) null)).isNull();
         assertThat(DayOfTheWeek.valueOf("Fri")).isEqualTo(DayOfTheWeek.FRI);
     }
 
@@ -91,13 +94,13 @@ public class DayOfTheWeekTest extends AbstractPersistenceTest {
         assertThat(DayOfTheWeek.FRI.toDayOfWeek()).isEqualTo(DayOfWeek.FRIDAY);
         assertThat(DayOfTheWeek.SAT.toDayOfWeek()).isEqualTo(DayOfWeek.SATURDAY);
         assertThat(DayOfTheWeek.SUN.toDayOfWeek()).isEqualTo(DayOfWeek.SUNDAY);
-        
+
     }
-    
+
     @Test
     public final void testValueOfDayOfWeek() {
 
-        assertThat(DayOfTheWeek.valueOf((DayOfWeek)null)).isNull();
+        assertThat(DayOfTheWeek.valueOf((DayOfWeek) null)).isNull();
         assertThat(DayOfTheWeek.valueOf(DayOfWeek.MONDAY)).isEqualTo(DayOfTheWeek.MON);
         assertThat(DayOfTheWeek.valueOf(DayOfWeek.TUESDAY)).isEqualTo(DayOfTheWeek.TUE);
         assertThat(DayOfTheWeek.valueOf(DayOfWeek.WEDNESDAY)).isEqualTo(DayOfTheWeek.WED);
@@ -107,7 +110,7 @@ public class DayOfTheWeekTest extends AbstractPersistenceTest {
         assertThat(DayOfTheWeek.valueOf(DayOfWeek.SUNDAY)).isEqualTo(DayOfTheWeek.SUN);
 
     }
-    
+
     @Test
     public final void testRequireArgValid() {
 
@@ -115,23 +118,23 @@ public class DayOfTheWeekTest extends AbstractPersistenceTest {
             DayOfTheWeek.requireArgValid("a", "");
             fail();
         } catch (final ConstraintViolationException ex) {
-            assertThat(ex.getMessage())
-                    .isEqualTo("The argument 'a' does not represent a valid day of the week like 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun' or 'PH': ''");
+            assertThat(ex.getMessage()).isEqualTo(
+                    "The argument 'a' does not represent a valid day of the week like 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun' or 'PH': ''");
         }
 
         try {
             DayOfTheWeek.requireArgValid("b", "Friday");
             fail();
         } catch (final ConstraintViolationException ex) {
-            assertThat(ex.getMessage())
-                    .isEqualTo("The argument 'b' does not represent a valid day of the week like 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun' or 'PH': 'Friday'");
+            assertThat(ex.getMessage()).isEqualTo(
+                    "The argument 'b' does not represent a valid day of the week like 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun' or 'PH': 'Friday'");
         }
 
     }
 
     @Test
     public void testFollows() {
-        
+
         DayOfTheWeek last = null;
         for (final DayOfTheWeek dow : DayOfTheWeek.getAll()) {
             if (last != null) {
@@ -160,9 +163,8 @@ public class DayOfTheWeekTest extends AbstractPersistenceTest {
             }
             current = dow;
         }
-        
+
     }
-    
 
     @Test
     public void testJPA() {
@@ -212,6 +214,6 @@ public class DayOfTheWeekTest extends AbstractPersistenceTest {
         assertThat(DayOfTheWeek.SAT.previous()).isEqualTo(DayOfTheWeek.FRI);
         assertThat(DayOfTheWeek.SUN.previous()).isEqualTo(DayOfTheWeek.SAT);
     }
-    
+
 }
 // CHECKSTYLE:ON
