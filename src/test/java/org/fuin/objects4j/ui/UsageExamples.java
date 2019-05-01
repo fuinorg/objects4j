@@ -31,7 +31,7 @@ import my.test.MyClass;
 /**
  * Usage examples.
  */
-public class Examples {
+public class UsageExamples {
 
     /**
      * Main programm.
