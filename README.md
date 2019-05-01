@@ -168,6 +168,19 @@ for (TableColumnInfo column : tableCols) {
 }
 ```
 
+### Examples annotation
+Use this annotation to assign some example values to a class or an attribute.
+```Java
+@Examples({"John", "Jane"})
+private String firstName;
+```
+
+### Mappings annotation
+Use this annotation to assign key/value mappings to a class or an attribute.
+```Java
+@Mappings({"1=One", "2=Two", "3=Three"})
+private String code;
+```
 
 ## Description "vo"
 Provides Value Objects (immutable objects) that represents an object whose equality isn't based on identity. 
