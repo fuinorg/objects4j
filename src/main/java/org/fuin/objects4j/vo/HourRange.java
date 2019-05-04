@@ -117,6 +117,24 @@ public final class HourRange extends AbstractStringValueObject {
         }
     }
 
+    /**
+     * Returns the 'from' hour.
+     * 
+     * @return From hour.
+     */
+    public final Hour getFrom() {
+        return from;
+    }
+
+    /**
+     * Returns the 'to' hour.
+     * 
+     * @return To hour.
+     */
+    public final Hour getTo() {
+        return to;
+    }
+
     @Override
     @NotEmpty
     public final String asBaseType() {
