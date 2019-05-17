@@ -280,9 +280,15 @@ public class ContractTest {
         final Set<ConstraintViolation<Parent>> violations = Contract.validate(parent);
 
         // TEST & VERIFY
-        assertThat(Contract.asString(violations, " / "))
-                .isEqualTo("Parent.email must not be null / Parent.child.password must not be null");
-        assertThat(Contract.asString(violations, null)).isEqualTo("Parent.email must not be null, Parent.child.password must not be null");
+        final String str1 = Contract.asString(violations, " / ");
+        assertThat(str1).contains("Parent.email must not be null");
+        assertThat(str1).contains("Parent.child.password must not be null");
+        assertThat(str1).contains(" / ");
+
+        final String str2 = Contract.asString(violations, null);
+        assertThat(str2).contains("Parent.email must not be null");
+        assertThat(str2).contains("Parent.child.password must not be null");
+        assertThat(str2).contains(", ");
 
         // TEST & VERIFY
         assertThat(Contract.asString((Set<ConstraintViolation<Parent>>) null, ",")).isEqualTo("");
