@@ -20,6 +20,8 @@ package org.fuin.objects4j.common;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
@@ -246,6 +248,63 @@ public class ContractTest {
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo("Min value of argument 'name6' is 4, but was: 3");
         }
+
+    }
+
+    @Test
+    public void testAsStringListSetConstraintViolation() {
+
+        // PREPARE
+        final Parent parent = new Parent();
+        parent.child = new Child();
+        final Set<ConstraintViolation<Parent>> violations = Contract.validate(parent);
+
+        // TEST
+        final List<String> result = Contract.asString(violations);
+
+        // VERIFY
+        assertThat(result).containsOnly("Parent.email must not be null", "Parent.child.password must not be null");
+
+        // TEST & VERIFY
+        assertThat(Contract.asString((Set<ConstraintViolation<Parent>>) null)).isEmpty();
+        assertThat(Contract.asString(new HashSet<>())).isEmpty();
+
+    }
+
+    @Test
+    public void testAsStringSetConstraintViolation() {
+
+        // PREPARE
+        final Parent parent = new Parent();
+        parent.child = new Child();
+        final Set<ConstraintViolation<Parent>> violations = Contract.validate(parent);
+
+        // TEST & VERIFY
+        assertThat(Contract.asString(violations, " / "))
+                .isEqualTo("Parent.email must not be null / Parent.child.password must not be null");
+        assertThat(Contract.asString(violations, null)).isEqualTo("Parent.email must not be null, Parent.child.password must not be null");
+
+        // TEST & VERIFY
+        assertThat(Contract.asString((Set<ConstraintViolation<Parent>>) null, ",")).isEqualTo("");
+        assertThat(Contract.asString((Set<ConstraintViolation<Parent>>) null, null)).isEqualTo("");
+        assertThat(Contract.asString(new HashSet<>(), ", ")).isEqualTo("");
+        assertThat(Contract.asString(new HashSet<>(), null)).isEqualTo("");
+
+    }
+
+    @Test
+    public void testAsStringConstraintViolation() {
+
+        // PREPARE
+        final Child child = new Child();
+        final Set<ConstraintViolation<Child>> violations = Contract.validate(Validation.buildDefaultValidatorFactory().getValidator(),
+                child);
+
+        // TEST
+        final String result = Contract.asString(violations.iterator().next());
+
+        // VERIFY
+        assertThat(result).isEqualTo("Child.password must not be null");
 
     }
 

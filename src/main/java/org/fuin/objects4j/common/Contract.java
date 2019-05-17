@@ -17,7 +17,10 @@
  */
 package org.fuin.objects4j.common;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Nullable;
@@ -283,6 +286,74 @@ public final class Contract {
     @NotNull
     public static <TYPE> Set<ConstraintViolation<TYPE>> validate(@Nullable final TYPE value, @Nullable final Class<?>... groups) {
         return validate(getValidator(), value, groups);
+    }
+
+    /**
+     * Converts a set of constraint violation into a string list.
+     * 
+     * @param constraintViolations
+     *            Violations to convert to a string.
+     * 
+     * @return List of string representations for all violations.
+     */
+    public static <T> List<String> asString(@Nullable final Set<ConstraintViolation<T>> constraintViolations) {
+        if (constraintViolations == null || constraintViolations.size() == 0) {
+            return Collections.emptyList();
+        }
+        final List<String> list = new ArrayList<>();
+        for (final ConstraintViolation<T> constraintViolation : constraintViolations) {
+            list.add(asString(constraintViolation));
+        }
+        return list;
+    }
+
+    /**
+     * Converts a set of constraint violation into a string.
+     * 
+     * @param constraintViolations
+     *            Violations to convert to a string.
+     * @param separator
+     *            Separator to use between violations. Defaults to ', ' in case of {@literal null} argument.
+     * 
+     * @return String representation of all violations.
+     */
+    public static <T> String asString(@Nullable final Set<ConstraintViolation<T>> constraintViolations, @Nullable final String separator) {
+        if (constraintViolations == null || constraintViolations.size() == 0) {
+            return "";
+        }
+        final String sepStr;
+        if (separator == null) {
+            sepStr = ", ";
+        } else {
+            sepStr = separator;
+        }
+        final StringBuffer sb = new StringBuffer();
+        for (final ConstraintViolation<T> constraintViolation : constraintViolations) {
+            if (sb.length() > 0) {
+                sb.append(sepStr);
+            }
+            sb.append(asString(constraintViolation));
+        }
+        return sb.toString();
+    }
+
+    /**
+     * Returns a constraint violation as string.
+     * 
+     * @param violation
+     *            Violation to convert to a string.
+     * 
+     * @return Text like "SIMPLE_CLASS_NAME.PROPERTY_PATH MESSAGE" or "SIMPLE_CLASS_NAME.PROPERTY_PATH MESSAGE (INVALID_VALUE)".
+     */
+    public static <T> String asString(@Nullable final ConstraintViolation<T> violation) {
+        final String className = violation.getRootBeanClass().getSimpleName();
+        final String propertyPath = violation.getPropertyPath().toString();
+        final String message = violation.getMessage();
+        final Object invalidValue = violation.getInvalidValue();
+        if (invalidValue == null) {
+            return className + "." + propertyPath + " " + message;
+        }
+        return className + "." + propertyPath + " " + message + " (" + invalidValue + ")";
     }
 
 }
