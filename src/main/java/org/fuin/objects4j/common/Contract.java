@@ -346,6 +346,9 @@ public final class Contract {
      * @return Text like "SIMPLE_CLASS_NAME.PROPERTY_PATH MESSAGE" or "SIMPLE_CLASS_NAME.PROPERTY_PATH MESSAGE (INVALID_VALUE)".
      */
     public static <T> String asString(@Nullable final ConstraintViolation<T> violation) {
+        if (violation == null) {
+            return "";
+        }
         final String className = violation.getRootBeanClass().getSimpleName();
         final String propertyPath = violation.getPropertyPath().toString();
         final String message = violation.getMessage();
