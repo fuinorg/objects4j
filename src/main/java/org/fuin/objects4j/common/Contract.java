@@ -216,7 +216,7 @@ public final class Contract {
 
         final Set<ConstraintViolation<Object>> constraintViolations = validator.validate(value);
         if (constraintViolations.size() > 0) {
-            final StringBuffer sb = new StringBuffer();
+            final StringBuilder sb = new StringBuilder();
             for (final ConstraintViolation<Object> constraintViolation : constraintViolations) {
                 if (sb.length() > 0) {
                     sb.append(", ");

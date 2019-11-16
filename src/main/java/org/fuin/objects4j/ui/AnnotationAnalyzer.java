@@ -363,7 +363,7 @@ public final class AnnotationAnalyzer {
      */
     public static String getMethodSignature(@NotNull final Class<?> returnType, @NotNull final String methodName,
             final Class<?>[] argTypes) {
-        final StringBuffer sb = new StringBuffer();
+        final StringBuilder sb = new StringBuilder();
         sb.append(name(returnType));
         sb.append(" ");
         sb.append(methodName);

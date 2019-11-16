@@ -108,7 +108,7 @@ public final class KeyValue implements ValueObject {
         final Map<String, String> map = new HashMap<String, String>();
         for (final KeyValue kv : keyValue) {
             if (kv.getValue() instanceof Collection) {
-                final StringBuffer sb = new StringBuffer();
+                final StringBuilder sb = new StringBuilder();
                 final Collection<?> coll = (Collection<?>) kv.getValue();
                 int count = 0;
                 for (final Object entry : coll) {
@@ -156,7 +156,7 @@ public final class KeyValue implements ValueObject {
             return str;
         }
 
-        final StringBuffer sb = new StringBuffer();
+        final StringBuilder sb = new StringBuilder();
 
         int end = -1;
         int from = 0;
