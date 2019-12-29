@@ -21,7 +21,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.fuin.objects4j.vo.JsonbHelper.fromJson;
 import static org.fuin.objects4j.vo.JsonbHelper.toJson;
 import static org.fuin.units4j.Units4JUtils.assertCauseCauseMessage;
-import static org.fuin.units4j.Units4JUtils.assertCauseMessage;
 import static org.fuin.units4j.Units4JUtils.setPrivateField;
 import static org.fuin.units4j.Units4JUtils.validate;
 import static org.fuin.utils4j.JaxbUtils.XML_PREFIX;
@@ -152,7 +151,7 @@ public class PasswordConverterTest {
             fromJson(invalidJsonData, Data.class, new PasswordConverter());
             fail("Expected an exception");
         } catch (final RuntimeException ex) {
-            assertCauseMessage(ex, "The argument 'password' is not valid: 'abcd123'");
+            assertCauseCauseMessage(ex, "The argument 'password' is not valid: 'abcd123'");
         }
 
     }

@@ -21,7 +21,6 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.fuin.objects4j.vo.JsonbHelper.fromJson;
 import static org.fuin.objects4j.vo.JsonbHelper.toJson;
 import static org.fuin.units4j.Units4JUtils.assertCauseCauseMessage;
-import static org.fuin.units4j.Units4JUtils.assertCauseMessage;
 import static org.fuin.utils4j.JaxbUtils.XML_PREFIX;
 import static org.fuin.utils4j.JaxbUtils.marshal;
 import static org.fuin.utils4j.JaxbUtils.unmarshal;
@@ -112,7 +111,7 @@ public class MultiDayOfTheWeekConverterTest {
             fromJson(invalidJsonData, Data.class, new MultiDayOfTheWeekConverter());
             fail("Expected an exception");
         } catch (final RuntimeException ex) {
-            assertCauseMessage(ex, "The argument 'multipleDayOfTheWeek' does not represent valid days of the week like 'Mon/Tue/Wed-Fri': 'Mon+Tue'");
+            assertCauseCauseMessage(ex, "The argument 'multipleDayOfTheWeek' does not represent valid days of the week like 'Mon/Tue/Wed-Fri': 'Mon+Tue'");
         }
 
     }

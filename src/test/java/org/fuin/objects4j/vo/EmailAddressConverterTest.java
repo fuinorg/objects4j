@@ -21,7 +21,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.fuin.objects4j.vo.JsonbHelper.fromJson;
 import static org.fuin.objects4j.vo.JsonbHelper.toJson;
 import static org.fuin.units4j.Units4JUtils.assertCauseCauseMessage;
-import static org.fuin.units4j.Units4JUtils.assertCauseMessage;
 import static org.fuin.utils4j.JaxbUtils.XML_PREFIX;
 import static org.fuin.utils4j.JaxbUtils.marshal;
 import static org.fuin.utils4j.JaxbUtils.unmarshal;
@@ -129,7 +128,7 @@ public class EmailAddressConverterTest {
             fromJson(invalidJsonData, Data.class, new EmailAddressConverter());
             fail("Expected an exception");
         } catch (final RuntimeException ex) {
-            assertCauseMessage(ex, "The argument 'emailAddress' is not valid: 'abc@'");
+            assertCauseCauseMessage(ex, "The argument 'emailAddress' is not valid: 'abc@'");
         }
 
     }
