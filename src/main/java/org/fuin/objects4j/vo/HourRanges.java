@@ -331,9 +331,9 @@ public final class HourRanges extends AbstractStringValueObject implements Itera
     }
 
     /**
-     * Returns a compressed version of the
+     * Returns a compressed version of this instance.
      * 
-     * @return
+     * @return Compressed version.
      */
     public final HourRanges compress() {
         final List<HourRanges> normalized = normalize();

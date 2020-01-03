@@ -295,6 +295,8 @@ public final class Contract {
      *            Violations to convert to a string.
      * 
      * @return List of string representations for all violations.
+     * 
+     * @param <T> Type of list content.
      */
     public static <T> List<String> asString(@Nullable final Set<ConstraintViolation<T>> constraintViolations) {
         if (constraintViolations == null || constraintViolations.size() == 0) {
@@ -316,9 +318,11 @@ public final class Contract {
      *            Separator to use between violations. Defaults to ', ' in case of {@literal null} argument.
      * 
      * @return String representation of all violations.
+     * 
+     * @param <T> Type of the root bean.
      */
     public static <T> String asString(@Nullable final Set<ConstraintViolation<T>> constraintViolations, @Nullable final String separator) {
-        if (constraintViolations == null || constraintViolations.size() == 0) {
+        if (constraintViolations == null || constraintViolations.isEmpty()) {
             return "";
         }
         final String sepStr;
@@ -344,6 +348,8 @@ public final class Contract {
      *            Violation to convert to a string.
      * 
      * @return Text like "SIMPLE_CLASS_NAME.PROPERTY_PATH MESSAGE" or "SIMPLE_CLASS_NAME.PROPERTY_PATH MESSAGE (INVALID_VALUE)".
+     * 
+     * @param <T> Type of the validated root object.
      */
     public static <T> String asString(@Nullable final ConstraintViolation<T> violation) {
         if (violation == null) {

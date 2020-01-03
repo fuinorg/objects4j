@@ -47,7 +47,11 @@ import java.lang.annotation.Target;
 @Deprecated
 public @interface GuardedBy {
 
-    /** Determines which lock guards the annotated field or method. */
+    /** 
+     * Determines which lock guards the annotated field or method.
+     * 
+     * @return The lock that should be held.  
+     */
     String value();
 
 }
