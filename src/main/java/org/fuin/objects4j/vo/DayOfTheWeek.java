@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -248,7 +247,7 @@ public final class DayOfTheWeek implements ValueObjectWithBaseType<String>, Comp
      * 
      * @return {@literal true} if the string is a valid number, else {@literal false}.
      */
-    public static boolean isValid(@Nullable final String dayOfTheWeek) {
+    public static boolean isValid(@javax.annotation.Nullable final String dayOfTheWeek) {
         if (dayOfTheWeek == null) {
             return true;
         }
@@ -268,8 +267,8 @@ public final class DayOfTheWeek implements ValueObjectWithBaseType<String>, Comp
      * 
      * @return New instance.
      */
-    @Nullable
-    public static DayOfTheWeek valueOf(@Nullable final String str) {
+    @javax.annotation.Nullable
+    public static DayOfTheWeek valueOf(@javax.annotation.Nullable final String str) {
         if (str == null) {
             return null;
         }
@@ -288,8 +287,8 @@ public final class DayOfTheWeek implements ValueObjectWithBaseType<String>, Comp
      * 
      * @return Day of week.
      */
-    @Nullable
-    public static DayOfTheWeek valueOf(@Nullable final DayOfWeek dayOfWeek) {
+    @javax.annotation.Nullable
+    public static DayOfTheWeek valueOf(@javax.annotation.Nullable final DayOfWeek dayOfWeek) {
         if (dayOfWeek == null) {
             return null;
         }

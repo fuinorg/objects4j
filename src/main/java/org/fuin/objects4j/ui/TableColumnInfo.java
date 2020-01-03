@@ -23,7 +23,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 import javax.validation.constraints.NotNull;
 
@@ -88,8 +87,8 @@ public final class TableColumnInfo implements Comparable<TableColumnInfo> {
      * @param getter
      *            Name of the getter for the field.
      */
-    public TableColumnInfo(@NotNull final Field field, @Nullable final String text, @Nullable final String shortText,
-            @Nullable final String tooltip, final int pos, @NotNull final FontSize width, @NotNull final String getter) {
+    public TableColumnInfo(@NotNull final Field field, @javax.annotation.Nullable final String text, @javax.annotation.Nullable final String shortText,
+            @javax.annotation.Nullable final String tooltip, final int pos, @NotNull final FontSize width, @NotNull final String getter) {
         super();
 
         Contract.requireArgNotNull("field", field);

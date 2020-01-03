@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.List;
 
-import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -281,7 +280,7 @@ public final class HourRange extends AbstractStringValueObject {
      * 
      * @return {@literal true} if the string is a valid range, else {@literal false}.
      */
-    public static boolean isValid(@Nullable final String hourRange) {
+    public static boolean isValid(@javax.annotation.Nullable final String hourRange) {
         if (hourRange == null) {
             return true;
         }
@@ -313,8 +312,8 @@ public final class HourRange extends AbstractStringValueObject {
      * 
      * @return New instance.
      */
-    @Nullable
-    public static HourRange valueOf(@Nullable final String str) {
+    @javax.annotation.Nullable
+    public static HourRange valueOf(@javax.annotation.Nullable final String str) {
         if (str == null) {
             return null;
         }
