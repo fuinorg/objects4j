@@ -19,15 +19,9 @@ package org.fuin.objects4j.ui;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-import javafx.scene.control.TableColumn;
-import javafx.embed.swing.JFXPanel;
-import javafx.scene.control.TableView;
-import javafx.scene.control.Tooltip;
-import javafx.scene.control.cell.PropertyValueFactory;
 import my.test.MyClass;
 
 /**
@@ -83,7 +77,15 @@ public class UsageExamples {
         String[] mappings = codeField.getAnnotation(Mappings.class).value();
         System.out.println("Mappings=" +  Arrays.asList(mappings));
 
-        // --- JavaFX usage ---
+        /* --- JavaFX usage ---
+          
+         import java.util.Collections;
+         import javafx.scene.control.TableColumn;
+         import javafx.embed.swing.JFXPanel;
+         import javafx.scene.control.TableView;
+         import javafx.scene.control.Tooltip;
+         import javafx.scene.control.cell.PropertyValueFactory;
+
         new JFXPanel(); // Trick to avoid "IllegalStateException: Toolkit not initialized"
         TableView<MyClass> tableView = new TableView<>();
         List<TableColumnInfo> tableCols = TableColumnInfo.create(MyClass.class, Locale.getDefault());
@@ -98,7 +100,7 @@ public class UsageExamples {
             tc.setPrefWidth(column.getWidth().getSize());
             tableView.getColumns().add(tc);
         }
-
+        */
     }
 
 }
