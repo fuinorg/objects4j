@@ -22,6 +22,7 @@
         <developerConnection>scm:git:git@github.com:fuinorg/objects4j.git</developerConnection>
         <url>https://github.com/fuinorg/objects4j/</url>
     </scm>
+
     <issueManagement>
         <system>GitHub Issues</system>
         <url>https://github.com/fuinorg/objects4j/issues</url>
@@ -198,12 +199,6 @@
             <artifactId>guava</artifactId>
             <version>28.2-jre</version>
             <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.google.code.findbugs</groupId>
-                    <artifactId>jsr305</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <dependency>
@@ -239,29 +234,6 @@
     <build>
 
         <plugins>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
-                <configuration>
-                    <release>${java.version}</release>
-                    <compilerArgs>
-                      <arg>--patch-module javax.annotation=${settings.localRepository}/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar</arg>
-                    </compilerArgs>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.2.0</version>
-                <configuration>
-                    <includes>
-                        <include>**/*</include>
-                    </includes>
-                </configuration>
-            </plugin>
 
             <plugin>
                 <groupId>org.apache.felix</groupId>
