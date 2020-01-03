@@ -7,6 +7,7 @@ pipeline {
         stage ('Initialize') {
             steps {
                 sh "./mvnw -version"
+                sh "java --version"
             }
         }
         stage('Build') { 
