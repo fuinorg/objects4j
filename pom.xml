@@ -262,6 +262,7 @@
                             <goal>jar</goal>
                         </goals>
                         <configuration>
+                            <debug>true</debug>
                             <additionalDependencies>
                                 <additionalDependency>
                                     <groupId>com.google.code.findbugs</groupId>
