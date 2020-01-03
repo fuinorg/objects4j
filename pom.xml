@@ -252,29 +252,6 @@
             </plugin>
 
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.1.1</version>
-                <executions>
-                    <execution>
-                        <id>attach-javadocs</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                        <configuration>
-                            <additionalDependencies>
-                                <additionalDependency>
-                                    <groupId>com.google.code.findbugs</groupId>
-                                    <artifactId>jsr305</artifactId>
-                                    <version>3.0.2</version>
-                                </additionalDependency>
-                            </additionalDependencies>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
                 <version>4.2.1</version>
