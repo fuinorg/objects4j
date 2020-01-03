@@ -29,6 +29,7 @@ import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+import javax.annotation.Nullable;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -290,8 +291,8 @@ public final class AnnotationAnalyzer {
      * 
      * @return The result of dispatching the method represented by this object on <code>obj</code> with parameters <code>args</code>.
      */
-    private static Object invoke(@NotNull final Object obj, @NotEmpty final String methodName, @javax.annotation.Nullable final Class<?>[] argTypes,
-            @javax.annotation.Nullable final Object[] args) {
+    private static Object invoke(@NotNull final Object obj, @NotEmpty final String methodName, @Nullable final Class<?>[] argTypes,
+            @Nullable final Object[] args) {
 
         Contract.requireArgNotNull("obj", obj);
         Contract.requireArgNotNull("methodName", methodName);
