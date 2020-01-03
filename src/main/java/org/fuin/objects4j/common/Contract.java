@@ -23,6 +23,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nullable;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -209,7 +210,7 @@ public final class Contract {
      *             The value is invalid.
      */
     // CHECKSTYLE:OFF:RedundantThrows
-    public static void requireValid(@NotNull final Validator validator, @NotNull final Object value, @javax.annotation.Nullable final Class<?>... groups)
+    public static void requireValid(@NotNull final Validator validator, @NotNull final Object value, @Nullable final Class<?>... groups)
             throws ConstraintViolationException {
         // CHECKSTYLE:ON
 
@@ -240,7 +241,7 @@ public final class Contract {
      *             The value is invalid.
      */
     // CHECKSTYLE:OFF:RedundantThrows
-    public static void requireValid(@NotNull final Object value, @javax.annotation.Nullable final Class<?>... groups) throws ConstraintViolationException {
+    public static void requireValid(@NotNull final Object value, @Nullable final Class<?>... groups) throws ConstraintViolationException {
         // CHECKSTYLE:ON
         requireValid(getValidator(), value, groups);
     }
@@ -261,8 +262,8 @@ public final class Contract {
      *            Type of the validated object.
      */
     @NotNull
-    public static <TYPE> Set<ConstraintViolation<TYPE>> validate(@NotNull final Validator validator, @javax.annotation.Nullable final TYPE value,
-            @javax.annotation.Nullable final Class<?>... groups) {
+    public static <TYPE> Set<ConstraintViolation<TYPE>> validate(@NotNull final Validator validator, @Nullable final TYPE value,
+            @Nullable final Class<?>... groups) {
         if (value == null) {
             return new HashSet<ConstraintViolation<TYPE>>();
         }
@@ -283,7 +284,7 @@ public final class Contract {
      *            Type of the validated object.
      */
     @NotNull
-    public static <TYPE> Set<ConstraintViolation<TYPE>> validate(@javax.annotation.Nullable final TYPE value, @javax.annotation.Nullable final Class<?>... groups) {
+    public static <TYPE> Set<ConstraintViolation<TYPE>> validate(@Nullable final TYPE value, @Nullable final Class<?>... groups) {
         return validate(getValidator(), value, groups);
     }
 
@@ -297,7 +298,7 @@ public final class Contract {
      * 
      * @param <T> Type of list content.
      */
-    public static <T> List<String> asString(@javax.annotation.Nullable final Set<ConstraintViolation<T>> constraintViolations) {
+    public static <T> List<String> asString(@Nullable final Set<ConstraintViolation<T>> constraintViolations) {
         if (constraintViolations == null || constraintViolations.size() == 0) {
             return Collections.emptyList();
         }
@@ -320,7 +321,7 @@ public final class Contract {
      * 
      * @param <T> Type of the root bean.
      */
-    public static <T> String asString(@javax.annotation.Nullable final Set<ConstraintViolation<T>> constraintViolations, @javax.annotation.Nullable final String separator) {
+    public static <T> String asString(@Nullable final Set<ConstraintViolation<T>> constraintViolations, @Nullable final String separator) {
         if (constraintViolations == null || constraintViolations.isEmpty()) {
             return "";
         }
@@ -350,7 +351,7 @@ public final class Contract {
      * 
      * @param <T> Type of the validated root object.
      */
-    public static <T> String asString(@javax.annotation.Nullable final ConstraintViolation<T> violation) {
+    public static <T> String asString(@Nullable final ConstraintViolation<T> violation) {
         if (violation == null) {
             return "";
         }

@@ -24,6 +24,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -297,7 +298,7 @@ public final class HourRanges extends AbstractStringValueObject implements Itera
      * 
      * @return New instance with removed times or {@literal null} if all times where removed.
      */
-    @javax.annotation.Nullable
+    @Nullable
     public final HourRanges remove(@NotNull final HourRanges other) {
         Contract.requireArgNotNull("other", other);
         ensureSingleDayOnly("this", this);
@@ -397,7 +398,7 @@ public final class HourRanges extends AbstractStringValueObject implements Itera
      * 
      * @return {@literal true} if the string is a valid string, else {@literal false}.
      */
-    public static boolean isValid(@javax.annotation.Nullable final String hourRanges) {
+    public static boolean isValid(@Nullable final String hourRanges) {
         if (hourRanges == null) {
             return true;
         }
@@ -422,8 +423,8 @@ public final class HourRanges extends AbstractStringValueObject implements Itera
      * 
      * @return New instance.
      */
-    @javax.annotation.Nullable
-    public static HourRanges valueOf(@javax.annotation.Nullable final String str) {
+    @Nullable
+    public static HourRanges valueOf(@Nullable final String str) {
         if (str == null) {
             return null;
         }
@@ -438,11 +439,11 @@ public final class HourRanges extends AbstractStringValueObject implements Itera
      * 
      * @return New instance.
      */
-    public static HourRanges valueOf(@javax.annotation.Nullable final BitSet minutes) {
+    public static HourRanges valueOf(@Nullable final BitSet minutes) {
         return valueOf(minutes, 1440);
     }
 
-    private static HourRanges valueOf(@javax.annotation.Nullable final BitSet minutes, final int max) {
+    private static HourRanges valueOf(@Nullable final BitSet minutes, final int max) {
         if (minutes == null) {
             return null;
         }

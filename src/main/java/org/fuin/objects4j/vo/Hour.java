@@ -19,6 +19,7 @@ package org.fuin.objects4j.vo;
 
 import java.util.regex.Pattern;
 
+import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -146,7 +147,7 @@ public final class Hour extends AbstractStringValueObject {
      * 
      * @return {@literal true} if the string is a valid number, else {@literal false}.
      */
-    public static boolean isValid(@javax.annotation.Nullable final String hour) {
+    public static boolean isValid(@Nullable final String hour) {
         if (hour == null) {
             return true;
         }
@@ -161,8 +162,8 @@ public final class Hour extends AbstractStringValueObject {
      * 
      * @return New instance.
      */
-    @javax.annotation.Nullable
-    public static Hour valueOf(@javax.annotation.Nullable final String str) {
+    @Nullable
+    public static Hour valueOf(@Nullable final String str) {
         if (str == null) {
             return null;
         }

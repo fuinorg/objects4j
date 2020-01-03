@@ -21,6 +21,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -312,7 +313,7 @@ public final class DayOpeningHours implements ValueObjectWithBaseType<String>, C
      * 
      * @return New instance with removed times or {@literal null} if all times where removed.
      */
-    @javax.annotation.Nullable
+    @Nullable
     public final DayOpeningHours remove(@NotNull final HourRanges other) {
         Contract.requireArgNotNull("other", other);
         final HourRanges removed = this.hourRanges.remove(other);
@@ -335,7 +336,7 @@ public final class DayOpeningHours implements ValueObjectWithBaseType<String>, C
      * 
      * @return New instance with removed times or {@literal null} if all times where removed.
      */
-    @javax.annotation.Nullable
+    @Nullable
     public final DayOpeningHours remove(@NotNull final DayOpeningHours other) {
         Contract.requireArgNotNull("other", other);
         return this.remove(other.hourRanges);
@@ -432,7 +433,7 @@ public final class DayOpeningHours implements ValueObjectWithBaseType<String>, C
      * 
      * @return {@literal true} if the string is valid, else {@literal false}.
      */
-    public static boolean isValid(@javax.annotation.Nullable final String dayOpeningHours) {
+    public static boolean isValid(@Nullable final String dayOpeningHours) {
         if (dayOpeningHours == null) {
             return true;
         }
@@ -453,8 +454,8 @@ public final class DayOpeningHours implements ValueObjectWithBaseType<String>, C
      * 
      * @return New instance.
      */
-    @javax.annotation.Nullable
-    public static DayOpeningHours valueOf(@javax.annotation.Nullable final String str) {
+    @Nullable
+    public static DayOpeningHours valueOf(@Nullable final String str) {
         if (str == null) {
             return null;
         }

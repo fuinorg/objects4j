@@ -17,6 +17,8 @@
  */
 package org.fuin.objects4j.vo;
 
+import javax.annotation.Nullable;
+
 /**
  * Can convert a string into a type.
  *
@@ -33,7 +35,7 @@ public interface ValueOfCapable<T> {
      * 
      * @return Converted value.
      */
-    @javax.annotation.Nullable
-    public T valueOf(@javax.annotation.Nullable String value);
+    @Nullable
+    public T valueOf(@Nullable String value);
 
 }
