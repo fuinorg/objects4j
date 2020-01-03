@@ -262,7 +262,13 @@
                             <goal>jar</goal>
                         </goals>
                         <configuration>
-                            <additionalparam>-Xdoclint:none</additionalparam>
+                            <additionalDependencies>
+                                <additionalDependency>
+                                    <groupId>com.google.code.findbugs</groupId>
+                                    <artifactId>jsr305</artifactId>
+                                    <version>3.0.2</version>
+                                </additionalDependency>
+                            </additionalDependencies>
                         </configuration>
                     </execution>
                 </executions>
