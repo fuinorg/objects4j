@@ -20,9 +20,10 @@ package org.fuin.objects4j.vo;
 import java.util.Locale;
 import java.util.StringTokenizer;
 
-import javax.annotation.concurrent.ThreadSafe;
 import javax.persistence.AttributeConverter;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
+
+import org.fuin.objects4j.common.ThreadSafe;
 
 /**
  * Converts a {@link Locale} into a String and back.

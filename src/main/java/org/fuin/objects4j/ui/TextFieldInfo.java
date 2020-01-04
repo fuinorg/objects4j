@@ -20,10 +20,10 @@ package org.fuin.objects4j.ui;
 import java.lang.reflect.Field;
 import java.util.Locale;
 
-import javax.annotation.concurrent.Immutable;
 import javax.validation.constraints.NotNull;
 
 import org.fuin.objects4j.common.Contract;
+import org.fuin.objects4j.common.Immutable;
 
 /**
  * Information about a text field.

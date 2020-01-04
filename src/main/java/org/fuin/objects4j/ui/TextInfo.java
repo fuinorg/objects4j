@@ -17,7 +17,7 @@
  */
 package org.fuin.objects4j.ui;
 
-import javax.annotation.concurrent.Immutable;
+import org.fuin.objects4j.common.Immutable;
 
 /**
  * Stores some text.

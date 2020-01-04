@@ -22,11 +22,11 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Currency;
 
-import javax.annotation.concurrent.Immutable;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.fuin.objects4j.common.Contract;
+import org.fuin.objects4j.common.Immutable;
 import org.fuin.objects4j.ui.Label;
 import org.fuin.objects4j.ui.ShortLabel;
 

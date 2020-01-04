@@ -17,7 +17,6 @@
  */
 package org.fuin.objects4j.vo;
 
-import javax.annotation.concurrent.Immutable;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.validation.constraints.NotNull;
@@ -25,6 +24,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.objects4j.common.Contract;
+import org.fuin.objects4j.common.Immutable;
 import org.fuin.objects4j.ui.Label;
 import org.fuin.objects4j.ui.ShortLabel;
 import org.fuin.objects4j.ui.Tooltip;

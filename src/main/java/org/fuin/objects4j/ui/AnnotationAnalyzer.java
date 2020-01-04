@@ -29,11 +29,11 @@ import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-import javax.annotation.Nullable;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import org.fuin.objects4j.common.Contract;
+import org.fuin.objects4j.common.Nullable;
 
 /**
  * Wrapper for a class that has some annotations to perform some actions with.

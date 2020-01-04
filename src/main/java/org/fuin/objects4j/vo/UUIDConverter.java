@@ -19,9 +19,10 @@ package org.fuin.objects4j.vo;
 
 import java.util.UUID;
 
-import javax.annotation.concurrent.ThreadSafe;
 import javax.persistence.AttributeConverter;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
+
+import org.fuin.objects4j.common.ThreadSafe;
 
 /**
  * Converts a {@link UUID} into a String and back.

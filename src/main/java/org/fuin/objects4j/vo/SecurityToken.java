@@ -21,8 +21,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
-import javax.annotation.concurrent.Immutable;
 import javax.validation.constraints.NotNull;
+
+import org.fuin.objects4j.common.Immutable;
 
 /**
  * Creates a BASE64 encoded string based on a SHA1PRNG {@link SecureRandom}.

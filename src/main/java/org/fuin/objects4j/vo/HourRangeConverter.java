@@ -17,7 +17,7 @@
  */
 package org.fuin.objects4j.vo;
 
-import javax.annotation.concurrent.ThreadSafe;
+import org.fuin.objects4j.common.ThreadSafe;
 
 /**
  * Converts a {@link HourRange} into a String and back.

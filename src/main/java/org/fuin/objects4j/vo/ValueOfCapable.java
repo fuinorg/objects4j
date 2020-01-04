@@ -17,7 +17,7 @@
  */
 package org.fuin.objects4j.vo;
 
-import javax.annotation.Nullable;
+import org.fuin.objects4j.common.Nullable;
 
 /**
  * Can convert a string into a type.

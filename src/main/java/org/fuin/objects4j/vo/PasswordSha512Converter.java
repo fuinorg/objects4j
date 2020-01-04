@@ -17,9 +17,10 @@
  */
 package org.fuin.objects4j.vo;
 
-import javax.annotation.concurrent.ThreadSafe;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
+
+import org.fuin.objects4j.common.ThreadSafe;
 
 /**
  * Creates a {@link PasswordSha512}.
