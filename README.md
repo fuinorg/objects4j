@@ -229,6 +229,13 @@ Additionally some helper classes (like validators) are placed in this package.
 
 * * *
 
+# Changes
+
+### 0.7.0-SNAPSHOT
+This version has several incompatible changes because of moving it to Java 11.
+- Removed JaxbMarshallable classes because of illegal reflective access 
+
+
 ### Snapshots
 
 Snapshots can be found on the [OSS Sonatype Snapshots Repository](http://oss.sonatype.org/content/repositories/snapshots/org/fuin "Snapshot Repository"). 
