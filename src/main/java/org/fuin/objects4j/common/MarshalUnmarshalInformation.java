@@ -21,15 +21,19 @@ package org.fuin.objects4j.common;
  * Tags any instance that is capable of delivering additional informations for serialization/deserialization. In contrast to XML where the
  * element name can be used to determine the type of the object, as with JSON there is often just an unknown type of object. This class
  * helps determining the full qualified name of the class and the tag name to use.
+ * 
+ * @param <DATA>
+ *            Type of data returned.
+ * 
  */
-public interface MarshalUnmarshalInformation {
+public interface MarshalUnmarshalInformation<DATA> {
 
     /**
-     * Returns the full qualified name of the class to be marshalled/unmarshalled.
+     * Returns the class to be marshalled/unmarshalled.
      * 
-     * @return Full class name as returned per {@link Class#getName()}.
+     * @return Type of data.
      */
-    public String getDataClass();
+    public Class<DATA> getDataClass();
 
     /**
      * Returns the name of the tag that has an object of the given class.
@@ -37,5 +41,12 @@ public interface MarshalUnmarshalInformation {
      * @return Name to be used for the data element.
      */
     public String getDataElement();
+
+    /**
+     * Returns the data instance.
+     * 
+     * @return Data object.
+     */
+    public DATA getData();
 
 }
