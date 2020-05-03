@@ -26,7 +26,7 @@ package org.fuin.objects4j.common;
  *            Type of data returned.
  * 
  */
-public interface MarshalUnmarshalInformation<DATA> {
+public interface MarshalInformation<DATA> {
 
     /**
      * Returns the class to be marshalled/unmarshalled.
