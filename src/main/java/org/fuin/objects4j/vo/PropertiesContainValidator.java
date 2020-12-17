@@ -22,8 +22,8 @@ import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
 /**
  * Check that a properties object contains a given number of expected keys.

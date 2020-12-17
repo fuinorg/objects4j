@@ -21,9 +21,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Set;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.NotEmpty;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotEmpty;
 
 import org.junit.Test;
 

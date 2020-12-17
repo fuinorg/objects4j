@@ -22,7 +22,7 @@ import static org.junit.Assert.fail;
 
 import java.util.Locale;
 
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidatorContext;
 
 import org.fuin.objects4j.common.ConstraintViolationException;
 import org.junit.After;

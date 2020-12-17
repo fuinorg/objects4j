@@ -28,6 +28,6 @@ package org.fuin.objects4j.vo;
 import java.util.Locale;
 import java.util.UUID;
 
-import javax.enterprise.inject.Vetoed;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapters;
+import jakarta.enterprise.inject.Vetoed;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapters;

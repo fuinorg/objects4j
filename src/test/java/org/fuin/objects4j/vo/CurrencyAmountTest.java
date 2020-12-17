@@ -25,7 +25,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Currency;
 
-import javax.persistence.Query;
+import jakarta.persistence.Query;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
 

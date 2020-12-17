@@ -20,7 +20,7 @@ package org.fuin.objects4j.ui;
 import java.io.Serializable;
 import java.text.DecimalFormat;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.common.Immutable;

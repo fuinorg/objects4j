@@ -19,8 +19,8 @@ package org.fuin.objects4j.vo;
 
 import java.util.UUID;
 
-import javax.persistence.AttributeConverter;
-import javax.xml.bind.annotation.adapters.XmlAdapter;
+import jakarta.persistence.AttributeConverter;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
 import org.fuin.objects4j.common.ThreadSafe;
 

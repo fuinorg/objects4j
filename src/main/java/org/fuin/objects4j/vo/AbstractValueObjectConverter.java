@@ -17,9 +17,9 @@
  */
 package org.fuin.objects4j.vo;
 
-import javax.json.bind.adapter.JsonbAdapter;
-import javax.persistence.AttributeConverter;
-import javax.xml.bind.annotation.adapters.XmlAdapter;
+import jakarta.json.bind.adapter.JsonbAdapter;
+import jakarta.persistence.AttributeConverter;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
  * Base class for vale object converters.

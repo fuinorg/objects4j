@@ -24,10 +24,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.Valid;
-import javax.validation.Validation;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Valid;
+import jakarta.validation.Validation;
+import jakarta.validation.constraints.NotNull;
 
 import org.fuin.objects4j.vo.EmailAddressStr;
 import org.fuin.objects4j.vo.PasswordStr;
@@ -81,7 +81,7 @@ public class ContractTest {
                 child);
         assertThat(violations).isNotNull();
         assertThat(violations.size()).isGreaterThan(0);
-        assertThat(violations.iterator().next().getMessageTemplate()).isEqualTo("{javax.validation.constraints.NotNull.message}");
+        assertThat(violations.iterator().next().getMessageTemplate()).isEqualTo("{jakarta.validation.constraints.NotNull.message}");
 
     }
 
@@ -92,7 +92,7 @@ public class ContractTest {
         final Set<ConstraintViolation<Child>> violations = Contract.validate(child);
         assertThat(violations).isNotNull();
         assertThat(violations.size()).isGreaterThan(0);
-        assertThat(violations.iterator().next().getMessageTemplate()).isEqualTo("{javax.validation.constraints.NotNull.message}");
+        assertThat(violations.iterator().next().getMessageTemplate()).isEqualTo("{jakarta.validation.constraints.NotNull.message}");
 
     }
 

@@ -20,8 +20,8 @@ package org.fuin.objects4j.vo;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
 /**
  * Check that a given string is a well-formed date/time based on a pattern.

@@ -19,10 +19,10 @@ package org.fuin.objects4j.vo;
 
 import java.util.UUID;
 
-import javax.json.bind.annotation.JsonbProperty;
-import javax.validation.Valid;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.json.bind.annotation.JsonbProperty;
+import jakarta.validation.Valid;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
  * XML/JSON container used for tests.

@@ -17,8 +17,8 @@
  */
 package org.fuin.objects4j.vo;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
 /**
  * Verifies if this field contains multiple ranges of hours of a day (24 hour representation) separated by a '+'.<br>

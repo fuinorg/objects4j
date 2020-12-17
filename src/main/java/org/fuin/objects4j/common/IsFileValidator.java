@@ -19,9 +19,9 @@ package org.fuin.objects4j.common;
 
 import java.io.File;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Checks if a given file is a file (and not a directory).

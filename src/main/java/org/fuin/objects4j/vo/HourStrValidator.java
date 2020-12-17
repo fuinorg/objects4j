@@ -17,8 +17,8 @@
  */
 package org.fuin.objects4j.vo;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
 /**
  * Verifies the string is an hour of a day (24 hours, sometimes called Military Time).

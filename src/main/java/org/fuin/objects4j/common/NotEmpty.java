@@ -28,15 +28,15 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import javax.validation.Constraint;
-import javax.validation.Payload;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import jakarta.validation.Constraint;
+import jakarta.validation.Payload;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 /**
  * Checks if the string, collection, map or array is not null or empty.
  * 
- * @deprecated Use <code>javax.validation.constraints.NotEmpty</code> or <code>javax.validation.constraints.NotBlank</code> from bean
+ * @deprecated Use <code>jakarta.validation.constraints.NotEmpty</code> or <code>jakarta.validation.constraints.NotBlank</code> from bean
  *             validation 2.0 instead.
  */
 // CHECKSTYLE:OFF

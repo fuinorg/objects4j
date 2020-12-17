@@ -20,7 +20,7 @@ package org.fuin.objects4j.common;
 import java.util.Collections;
 import java.util.Set;
 
-import javax.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolation;
 
 /**
  * The contract that was checked is violated.

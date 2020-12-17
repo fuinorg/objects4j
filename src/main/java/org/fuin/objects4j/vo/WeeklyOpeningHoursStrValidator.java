@@ -17,8 +17,8 @@
  */
 package org.fuin.objects4j.vo;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
 /**
  * Verifies if this represents weekly opening hours separated by a comma ','.<br>

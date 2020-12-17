@@ -17,10 +17,10 @@
  */
 package org.fuin.objects4j.vo;
 
-import javax.json.bind.adapter.JsonbAdapter;
-import javax.persistence.AttributeConverter;
-import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.adapters.XmlAdapter;
+import jakarta.json.bind.adapter.JsonbAdapter;
+import jakarta.persistence.AttributeConverter;
+import jakarta.validation.constraints.NotNull;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
 import org.fuin.objects4j.common.Contract;
 

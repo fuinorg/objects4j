@@ -17,7 +17,7 @@
  */
 package org.fuin.objects4j.common;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Exception that provides a number for the exception that is unique in the context.

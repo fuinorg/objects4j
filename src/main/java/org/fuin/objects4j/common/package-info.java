@@ -22,4 +22,4 @@
 @Vetoed
 package org.fuin.objects4j.common;
 
-import javax.enterprise.inject.Vetoed;
+import jakarta.enterprise.inject.Vetoed;

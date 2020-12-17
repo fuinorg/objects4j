@@ -17,10 +17,10 @@
  */
 package org.fuin.objects4j.vo;
 
-import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
 // CHECKSTYLE:OFF
 @Entity(name = "DAY_OF_THE_WEEK_PARENT")

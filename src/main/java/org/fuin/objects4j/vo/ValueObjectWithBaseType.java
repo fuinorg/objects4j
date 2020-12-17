@@ -17,7 +17,7 @@
  */
 package org.fuin.objects4j.vo;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Value object that may be expressed in a more general type with relaxed restrictions. Often basic Java types like String or numeric values

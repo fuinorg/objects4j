@@ -30,8 +30,8 @@ import static org.junit.Assert.fail;
 
 import java.util.Set;
 
-import javax.validation.ConstraintViolation;
-import javax.xml.bind.JAXBException;
+import jakarta.validation.ConstraintViolation;
+import jakarta.xml.bind.JAXBException;
 
 import org.junit.After;
 import org.junit.Before;

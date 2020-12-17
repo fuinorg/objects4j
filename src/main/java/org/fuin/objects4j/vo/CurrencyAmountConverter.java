@@ -19,7 +19,7 @@ package org.fuin.objects4j.vo;
 
 import java.util.Currency;
 
-import javax.persistence.AttributeConverter;
+import jakarta.persistence.AttributeConverter;
 
 import org.fuin.objects4j.common.ThreadSafe;
 

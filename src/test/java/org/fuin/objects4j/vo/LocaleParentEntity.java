@@ -19,9 +19,9 @@ package org.fuin.objects4j.vo;
 
 import java.util.Locale;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
 // CHECKSTYLE:OFF
 @Entity(name = "LOCALE_PARENT")

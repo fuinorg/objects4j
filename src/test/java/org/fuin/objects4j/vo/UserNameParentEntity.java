@@ -17,9 +17,9 @@
  */
 package org.fuin.objects4j.vo;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
 // CHECKSTYLE:OFF
 @Entity(name = "USER_NAME_PARENT")
