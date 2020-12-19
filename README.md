@@ -8,9 +8,9 @@ A library with common Java types that are mostly immutable value objects.
 [![Java Development Kit 11](https://img.shields.io/badge/JDK-11-green.svg)](https://openjdk.java.net/projects/jdk/11/)
 
 ## Versions
-- 0.8.x (or later) = Java 11 with new jakarta.* namespace
-- 0.7.x = Java 11 before namespace change from 'javax.' to 'jakarta.'
-- 0.6.9 (or previous) = Java 8
+- 0.8.x (or later) = **Java 11** with new **jakarta** namespace
+- 0.7.x = **Java 11** before namespace change from 'javax' to 'jakarta'
+- 0.6.9 (or previous) = **Java 8**
 
 
 # Features
