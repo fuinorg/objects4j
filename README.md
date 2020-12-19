@@ -1,6 +1,4 @@
-objects4j
-=========
-
+# objects4j
 A library with common Java types that are mostly immutable value objects.
 
 [![Build Status](https://jenkins.fuin.org/job/objects4j/badge/icon)](https://jenkins.fuin.org/job/objects4j/)
