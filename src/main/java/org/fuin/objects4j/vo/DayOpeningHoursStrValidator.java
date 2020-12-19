@@ -21,8 +21,7 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
 /**
-/**
- * Represents the opening hours of one day of the week.<br>
+ * /** Represents the opening hours of one day of the week.<br>
  * <br>
  * Valid examples are:
  * <ul>

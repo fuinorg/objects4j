@@ -24,12 +24,12 @@ import static org.fuin.utils4j.JaxbUtils.XML_PREFIX;
 import static org.fuin.utils4j.JaxbUtils.marshal;
 import static org.fuin.utils4j.JaxbUtils.unmarshal;
 
-import jakarta.xml.bind.JAXBException;
-
 import org.fuin.units4j.AbstractPersistenceTest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import jakarta.xml.bind.JAXBException;
 
 // CHECKSTYLE:OFF
 public class ValueObjectStringConverterTest extends AbstractPersistenceTest {
@@ -37,7 +37,7 @@ public class ValueObjectStringConverterTest extends AbstractPersistenceTest {
     private static final String XML = XML_PREFIX + "<data any-str=\"abcd1234\"/>";
 
     private static final String JSON = "{\"any-str\":\"abcd1234\"}";
-    
+
     private ValueObjectStringConverter<AnyStr> testee;
 
     @Before

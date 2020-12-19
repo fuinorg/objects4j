@@ -270,19 +270,20 @@ public final class WeeklyOpeningHours extends AbstractStringValueObject implemen
         return day.openAt(dayOpeningHours);
 
     }
-    
+
     /**
      * Returns the information if this instance is similar to the other one.<br>
      * For example is 'Mon 00:00-24:00' similar to 'Fri 18:00-24:00,Sat 00:00-03:00'.
      * 
-     * @param other Instance to compare with.
+     * @param other
+     *            Instance to compare with.
      * 
      * @return {@literal true} if the instance is simlar.
      */
     public boolean isSimilarTo(final WeeklyOpeningHours other) {
-        
+
         return compress().equals(other.compress());
-        
+
     }
 
     /**

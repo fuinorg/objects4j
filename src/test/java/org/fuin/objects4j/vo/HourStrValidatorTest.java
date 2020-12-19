@@ -67,6 +67,6 @@ public final class HourStrValidatorTest {
         assertThat(testee.isValid("24:01", null)).isFalse();
 
     }
-    
+
 }
 // TESTCODE:END

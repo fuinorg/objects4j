@@ -148,7 +148,7 @@ public final class DayOpeningHours implements ValueObjectWithBaseType<String>, C
     public final String toString() {
         return asBaseType();
     }
-    
+
     /**
      * Returns the day of the week.
      * 
@@ -157,7 +157,7 @@ public final class DayOpeningHours implements ValueObjectWithBaseType<String>, C
     public final DayOfTheWeek getDayOfTheWeek() {
         return dayOfTheWeek;
     }
-    
+
     /**
      * Returns the hour ranges.
      * 
@@ -300,7 +300,7 @@ public final class DayOpeningHours implements ValueObjectWithBaseType<String>, C
         Contract.requireArgNotNull("other", other);
         return this.add(other.hourRanges);
     }
-    
+
     /**
      * Removes some hour ranges from this instance and returns a new one.<br>
      * <br>

@@ -26,11 +26,11 @@ import static org.fuin.utils4j.JaxbUtils.marshal;
 import static org.fuin.utils4j.JaxbUtils.unmarshal;
 import static org.junit.Assert.fail;
 
-import jakarta.xml.bind.JAXBException;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import jakarta.xml.bind.JAXBException;
 
 // CHECKSTYLE:OFF
 public class EmailAddressConverterTest {
@@ -132,6 +132,6 @@ public class EmailAddressConverterTest {
         }
 
     }
-    
+
 }
 // CHECKSTYLE:ON

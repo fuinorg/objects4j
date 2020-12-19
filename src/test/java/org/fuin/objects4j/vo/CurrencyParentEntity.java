@@ -17,26 +17,32 @@
  */
 package org.fuin.objects4j.vo;
 
+import java.util.Currency;
+
+import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
 // CHECKSTYLE:OFF
-@Entity(name = "HOUR_RANGES_PARENT")
-public class HourRangesParentEntity {
+@Entity(name = "CURRENCY_PARENT")
+public class CurrencyParentEntity {
 
     @Id
     @Column(name = "ID")
     private long id;
 
-    @Column(name = "HOUR_RANGES", nullable = true)
-    private HourRanges hourRanges;
+    @Convert(converter = CurrencyConverter.class)
+    @Column(name = "CURRENCY", nullable = true)
+    @Basic
+    private Currency currency;
 
-    public HourRangesParentEntity() {
+    public CurrencyParentEntity() {
         super();
     }
 
-    public HourRangesParentEntity(long id) {
+    public CurrencyParentEntity(long id) {
         super();
         this.id = id;
     }
@@ -49,12 +55,12 @@ public class HourRangesParentEntity {
         this.id = id;
     }
 
-    public HourRanges getHourRanges() {
-        return hourRanges;
+    public Currency getCurrency() {
+        return currency;
     }
 
-    public void setHourRanges(HourRanges hourRanges) {
-        this.hourRanges = hourRanges;
+    public void setCurrency(Currency currency) {
+        this.currency = currency;
     }
 
 }

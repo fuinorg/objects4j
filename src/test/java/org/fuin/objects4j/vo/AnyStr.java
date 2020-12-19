@@ -1,8 +1,8 @@
 package org.fuin.objects4j.vo;
 
-import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
 import org.fuin.objects4j.common.Contract;
+
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
  * Test implementation for a {@link AbstractStringValueObject}.

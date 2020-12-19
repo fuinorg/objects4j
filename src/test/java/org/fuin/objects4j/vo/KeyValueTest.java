@@ -140,8 +140,7 @@ public final class KeyValueTest {
 
     @Test
     public final void testReplaceVarsNullVar() {
-        assertThat(KeyValue.replace("${one} ${two} three", new KeyValue("one", "1"), new KeyValue("two", null)))
-                .isEqualTo("1 null three");
+        assertThat(KeyValue.replace("${one} ${two} three", new KeyValue("one", "1"), new KeyValue("two", null))).isEqualTo("1 null three");
     }
 
     @Test

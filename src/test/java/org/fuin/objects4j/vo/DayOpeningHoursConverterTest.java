@@ -26,11 +26,11 @@ import static org.fuin.utils4j.JaxbUtils.marshal;
 import static org.fuin.utils4j.JaxbUtils.unmarshal;
 import static org.junit.Assert.fail;
 
-import jakarta.xml.bind.JAXBException;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import jakarta.xml.bind.JAXBException;
 
 // CHECKSTYLE:OFF
 public class DayOpeningHoursConverterTest {
@@ -81,7 +81,8 @@ public class DayOpeningHoursConverterTest {
             unmarshal(invalidEmailInXmlData, Data.class);
             fail("Expected an exception");
         } catch (final RuntimeException ex) {
-            assertCauseCauseMessage(ex, "The argument 'dayOpeningHours' does not represent a valid hour range like 'Mon 09:00-12:00+13:00-17:00': '17-18'");
+            assertCauseCauseMessage(ex,
+                    "The argument 'dayOpeningHours' does not represent a valid hour range like 'Mon 09:00-12:00+13:00-17:00': '17-18'");
         }
 
     }
@@ -111,7 +112,8 @@ public class DayOpeningHoursConverterTest {
             fromJson(invalidJsonData, Data.class, new DayOpeningHoursConverter());
             fail("Expected an exception");
         } catch (final RuntimeException ex) {
-            assertCauseCauseMessage(ex, "The argument 'dayOpeningHours' does not represent a valid hour range like 'Mon 09:00-12:00+13:00-17:00': '17-18'");
+            assertCauseCauseMessage(ex,
+                    "The argument 'dayOpeningHours' does not represent a valid hour range like 'Mon 09:00-12:00+13:00-17:00': '17-18'");
         }
 
     }

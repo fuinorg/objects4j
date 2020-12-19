@@ -89,7 +89,7 @@ public final class KeyValue implements ValueObject {
         }
         return value.toString();
     }
-    
+
     /**
      * Replaces all variables in the format "${NAME}" with the corresponding value. NAME is the name of a key from the <code>keyValue</code>
      * array.
@@ -125,7 +125,7 @@ public final class KeyValue implements ValueObject {
         }
         return replaceVars(message, map);
     }
-    
+
     private static String nullSafeAsString(final Object obj) {
         if (obj == null) {
             return "null";

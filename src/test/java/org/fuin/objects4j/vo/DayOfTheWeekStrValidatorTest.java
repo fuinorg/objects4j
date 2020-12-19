@@ -50,7 +50,7 @@ public final class DayOfTheWeekStrValidatorTest {
         assertThat(testee.isValid("Sat", null)).isTrue();
         assertThat(testee.isValid("Sun", null)).isTrue();
         assertThat(testee.isValid("PH", null)).isTrue();
-        
+
     }
 
     @Test
@@ -61,8 +61,8 @@ public final class DayOfTheWeekStrValidatorTest {
         assertThat(testee.isValid("S", null)).isFalse();
         assertThat(testee.isValid("Satur", null)).isFalse();
         assertThat(testee.isValid("Fr", null)).isFalse();
-        
+
     }
-    
+
 }
 // TESTCODE:END

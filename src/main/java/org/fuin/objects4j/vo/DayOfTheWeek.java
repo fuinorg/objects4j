@@ -284,7 +284,8 @@ public final class DayOfTheWeek implements ValueObjectWithBaseType<String>, Comp
     /**
      * Converts the instance into java time instance.
      * 
-     * @param dayOfWeek Java time day of the week.
+     * @param dayOfWeek
+     *            Java time day of the week.
      * 
      * @return Day of week.
      */

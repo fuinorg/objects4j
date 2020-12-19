@@ -30,12 +30,12 @@ import static org.junit.Assert.fail;
 
 import java.util.Set;
 
-import jakarta.validation.ConstraintViolation;
-import jakarta.xml.bind.JAXBException;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import jakarta.validation.ConstraintViolation;
+import jakarta.xml.bind.JAXBException;
 
 //CHECKSTYLE:OFF
 public class UserNameConverterTest {
@@ -45,7 +45,7 @@ public class UserNameConverterTest {
     private static final String XML = XML_PREFIX + "<data userName=\"" + USER_NAME + "\"/>";
 
     private static final String JSON = "{\"userName\":\"" + USER_NAME + "\"}";
-    
+
     private ValueObjectConverter<String, UserName> testee;
 
     @Before

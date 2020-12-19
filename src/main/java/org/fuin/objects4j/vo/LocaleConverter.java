@@ -21,6 +21,7 @@ import java.util.Locale;
 import java.util.StringTokenizer;
 
 import jakarta.persistence.AttributeConverter;
+import jakarta.persistence.Converter;
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
 import org.fuin.objects4j.common.ThreadSafe;
@@ -29,6 +30,7 @@ import org.fuin.objects4j.common.ThreadSafe;
  * Converts a {@link Locale} into a String and back.
  */
 @ThreadSafe
+@Converter(autoApply = true)
 public final class LocaleConverter extends XmlAdapter<String, Locale> implements AttributeConverter<Locale, String> {
 
     @Override

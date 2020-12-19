@@ -25,13 +25,13 @@ import static org.fuin.objects4j.vo.HourRanges.ChangeType.ADDED;
 import static org.fuin.objects4j.vo.HourRanges.ChangeType.REMOVED;
 import static org.junit.Assert.fail;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
+
 import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.objects4j.vo.DayOpeningHours.Change;
 import org.fuin.objects4j.vo.HourRanges.ChangeType;
 import org.fuin.units4j.AbstractPersistenceTest;
 import org.junit.Test;
-
-import nl.jqno.equalsverifier.EqualsVerifier;
 
 // CHECKSTYLE:OFF
 public class DayOpeningHoursTest extends AbstractPersistenceTest {
@@ -45,7 +45,7 @@ public class DayOpeningHoursTest extends AbstractPersistenceTest {
 
         assertThat(new DayOpeningHours("Mon 13:00-14:00"))
                 .isEqualTo(new DayOpeningHours(DayOfTheWeek.valueOf("Mon"), new HourRanges("13:00-14:00")));
-        
+
         assertThat(new DayOpeningHours("Mon 13:00-14:00").getDayOfTheWeek()).isSameAs(DayOfTheWeek.MON);
         assertThat(new DayOpeningHours("Mon 13:00-14:00").getHourRanges()).isEqualTo(new HourRanges("13:00-14:00"));
 
@@ -122,7 +122,7 @@ public class DayOpeningHoursTest extends AbstractPersistenceTest {
         // TEST UPDATE
         beginTransaction();
         final DayOpeningHoursParentEntity entity = getEm().find(DayOpeningHoursParentEntity.class, 1L);
-        entity.setDayOpeningHours(new DayOpeningHours("Mon 00:00-24:00"));
+        entity.setDayOpeningHours(new DayOpeningHours("MON 00:00-24:00"));
         commitTransaction();
 
         // VERIFY

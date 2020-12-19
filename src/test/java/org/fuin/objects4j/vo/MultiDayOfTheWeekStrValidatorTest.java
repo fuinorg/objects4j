@@ -49,19 +49,19 @@ public final class MultiDayOfTheWeekStrValidatorTest {
         assertThat(testee.isValid("Mon-Wed", null)).isTrue();
         assertThat(testee.isValid("Mon-Sun", null)).isTrue();
         assertThat(testee.isValid("Mon/Tue/Thu-Fri", null)).isTrue();
-        
+
     }
 
     @Test
     public final void testIsValidFALSE() {
 
-        assertThat(testee.isValid("",null)).isFalse();
-        assertThat(testee.isValid("/",null)).isFalse();
-        assertThat(testee.isValid("//",null)).isFalse();
-        assertThat(testee.isValid("Mon+Tue",null)).isFalse();
-        assertThat(testee.isValid("Mon/Tue/Sat+Sun",null)).isFalse();
+        assertThat(testee.isValid("", null)).isFalse();
+        assertThat(testee.isValid("/", null)).isFalse();
+        assertThat(testee.isValid("//", null)).isFalse();
+        assertThat(testee.isValid("Mon+Tue", null)).isFalse();
+        assertThat(testee.isValid("Mon/Tue/Sat+Sun", null)).isFalse();
 
     }
-    
+
 }
 // TESTCODE:END

@@ -25,12 +25,12 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Currency;
 
-import jakarta.persistence.Query;
-
 import nl.jqno.equalsverifier.EqualsVerifier;
 
 import org.fuin.units4j.AbstractPersistenceTest;
 import org.junit.Test;
+
+import jakarta.persistence.Query;
 
 /**
  * Tests the {@link CurrencyAmount} class.
@@ -104,16 +104,12 @@ public class CurrencyAmountTest extends AbstractPersistenceTest {
         final CurrencyAmountParentEntity cap2 = new CurrencyAmountParentEntity(2);
         cap2.setAmount(new CurrencyAmount("100.10", Currency.getInstance("USD")));
         getEm().persist(cap2);
-        final CurrencyAmountParentEntity cap3 = new CurrencyAmountParentEntity(3);
-        cap3.setPrice(new CurrencyAmount("0.25", Currency.getInstance("USD")));
-        getEm().persist(cap3);
         commitTransaction();
 
         // TEST UPDATE
         beginTransaction();
         CurrencyAmountParentEntity ca = getEm().find(CurrencyAmountParentEntity.class, 1L);
         ca.setAmount(new CurrencyAmount(new BigDecimal(1234.56).setScale(2, RoundingMode.HALF_UP), Currency.getInstance("EUR")));
-        ca.setPrice(new CurrencyAmount(new BigDecimal(175701).setScale(0), Currency.getInstance("JPY")));
         commitTransaction();
 
         // VERIFY
@@ -125,13 +121,9 @@ public class CurrencyAmountTest extends AbstractPersistenceTest {
         assertThat(cap.getId()).isEqualTo(1);
         assertThat(cap.getAmount().getAmount()).isEqualTo(new BigDecimal(1234.56).setScale(2, RoundingMode.HALF_UP));
         assertThat(cap.getAmount().getCurrency()).isEqualTo(Currency.getInstance("EUR"));
-        assertThat(cap.getPrice().getAmount()).isEqualTo(new BigDecimal(175701).setScale(0));
-        assertThat(cap.getPrice().getCurrency()).isEqualTo(Currency.getInstance("JPY"));
 
         // Select using native SQL
-        assertThat(executeSingleResult("select * from CURRENCY_AMOUNT_PARENT where AMOUNT='1234.56' AND CURRENCY='EUR'")).isNotNull();
-        assertThat(executeSingleResult("select * from CURRENCY_AMOUNT_PARENT where PRICE='0.25 USD'")).isNotNull();
-        assertThat(executeSingleResult("select * from CURRENCY_AMOUNT_PARENT where PRICE='175701 JPY'")).isNotNull();
+        assertThat(executeSingleResult("select * from CURRENCY_AMOUNT_PARENT where AMOUNT=1234.56 AND CURRENCY='EUR'")).isNotNull();
 
         commitTransaction();
 

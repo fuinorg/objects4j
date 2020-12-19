@@ -17,12 +17,15 @@
  */
 package org.fuin.objects4j.vo;
 
+import jakarta.persistence.Converter;
+
 import org.fuin.objects4j.common.ThreadSafe;
 
 /**
  * Converts a {@link DayOfTheWeek} into a String and back.
  */
 @ThreadSafe
+@Converter(autoApply = true)
 public final class DayOfTheWeekConverter extends ValueObjectStringConverter<DayOfTheWeek> {
 
     /**

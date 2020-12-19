@@ -23,14 +23,14 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-//TESTCODE:BEGIN
-public final class HourRangeStrValidatorTest {
+// CHECKSTYLE:OFF
+public final class CurrencyStrValidatorTest {
 
-    private HourRangeStrValidator testee;
+    private CurrencyStrValidator testee;
 
     @Before
     public final void setUp() {
-        testee = new HourRangeStrValidator();
+        testee = new CurrencyStrValidator();
     }
 
     @After
@@ -39,34 +39,20 @@ public final class HourRangeStrValidatorTest {
     }
 
     @Test
-    public final void testIsValidTRUE() {
+    public final void testIsValid() {
 
         assertThat(testee.isValid(null, null)).isTrue();
-        assertThat(testee.isValid("00:00-24:00", null)).isTrue();
-        assertThat(testee.isValid("00:01-23:59", null)).isTrue();
-        assertThat(testee.isValid("01:00-02:00", null)).isTrue();
-        assertThat(testee.isValid("00:00-06:00", null)).isTrue();
-        assertThat(testee.isValid("12:00-18:00", null)).isTrue();
-        assertThat(testee.isValid("18:00-24:00", null)).isTrue();
-        assertThat(testee.isValid("18:00-03:00", null)).isTrue();
-
-    }
-
-    @Test
-    public final void testIsValidFALSE() {
+        assertThat(testee.isValid("EUR", null)).isTrue();
+        assertThat(testee.isValid("USD", null)).isTrue();
 
         assertThat(testee.isValid("", null)).isFalse();
         assertThat(testee.isValid("-", null)).isFalse();
-        assertThat(testee.isValid("-12:00", null)).isFalse();
-        assertThat(testee.isValid("12:00-", null)).isFalse();
-        assertThat(testee.isValid("12.00-13.00", null)).isFalse();
-        assertThat(testee.isValid("12-13", null)).isFalse();
-        assertThat(testee.isValid("12:-13:", null)).isFalse();
-        assertThat(testee.isValid("12:0", null)).isFalse();
-        assertThat(testee.isValid("12:00-13:000", null)).isFalse();
-        assertThat(testee.isValid("12:00-13", null)).isFalse();
+        assertThat(testee.isValid("ABC", null)).isFalse();
+        assertThat(testee.isValid(" ", null)).isFalse();
+        assertThat(testee.isValid(" EUR ", null)).isFalse();
+        assertThat(testee.isValid("eur", null)).isFalse();
 
     }
 
 }
-// TESTCODE:END
+// CHECKSTYLE:ON

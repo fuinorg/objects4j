@@ -220,9 +220,9 @@ public final class MultiDayOfTheWeek extends AbstractStringValueObject implement
                     if (days.contains(dow)) {
                         return false;
                     }
-                    days.add(dow);                    
+                    days.add(dow);
                 }
-                
+
             } else {
                 // dd
                 if (!DayOfTheWeek.isValid(part)) {
@@ -232,7 +232,7 @@ public final class MultiDayOfTheWeek extends AbstractStringValueObject implement
                 if (days.contains(dow)) {
                     return false;
                 }
-                days.add(dow);                    
+                days.add(dow);
             }
         }
         return true;

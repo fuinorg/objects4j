@@ -36,7 +36,7 @@ import org.fuin.objects4j.ui.Tooltip;
  * Represents an hour of a day (24 hours, sometimes called Military Time).<br>
  * <br>
  * Examples:
- * <ul> 
+ * <ul>
  * <li>'00:00' Midnight next/new day</li>
  * <li>'01:00' One hour after midnight</li>
  * <li>'11:30' Half hour before noon</li>
@@ -61,7 +61,7 @@ public final class Hour extends AbstractStringValueObject {
     private int hourValue;
 
     private int minuteValue;
-    
+
     /**
      * Protected default constructor for deserialization.
      */
@@ -94,21 +94,18 @@ public final class Hour extends AbstractStringValueObject {
     public Hour(final int hour, final int minute) {
         super();
         if (hour < 0 || hour > 24) {
-            throw new ConstraintViolationException(
-                    "The argument 'hour' is not a valid hour (0-24): '" + hour + "'");
+            throw new ConstraintViolationException("The argument 'hour' is not a valid hour (0-24): '" + hour + "'");
         }
         if (minute < 0 || minute > 59) {
-            throw new ConstraintViolationException(
-                    "The argument 'minute' is not a valid minute (0-59): '" + minute + "'");
+            throw new ConstraintViolationException("The argument 'minute' is not a valid minute (0-59): '" + minute + "'");
         }
         if (hour == 24 && minute != 0) {
-            throw new ConstraintViolationException(
-                    "The argument 'minute' must be '0' if the hour is '24': '" + minute + "'");
+            throw new ConstraintViolationException("The argument 'minute' must be '0' if the hour is '24': '" + minute + "'");
         }
         this.hourValue = hour;
         this.minuteValue = minute;
     }
-    
+
     @Override
     @NotEmpty
     public String asBaseType() {
@@ -128,17 +125,16 @@ public final class Hour extends AbstractStringValueObject {
     public String toString() {
         return asBaseType();
     }
-    
+
     /**
-     * Converts the hour into minutes of day.
-     * '00:00' = 0 and '24:00' = 1440.  
+     * Converts the hour into minutes of day. '00:00' = 0 and '24:00' = 1440.
      * 
      * @return 0-1440
      */
     public int toMinutes() {
         return (hourValue * 60) + minuteValue;
     }
-    
+
     /**
      * Verifies if the string is a valid hour.
      * 
@@ -191,5 +187,5 @@ public final class Hour extends AbstractStringValueObject {
         }
 
     }
-    
+
 }

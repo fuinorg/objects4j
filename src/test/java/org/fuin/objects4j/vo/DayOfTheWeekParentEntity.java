@@ -18,7 +18,6 @@
 package org.fuin.objects4j.vo;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
@@ -31,7 +30,6 @@ public class DayOfTheWeekParentEntity {
     private long id;
 
     @Column(name = "DAY_OF_THE_WEEK", nullable = true)
-    @Convert(converter = DayOfTheWeekConverter.class)
     private DayOfTheWeek dayOfTheWeek;
 
     public DayOfTheWeekParentEntity() {

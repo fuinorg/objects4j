@@ -20,12 +20,12 @@ package org.fuin.objects4j.vo;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.Assert.fail;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
+
 import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.units4j.AbstractPersistenceTest;
 import org.junit.Test;
-
-import nl.jqno.equalsverifier.EqualsVerifier;
-import nl.jqno.equalsverifier.Warning;
 
 // CHECKSTYLE:OFF
 public class HourRangeTest extends AbstractPersistenceTest {
@@ -229,14 +229,16 @@ public class HourRangeTest extends AbstractPersistenceTest {
             new HourRange("00:00-24:00").joinWithNextDay(new HourRange("00:00-03:00"));
             fail();
         } catch (final ConstraintViolationException ex) {
-            assertThat(ex.getMessage()).isEqualTo("The hour range of the other instance cannot be greater than hours not used by this instance: this='00:00-24:00', other='00:00-03:00'");
+            assertThat(ex.getMessage()).isEqualTo(
+                    "The hour range of the other instance cannot be greater than hours not used by this instance: this='00:00-24:00', other='00:00-03:00'");
         }
 
         try {
             new HourRange("00:01-24:00").joinWithNextDay(new HourRange("00:00-00:02"));
             fail();
         } catch (final ConstraintViolationException ex) {
-            assertThat(ex.getMessage()).isEqualTo("The hour range of the other instance cannot be greater than hours not used by this instance: this='00:01-24:00', other='00:00-00:02'");
+            assertThat(ex.getMessage()).isEqualTo(
+                    "The hour range of the other instance cannot be greater than hours not used by this instance: this='00:01-24:00', other='00:00-00:02'");
         }
 
     }
@@ -252,25 +254,27 @@ public class HourRangeTest extends AbstractPersistenceTest {
 
     @Test
     public void testGetOpenMinutes() {
-        
+
         assertThat(new HourRange("00:00-24:00").getOpenMinutes()).isEqualTo(1440);
         assertThat(new HourRange("00:00-23:59").getOpenMinutes()).isEqualTo(1439);
 
-        // The minutes from '00:00-03:00' are not counted because they are in the next day
+        // The minutes from '00:00-03:00' are not counted because they are in the next
+        // day
         assertThat(new HourRange("21:00-03:00").getOpenMinutes()).isEqualTo(180);
-        
+
     }
 
     @Test
     public void testGetClosedMinutes() {
-        
+
         assertThat(new HourRange("00:00-24:00").getClosedMinutes()).isEqualTo(0);
         assertThat(new HourRange("00:00-23:59").getClosedMinutes()).isEqualTo(1);
 
-        // The minutes from '00:00-03:00' are not counted because they are in the next day
+        // The minutes from '00:00-03:00' are not counted because they are in the next
+        // day
         assertThat(new HourRange("21:00-03:00").getClosedMinutes()).isEqualTo(1260);
-        
+
     }
-    
+
 }
 // CHECKSTYLE:ON

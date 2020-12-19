@@ -22,20 +22,19 @@ import static org.junit.Assert.fail;
 
 import java.time.DayOfWeek;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
+
 import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.units4j.AbstractPersistenceTest;
 import org.junit.Test;
-
-import nl.jqno.equalsverifier.EqualsVerifier;
-import nl.jqno.equalsverifier.Warning;
 
 // CHECKSTYLE:OFF
 public class DayOfTheWeekTest extends AbstractPersistenceTest {
 
     @Test
     public final void testEqualsHashCode() {
-        EqualsVerifier.forClass(DayOfTheWeek.class).withIgnoredFields("value").suppress(Warning.NULL_FIELDS)
-                .verify();
+        EqualsVerifier.forClass(DayOfTheWeek.class).withIgnoredFields("value").suppress(Warning.NULL_FIELDS).verify();
     }
 
     @Test

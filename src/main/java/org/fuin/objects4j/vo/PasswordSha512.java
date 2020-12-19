@@ -63,7 +63,8 @@ public final class PasswordSha512 extends AbstractStringValueObject {
      * @param password
      *            Clear text password.
      */
-    public PasswordSha512(@NotNull final Password password) {//NOSONAR False "hash ... not initialized in this constructor"
+    public PasswordSha512(@NotNull final Password password) {// NOSONAR False "hash ... not initialized in this
+                                                             // constructor"
         super();
         try {
             final MessageDigest md = MessageDigest.getInstance("SHA-512");

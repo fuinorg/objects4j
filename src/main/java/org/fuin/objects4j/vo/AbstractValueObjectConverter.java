@@ -36,7 +36,7 @@ public abstract class AbstractValueObjectConverter<BASE_TYPE, VO_TYPE extends Va
     // CHECKSTYLE:ON:LineLength
 
     // JAX-B
-            
+
     @Override
     public final BASE_TYPE marshal(final VO_TYPE value) throws Exception {
         return fromVO(value);
@@ -70,5 +70,5 @@ public abstract class AbstractValueObjectConverter<BASE_TYPE, VO_TYPE extends Va
     public final VO_TYPE adaptFromJson(final BASE_TYPE str) throws Exception {
         return toVO(str);
     }
-    
+
 }

@@ -17,12 +17,14 @@
  */
 package org.fuin.objects4j.vo;
 
+import java.util.Currency;
 import java.util.UUID;
 
 import jakarta.json.bind.annotation.JsonbProperty;
 import jakarta.validation.Valid;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
  * XML/JSON container used for tests.
@@ -60,6 +62,12 @@ public class Data {
     @XmlAttribute(name = "ca")
     @JsonbProperty("ca")
     public CurrencyAmount currencyAmount;
+
+    @Valid
+    @XmlAttribute(name = "c")
+    @JsonbProperty("c")
+    @XmlJavaTypeAdapter(CurrencyConverter.class)
+    public Currency currency;
 
     @Valid
     @XmlAttribute(name = "any-str")

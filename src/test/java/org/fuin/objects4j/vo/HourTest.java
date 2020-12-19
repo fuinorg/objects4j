@@ -20,11 +20,11 @@ package org.fuin.objects4j.vo;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
+
 import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.units4j.AbstractPersistenceTest;
 import org.junit.Test;
-
-import nl.jqno.equalsverifier.EqualsVerifier;
 
 // CHECKSTYLE:OFF
 public class HourTest extends AbstractPersistenceTest {
@@ -37,9 +37,9 @@ public class HourTest extends AbstractPersistenceTest {
     public final void testConstruct() {
 
         assertThat(new Hour("23:59")).isEqualTo(new Hour("23:59"));
-        assertThat(new Hour(23,59)).isEqualTo(new Hour("23:59"));
-        assertThat(new Hour(0,0)).isEqualTo(new Hour("00:00"));
-        assertThat(new Hour(24,0)).isEqualTo(new Hour("24:00"));
+        assertThat(new Hour(23, 59)).isEqualTo(new Hour("23:59"));
+        assertThat(new Hour(0, 0)).isEqualTo(new Hour("00:00"));
+        assertThat(new Hour(24, 0)).isEqualTo(new Hour("24:00"));
 
         try {
             new Hour("23:");
@@ -50,61 +50,58 @@ public class HourTest extends AbstractPersistenceTest {
         }
 
         try {
-            new Hour(-1,0);
+            new Hour(-1, 0);
             fail();
         } catch (final ConstraintViolationException ex) {
-            assertThat(ex.getMessage())
-                    .isEqualTo("The argument 'hour' is not a valid hour (0-24): '-1'");
+            assertThat(ex.getMessage()).isEqualTo("The argument 'hour' is not a valid hour (0-24): '-1'");
         }
-        
+
         try {
-            new Hour(0,-1);
+            new Hour(0, -1);
             fail();
         } catch (final ConstraintViolationException ex) {
-            assertThat(ex.getMessage())
-                    .isEqualTo("The argument 'minute' is not a valid minute (0-59): '-1'");
+            assertThat(ex.getMessage()).isEqualTo("The argument 'minute' is not a valid minute (0-59): '-1'");
         }
-        
+
         try {
-            new Hour(24,59);
+            new Hour(24, 59);
             fail();
         } catch (final ConstraintViolationException ex) {
-            assertThat(ex.getMessage())
-                    .isEqualTo("The argument 'minute' must be '0' if the hour is '24': '59'");
+            assertThat(ex.getMessage()).isEqualTo("The argument 'minute' must be '0' if the hour is '24': '59'");
         }
-        
+
     }
 
     @Test
     public void testToString() {
-        
-        assertThat(new Hour(0,0).toString()).isEqualTo("00:00");
-        assertThat(new Hour(12,0).toString()).isEqualTo("12:00");
-        assertThat(new Hour(0,59).toString()).isEqualTo("00:59");
-        assertThat(new Hour(1,2).toString()).isEqualTo("01:02");
-        assertThat(new Hour(23,59).toString()).isEqualTo("23:59");
-        
+
+        assertThat(new Hour(0, 0).toString()).isEqualTo("00:00");
+        assertThat(new Hour(12, 0).toString()).isEqualTo("12:00");
+        assertThat(new Hour(0, 59).toString()).isEqualTo("00:59");
+        assertThat(new Hour(1, 2).toString()).isEqualTo("01:02");
+        assertThat(new Hour(23, 59).toString()).isEqualTo("23:59");
+
     }
-    
+
     @Test
     public void testToMinutes() {
-        
-        assertThat(new Hour(0,0).toMinutes()).isEqualTo(0);
-        assertThat(new Hour(0,1).toMinutes()).isEqualTo(1);
-        assertThat(new Hour(0,59).toMinutes()).isEqualTo(59);
-        assertThat(new Hour(1,0).toMinutes()).isEqualTo(60);
-        assertThat(new Hour(3,0).toMinutes()).isEqualTo(180);
-        assertThat(new Hour(6,0).toMinutes()).isEqualTo(360);
-        assertThat(new Hour(9,0).toMinutes()).isEqualTo(540);
-        assertThat(new Hour(12,0).toMinutes()).isEqualTo(720);
-        assertThat(new Hour(15,0).toMinutes()).isEqualTo(900);
-        assertThat(new Hour(18,0).toMinutes()).isEqualTo(1080);
-        assertThat(new Hour(21,0).toMinutes()).isEqualTo(1260);
-        assertThat(new Hour(23,59).toMinutes()).isEqualTo(1439);
-        assertThat(new Hour(24,0).toMinutes()).isEqualTo(1440);
-        
-    }    
-    
+
+        assertThat(new Hour(0, 0).toMinutes()).isEqualTo(0);
+        assertThat(new Hour(0, 1).toMinutes()).isEqualTo(1);
+        assertThat(new Hour(0, 59).toMinutes()).isEqualTo(59);
+        assertThat(new Hour(1, 0).toMinutes()).isEqualTo(60);
+        assertThat(new Hour(3, 0).toMinutes()).isEqualTo(180);
+        assertThat(new Hour(6, 0).toMinutes()).isEqualTo(360);
+        assertThat(new Hour(9, 0).toMinutes()).isEqualTo(540);
+        assertThat(new Hour(12, 0).toMinutes()).isEqualTo(720);
+        assertThat(new Hour(15, 0).toMinutes()).isEqualTo(900);
+        assertThat(new Hour(18, 0).toMinutes()).isEqualTo(1080);
+        assertThat(new Hour(21, 0).toMinutes()).isEqualTo(1260);
+        assertThat(new Hour(23, 59).toMinutes()).isEqualTo(1439);
+        assertThat(new Hour(24, 0).toMinutes()).isEqualTo(1440);
+
+    }
+
     @Test
     public final void testIsValidTRUE() {
 

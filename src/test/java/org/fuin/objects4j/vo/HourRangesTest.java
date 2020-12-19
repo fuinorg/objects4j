@@ -24,14 +24,14 @@ import static org.junit.Assert.fail;
 
 import java.util.Iterator;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
+
 import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.objects4j.vo.HourRanges.Change;
 import org.fuin.objects4j.vo.HourRanges.ChangeType;
 import org.fuin.units4j.AbstractPersistenceTest;
 import org.junit.Test;
-
-import nl.jqno.equalsverifier.EqualsVerifier;
-import nl.jqno.equalsverifier.Warning;
 
 // CHECKSTYLE:OFF
 public class HourRangesTest extends AbstractPersistenceTest {
@@ -72,7 +72,7 @@ public class HourRangesTest extends AbstractPersistenceTest {
             assertThat(ex.getMessage()).isEqualTo(
                     "The argument 'ranges' does not represent a valid hour range like '09:00-12:00+13:00-17:00': '13:00-14:00*17:00-19:00'");
         }
-        
+
     }
 
     @Test
@@ -321,7 +321,7 @@ public class HourRangesTest extends AbstractPersistenceTest {
         assertThat(h("12:00-15:00+18:00-21:00+21:00-03:00").isSimilarTo(h("12:00-15:00+18:00-03:00"))).isTrue();
 
         assertThat(h("15:00-16:00+13:00-14:00").isSimilarTo(h("13:00-16:00"))).isFalse();
-        
+
     }
 
     @Test

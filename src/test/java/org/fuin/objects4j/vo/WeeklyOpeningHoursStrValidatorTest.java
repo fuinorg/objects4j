@@ -41,13 +41,13 @@ public final class WeeklyOpeningHoursStrValidatorTest {
     @Test
     public final void testIsValidTRUE() {
 
-        assertThat(testee.isValid(null,null)).isTrue();
-        assertThat(testee.isValid("Mon 00:00-24:00",null)).isTrue();
-        assertThat(testee.isValid("Mon 07:00-09:00+10:00-12:00",null)).isTrue();
-        assertThat(testee.isValid("Mon/Tue 07:00-09:00+10:00-12:00+13:00-15:00",null)).isTrue();
-        assertThat(testee.isValid("Mon-Tue 07:00-09:00",null)).isTrue();
-        assertThat(testee.isValid("Mon-Sun 06:00-18:00",null)).isTrue();
-        assertThat(testee.isValid("Mon-Fri 06:00-18:00,Sat/Sun 06:00-12:00",null)).isTrue();
+        assertThat(testee.isValid(null, null)).isTrue();
+        assertThat(testee.isValid("Mon 00:00-24:00", null)).isTrue();
+        assertThat(testee.isValid("Mon 07:00-09:00+10:00-12:00", null)).isTrue();
+        assertThat(testee.isValid("Mon/Tue 07:00-09:00+10:00-12:00+13:00-15:00", null)).isTrue();
+        assertThat(testee.isValid("Mon-Tue 07:00-09:00", null)).isTrue();
+        assertThat(testee.isValid("Mon-Sun 06:00-18:00", null)).isTrue();
+        assertThat(testee.isValid("Mon-Fri 06:00-18:00,Sat/Sun 06:00-12:00", null)).isTrue();
 
     }
 
@@ -59,8 +59,8 @@ public final class WeeklyOpeningHoursStrValidatorTest {
         assertThat(testee.isValid(", ", null)).isFalse();
         assertThat(testee.isValid("Mon 00:00-24:00,Mon 01:00-02:00", null)).isFalse();
         assertThat(testee.isValid("Mon-Fri 00:00-24:00,Wed 00:00-24:00", null)).isFalse();
-        
+
     }
-    
+
 }
 // TESTCODE:END

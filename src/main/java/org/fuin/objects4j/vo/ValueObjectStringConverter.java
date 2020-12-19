@@ -48,7 +48,7 @@ public abstract class ValueObjectStringConverter<TYPE extends AsStringCapable> e
     }
 
     // JAX-B
-    
+
     @Override
     public final TYPE unmarshal(final String value) {
         return vop.valueOf(value);
@@ -63,7 +63,7 @@ public abstract class ValueObjectStringConverter<TYPE extends AsStringCapable> e
     }
 
     // JPA
-    
+
     @Override
     public final String convertToDatabaseColumn(final TYPE value) {
         return marshal(value);
@@ -88,5 +88,5 @@ public abstract class ValueObjectStringConverter<TYPE extends AsStringCapable> e
     public final TYPE adaptFromJson(final String str) throws Exception {
         return vop.valueOf(str);
     }
-    
+
 }

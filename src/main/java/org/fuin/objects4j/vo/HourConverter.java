@@ -17,12 +17,15 @@
  */
 package org.fuin.objects4j.vo;
 
+import jakarta.persistence.Converter;
+
 import org.fuin.objects4j.common.ThreadSafe;
 
 /**
  * Converts a {@link Hour} into a String and back.
  */
 @ThreadSafe
+@Converter(autoApply = true)
 public final class HourConverter extends ValueObjectStringConverter<Hour> {
 
     /**

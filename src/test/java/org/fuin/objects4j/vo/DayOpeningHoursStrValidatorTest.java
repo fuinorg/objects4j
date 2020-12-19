@@ -44,7 +44,7 @@ public final class DayOpeningHoursStrValidatorTest {
         assertThat(testee.isValid(null, null)).isTrue();
         assertThat(testee.isValid("Mon 00:00-24:00", null)).isTrue();
         assertThat(testee.isValid("Mon 09:00-12:00+13:00-17:00", null)).isTrue();
-        
+
     }
 
     @Test
@@ -59,8 +59,8 @@ public final class DayOpeningHoursStrValidatorTest {
         assertThat(testee.isValid(" 12:00-13:00", null)).isFalse();
         assertThat(testee.isValid("Mon 12:00-13:00+18-19", null)).isFalse();
         assertThat(testee.isValid("Mon09:00-12:00", null)).isFalse();
-        
+
     }
-    
+
 }
 // TESTCODE:END

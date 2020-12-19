@@ -119,18 +119,17 @@ public final class MinutesBitSetBuilder {
      */
     public MinutesBitSetBuilder fromTo(int fromHour, int fromMinute, int toHour, int toMinute) {
         Contract.requireArgMin("fromHour", fromHour, 0);
-        Contract.requireArgMax("fromHour", fromHour, 24);        
+        Contract.requireArgMax("fromHour", fromHour, 24);
         Contract.requireArgMin("fromMinute", fromMinute, 0);
         Contract.requireArgMax("fromMinute", fromMinute, 59);
-        
+
         Contract.requireArgMin("toHour", toHour, 0);
         Contract.requireArgMax("toHour", toHour, 24);
         Contract.requireArgMin("toMinute", toMinute, 0);
         Contract.requireArgMax("toMinute", toMinute, 59);
-        
+
         if (fromHour > toHour) {
-            throw new ConstraintViolationException(
-                    "Value 'fromHour' (" + fromHour + ") cannot be greater than 'toHour' (" + toHour + ")");
+            throw new ConstraintViolationException("Value 'fromHour' (" + fromHour + ") cannot be greater than 'toHour' (" + toHour + ")");
         }
 
         final int start = (fromHour * 60) + fromMinute;
@@ -140,7 +139,7 @@ public final class MinutesBitSetBuilder {
         }
         return this;
     }
-    
+
     /**
      * Returns the current instance and sets a new one internally.
      * 

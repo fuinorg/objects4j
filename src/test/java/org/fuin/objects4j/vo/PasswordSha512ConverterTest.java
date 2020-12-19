@@ -30,12 +30,12 @@ import static org.junit.Assert.fail;
 
 import java.util.Set;
 
-import jakarta.validation.ConstraintViolation;
-import jakarta.xml.bind.JAXBException;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import jakarta.validation.ConstraintViolation;
+import jakarta.xml.bind.JAXBException;
 
 //CHECKSTYLE:OFF
 public class PasswordSha512ConverterTest {
@@ -45,7 +45,7 @@ public class PasswordSha512ConverterTest {
     private static final String XML = XML_PREFIX + "<data passwordSha512=\"" + HASH + "\"/>";
 
     private static final String JSON = "{\"passwordSha512\":\"" + HASH + "\"}";
-    
+
     private ValueObjectConverter<String, PasswordSha512> testee;
 
     @Before
@@ -154,6 +154,6 @@ public class PasswordSha512ConverterTest {
         }
 
     }
-    
+
 }
 // CHECKSTYLE:OFF

@@ -28,9 +28,8 @@ import jakarta.validation.Payload;
 
 //CHECKSTYLE:OFF
 /**
- * Verifies the string is an hour of a day (24 hours, sometimes called Military Time).
- * Valid examples are:
- * <ul> 
+ * Verifies the string is an hour of a day (24 hours, sometimes called Military Time). Valid examples are:
+ * <ul>
  * <li>'00:00' Midnight next/new day</li>
  * <li>'01:00' One hour after midnight</li>
  * <li>'11:30' Half hour before noon</li>

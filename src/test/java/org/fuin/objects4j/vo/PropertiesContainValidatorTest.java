@@ -17,10 +17,10 @@
  */
 package org.fuin.objects4j.vo;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.easymock.EasyMock.createMock;
 import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.replay;
-import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Properties;
 import java.util.StringTokenizer;

@@ -26,26 +26,18 @@ import java.lang.annotation.Target;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
-//CHECKSTYLE:OFF
+// CHECKSTYLE:OFF
 /**
- * Verifies the string is a range of hours of a day (24 hourRanges representation).<br>
- * <br>
- * Valid examples are:
- * <ul>
- * <li>'00:00-24:00' Full day</li>
- * <li>'09:00-17:00' From 9 am to 5 pm</li>
- * <li>'06:00-18:00' From 6 in the morning to 6 in the evening</li>
- * <li>'12:00-24:00' From noon to midnight</li>
- * <li>'17:00-03:00' From 5 pm (late afternoon) to 3 am (early morning)</li>
- * </ul>
+ * The string is a canonical string representation of a currency. <br>
+ * Examples: 'EUR', 'USD' or 'JPY'
  */
 @Target({ ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD, ElementType.ANNOTATION_TYPE })
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = { HourRangeStrValidator.class })
+@Constraint(validatedBy = { CurrencyStrValidator.class })
 @Documented
-public @interface HourRangeStr {
+public @interface CurrencyStr {
 
-    String message() default "{org.fuin.objects4j.vo.HourRangeStr.message}";
+    String message() default "{org.fuin.objects4j.vo.CurrencyStr.message}";
 
     Class<?>[] groups() default {};
 

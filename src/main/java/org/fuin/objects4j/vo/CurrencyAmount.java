@@ -22,6 +22,8 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Currency;
 
+import jakarta.persistence.Convert;
+import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotNull;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -34,6 +36,7 @@ import org.fuin.objects4j.ui.ShortLabel;
  * Amount of a currency.
  */
 @Immutable
+@Embeddable
 @ShortLabel("Amount")
 @Label("Amount of currency")
 @XmlJavaTypeAdapter(CurrencyAmountConverter.class)
@@ -45,6 +48,7 @@ public final class CurrencyAmount implements ValueObjectWithBaseType<String>, Co
     private BigDecimal amount;
 
     @NotNull
+    @Convert(converter = CurrencyConverter.class)
     private Currency currency;
 
     /** Used to store the string representation, if computed. */

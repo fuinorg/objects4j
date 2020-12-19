@@ -26,11 +26,11 @@ import static org.fuin.utils4j.JaxbUtils.marshal;
 import static org.fuin.utils4j.JaxbUtils.unmarshal;
 import static org.junit.Assert.fail;
 
-import jakarta.xml.bind.JAXBException;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import jakarta.xml.bind.JAXBException;
 
 // CHECKSTYLE:OFF
 public class MultiDayOfTheWeekConverterTest {
@@ -81,7 +81,8 @@ public class MultiDayOfTheWeekConverterTest {
             unmarshal(invalidEmailInXmlData, Data.class);
             fail("Expected an exception");
         } catch (final RuntimeException ex) {
-            assertCauseCauseMessage(ex, "The argument 'multipleDayOfTheWeek' does not represent valid days of the week like 'Mon/Tue/Wed-Fri': 'Mon+Tue'");
+            assertCauseCauseMessage(ex,
+                    "The argument 'multipleDayOfTheWeek' does not represent valid days of the week like 'Mon/Tue/Wed-Fri': 'Mon+Tue'");
         }
 
     }
@@ -111,7 +112,8 @@ public class MultiDayOfTheWeekConverterTest {
             fromJson(invalidJsonData, Data.class, new MultiDayOfTheWeekConverter());
             fail("Expected an exception");
         } catch (final RuntimeException ex) {
-            assertCauseCauseMessage(ex, "The argument 'multipleDayOfTheWeek' does not represent valid days of the week like 'Mon/Tue/Wed-Fri': 'Mon+Tue'");
+            assertCauseCauseMessage(ex,
+                    "The argument 'multipleDayOfTheWeek' does not represent valid days of the week like 'Mon/Tue/Wed-Fri': 'Mon+Tue'");
         }
 
     }

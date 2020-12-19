@@ -20,6 +20,7 @@ package org.fuin.objects4j.vo;
 import java.util.UUID;
 
 import jakarta.persistence.AttributeConverter;
+import jakarta.persistence.Converter;
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
 import org.fuin.objects4j.common.ThreadSafe;
@@ -28,6 +29,7 @@ import org.fuin.objects4j.common.ThreadSafe;
  * Converts a {@link UUID} into a String and back.
  */
 @ThreadSafe
+@Converter(autoApply = true)
 public final class UUIDConverter extends XmlAdapter<String, UUID> implements AttributeConverter<UUID, String> {
 
     @Override

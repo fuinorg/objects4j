@@ -18,7 +18,6 @@
 package org.fuin.objects4j.vo;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
@@ -31,7 +30,6 @@ public class WeeklyOpeningHoursParentEntity {
     private long id;
 
     @Column(name = "WEEKLY_OPENING_HOURS", nullable = true)
-    @Convert(converter = WeeklyOpeningHoursConverter.class)
     private WeeklyOpeningHours weeklyOpeningHours;
 
     public WeeklyOpeningHoursParentEntity() {

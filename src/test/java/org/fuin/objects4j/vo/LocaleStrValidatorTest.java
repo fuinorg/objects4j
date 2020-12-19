@@ -22,12 +22,12 @@ import static org.junit.Assert.fail;
 
 import java.util.Locale;
 
-import jakarta.validation.ConstraintValidatorContext;
-
 import org.fuin.objects4j.common.ConstraintViolationException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import jakarta.validation.ConstraintValidatorContext;
 
 //CHECKSTYLE:OFF
 public final class LocaleStrValidatorTest {

@@ -28,13 +28,13 @@ import static org.fuin.objects4j.vo.HourRanges.ChangeType.ADDED;
 import static org.fuin.objects4j.vo.HourRanges.ChangeType.REMOVED;
 import static org.junit.Assert.fail;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
+
 import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.objects4j.vo.DayOpeningHours.Change;
 import org.fuin.objects4j.vo.HourRanges.ChangeType;
 import org.fuin.units4j.AbstractPersistenceTest;
 import org.junit.Test;
-
-import nl.jqno.equalsverifier.EqualsVerifier;
 
 // CHECKSTYLE:OFF
 public class WeeklyOpeningHoursTest extends AbstractPersistenceTest {

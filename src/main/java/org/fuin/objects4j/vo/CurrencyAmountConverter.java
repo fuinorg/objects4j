@@ -20,6 +20,7 @@ package org.fuin.objects4j.vo;
 import java.util.Currency;
 
 import jakarta.persistence.AttributeConverter;
+import jakarta.persistence.Converter;
 
 import org.fuin.objects4j.common.ThreadSafe;
 
@@ -27,6 +28,7 @@ import org.fuin.objects4j.common.ThreadSafe;
  * Converts a {@link CurrencyAmount}.
  */
 @ThreadSafe
+@Converter(autoApply = true)
 public final class CurrencyAmountConverter extends AbstractValueObjectConverter<String, CurrencyAmount>
         implements AttributeConverter<CurrencyAmount, String> {
 

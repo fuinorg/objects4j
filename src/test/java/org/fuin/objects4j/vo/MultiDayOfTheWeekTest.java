@@ -22,12 +22,12 @@ import static org.junit.Assert.fail;
 
 import java.util.Iterator;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
+
 import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.units4j.AbstractPersistenceTest;
 import org.junit.Test;
-
-import nl.jqno.equalsverifier.EqualsVerifier;
-import nl.jqno.equalsverifier.Warning;
 
 // CHECKSTYLE:OFF
 public class MultiDayOfTheWeekTest extends AbstractPersistenceTest {
@@ -51,7 +51,7 @@ public class MultiDayOfTheWeekTest extends AbstractPersistenceTest {
             assertThat(ex.getMessage()).isEqualTo(
                     "The argument 'multipleDayOfTheWeek' does not represent valid days of the week like 'Mon/Tue/Wed-Fri': 'MON+TUE'");
         }
-        
+
     }
 
     @Test
@@ -201,8 +201,8 @@ public class MultiDayOfTheWeekTest extends AbstractPersistenceTest {
         assertThat(m("Mon-Wed/Thu-Sat/Sun").compress()).isEqualTo(m("Mon-Sun"));
 
     }
-    
-    private  MultiDayOfTheWeek m(final String str) {
+
+    private MultiDayOfTheWeek m(final String str) {
         return new MultiDayOfTheWeek(str);
     }
 

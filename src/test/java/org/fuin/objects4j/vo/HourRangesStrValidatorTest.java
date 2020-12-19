@@ -48,7 +48,7 @@ public final class HourRangesStrValidatorTest {
         assertThat(testee.isValid("07:00-09:00+", null)).isTrue();
         assertThat(testee.isValid("+07:00-09:00", null)).isTrue();
         assertThat(testee.isValid("07:00-09:00++10:00-12:00", null)).isTrue();
-        
+
     }
 
     @Test
@@ -65,8 +65,8 @@ public final class HourRangesStrValidatorTest {
         assertThat(testee.isValid("++", null)).isFalse();
         assertThat(testee.isValid("07:00-09:00+12:00", null)).isFalse();
         assertThat(testee.isValid("07:00-09:00+1+12:00-13:00", null)).isFalse();
-        
+
     }
-    
+
 }
 // TESTCODE:END
