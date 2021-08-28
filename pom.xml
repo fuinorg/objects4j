@@ -12,7 +12,7 @@
 
     <artifactId>objects4j</artifactId>
     <packaging>bundle</packaging>
-    <version>0.7.1</version>
+    <version>0.7.2-SNAPSHOT</version>
 
     <description>A library with common Java types that are mostly immutable value objects.</description>
     <url>http://www.fuin.org/objects4j/</url>
