@@ -1,6 +1,4 @@
-objects4j
-=========
-
+# objects4j
 A library with common Java types that are mostly immutable value objects.
 
 [![Build Status](https://jenkins.fuin.org/job/objects4j/badge/icon)](https://jenkins.fuin.org/job/objects4j/)
@@ -9,7 +7,11 @@ A library with common Java types that are mostly immutable value objects.
 [![LGPLv3 License](http://img.shields.io/badge/license-LGPLv3-blue.svg)](https://www.gnu.org/licenses/lgpl.html)
 [![Java Development Kit 11](https://img.shields.io/badge/JDK-11-green.svg)](https://openjdk.java.net/projects/jdk/11/)
 
-**Java 11 for releases >= 0.7.0** / Java 8 <= 0.6.9
+## Versions
+- 0.8.x (or later) = **Java 11** with new **jakarta** namespace
+- 0.7.x = **Java 11** before namespace change from 'javax' to 'jakarta'
+- 0.6.9 (or previous) = **Java 8**
+
 
 # Features
 
