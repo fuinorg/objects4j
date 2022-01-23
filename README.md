@@ -1,7 +1,7 @@
 # objects4j
 A library with common Java types that are mostly immutable value objects.
 
-[![Build Status](https://jenkins.fuin.org/job/objects4j/badge/icon)](https://jenkins.fuin.org/job/objects4j/)
+[![Java Maven Build](https://github.com/fuinorg/objects4j/actions/workflows/maven.yml/badge.svg?branch=pre_jakarta)](https://github.com/fuinorg/objects4j/actions/workflows/maven.yml)
 [![Coverage Status](https://sonarcloud.io/api/project_badges/measure?project=org.fuin%3Aobjects4j&metric=coverage)](https://sonarcloud.io/dashboard?id=org.fuin%3Aobjects4j)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.fuin/objects4j/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.fuin/objects4j/)
 [![LGPLv3 License](http://img.shields.io/badge/license-LGPLv3-blue.svg)](https://www.gnu.org/licenses/lgpl.html)
