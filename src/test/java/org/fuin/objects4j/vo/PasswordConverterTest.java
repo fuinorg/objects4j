@@ -33,6 +33,7 @@ import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.xml.bind.JAXBException;
 
+import org.fuin.utils4j.jaxb.UnmarshallerBuilder;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -104,7 +105,9 @@ public class PasswordConverterTest {
 
         final String invalidPasswordInXmlData = XML_PREFIX + "<data password=\"abcd123\"/>";
         try {
-            unmarshal(invalidPasswordInXmlData, Data.class);
+            unmarshal(new UnmarshallerBuilder().addClassesToBeBound(Data.class)
+                    .withHandler(event -> false)
+                    .build(), invalidPasswordInXmlData);
             fail("Expected an exception");
         } catch (final RuntimeException ex) {
             assertCauseCauseMessage(ex, "The argument 'password' is not valid: 'abcd123'");

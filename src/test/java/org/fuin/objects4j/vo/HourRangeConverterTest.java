@@ -28,6 +28,7 @@ import static org.junit.Assert.fail;
 
 import javax.xml.bind.JAXBException;
 
+import org.fuin.utils4j.jaxb.UnmarshallerBuilder;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -78,7 +79,9 @@ public class HourRangeConverterTest {
 
         final String invalidEmailInXmlData = XML_PREFIX + "<data hourRange=\"17-18\"/>";
         try {
-            unmarshal(invalidEmailInXmlData, Data.class);
+            unmarshal(new UnmarshallerBuilder().addClassesToBeBound(Data.class)
+                    .withHandler(event -> false)
+                    .build(), invalidEmailInXmlData);
             fail("Expected an exception");
         } catch (final RuntimeException ex) {
             assertCauseCauseMessage(ex, "The argument 'hourRange' does not represent a valid hour range like '00:00-24:00' or '06:00-21:00': '17-18'");

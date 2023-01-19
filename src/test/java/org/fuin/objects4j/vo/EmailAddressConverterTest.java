@@ -28,6 +28,7 @@ import static org.junit.Assert.fail;
 
 import javax.xml.bind.JAXBException;
 
+import org.fuin.utils4j.jaxb.UnmarshallerBuilder;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -95,7 +96,9 @@ public class EmailAddressConverterTest {
 
         final String invalidEmailInXmlData = XML_PREFIX + "<data email=\"abc@\"/>";
         try {
-            unmarshal(invalidEmailInXmlData, Data.class);
+            unmarshal(new UnmarshallerBuilder().addClassesToBeBound(Data.class)
+                    .withHandler(event -> false)
+                    .build(), invalidEmailInXmlData);
             fail("Expected an exception");
         } catch (final RuntimeException ex) {
             assertCauseCauseMessage(ex, "The argument 'emailAddress' is not valid: 'abc@'");

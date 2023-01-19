@@ -32,6 +32,7 @@ import java.util.Currency;
 
 import javax.xml.bind.JAXBException;
 
+import org.fuin.utils4j.jaxb.UnmarshallerBuilder;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -102,7 +103,9 @@ public class CurrencyAmountConverterTest {
 
         final String invalidXmlData = XML_PREFIX + "<data ca=\"1234.56\"/>";
         try {
-            unmarshal(invalidXmlData, Data.class);
+            unmarshal(new UnmarshallerBuilder().addClassesToBeBound(Data.class)
+                    .withHandler(event -> false)
+                    .build(), invalidXmlData);
             fail("Expected an exception");
         } catch (final RuntimeException ex) {
             assertCauseCauseMessage(ex, "No space character found in '1234.56'");

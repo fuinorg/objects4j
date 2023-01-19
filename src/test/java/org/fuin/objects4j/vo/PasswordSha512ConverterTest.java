@@ -33,6 +33,7 @@ import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.xml.bind.JAXBException;
 
+import org.fuin.utils4j.jaxb.UnmarshallerBuilder;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -103,7 +104,10 @@ public class PasswordSha512ConverterTest {
 
         final String invalidHashInXmlData = XML_PREFIX + "<data passwordSha512=\"1\"/>";
         try {
-            unmarshal(invalidHashInXmlData, Data.class);
+            unmarshal(new UnmarshallerBuilder().addClassesToBeBound(Data.class)
+                    .withHandler(event -> false)
+                    .build(), invalidHashInXmlData);
+            
             fail("Expected an exception");
         } catch (final RuntimeException ex) {
             assertCauseCauseMessage(ex, "The argument 'hexEncodedHash' is not valid");
