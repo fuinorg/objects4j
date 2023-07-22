@@ -20,10 +20,11 @@ package org.fuin.objects4j.vo;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.fuin.objects4j.vo.JsonbHelper.fromJson;
 import static org.fuin.objects4j.vo.JsonbHelper.toJson;
+import static org.fuin.units4j.Units4JUtils.assertCauseCauseCauseMessage;
 import static org.fuin.units4j.Units4JUtils.assertCauseCauseMessage;
-import static org.fuin.utils4j.JaxbUtils.XML_PREFIX;
-import static org.fuin.utils4j.JaxbUtils.marshal;
-import static org.fuin.utils4j.JaxbUtils.unmarshal;
+import static org.fuin.utils4j.jaxb.JaxbUtils.XML_PREFIX;
+import static org.fuin.utils4j.jaxb.JaxbUtils.marshal;
+import static org.fuin.utils4j.jaxb.JaxbUtils.unmarshal;
 import static org.junit.Assert.fail;
 
 import org.junit.After;
@@ -98,7 +99,7 @@ public class EmailAddressConverterTest {
             unmarshal(invalidEmailInXmlData, Data.class);
             fail("Expected an exception");
         } catch (final RuntimeException ex) {
-            assertCauseCauseMessage(ex, "The argument 'emailAddress' is not valid: 'abc@'");
+            assertCauseCauseCauseMessage(ex, "The argument 'emailAddress' is not valid: 'abc@'");
         }
 
     }

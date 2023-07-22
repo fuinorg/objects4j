@@ -20,9 +20,9 @@ package org.fuin.objects4j.vo;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.fuin.objects4j.vo.JsonbHelper.fromJson;
 import static org.fuin.objects4j.vo.JsonbHelper.toJson;
-import static org.fuin.utils4j.JaxbUtils.XML_PREFIX;
-import static org.fuin.utils4j.JaxbUtils.marshal;
-import static org.fuin.utils4j.JaxbUtils.unmarshal;
+import static org.fuin.utils4j.jaxb.JaxbUtils.XML_PREFIX;
+import static org.fuin.utils4j.jaxb.JaxbUtils.marshal;
+import static org.fuin.utils4j.jaxb.JaxbUtils.unmarshal;
 
 import org.fuin.units4j.AbstractPersistenceTest;
 import org.junit.After;

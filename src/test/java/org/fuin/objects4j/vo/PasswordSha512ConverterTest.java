@@ -21,11 +21,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.fuin.objects4j.vo.JsonbHelper.fromJson;
 import static org.fuin.objects4j.vo.JsonbHelper.toJson;
 import static org.fuin.units4j.Units4JUtils.assertCauseCauseMessage;
+import static org.fuin.units4j.Units4JUtils.assertCauseCauseCauseMessage;
 import static org.fuin.units4j.Units4JUtils.setPrivateField;
 import static org.fuin.units4j.Units4JUtils.validate;
-import static org.fuin.utils4j.JaxbUtils.XML_PREFIX;
-import static org.fuin.utils4j.JaxbUtils.marshal;
-import static org.fuin.utils4j.JaxbUtils.unmarshal;
+import static org.fuin.utils4j.jaxb.JaxbUtils.XML_PREFIX;
+import static org.fuin.utils4j.jaxb.JaxbUtils.marshal;
+import static org.fuin.utils4j.jaxb.JaxbUtils.unmarshal;
 import static org.junit.Assert.fail;
 
 import java.util.Set;
@@ -106,7 +107,7 @@ public class PasswordSha512ConverterTest {
             unmarshal(invalidHashInXmlData, Data.class);
             fail("Expected an exception");
         } catch (final RuntimeException ex) {
-            assertCauseCauseMessage(ex, "The argument 'hexEncodedHash' is not valid");
+            assertCauseCauseCauseMessage(ex, "The argument 'hexEncodedHash' is not valid");
         }
 
     }

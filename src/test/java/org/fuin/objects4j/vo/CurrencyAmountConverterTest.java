@@ -21,9 +21,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.fuin.objects4j.vo.JsonbHelper.fromJson;
 import static org.fuin.objects4j.vo.JsonbHelper.toJson;
 import static org.fuin.units4j.Units4JUtils.assertCauseCauseMessage;
-import static org.fuin.utils4j.JaxbUtils.XML_PREFIX;
-import static org.fuin.utils4j.JaxbUtils.marshal;
-import static org.fuin.utils4j.JaxbUtils.unmarshal;
+import static org.fuin.units4j.Units4JUtils.assertCauseCauseCauseMessage;
+import static org.fuin.utils4j.jaxb.JaxbUtils.XML_PREFIX;
+import static org.fuin.utils4j.jaxb.JaxbUtils.marshal;
+import static org.fuin.utils4j.jaxb.JaxbUtils.unmarshal;
 import static org.junit.Assert.fail;
 
 import java.math.BigDecimal;
@@ -105,7 +106,7 @@ public class CurrencyAmountConverterTest {
             unmarshal(invalidXmlData, Data.class);
             fail("Expected an exception");
         } catch (final RuntimeException ex) {
-            assertCauseCauseMessage(ex, "No space character found in '1234.56'");
+            assertCauseCauseCauseMessage(ex, "No space character found in '1234.56'");
         }
 
     }
