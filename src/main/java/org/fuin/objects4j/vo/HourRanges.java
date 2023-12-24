@@ -17,22 +17,16 @@
  */
 package org.fuin.objects4j.vo;
 
-import java.util.ArrayList;
-import java.util.BitSet;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.StringTokenizer;
-
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
 import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.common.Immutable;
 import org.fuin.objects4j.common.Nullable;
 import org.fuin.objects4j.ui.Prompt;
+
+import java.util.*;
 
 /**
  * Represents multiple ranges of hours of a day (24 hour representation) separated by a '+'.<br>

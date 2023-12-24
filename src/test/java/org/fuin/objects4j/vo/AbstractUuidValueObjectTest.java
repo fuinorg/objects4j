@@ -17,12 +17,11 @@
  */
 package org.fuin.objects4j.vo;
 
-import java.util.UUID;
-
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Test;
+import java.util.UUID;
 
 //CHECKSTYLE:OFF
 public class AbstractUuidValueObjectTest {

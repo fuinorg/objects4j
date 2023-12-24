@@ -17,11 +17,11 @@
  */
 package org.fuin.objects4j.common;
 
-import java.io.File;
-
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import jakarta.validation.constraints.NotNull;
+
+import java.io.File;
 
 /**
  * Checks if a given file is a directory (and not a file).

@@ -17,15 +17,14 @@
  */
 package org.fuin.objects4j.vo;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.Assert.fail;
-
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
-
+import org.assertj.core.api.Assertions;
 import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.units4j.AbstractPersistenceTest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 // CHECKSTYLE:OFF
 public class HourRangeTest extends AbstractPersistenceTest {
@@ -43,7 +42,7 @@ public class HourRangeTest extends AbstractPersistenceTest {
 
         try {
             new HourRange("13-14:00");
-            fail();
+            Assertions.fail("");
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo(
                     "The argument 'hourRange' does not represent a valid hour range like '00:00-24:00' or '06:00-21:00': '13-14:00'");
@@ -51,14 +50,14 @@ public class HourRangeTest extends AbstractPersistenceTest {
 
         try {
             new HourRange(null, new Hour("12:00"));
-            fail();
+            Assertions.fail("");
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo("The argument 'from' cannot be null");
         }
 
         try {
             new HourRange(new Hour("12:00"), null);
-            fail();
+            Assertions.fail("");
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo("The argument 'to' cannot be null");
         }
@@ -144,7 +143,7 @@ public class HourRangeTest extends AbstractPersistenceTest {
 
         try {
             HourRange.requireArgValid("a", "");
-            fail();
+            Assertions.fail("");
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage())
                     .isEqualTo("The argument 'a' does not represent a valid hour range like '00:00-24:00' or '06:00-21:00': ''");
@@ -152,7 +151,7 @@ public class HourRangeTest extends AbstractPersistenceTest {
 
         try {
             HourRange.requireArgValid("b", "17-18");
-            fail();
+            Assertions.fail("");
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage())
                     .isEqualTo("The argument 'b' does not represent a valid hour range like '00:00-24:00' or '06:00-21:00': '17-18'");
@@ -190,7 +189,7 @@ public class HourRangeTest extends AbstractPersistenceTest {
 
         try {
             new HourRange("18:00-03:00").toMinutes();
-            fail();
+            Assertions.fail("");
         } catch (final IllegalArgumentException ex) {
             assertThat(ex.getMessage()).contains("[18:00-24:00, 00:00-03:00]");
         }
@@ -213,21 +212,21 @@ public class HourRangeTest extends AbstractPersistenceTest {
 
         try {
             new HourRange("18:00-23:00").joinWithNextDay(new HourRange("00:00-03:00"));
-            fail();
+            Assertions.fail("");
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo("The 'to' hour value of this instance is not '24:00', but was: '23:00'");
         }
 
         try {
             new HourRange("18:00-24:00").joinWithNextDay(new HourRange("01:00-03:00"));
-            fail();
+            Assertions.fail("");
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo("The 'from' hour value of the other instance is not '00:00', but was: '01:00'");
         }
 
         try {
             new HourRange("00:00-24:00").joinWithNextDay(new HourRange("00:00-03:00"));
-            fail();
+            Assertions.fail("");
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo(
                     "The hour range of the other instance cannot be greater than hours not used by this instance: this='00:00-24:00', other='00:00-03:00'");
@@ -235,7 +234,7 @@ public class HourRangeTest extends AbstractPersistenceTest {
 
         try {
             new HourRange("00:01-24:00").joinWithNextDay(new HourRange("00:00-00:02"));
-            fail();
+            Assertions.fail("");
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo(
                     "The hour range of the other instance cannot be greater than hours not used by this instance: this='00:01-24:00', other='00:00-00:02'");

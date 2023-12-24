@@ -17,11 +17,11 @@
  */
 package org.fuin.objects4j.ui;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
+import org.junit.jupiter.api.Test;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.data.Offset.offset;
-import nl.jqno.equalsverifier.EqualsVerifier;
-
-import org.junit.Test;
 
 //TESTCODE:BEGIN
 public final class FontSizeTest {

@@ -17,27 +17,27 @@
  */
 package org.fuin.objects4j.vo;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
+import org.assertj.core.api.Assertions;
+import org.fuin.objects4j.common.ConstraintViolationException;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.UUID;
 
-import org.fuin.objects4j.common.ConstraintViolationException;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 //CHECKSTYLE:OFF
 public final class UUIDStrValidatorTest {
 
     private UUIDStrValidator testee;
 
-    @Before
+    @BeforeEach
     public final void setUp() {
         testee = new UUIDStrValidator();
     }
 
-    @After
+    @AfterEach
     public final void tearDown() {
         testee = null;
     }
@@ -81,7 +81,7 @@ public final class UUIDStrValidatorTest {
 
         try {
             UUIDStrValidator.parseArg("a", "");
-            fail();
+            Assertions.fail("");
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo("The argument 'a' is not valid: ''");
         }
@@ -95,7 +95,7 @@ public final class UUIDStrValidatorTest {
 
         try {
             UUIDStrValidator.parseArg("a", "1");
-            fail();
+            Assertions.fail("");
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo("The argument 'a' is not valid: '1'");
         }
@@ -110,7 +110,7 @@ public final class UUIDStrValidatorTest {
 
         try {
             UUIDStrValidator.parseArg("a", value);
-            fail();
+            Assertions.fail("");
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo("The argument 'a' is not valid: '" + value + "'");
         }

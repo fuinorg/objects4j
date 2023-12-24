@@ -17,17 +17,16 @@
  */
 package org.fuin.objects4j.ui;
 
+import jakarta.validation.constraints.NotNull;
+import org.fuin.objects4j.common.Contract;
+import org.fuin.objects4j.common.Immutable;
+import org.fuin.objects4j.common.Nullable;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
-
-import jakarta.validation.constraints.NotNull;
-
-import org.fuin.objects4j.common.Contract;
-import org.fuin.objects4j.common.Immutable;
-import org.fuin.objects4j.common.Nullable;
 
 /**
  * Table column information for a field of a class.

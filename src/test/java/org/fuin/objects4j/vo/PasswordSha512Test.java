@@ -17,13 +17,14 @@
  */
 package org.fuin.objects4j.vo;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.fuin.utils4j.Utils4J.deserialize;
-import static org.fuin.utils4j.Utils4J.serialize;
-
 import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.units4j.AbstractPersistenceTest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.fuin.utils4j.Utils4J.deserialize;
+import static org.fuin.utils4j.Utils4J.serialize;
 
 //TESTCODE:BEGIN
 public final class PasswordSha512Test extends AbstractPersistenceTest {
@@ -50,21 +51,27 @@ public final class PasswordSha512Test extends AbstractPersistenceTest {
         assertThat(new PasswordSha512(verySecret)).isNotEqualTo(new PasswordSha512(verySecret2));
     }
 
-    @Test(expected = ConstraintViolationException.class)
+    @Test
     public final void testCreateEmpty() {
-        new PasswordSha512("");
+        assertThatThrownBy(() -> {
+            new PasswordSha512("");
+        }).isInstanceOf(ConstraintViolationException.class);
     }
 
-    @Test(expected = ConstraintViolationException.class)
+    @Test
     public final void testCreateTooShort() {
-        new PasswordSha512("b4d4b13a02230f9672c92fd45aa44fd202bdba7de3fda640ac84ee5d54c"
-                + "57fde293b4bbddce1b9a56d63d674b47c4dd7e6d89536a1e126ebf0cd662e76e8be");
+        assertThatThrownBy(() -> {
+            new PasswordSha512("b4d4b13a02230f9672c92fd45aa44fd202bdba7de3fda640ac84ee5d54c"
+                    + "57fde293b4bbddce1b9a56d63d674b47c4dd7e6d89536a1e126ebf0cd662e76e8be");
+        }).isInstanceOf(ConstraintViolationException.class);
     }
 
-    @Test(expected = ConstraintViolationException.class)
+    @Test
     public final void testCreateTooLong() {
-        new PasswordSha512("b4d4b13a02230f9672c92fd45aa44fd202bdba7de3fda640ac84ee5d54c"
-                + "57fde293b4bbddce1b9a56d63d674b47c4dd7e6d89536a1e126ebf0cd662e76e8bec3b4");
+        assertThatThrownBy(() -> {
+            new PasswordSha512("b4d4b13a02230f9672c92fd45aa44fd202bdba7de3fda640ac84ee5d54c"
+                    + "57fde293b4bbddce1b9a56d63d674b47c4dd7e6d89536a1e126ebf0cd662e76e8bec3b4");
+        }).isInstanceOf(ConstraintViolationException.class);
     }
 
     @Test

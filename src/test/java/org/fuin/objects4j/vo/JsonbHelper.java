@@ -17,12 +17,11 @@
  */
 package org.fuin.objects4j.vo;
 
-import org.eclipse.yasson.FieldAccessStrategy;
-
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
 import jakarta.json.bind.JsonbConfig;
 import jakarta.json.bind.adapter.JsonbAdapter;
+import org.eclipse.yasson.FieldAccessStrategy;
 
 /**
  * Utility class for this package.

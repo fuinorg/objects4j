@@ -17,10 +17,10 @@
  */
 package org.fuin.objects4j.vo;
 
-import java.util.BitSet;
-
 import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.objects4j.common.Contract;
+
+import java.util.BitSet;
 
 /**
  * Helps building a bit set for hour/minutes.

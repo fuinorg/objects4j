@@ -17,28 +17,16 @@
  */
 package org.fuin.objects4j.ui;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import my.test.*;
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
+import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Locale;
 
-import my.test.A;
-import my.test.AbstractA;
-import my.test.AbstractB;
-import my.test.B;
-import my.test.C;
-import my.test.D;
-import my.test.E;
-import my.test.F;
-import my.test.G;
-import my.test.H;
-import my.test.I;
-import my.test.MyClass;
-import nl.jqno.equalsverifier.EqualsVerifier;
-import nl.jqno.equalsverifier.Warning;
-
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 //TESTCODE:BEGIN
 public final class FieldTextInfoTest {
@@ -67,7 +55,7 @@ public final class FieldTextInfoTest {
         final FieldTextInfo infoPermanent = new FieldTextInfo(MyClass.class.getDeclaredField("permanentEmployee"), "Permanent employee");
 
         assertThat(list).isNotNull();
-        assertThat(list.size()).isEqualTo(4);
+        assertThat(list).hasSize(4);
         assertThat(list).contains(infoFirstName, infoLastName, infoBirthday, infoPermanent);
         assertEquals(infoFirstName, list.get(list.indexOf(infoFirstName)), "infoFirstName");
         assertEquals(infoLastName, list.get(list.indexOf(infoLastName)), "infoLastName");
@@ -106,7 +94,7 @@ public final class FieldTextInfoTest {
         final FieldTextInfo infoY = new FieldTextInfo(A.class.getDeclaredField("y"), null);
 
         assertThat(list).isNotNull();
-        assertThat(list.size()).isEqualTo(2);
+        assertThat(list).hasSize(2);
         assertThat(list).contains(infoX, infoY);
         assertEquals(infoX, list.get(list.indexOf(infoX)), "infoX");
         assertEquals(infoY, list.get(list.indexOf(infoY)), "infoY");
@@ -121,7 +109,7 @@ public final class FieldTextInfoTest {
         final FieldTextInfo infoY = new FieldTextInfo(B.class.getDeclaredField("y"), "B_en y.Label");
 
         assertThat(list).isNotNull();
-        assertThat(list.size()).isEqualTo(2);
+        assertThat(list).hasSize(2);
         assertThat(list).contains(infoX, infoY);
         assertThat(list.get(list.indexOf(infoX)).getText()).isEqualTo(infoX.getText());
         assertThat(list.get(list.indexOf(infoY)).getText()).isEqualTo(infoY.getText());
@@ -134,7 +122,7 @@ public final class FieldTextInfoTest {
         final List<FieldTextInfo> list = new AnnotationAnalyzer().createFieldInfos(C.class, Locale.ENGLISH, Label.class);
         final FieldTextInfo info = new FieldTextInfo(C.class.getDeclaredField("c"), "Ccc");
         assertThat(list).isNotNull();
-        assertThat(list.size()).isEqualTo(1);
+        assertThat(list).hasSize(1);
         assertThat(list).contains(info);
         assertEquals(info, list.get(list.indexOf(info)), "info");
 
@@ -146,7 +134,7 @@ public final class FieldTextInfoTest {
         final List<FieldTextInfo> list = new AnnotationAnalyzer().createFieldInfos(D.class, Locale.ENGLISH, Label.class);
         final FieldTextInfo info = new FieldTextInfo(D.class.getDeclaredField("d2"), "DEFAULT D.d2");
         assertThat(list).isNotNull();
-        assertThat(list.size()).isEqualTo(2);
+        assertThat(list).hasSize(2);
         assertThat(list).contains(info);
         assertThat(list.get(list.indexOf(info)).getText()).isEqualTo(info.getText());
 
@@ -158,7 +146,7 @@ public final class FieldTextInfoTest {
         final List<FieldTextInfo> list = new AnnotationAnalyzer().createFieldInfos(E.class, Locale.ENGLISH, Label.class);
         final FieldTextInfo info = new FieldTextInfo(E.class.getDeclaredField("e"), "Eee");
         assertThat(list).isNotNull();
-        assertThat(list.size()).isEqualTo(1);
+        assertThat(list).hasSize(1);
         assertThat(list).contains(info);
         assertEquals(info, list.get(list.indexOf(info)), "info");
 
@@ -170,7 +158,7 @@ public final class FieldTextInfoTest {
         final List<FieldTextInfo> list = new AnnotationAnalyzer().createFieldInfos(F.class, Locale.ENGLISH, Label.class);
         final FieldTextInfo info = new FieldTextInfo(F.class.getDeclaredField("f"), "Fff");
         assertThat(list).isNotNull();
-        assertThat(list.size()).isEqualTo(1);
+        assertThat(list).hasSize(1);
         assertThat(list).contains(info);
         assertEquals(info, list.get(list.indexOf(info)), "info");
 
@@ -182,7 +170,7 @@ public final class FieldTextInfoTest {
         final List<FieldTextInfo> list = new AnnotationAnalyzer().createFieldInfos(G.class, Locale.ENGLISH, ShortLabel.class);
         final FieldTextInfo info = new FieldTextInfo(G.class.getDeclaredField("g"), "Ggg");
         assertThat(list).isNotNull();
-        assertThat(list.size()).isEqualTo(1);
+        assertThat(list).hasSize(1);
         assertThat(list).contains(info);
         assertEquals(info, list.get(list.indexOf(info)), "info");
 
@@ -194,7 +182,7 @@ public final class FieldTextInfoTest {
         final List<FieldTextInfo> list = new AnnotationAnalyzer().createFieldInfos(H.class, Locale.ENGLISH, ShortLabel.class);
         final FieldTextInfo info = new FieldTextInfo(H.class.getDeclaredField("h"), "H_en hh_short");
         assertThat(list).isNotNull();
-        assertThat(list.size()).isEqualTo(1);
+        assertThat(list).hasSize(1);
         assertThat(list).contains(info);
         assertEquals(info, list.get(list.indexOf(info)), "info");
 
@@ -206,7 +194,7 @@ public final class FieldTextInfoTest {
         final List<FieldTextInfo> list = new AnnotationAnalyzer().createFieldInfos(I.class, Locale.ENGLISH, ShortLabel.class);
         final FieldTextInfo info = new FieldTextInfo(I.class.getDeclaredField("i"), "I_en i.ShortLabel");
         assertThat(list).isNotNull();
-        assertThat(list.size()).isEqualTo(1);
+        assertThat(list).hasSize(1);
         assertThat(list).contains(info);
         assertEquals(info, list.get(list.indexOf(info)), "info");
 

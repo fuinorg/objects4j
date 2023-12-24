@@ -17,14 +17,14 @@
  */
 package org.fuin.objects4j.vo;
 
-import java.util.Currency;
-import java.util.UUID;
-
 import jakarta.json.bind.annotation.JsonbProperty;
 import jakarta.validation.Valid;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import java.util.Currency;
+import java.util.UUID;
 
 /**
  * XML/JSON container used for tests.

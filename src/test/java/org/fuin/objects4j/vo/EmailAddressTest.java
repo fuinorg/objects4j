@@ -17,13 +17,14 @@
  */
 package org.fuin.objects4j.vo;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.fuin.utils4j.Utils4J.deserialize;
-import static org.fuin.utils4j.Utils4J.serialize;
-
 import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.units4j.AbstractPersistenceTest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.fuin.utils4j.Utils4J.deserialize;
+import static org.fuin.utils4j.Utils4J.serialize;
 
 //TESTCODE:BEGIN
 public final class EmailAddressTest extends AbstractPersistenceTest {
@@ -43,14 +44,18 @@ public final class EmailAddressTest extends AbstractPersistenceTest {
         assertThat(new EmailAddress(emailAddress).length()).isEqualTo(emailAddress.length());
     }
 
-    @Test(expected = ConstraintViolationException.class)
+    @Test
     public final void testConstructEmpty() {
-        new EmailAddress("");
+        assertThatThrownBy(() -> {
+            new EmailAddress("");
+        }).isInstanceOf(ConstraintViolationException.class);
     }
 
-    @Test(expected = ConstraintViolationException.class)
+    @Test
     public final void testConstructIllegal() {
-        new EmailAddress("abc@");
+        assertThatThrownBy(() -> {
+            new EmailAddress("abc@");
+        }).isInstanceOf(ConstraintViolationException.class);
     }
 
     @Test

@@ -17,13 +17,12 @@
  */
 package org.fuin.objects4j.ui;
 
-import java.lang.reflect.Field;
-import java.util.Locale;
-
 import jakarta.validation.constraints.NotNull;
-
 import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.common.Immutable;
+
+import java.lang.reflect.Field;
+import java.util.Locale;
 
 /**
  * Information about a text field.

@@ -17,14 +17,13 @@
  */
 package org.fuin.objects4j.vo;
 
+import jakarta.validation.constraints.NotNull;
+import org.fuin.objects4j.common.Contract;
+import org.fuin.objects4j.common.Immutable;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-
-import jakarta.validation.constraints.NotNull;
-
-import org.fuin.objects4j.common.Contract;
-import org.fuin.objects4j.common.Immutable;
 
 /**
  * Container for a key and a value.

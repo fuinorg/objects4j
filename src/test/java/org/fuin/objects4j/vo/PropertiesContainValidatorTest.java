@@ -17,17 +17,15 @@
  */
 package org.fuin.objects4j.vo;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.easymock.EasyMock.createMock;
-import static org.easymock.EasyMock.expect;
-import static org.easymock.EasyMock.replay;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Properties;
 import java.util.StringTokenizer;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.easymock.EasyMock.*;
 
 //TESTCODE:BEGIN
 public final class PropertiesContainValidatorTest {
@@ -36,7 +34,7 @@ public final class PropertiesContainValidatorTest {
 
     private PropertiesContain constraintAnnotation;
 
-    @Before
+    @BeforeEach
     public final void setUp() {
         testee = new PropertiesContainValidator();
         final String[] expected = new String[] { "b", "c" };
@@ -46,7 +44,7 @@ public final class PropertiesContainValidatorTest {
         testee.initialize(constraintAnnotation);
     }
 
-    @After
+    @AfterEach
     public final void tearDown() {
         testee = null;
         constraintAnnotation = null;

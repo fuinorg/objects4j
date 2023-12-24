@@ -17,17 +17,16 @@
  */
 package org.fuin.objects4j.vo;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
+import org.assertj.core.api.Assertions;
+import org.fuin.objects4j.common.ConstraintViolationException;
+import org.fuin.units4j.AbstractPersistenceTest;
+import org.junit.jupiter.api.Test;
 
 import java.time.DayOfWeek;
 
-import nl.jqno.equalsverifier.EqualsVerifier;
-import nl.jqno.equalsverifier.Warning;
-
-import org.fuin.objects4j.common.ConstraintViolationException;
-import org.fuin.units4j.AbstractPersistenceTest;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 // CHECKSTYLE:OFF
 public class DayOfTheWeekTest extends AbstractPersistenceTest {
@@ -115,7 +114,7 @@ public class DayOfTheWeekTest extends AbstractPersistenceTest {
 
         try {
             DayOfTheWeek.requireArgValid("a", "");
-            fail();
+            Assertions.fail("");
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo(
                     "The argument 'a' does not represent a valid day of the week like 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun' or 'PH': ''");
@@ -123,7 +122,7 @@ public class DayOfTheWeekTest extends AbstractPersistenceTest {
 
         try {
             DayOfTheWeek.requireArgValid("b", "Friday");
-            fail();
+            Assertions.fail("");
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo(
                     "The argument 'b' does not represent a valid day of the week like 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun' or 'PH': 'Friday'");

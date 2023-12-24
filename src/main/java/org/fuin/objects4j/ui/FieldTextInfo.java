@@ -17,11 +17,10 @@
  */
 package org.fuin.objects4j.ui;
 
-import java.lang.reflect.Field;
-
 import jakarta.validation.constraints.NotNull;
-
 import org.fuin.objects4j.common.Contract;
+
+import java.lang.reflect.Field;
 
 /**
  * Stores some text associated with a field.

@@ -17,14 +17,13 @@
  */
 package org.fuin.objects4j.vo;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import jakarta.persistence.Query;
+import org.fuin.units4j.AbstractPersistenceTest;
+import org.junit.jupiter.api.Test;
 
 import java.util.Currency;
 
-import org.fuin.units4j.AbstractPersistenceTest;
-import org.junit.Test;
-
-import jakarta.persistence.Query;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests the {@link Currency} class.

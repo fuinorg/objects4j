@@ -25,9 +25,9 @@
         @XmlJavaTypeAdapter(value = LocaleConverter.class, type = Locale.class) })
 package org.fuin.objects4j.vo;
 
-import java.util.Locale;
-import java.util.UUID;
-
 import jakarta.enterprise.inject.Vetoed;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapters;
+
+import java.util.Locale;
+import java.util.UUID;

@@ -17,12 +17,11 @@
  */
 package org.fuin.objects4j.vo;
 
-import java.util.Currency;
-
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
-
 import org.fuin.objects4j.common.ThreadSafe;
+
+import java.util.Currency;
 
 /**
  * Converts a {@link CurrencyAmount}.

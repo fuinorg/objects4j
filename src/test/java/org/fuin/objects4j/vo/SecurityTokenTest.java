@@ -17,11 +17,11 @@
  */
 package org.fuin.objects4j.vo;
 
+import org.junit.jupiter.api.Test;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.fuin.utils4j.Utils4J.deserialize;
 import static org.fuin.utils4j.Utils4J.serialize;
-
-import org.junit.Test;
 
 //TESTCODE:BEGIN
 public class SecurityTokenTest {

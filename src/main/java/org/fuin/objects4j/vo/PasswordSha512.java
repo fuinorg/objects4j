@@ -17,15 +17,14 @@
  */
 package org.fuin.objects4j.vo;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
 import jakarta.validation.constraints.NotNull;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
 import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.common.Immutable;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * SHA-512 hashed password that is HEX encoded.

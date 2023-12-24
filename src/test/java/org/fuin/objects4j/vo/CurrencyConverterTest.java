@@ -17,21 +17,19 @@
  */
 package org.fuin.objects4j.vo;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.fuin.objects4j.vo.JsonbHelper.fromJson;
-import static org.fuin.objects4j.vo.JsonbHelper.toJson;
-import static org.fuin.utils4j.jaxb.JaxbUtils.XML_PREFIX;
-import static org.fuin.utils4j.jaxb.JaxbUtils.marshal;
-import static org.fuin.utils4j.jaxb.JaxbUtils.unmarshal;
-import static org.junit.Assert.fail;
+import jakarta.xml.bind.JAXBException;
+import org.assertj.core.api.Assertions;
+import org.fuin.utils4j.jaxb.UnmarshallerBuilder;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Currency;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
-import jakarta.xml.bind.JAXBException;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.fuin.objects4j.vo.JsonbHelper.fromJson;
+import static org.fuin.objects4j.vo.JsonbHelper.toJson;
+import static org.fuin.utils4j.jaxb.JaxbUtils.*;
 
 // CHECKSTYLE:OFF
 public class CurrencyConverterTest {
@@ -42,12 +40,12 @@ public class CurrencyConverterTest {
 
     private CurrencyConverter testee;
 
-    @Before
+    @BeforeEach
     public void setup() {
         testee = new CurrencyConverter();
     }
 
-    @After
+    @AfterEach
     public void teardown() {
         testee = null;
     }
@@ -87,7 +85,7 @@ public class CurrencyConverterTest {
     @Test
     public final void testMarshalUnmarshalJaxb() throws JAXBException {
 
-        final Data data = unmarshal(XML, Data.class);
+        final Data data = unmarshal(new UnmarshallerBuilder().addClassesToBeBound(Data.class).withHandler(event -> false).build(), XML);
         assertThat(data.currency).isEqualTo(Currency.getInstance("EUR"));
 
     }
@@ -97,8 +95,8 @@ public class CurrencyConverterTest {
 
         final String invalidXmlData = XML_PREFIX + "<data c=\"ABCD\"/>";
         try {
-            unmarshal(invalidXmlData, Data.class);
-            fail("Expected an exception");
+            unmarshal(new UnmarshallerBuilder().addClassesToBeBound(Data.class).withHandler(event -> false).build(), invalidXmlData);
+            Assertions.fail("Expected an exception");
         } catch (final RuntimeException ex) {
             assertThat(ex.getMessage()).contains("Error unmarshalling");
         }
@@ -128,7 +126,7 @@ public class CurrencyConverterTest {
         final String invalidJsonData = "{\"c\":\"ABCD\"}";
         try {
             fromJson(invalidJsonData, Data.class, new CurrencyConverter());
-            fail("Expected an exception");
+            Assertions.fail("Expected an exception");
         } catch (final RuntimeException ex) {
             assertThat(ex.getMessage()).contains("Unable to deserialize property 'c'");
         }

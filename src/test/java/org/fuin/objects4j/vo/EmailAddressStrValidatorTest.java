@@ -17,25 +17,25 @@
  */
 package org.fuin.objects4j.vo;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
+import org.assertj.core.api.Assertions;
 import org.fuin.objects4j.common.ConstraintViolationException;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 //TESTCODE:BEGIN
 public final class EmailAddressStrValidatorTest {
 
     private EmailAddressStrValidator testee;
 
-    @Before
+    @BeforeEach
     public final void setUp() {
         testee = new EmailAddressStrValidator();
     }
 
-    @After
+    @AfterEach
     public final void tearDown() {
         testee = null;
     }
@@ -65,14 +65,14 @@ public final class EmailAddressStrValidatorTest {
 
         try {
             EmailAddressStrValidator.requireArgValid("a", "");
-            fail();
+            Assertions.fail("");
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo("The argument 'a' is not valid: ''");
         }
 
         try {
             EmailAddressStrValidator.requireArgValid("a", "abc@");
-            fail();
+            Assertions.fail("");
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo("The argument 'a' is not valid: 'abc@'");
         }

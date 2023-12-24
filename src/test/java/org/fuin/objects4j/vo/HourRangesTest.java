@@ -17,21 +17,20 @@
  */
 package org.fuin.objects4j.vo;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.fuin.objects4j.vo.HourRanges.ChangeType.ADDED;
-import static org.fuin.objects4j.vo.HourRanges.ChangeType.REMOVED;
-import static org.junit.Assert.fail;
-
-import java.util.Iterator;
-
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
-
+import org.assertj.core.api.Assertions;
 import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.objects4j.vo.HourRanges.Change;
 import org.fuin.objects4j.vo.HourRanges.ChangeType;
 import org.fuin.units4j.AbstractPersistenceTest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import java.util.Iterator;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.fuin.objects4j.vo.HourRanges.ChangeType.ADDED;
+import static org.fuin.objects4j.vo.HourRanges.ChangeType.REMOVED;
 
 // CHECKSTYLE:OFF
 public class HourRangesTest extends AbstractPersistenceTest {
@@ -67,7 +66,7 @@ public class HourRangesTest extends AbstractPersistenceTest {
 
         try {
             new HourRanges("13:00-14:00*17:00-19:00");
-            fail();
+            Assertions.fail("");
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo(
                     "The argument 'ranges' does not represent a valid hour range like '09:00-12:00+13:00-17:00': '13:00-14:00*17:00-19:00'");
@@ -127,7 +126,7 @@ public class HourRangesTest extends AbstractPersistenceTest {
 
         try {
             new HourRanges("18:00-03:00").toMinutes();
-            fail();
+            Assertions.fail("");
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).contains("two days");
         }
@@ -149,7 +148,7 @@ public class HourRangesTest extends AbstractPersistenceTest {
 
         try {
             HourRanges.requireArgValid("a", "");
-            fail();
+            Assertions.fail("");
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage())
                     .isEqualTo("The argument 'a' does not represent a valid hour range like '09:00-12:00+13:00-17:00': ''");
@@ -157,7 +156,7 @@ public class HourRangesTest extends AbstractPersistenceTest {
 
         try {
             HourRanges.requireArgValid("b", "17-18+19-20");
-            fail();
+            Assertions.fail("");
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage())
                     .isEqualTo("The argument 'b' does not represent a valid hour range like '09:00-12:00+13:00-17:00': '17-18+19-20'");
@@ -234,14 +233,14 @@ public class HourRangesTest extends AbstractPersistenceTest {
 
         try {
             h("18:00-03:00").diff(h("18:00-23:00"));
-            fail();
+            Assertions.fail("");
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).contains("from=18:00-03:00");
         }
 
         try {
             h("18:00-23:00").diff(h("18:00-03:00"));
-            fail();
+            Assertions.fail("");
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).contains("to=18:00-03:00");
         }

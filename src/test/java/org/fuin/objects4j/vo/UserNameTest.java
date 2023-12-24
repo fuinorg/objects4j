@@ -17,13 +17,14 @@
  */
 package org.fuin.objects4j.vo;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.fuin.utils4j.Utils4J.deserialize;
-import static org.fuin.utils4j.Utils4J.serialize;
-
 import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.units4j.AbstractPersistenceTest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.fuin.utils4j.Utils4J.deserialize;
+import static org.fuin.utils4j.Utils4J.serialize;
 
 //TESTCODE:BEGIN
 public final class UserNameTest extends AbstractPersistenceTest {
@@ -55,44 +56,60 @@ public final class UserNameTest extends AbstractPersistenceTest {
         assertThat(new UserName("abc-1_B")).isEqualTo(new UserName("AbC-1_b"));
     }
 
-    @Test(expected = ConstraintViolationException.class)
+    @Test
     public final void testCreateEmpty() {
-        new UserName("");
+        assertThatThrownBy(() -> {
+            new UserName("");
+        }).isInstanceOf(ConstraintViolationException.class);
     }
 
-    @Test(expected = ConstraintViolationException.class)
+    @Test
     public final void testCreateTooShort() {
-        new UserName("ab");
+        assertThatThrownBy(() -> {
+            new UserName("ab");
+        }).isInstanceOf(ConstraintViolationException.class);
     }
 
-    @Test(expected = ConstraintViolationException.class)
+    @Test
     public final void testCreateTooLong() {
-        new UserName("a12345678901234567890");
+        assertThatThrownBy(() -> {
+            new UserName("a12345678901234567890");
+        }).isInstanceOf(ConstraintViolationException.class);
     }
 
-    @Test(expected = ConstraintViolationException.class)
+    @Test
     public final void testCreateStartsWithNumber() {
-        new UserName("1abc");
+        assertThatThrownBy(() -> {
+            new UserName("1abc");
+        }).isInstanceOf(ConstraintViolationException.class);
     }
 
-    @Test(expected = ConstraintViolationException.class)
+    @Test
     public final void testCreateStartsWithUnderscore() {
-        new UserName("_abc");
+        assertThatThrownBy(() -> {
+            new UserName("_abc");
+        }).isInstanceOf(ConstraintViolationException.class);
     }
 
-    @Test(expected = ConstraintViolationException.class)
+    @Test
     public final void testCreateStartsWithHyphen() {
-        new UserName("-abc");
+        assertThatThrownBy(() -> {
+            new UserName("-abc");
+        }).isInstanceOf(ConstraintViolationException.class);
     }
 
-    @Test(expected = ConstraintViolationException.class)
+    @Test
     public final void testCreateContainsIllegalDoubleCross() {
-        new UserName("abc#1");
+        assertThatThrownBy(() -> {
+            new UserName("abc#1");
+        }).isInstanceOf(ConstraintViolationException.class);
     }
 
-    @Test(expected = ConstraintViolationException.class)
+    @Test
     public final void testCreateContainsIllegalAtAndDot() {
-        new UserName("abc@def.com");
+        assertThatThrownBy(() -> {
+            new UserName("abc@def.com");
+        }).isInstanceOf(ConstraintViolationException.class);
     }
 
     @Test

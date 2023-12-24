@@ -17,10 +17,10 @@
  */
 package org.fuin.objects4j.common;
 
+import jakarta.validation.ConstraintViolation;
+
 import java.util.Collections;
 import java.util.Set;
-
-import jakarta.validation.ConstraintViolation;
 
 /**
  * The contract that was checked is violated.

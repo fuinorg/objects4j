@@ -17,21 +17,19 @@
  */
 package org.fuin.objects4j.vo;
 
+import jakarta.xml.bind.JAXBException;
+import org.assertj.core.api.Assertions;
+import org.fuin.utils4j.jaxb.UnmarshallerBuilder;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.fuin.objects4j.vo.JsonbHelper.fromJson;
 import static org.fuin.objects4j.vo.JsonbHelper.toJson;
-import static org.fuin.units4j.Units4JUtils.assertCauseCauseMessage;
 import static org.fuin.units4j.Units4JUtils.assertCauseCauseCauseMessage;
-import static org.fuin.utils4j.jaxb.JaxbUtils.XML_PREFIX;
-import static org.fuin.utils4j.jaxb.JaxbUtils.marshal;
-import static org.fuin.utils4j.jaxb.JaxbUtils.unmarshal;
-import static org.junit.Assert.fail;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
-import jakarta.xml.bind.JAXBException;
+import static org.fuin.units4j.Units4JUtils.assertCauseCauseMessage;
+import static org.fuin.utils4j.jaxb.JaxbUtils.*;
 
 // CHECKSTYLE:OFF
 public class HourConverterTest {
@@ -42,12 +40,12 @@ public class HourConverterTest {
 
     private HourConverter testee;
 
-    @Before
+    @BeforeEach
     public void setup() {
         testee = new HourConverter();
     }
 
-    @After
+    @AfterEach
     public void teardown() {
         testee = null;
     }
@@ -69,7 +67,7 @@ public class HourConverterTest {
     @Test
     public final void testMarshalUnmarshal() throws JAXBException {
 
-        final Data data = unmarshal(XML, Data.class);
+        final Data data = unmarshal(new UnmarshallerBuilder().addClassesToBeBound(Data.class).withHandler(event -> false).build(), XML);
         assertThat(data.hour).isEqualTo(new Hour("23:59"));
 
     }
@@ -79,8 +77,8 @@ public class HourConverterTest {
 
         final String invalidEmailInXmlData = XML_PREFIX + "<data hour=\"23:\"/>";
         try {
-            unmarshal(invalidEmailInXmlData, Data.class);
-            fail("Expected an exception");
+            unmarshal(new UnmarshallerBuilder().addClassesToBeBound(Data.class).withHandler(event -> false).build(), invalidEmailInXmlData);
+            Assertions.fail("Expected an exception");
         } catch (final RuntimeException ex) {
             assertCauseCauseCauseMessage(ex, "The argument 'hour' does not represent a valid hour like '00:00' or '23:59' or '24:00': '23:'");
         }
@@ -110,7 +108,7 @@ public class HourConverterTest {
         final String invalidJsonData = "{\"hour\":\"23:\"}";
         try {
             fromJson(invalidJsonData, Data.class, new HourConverter());
-            fail("Expected an exception");
+            Assertions.fail("Expected an exception");
         } catch (final RuntimeException ex) {
             assertCauseCauseMessage(ex, "The argument 'hour' does not represent a valid hour like '00:00' or '23:59' or '24:00': '23:'");
         }

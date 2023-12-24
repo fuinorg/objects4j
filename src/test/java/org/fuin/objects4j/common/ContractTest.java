@@ -17,22 +17,21 @@
  */
 package org.fuin.objects4j.common;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Valid;
+import jakarta.validation.Validation;
+import jakarta.validation.constraints.NotNull;
+import org.assertj.core.api.Assertions;
+import org.fuin.objects4j.vo.EmailAddressStr;
+import org.fuin.objects4j.vo.PasswordStr;
+import org.fuin.objects4j.vo.UserNameStr;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.Valid;
-import jakarta.validation.Validation;
-import jakarta.validation.constraints.NotNull;
-
-import org.fuin.objects4j.vo.EmailAddressStr;
-import org.fuin.objects4j.vo.PasswordStr;
-import org.fuin.objects4j.vo.UserNameStr;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 //TESTCODE:BEGIN
 public class ContractTest {
@@ -80,7 +79,7 @@ public class ContractTest {
         final Set<ConstraintViolation<Child>> violations = Contract.validate(Validation.buildDefaultValidatorFactory().getValidator(),
                 child);
         assertThat(violations).isNotNull();
-        assertThat(violations.size()).isGreaterThan(0);
+        assertThat(violations).isNotEmpty();
         assertThat(violations.iterator().next().getMessageTemplate()).isEqualTo("{jakarta.validation.constraints.NotNull.message}");
 
     }
@@ -91,7 +90,7 @@ public class ContractTest {
         final Child child = new Child();
         final Set<ConstraintViolation<Child>> violations = Contract.validate(child);
         assertThat(violations).isNotNull();
-        assertThat(violations.size()).isGreaterThan(0);
+        assertThat(violations).isNotEmpty();
         assertThat(violations.iterator().next().getMessageTemplate()).isEqualTo("{jakarta.validation.constraints.NotNull.message}");
 
     }
@@ -102,7 +101,7 @@ public class ContractTest {
         try {
             final Child child = new Child();
             Contract.requireValid(Validation.buildDefaultValidatorFactory().getValidator(), child);
-            fail();
+            Assertions.fail("");
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).contains("[password]");
             assertThat(ex.getMessage()).contains("{null}");
@@ -117,7 +116,7 @@ public class ContractTest {
         try {
             final Child child = new Child();
             Contract.requireValid(child);
-            fail();
+            Assertions.fail("");
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).contains("[password]");
             assertThat(ex.getMessage()).contains("{null}");
@@ -133,7 +132,7 @@ public class ContractTest {
             final Child child = new Child();
             child.userName = "";
             Contract.requireValid(child);
-            fail();
+            Assertions.fail("");
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).contains("[password]");
             assertThat(ex.getMessage()).contains("{null}");
@@ -151,7 +150,7 @@ public class ContractTest {
             parent.email = "abc@";
             parent.child = new Child();
             Contract.requireValid(parent);
-            fail();
+            Assertions.fail("");
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).contains("[email]");
             assertThat(ex.getMessage()).contains("{abc@}");
@@ -170,7 +169,7 @@ public class ContractTest {
             parent.child = new Child();
             parent.child.password = "verysecret";
             Contract.requireValid(parent);
-            fail();
+            Assertions.fail("");
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).contains("[email]");
             assertThat(ex.getMessage()).contains("{abc@}");
@@ -240,9 +239,9 @@ public class ContractTest {
         // TEST
         Contract.requireArgMin("name1", 5, 4);
         Contract.requireArgMin("name3", 4, 4);
-        Contract.requireArgMin("name3", Integer.valueOf(5), Integer.valueOf(4));
+        Contract.requireArgMin("name3", 5, 4);
         Contract.requireArgMin("name4", 5L, 4L);
-        Contract.requireArgMin("name5", Long.valueOf(5), Long.valueOf(4));
+        Contract.requireArgMin("name5", 5L, 4L);
         try {
             Contract.requireArgMin("name6", 3, 4);
         } catch (final ConstraintViolationException ex) {

@@ -17,11 +17,11 @@
  */
 package org.fuin.objects4j.vo;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 /**
  * Check that a given string is a well-formed date/time based on a pattern.

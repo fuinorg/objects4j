@@ -17,26 +17,23 @@
  */
 package org.fuin.objects4j.vo;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.fuin.objects4j.vo.JsonbHelper.fromJson;
-import static org.fuin.objects4j.vo.JsonbHelper.toJson;
-import static org.fuin.units4j.Units4JUtils.assertCauseCauseMessage;
-import static org.fuin.units4j.Units4JUtils.assertCauseCauseCauseMessage;
-import static org.fuin.units4j.Units4JUtils.setPrivateField;
-import static org.fuin.units4j.Units4JUtils.validate;
-import static org.fuin.utils4j.jaxb.JaxbUtils.XML_PREFIX;
-import static org.fuin.utils4j.jaxb.JaxbUtils.marshal;
-import static org.fuin.utils4j.jaxb.JaxbUtils.unmarshal;
-import static org.junit.Assert.fail;
+import jakarta.validation.ConstraintViolation;
+import jakarta.xml.bind.JAXBException;
+import org.assertj.core.api.Assertions;
+import org.fuin.utils4j.jaxb.UnmarshallerBuilder;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Set;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
-import jakarta.validation.ConstraintViolation;
-import jakarta.xml.bind.JAXBException;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.fuin.objects4j.vo.JsonbHelper.fromJson;
+import static org.fuin.objects4j.vo.JsonbHelper.toJson;
+import static org.fuin.units4j.Units4JUtils.*;
+import static org.fuin.utils4j.jaxb.JaxbUtils.XML_PREFIX;
+import static org.fuin.utils4j.jaxb.JaxbUtils.marshal;
+import static org.fuin.utils4j.jaxb.JaxbUtils.unmarshal;
 
 //CHECKSTYLE:OFF
 public class PasswordSha512ConverterTest {
@@ -49,12 +46,12 @@ public class PasswordSha512ConverterTest {
 
     private ValueObjectConverter<String, PasswordSha512> testee;
 
-    @Before
+    @BeforeEach
     public void setup() {
         testee = new PasswordSha512Converter();
     }
 
-    @After
+    @AfterEach
     public void teardown() {
         testee = null;
     }
@@ -94,7 +91,7 @@ public class PasswordSha512ConverterTest {
     @Test
     public final void testMarshalUnmarshal() throws JAXBException {
 
-        final Data data = unmarshal(XML, Data.class);
+        final Data data = unmarshal(new UnmarshallerBuilder().addClassesToBeBound(Data.class).withHandler(event -> false).build(), XML);
         assertThat(data.passwordSha512).isEqualTo(new PasswordSha512(HASH));
 
     }
@@ -104,8 +101,8 @@ public class PasswordSha512ConverterTest {
 
         final String invalidHashInXmlData = XML_PREFIX + "<data passwordSha512=\"1\"/>";
         try {
-            unmarshal(invalidHashInXmlData, Data.class);
-            fail("Expected an exception");
+            unmarshal(new UnmarshallerBuilder().addClassesToBeBound(Data.class).withHandler(event -> false).build(), invalidHashInXmlData);
+            Assertions.fail("Expected an exception");
         } catch (final RuntimeException ex) {
             assertCauseCauseCauseMessage(ex, "The argument 'hexEncodedHash' is not valid");
         }
@@ -149,7 +146,7 @@ public class PasswordSha512ConverterTest {
         final String invalidJsonData = "{\"passwordSha512\":\"1\"}";
         try {
             fromJson(invalidJsonData, Data.class, new PasswordSha512Converter());
-            fail("Expected an exception");
+            Assertions.fail("Expected an exception");
         } catch (final RuntimeException ex) {
             assertCauseCauseMessage(ex, "The argument 'hexEncodedHash' is not valid");
         }

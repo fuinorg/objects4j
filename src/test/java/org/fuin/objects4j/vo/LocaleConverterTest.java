@@ -17,12 +17,12 @@
  */
 package org.fuin.objects4j.vo;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.fuin.units4j.AbstractPersistenceTest;
+import org.junit.jupiter.api.Test;
 
 import java.util.Locale;
 
-import org.fuin.units4j.AbstractPersistenceTest;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 //TESTCODE:BEGIN
 public class LocaleConverterTest extends AbstractPersistenceTest {

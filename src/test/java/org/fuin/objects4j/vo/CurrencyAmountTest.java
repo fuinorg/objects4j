@@ -17,20 +17,19 @@
  */
 package org.fuin.objects4j.vo;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.fuin.utils4j.Utils4J.deserialize;
-import static org.fuin.utils4j.Utils4J.serialize;
+import jakarta.persistence.Query;
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
+import org.fuin.units4j.AbstractPersistenceTest;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Currency;
 
-import nl.jqno.equalsverifier.EqualsVerifier;
-
-import org.fuin.units4j.AbstractPersistenceTest;
-import org.junit.Test;
-
-import jakarta.persistence.Query;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.fuin.utils4j.Utils4J.deserialize;
+import static org.fuin.utils4j.Utils4J.serialize;
 
 /**
  * Tests the {@link CurrencyAmount} class.
@@ -40,7 +39,9 @@ public class CurrencyAmountTest extends AbstractPersistenceTest {
 
     @Test
     public void testEqualsHashCode() {
-        EqualsVerifier.forClass(CurrencyAmount.class).withPrefabValues(Currency.class, cu("EUR"), cu("USD")).verify();
+        EqualsVerifier.forClass(CurrencyAmount.class)
+                .suppress(Warning.BIGDECIMAL_EQUALITY)
+                .withPrefabValues(Currency.class, cu("EUR"), cu("USD")).verify();
     }
 
     @Test

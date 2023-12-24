@@ -17,19 +17,17 @@
  */
 package org.fuin.objects4j.vo;
 
+import jakarta.xml.bind.JAXBException;
+import org.fuin.units4j.AbstractPersistenceTest;
+import org.fuin.utils4j.jaxb.UnmarshallerBuilder;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.fuin.objects4j.vo.JsonbHelper.fromJson;
 import static org.fuin.objects4j.vo.JsonbHelper.toJson;
-import static org.fuin.utils4j.jaxb.JaxbUtils.XML_PREFIX;
-import static org.fuin.utils4j.jaxb.JaxbUtils.marshal;
-import static org.fuin.utils4j.jaxb.JaxbUtils.unmarshal;
-
-import org.fuin.units4j.AbstractPersistenceTest;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
-import jakarta.xml.bind.JAXBException;
+import static org.fuin.utils4j.jaxb.JaxbUtils.*;
 
 // CHECKSTYLE:OFF
 public class ValueObjectStringConverterTest extends AbstractPersistenceTest {
@@ -40,12 +38,12 @@ public class ValueObjectStringConverterTest extends AbstractPersistenceTest {
 
     private ValueObjectStringConverter<AnyStr> testee;
 
-    @Before
+    @BeforeEach
     public void setup() {
         testee = new AnyStrConverter();
     }
 
-    @After
+    @AfterEach
     public void teardown() {
         testee = null;
     }
@@ -67,7 +65,7 @@ public class ValueObjectStringConverterTest extends AbstractPersistenceTest {
     @Test
     public final void testMarshalUnmarshal() throws JAXBException {
 
-        final Data data = unmarshal(XML, Data.class);
+        final Data data = unmarshal(new UnmarshallerBuilder().addClassesToBeBound(Data.class).withHandler(event -> false).build(), XML);
         assertThat(data.anyStr).isNotNull();
         assertThat(data.anyStr).isEqualTo(new AnyStr("abcd1234"));
 

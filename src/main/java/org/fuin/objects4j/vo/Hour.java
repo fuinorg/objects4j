@@ -17,12 +17,9 @@
  */
 package org.fuin.objects4j.vo;
 
-import java.util.regex.Pattern;
-
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
 import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.common.Immutable;
@@ -31,6 +28,8 @@ import org.fuin.objects4j.ui.Label;
 import org.fuin.objects4j.ui.Prompt;
 import org.fuin.objects4j.ui.ShortLabel;
 import org.fuin.objects4j.ui.Tooltip;
+
+import java.util.regex.Pattern;
 
 /**
  * Represents an hour of a day (24 hours, sometimes called Military Time).<br>
