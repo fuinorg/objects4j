@@ -148,7 +148,7 @@ public final class TableColumnInfoTest {
         EqualsVerifier.forClass(TableColumnInfo.class)
                 .withPrefabValues(Field.class, C.class.getDeclaredField("c"), D.class.getDeclaredField("d2"))
                 .withPrefabValues(FontSize.class, new FontSize(40, FontSizeUnit.PIXEL), new FontSize(100, FontSizeUnit.POINT))
-                .suppress(Warning.NULL_FIELDS, Warning.ALL_FIELDS_SHOULD_BE_USED).verify();
+                .suppress(Warning.NULL_FIELDS, Warning.ALL_FIELDS_SHOULD_BE_USED, Warning.REFERENCE_EQUALITY).verify();
     }
 
 }

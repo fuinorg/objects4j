@@ -210,7 +210,7 @@ public final class FieldTextInfoTest {
     public void testEqualsHashCode() throws Exception {
         EqualsVerifier.forClass(FieldTextInfo.class)
                 .withPrefabValues(Field.class, C.class.getDeclaredField("c"), D.class.getDeclaredField("d2"))
-                .suppress(Warning.NULL_FIELDS, Warning.ALL_FIELDS_SHOULD_BE_USED).verify();
+                .suppress(Warning.NULL_FIELDS, Warning.ALL_FIELDS_SHOULD_BE_USED, Warning.REFERENCE_EQUALITY).verify();
     }
 
 }

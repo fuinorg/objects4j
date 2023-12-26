@@ -5,10 +5,11 @@ A library with common Java types that are mostly immutable value objects.
 [![Coverage Status](https://sonarcloud.io/api/project_badges/measure?project=org.fuin%3Aobjects4j&metric=coverage)](https://sonarcloud.io/dashboard?id=org.fuin%3Aobjects4j)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.fuin/objects4j/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.fuin/objects4j/)
 [![LGPLv3 License](http://img.shields.io/badge/license-LGPLv3-blue.svg)](https://www.gnu.org/licenses/lgpl.html)
-[![Java Development Kit 11](https://img.shields.io/badge/JDK-11-green.svg)](https://openjdk.java.net/projects/jdk/11/)
+[![Java Development Kit 17](https://img.shields.io/badge/JDK-17-green.svg)](https://openjdk.java.net/projects/jdk/17/)
 
 ## Versions
-- 0.8.x (or later) = **Java 11** with new **jakarta** namespace
+- 0.9.x (or later) = **Java 17**
+- 0.8.0 = **Java 11** with new **jakarta** namespace
 - 0.7.x = **Java 11** before namespace change from 'javax' to 'jakarta'
 - 0.6.9 (or previous) = **Java 8**
 
