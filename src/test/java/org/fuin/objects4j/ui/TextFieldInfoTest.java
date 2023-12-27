@@ -17,14 +17,13 @@
  */
 package org.fuin.objects4j.ui;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import my.test.MyClass;
+import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
 import java.util.Locale;
 
-import my.test.MyClass;
-
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 //TESTCODE:BEGIN
 public class TextFieldInfoTest {

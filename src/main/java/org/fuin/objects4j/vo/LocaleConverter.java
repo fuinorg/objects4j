@@ -17,14 +17,13 @@
  */
 package org.fuin.objects4j.vo;
 
-import java.util.Locale;
-import java.util.StringTokenizer;
-
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;
-
 import org.fuin.objects4j.common.ThreadSafe;
+
+import java.util.Locale;
+import java.util.StringTokenizer;
 
 /**
  * Converts a {@link Locale} into a String and back.

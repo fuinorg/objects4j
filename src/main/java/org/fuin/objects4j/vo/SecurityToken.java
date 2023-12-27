@@ -17,13 +17,12 @@
  */
 package org.fuin.objects4j.vo;
 
+import jakarta.validation.constraints.NotNull;
+import org.fuin.objects4j.common.Immutable;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-
-import jakarta.validation.constraints.NotNull;
-
-import org.fuin.objects4j.common.Immutable;
 
 /**
  * Creates a BASE64 encoded string based on a SHA1PRNG {@link SecureRandom}.

@@ -1,15 +1,9 @@
 // CHECKSTYLE:OFF
 package my.test;
 
-import java.util.Date;
+import org.fuin.objects4j.ui.*;
 
-import org.fuin.objects4j.ui.Examples;
-import org.fuin.objects4j.ui.FontSizeUnit;
-import org.fuin.objects4j.ui.Label;
-import org.fuin.objects4j.ui.Mappings;
-import org.fuin.objects4j.ui.ShortLabel;
-import org.fuin.objects4j.ui.TableColumn;
-import org.fuin.objects4j.ui.TextField;
+import java.util.Date;
 
 /**
  * Test class with fields annotated with label and table column.

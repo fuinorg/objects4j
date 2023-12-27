@@ -17,16 +17,12 @@
  */
 package org.fuin.objects4j.vo;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 import jakarta.validation.ReportAsSingleViolation;
 import jakarta.validation.constraints.Size;
+
+import java.lang.annotation.*;
 
 //CHECKSTYLE:OFF
 /**

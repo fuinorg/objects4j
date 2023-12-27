@@ -17,19 +17,18 @@
  */
 package org.fuin.objects4j.ui;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.lang.reflect.Field;
-import java.util.List;
-import java.util.Locale;
-
-import org.junit.Test;
-
 import my.test.C;
 import my.test.D;
 import my.test.MyClass;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
+import org.junit.jupiter.api.Test;
+
+import java.lang.reflect.Field;
+import java.util.List;
+import java.util.Locale;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 //TESTCODE:BEGIN
 public final class TableColumnInfoTest {
@@ -63,7 +62,7 @@ public final class TableColumnInfoTest {
         final List<TableColumnInfo> list = TableColumnInfo.create(MyClass.class, Locale.ENGLISH);
 
         assertThat(list).isNotNull();
-        assertThat(list.size()).isEqualTo(4);
+        assertThat(list).hasSize(4);
 
         final TableColumnInfo tcFirstName = new TableColumnInfo(MyClass.class.getDeclaredField("firstName"), "First name", null, 0,
                 new FontSize(80, FontSizeUnit.PIXEL), "getFirstName");
@@ -89,7 +88,7 @@ public final class TableColumnInfoTest {
         final List<TableColumnInfo> list = TableColumnInfo.create(MyClass.class, Locale.GERMAN);
 
         assertThat(list).isNotNull();
-        assertThat(list.size()).isEqualTo(4);
+        assertThat(list).hasSize(4);
 
         final TableColumnInfo tcFirstName = new TableColumnInfo(MyClass.class.getDeclaredField("firstName"), "First name", null, 0,
                 new FontSize(80, FontSizeUnit.PIXEL), "getFirstName");
@@ -149,7 +148,7 @@ public final class TableColumnInfoTest {
         EqualsVerifier.forClass(TableColumnInfo.class)
                 .withPrefabValues(Field.class, C.class.getDeclaredField("c"), D.class.getDeclaredField("d2"))
                 .withPrefabValues(FontSize.class, new FontSize(40, FontSizeUnit.PIXEL), new FontSize(100, FontSizeUnit.POINT))
-                .suppress(Warning.NULL_FIELDS, Warning.ALL_FIELDS_SHOULD_BE_USED).verify();
+                .suppress(Warning.NULL_FIELDS, Warning.ALL_FIELDS_SHOULD_BE_USED, Warning.REFERENCE_EQUALITY).verify();
     }
 
 }

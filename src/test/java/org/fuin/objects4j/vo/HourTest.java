@@ -17,14 +17,13 @@
  */
 package org.fuin.objects4j.vo;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 import nl.jqno.equalsverifier.EqualsVerifier;
-
+import org.assertj.core.api.Assertions;
 import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.units4j.AbstractPersistenceTest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 // CHECKSTYLE:OFF
 public class HourTest extends AbstractPersistenceTest {
@@ -43,7 +42,7 @@ public class HourTest extends AbstractPersistenceTest {
 
         try {
             new Hour("23:");
-            fail();
+            Assertions.fail("");
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage())
                     .isEqualTo("The argument 'hour' does not represent a valid hour like '00:00' or '23:59' or '24:00': '23:'");
@@ -51,21 +50,21 @@ public class HourTest extends AbstractPersistenceTest {
 
         try {
             new Hour(-1, 0);
-            fail();
+            Assertions.fail("");
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo("The argument 'hour' is not a valid hour (0-24): '-1'");
         }
 
         try {
             new Hour(0, -1);
-            fail();
+            Assertions.fail("");
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo("The argument 'minute' is not a valid minute (0-59): '-1'");
         }
 
         try {
             new Hour(24, 59);
-            fail();
+            Assertions.fail("");
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo("The argument 'minute' must be '0' if the hour is '24': '59'");
         }
@@ -143,7 +142,7 @@ public class HourTest extends AbstractPersistenceTest {
 
         try {
             Hour.requireArgValid("a", "");
-            fail();
+            Assertions.fail("");
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage())
                     .isEqualTo("The argument 'a' does not represent a valid hour like '00:00' or '23:59' or '24:00': ''");
@@ -151,7 +150,7 @@ public class HourTest extends AbstractPersistenceTest {
 
         try {
             Hour.requireArgValid("b", "23:");
-            fail();
+            Assertions.fail("");
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage())
                     .isEqualTo("The argument 'b' does not represent a valid hour like '00:00' or '23:59' or '24:00': '23:'");

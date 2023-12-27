@@ -22,7 +22,6 @@ import jakarta.mail.internet.InternetAddress;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import jakarta.validation.constraints.NotNull;
-
 import org.fuin.objects4j.common.ConstraintViolationException;
 
 /**

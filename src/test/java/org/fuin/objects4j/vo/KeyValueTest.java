@@ -17,13 +17,13 @@
  */
 package org.fuin.objects4j.vo;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.fuin.objects4j.common.ConstraintViolationException;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.fuin.objects4j.common.ConstraintViolationException;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 // CHECKSTYLE:OFF
 public final class KeyValueTest {

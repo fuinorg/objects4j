@@ -17,18 +17,18 @@
  */
 package org.fuin.objects4j.common;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
+import org.assertj.core.api.Assertions;
+import org.fuin.utils4j.Utils4J;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import org.fuin.utils4j.Utils4J;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 //TESTCODE:BEGIN
 public final class IsDirectoryValidatorTest {
@@ -38,7 +38,7 @@ public final class IsDirectoryValidatorTest {
     private File existingFile;
     private File existingDir;
 
-    @Before
+    @BeforeEach
     public final void setUp() throws IOException {
         testee = new IsDirectoryValidator();
         existingFile = new File(Utils4J.getTempDir(), "IsDirectoryValidatorTest_File");
@@ -52,7 +52,7 @@ public final class IsDirectoryValidatorTest {
         existingDir.mkdir();
     }
 
-    @After
+    @AfterEach
     public final void tearDown() {
         testee = null;
         existingFile.delete();
@@ -108,7 +108,7 @@ public final class IsDirectoryValidatorTest {
         // TEST & VERIFY
         try {
             IsDirectoryValidator.requireArgValid("x", existingFile);
-            fail("Expected exception");
+            Assertions.fail("Expected exception");
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).startsWith("The argument 'x' is not a directory:");
         }

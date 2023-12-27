@@ -1,41 +1,39 @@
 /**
  * Copyright (C) 2013 Future Invent Informationsmanagement GmbH. All rights
  * reserved. <http://www.fuin.org/>
- *
+ * <p>
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
  * Software Foundation; either version 3 of the License, or (at your option) any
  * later version.
- *
+ * <p>
  * This library is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
- *
+ * <p>
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library. If not, see <http://www.gnu.org/licenses/>.
  */
 package org.fuin.objects4j.vo;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.fuin.objects4j.vo.JsonbHelper.fromJson;
-import static org.fuin.objects4j.vo.JsonbHelper.toJson;
-import static org.fuin.units4j.Units4JUtils.assertCauseCauseMessage;
-import static org.fuin.units4j.Units4JUtils.assertCauseCauseCauseMessage;
-import static org.fuin.utils4j.jaxb.JaxbUtils.XML_PREFIX;
-import static org.fuin.utils4j.jaxb.JaxbUtils.marshal;
-import static org.fuin.utils4j.jaxb.JaxbUtils.unmarshal;
-import static org.junit.Assert.fail;
+import jakarta.xml.bind.JAXBException;
+import org.assertj.core.api.Assertions;
+import org.fuin.utils4j.jaxb.UnmarshallerBuilder;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Currency;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
-import jakarta.xml.bind.JAXBException;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.fuin.objects4j.vo.JsonbHelper.fromJson;
+import static org.fuin.objects4j.vo.JsonbHelper.toJson;
+import static org.fuin.units4j.Units4JUtils.assertCauseCauseCauseMessage;
+import static org.fuin.units4j.Units4JUtils.assertCauseCauseMessage;
+import static org.fuin.utils4j.jaxb.JaxbUtils.*;
 
 // CHECKSTYLE:OFF
 public class CurrencyAmountConverterTest {
@@ -46,12 +44,12 @@ public class CurrencyAmountConverterTest {
 
     private ValueObjectConverter<String, CurrencyAmount> testee;
 
-    @Before
+    @BeforeEach
     public void setup() {
         testee = new CurrencyAmountConverter();
     }
 
-    @After
+    @AfterEach
     public void teardown() {
         testee = null;
     }
@@ -64,7 +62,7 @@ public class CurrencyAmountConverterTest {
     @Test
     public final void testtoVO() {
         assertThat(testee.toVO("1234.56 EUR"))
-                .isEqualTo(new CurrencyAmount(new BigDecimal(1234.56).setScale(2, RoundingMode.HALF_UP), Currency.getInstance("EUR")));
+                .isEqualTo(new CurrencyAmount(new BigDecimal("1234.56").setScale(2, RoundingMode.HALF_UP), Currency.getInstance("EUR")));
     }
 
     @Test
@@ -93,7 +91,7 @@ public class CurrencyAmountConverterTest {
     @Test
     public final void testMarshalUnmarshalJaxb() throws JAXBException {
 
-        final Data data = unmarshal(XML, Data.class);
+        final Data data = unmarshal(new UnmarshallerBuilder().addClassesToBeBound(Data.class).withHandler(event -> false).build(), XML);
         assertThat(data.currencyAmount).isEqualTo(new CurrencyAmount("1234.56", "EUR"));
 
     }
@@ -103,8 +101,8 @@ public class CurrencyAmountConverterTest {
 
         final String invalidXmlData = XML_PREFIX + "<data ca=\"1234.56\"/>";
         try {
-            unmarshal(invalidXmlData, Data.class);
-            fail("Expected an exception");
+            unmarshal(new UnmarshallerBuilder().addClassesToBeBound(Data.class).withHandler(event -> false).build(), invalidXmlData);
+            Assertions.fail("Expected an exception");
         } catch (final RuntimeException ex) {
             assertCauseCauseCauseMessage(ex, "No space character found in '1234.56'");
         }
@@ -134,7 +132,7 @@ public class CurrencyAmountConverterTest {
         final String invalidJsonData = "{\"ca\":\"1234.56\"}";
         try {
             fromJson(invalidJsonData, Data.class, new CurrencyAmountConverter());
-            fail("Expected an exception");
+            Assertions.fail("Expected an exception");
         } catch (final RuntimeException ex) {
             assertCauseCauseMessage(ex, "No space character found in '1234.56'");
         }

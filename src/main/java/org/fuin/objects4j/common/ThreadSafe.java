@@ -17,11 +17,7 @@
  */
 package org.fuin.objects4j.common;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 /**
  * The class to which this annotation is applied is thread-safe. This means that no sequences of accesses (reads and writes to public

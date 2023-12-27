@@ -17,14 +17,13 @@
  */
 package org.fuin.objects4j.vo;
 
-import java.util.Locale;
-import java.util.StringTokenizer;
-
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import jakarta.validation.constraints.NotNull;
-
 import org.fuin.objects4j.common.ConstraintViolationException;
+
+import java.util.Locale;
+import java.util.StringTokenizer;
 
 /**
  * Check that a given string is a valid {@link java.util.Locale}.

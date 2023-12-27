@@ -21,7 +21,6 @@ import jakarta.json.bind.adapter.JsonbAdapter;
 import jakarta.persistence.AttributeConverter;
 import jakarta.validation.constraints.NotNull;
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;
-
 import org.fuin.objects4j.common.Contract;
 
 /**

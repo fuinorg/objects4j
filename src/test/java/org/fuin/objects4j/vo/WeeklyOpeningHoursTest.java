@@ -17,24 +17,18 @@
  */
 package org.fuin.objects4j.vo;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.fuin.objects4j.vo.DayOfTheWeek.FRI;
-import static org.fuin.objects4j.vo.DayOfTheWeek.MON;
-import static org.fuin.objects4j.vo.DayOfTheWeek.SAT;
-import static org.fuin.objects4j.vo.DayOfTheWeek.THU;
-import static org.fuin.objects4j.vo.DayOfTheWeek.TUE;
-import static org.fuin.objects4j.vo.DayOfTheWeek.WED;
-import static org.fuin.objects4j.vo.HourRanges.ChangeType.ADDED;
-import static org.fuin.objects4j.vo.HourRanges.ChangeType.REMOVED;
-import static org.junit.Assert.fail;
-
 import nl.jqno.equalsverifier.EqualsVerifier;
-
+import org.assertj.core.api.Assertions;
 import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.objects4j.vo.DayOpeningHours.Change;
 import org.fuin.objects4j.vo.HourRanges.ChangeType;
 import org.fuin.units4j.AbstractPersistenceTest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.fuin.objects4j.vo.DayOfTheWeek.*;
+import static org.fuin.objects4j.vo.HourRanges.ChangeType.ADDED;
+import static org.fuin.objects4j.vo.HourRanges.ChangeType.REMOVED;
 
 // CHECKSTYLE:OFF
 public class WeeklyOpeningHoursTest extends AbstractPersistenceTest {
@@ -51,7 +45,7 @@ public class WeeklyOpeningHoursTest extends AbstractPersistenceTest {
 
         try {
             w("Mon+Tue 13:00-14:00*17:00-19:00");
-            fail();
+            Assertions.fail("");
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo(
                     "The argument 'weeklyOpeningHours' does not represent valid weekly opening hours like 'Mon-Fri 09:00-12:00+13:00-17:00,Sat/Sun 09:-12:00': 'Mon+Tue 13:00-14:00*17:00-19:00'");
@@ -113,7 +107,7 @@ public class WeeklyOpeningHoursTest extends AbstractPersistenceTest {
 
         try {
             WeeklyOpeningHours.requireArgValid("a", "");
-            fail();
+            Assertions.fail("");
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo(
                     "The argument 'a' does not represent valid weekly opening hours like 'Mon-Fri 09:00-12:00+13:00-17:00,Sat/Sun 09:-12:00': ''");
@@ -121,7 +115,7 @@ public class WeeklyOpeningHoursTest extends AbstractPersistenceTest {
 
         try {
             WeeklyOpeningHours.requireArgValid("b", "Mon 17-18,Tue 19-20");
-            fail();
+            Assertions.fail("");
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo(
                     "The argument 'b' does not represent valid weekly opening hours like 'Mon-Fri 09:00-12:00+13:00-17:00,Sat/Sun 09:-12:00': 'Mon 17-18,Tue 19-20'");

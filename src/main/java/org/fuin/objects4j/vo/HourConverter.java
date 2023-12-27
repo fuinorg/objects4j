@@ -18,7 +18,6 @@
 package org.fuin.objects4j.vo;
 
 import jakarta.persistence.Converter;
-
 import org.fuin.objects4j.common.ThreadSafe;
 
 /**

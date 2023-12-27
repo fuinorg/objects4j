@@ -17,13 +17,9 @@
  */
 package org.fuin.objects4j.vo;
 
-import java.util.Currency;
+import jakarta.persistence.*;
 
-import jakarta.persistence.Basic;
-import jakarta.persistence.Column;
-import jakarta.persistence.Convert;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import java.util.Currency;
 
 // CHECKSTYLE:OFF
 @Entity(name = "CURRENCY_PARENT")

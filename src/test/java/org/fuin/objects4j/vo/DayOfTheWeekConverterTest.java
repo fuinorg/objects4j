@@ -17,21 +17,19 @@
  */
 package org.fuin.objects4j.vo;
 
+import jakarta.xml.bind.JAXBException;
+import org.assertj.core.api.Assertions;
+import org.fuin.utils4j.jaxb.UnmarshallerBuilder;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.fuin.objects4j.vo.JsonbHelper.fromJson;
 import static org.fuin.objects4j.vo.JsonbHelper.toJson;
-import static org.fuin.units4j.Units4JUtils.assertCauseCauseMessage;
 import static org.fuin.units4j.Units4JUtils.assertCauseCauseCauseMessage;
-import static org.fuin.utils4j.jaxb.JaxbUtils.XML_PREFIX;
-import static org.fuin.utils4j.jaxb.JaxbUtils.marshal;
-import static org.fuin.utils4j.jaxb.JaxbUtils.unmarshal;
-import static org.junit.Assert.fail;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
-import jakarta.xml.bind.JAXBException;
+import static org.fuin.units4j.Units4JUtils.assertCauseCauseMessage;
+import static org.fuin.utils4j.jaxb.JaxbUtils.*;
 
 // CHECKSTYLE:OFF
 public class DayOfTheWeekConverterTest {
@@ -42,12 +40,12 @@ public class DayOfTheWeekConverterTest {
 
     private DayOfTheWeekConverter testee;
 
-    @Before
+    @BeforeEach
     public void setup() {
         testee = new DayOfTheWeekConverter();
     }
 
-    @After
+    @AfterEach
     public void teardown() {
         testee = null;
     }
@@ -69,7 +67,7 @@ public class DayOfTheWeekConverterTest {
     @Test
     public final void testMarshalUnmarshal() throws JAXBException {
 
-        final Data data = unmarshal(XML, Data.class);
+        final Data data = unmarshal(new UnmarshallerBuilder().addClassesToBeBound(Data.class).withHandler(event -> false).build(), XML);
         assertThat(data.dayOfTheWeek).isEqualTo(DayOfTheWeek.FRI);
 
     }
@@ -79,8 +77,8 @@ public class DayOfTheWeekConverterTest {
 
         final String invalidEmailInXmlData = XML_PREFIX + "<data dayOfTheWeek=\"Monday\"/>";
         try {
-            unmarshal(invalidEmailInXmlData, Data.class);
-            fail("Expected an exception");
+            unmarshal(new UnmarshallerBuilder().addClassesToBeBound(Data.class).withHandler(event -> false).build(), invalidEmailInXmlData);
+            Assertions.fail("Expected an exception");
         } catch (final RuntimeException ex) {
             assertCauseCauseCauseMessage(ex, "Unknown day of week: 'Monday'");
         }
@@ -110,7 +108,7 @@ public class DayOfTheWeekConverterTest {
         final String invalidJsonData = "{\"dayOfTheWeek\":\"Monday\"}";
         try {
             fromJson(invalidJsonData, Data.class, new DayOfTheWeekConverter());
-            fail("Expected an exception");
+            Assertions.fail("Expected an exception");
         } catch (final RuntimeException ex) {
             assertCauseCauseMessage(ex, "Unknown day of week: 'Monday'");
         }

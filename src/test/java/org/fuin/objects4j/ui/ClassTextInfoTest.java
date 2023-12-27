@@ -17,15 +17,14 @@
  */
 package org.fuin.objects4j.ui;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.Locale;
-
 import my.test.MyClass;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Test;
+import java.util.Locale;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 //TESTCODE:BEGIN
 public final class ClassTextInfoTest {

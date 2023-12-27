@@ -17,17 +17,16 @@
  */
 package org.fuin.objects4j.vo;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
+import jakarta.validation.ConstraintValidatorContext;
+import org.assertj.core.api.Assertions;
+import org.fuin.objects4j.common.ConstraintViolationException;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Locale;
 
-import org.fuin.objects4j.common.ConstraintViolationException;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
-import jakarta.validation.ConstraintValidatorContext;
+import static org.assertj.core.api.Assertions.assertThat;
 
 //CHECKSTYLE:OFF
 public final class LocaleStrValidatorTest {
@@ -36,12 +35,12 @@ public final class LocaleStrValidatorTest {
 
     private LocaleStrValidator testee;
 
-    @Before
+    @BeforeEach
     public final void setUp() {
         testee = new LocaleStrValidator();
     }
 
-    @After
+    @AfterEach
     public final void tearDown() {
         testee = null;
     }
@@ -71,7 +70,7 @@ public final class LocaleStrValidatorTest {
         assertThat(testee.isValid("", CONTEXT)).isFalse();
         try {
             LocaleStrValidator.parseArg("a", "");
-            fail();
+            Assertions.fail("");
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo("The argument 'a' is not valid: ''");
         }
@@ -84,7 +83,7 @@ public final class LocaleStrValidatorTest {
         assertThat(testee.isValid("d", CONTEXT)).isFalse();
         try {
             LocaleStrValidator.parseArg("a", "d");
-            fail();
+            Assertions.fail("");
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo("The argument 'a' is not valid: 'd'");
         }
@@ -92,7 +91,7 @@ public final class LocaleStrValidatorTest {
         assertThat(testee.isValid("xx_XX", CONTEXT)).isFalse();
         try {
             LocaleStrValidator.parseArg("a", "xx_XX");
-            fail();
+            Assertions.fail("");
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo("The argument 'a' is not valid: 'xx_XX'");
         }
@@ -100,7 +99,7 @@ public final class LocaleStrValidatorTest {
         assertThat(testee.isValid("xx_YY_zz", CONTEXT)).isFalse();
         try {
             LocaleStrValidator.parseArg("a", "xx_YY_zz");
-            fail();
+            Assertions.fail("");
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo("The argument 'a' is not valid: 'xx_YY_zz'");
         }

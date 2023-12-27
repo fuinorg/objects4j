@@ -17,13 +17,12 @@
  */
 package org.fuin.objects4j.vo;
 
-import java.util.Currency;
-
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import jakarta.validation.constraints.NotNull;
-
 import org.fuin.objects4j.common.ConstraintViolationException;
+
+import java.util.Currency;
 
 /**
  * Check that a given string is a well-formed currency amount.

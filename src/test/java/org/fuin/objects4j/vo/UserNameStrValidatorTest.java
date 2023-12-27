@@ -17,23 +17,23 @@
  */
 package org.fuin.objects4j.vo;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 // CHECKSTYLE:OFF
 public final class UserNameStrValidatorTest {
 
     private UserNameStrValidator testee;
 
-    @Before
+    @BeforeEach
     public final void setUp() {
         testee = new UserNameStrValidator();
     }
 
-    @After
+    @AfterEach
     public final void tearDown() {
         testee = null;
     }

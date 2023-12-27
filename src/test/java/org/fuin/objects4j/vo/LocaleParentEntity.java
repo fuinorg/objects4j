@@ -17,11 +17,11 @@
  */
 package org.fuin.objects4j.vo;
 
-import java.util.Locale;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+
+import java.util.Locale;
 
 // CHECKSTYLE:OFF
 @Entity(name = "LOCALE_PARENT")

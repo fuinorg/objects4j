@@ -17,17 +17,13 @@
  */
 package org.fuin.objects4j.common;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.groups.Default;
+
+import java.util.*;
 
 /**
  * Utility class for assertions on objects.
@@ -214,7 +210,7 @@ public final class Contract {
         // CHECKSTYLE:ON
 
         final Set<ConstraintViolation<Object>> constraintViolations = validator.validate(value);
-        if (constraintViolations.size() > 0) {
+        if (!constraintViolations.isEmpty()) {
             final StringBuilder sb = new StringBuilder();
             for (final ConstraintViolation<Object> constraintViolation : constraintViolations) {
                 if (sb.length() > 0) {

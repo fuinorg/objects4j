@@ -4,7 +4,6 @@ package my.test;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-
 import org.fuin.objects4j.ui.Label;
 import org.fuin.objects4j.ui.TextField;
 import org.fuin.objects4j.vo.PasswordStr;

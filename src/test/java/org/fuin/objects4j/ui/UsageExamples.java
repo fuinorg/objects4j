@@ -17,12 +17,12 @@
  */
 package org.fuin.objects4j.ui;
 
+import my.test.MyClass;
+
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
-
-import my.test.MyClass;
 
 /**
  * Usage examples.

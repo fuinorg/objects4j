@@ -17,17 +17,16 @@
  */
 package org.fuin.objects4j.vo;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.Assert.fail;
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
+import org.assertj.core.api.Assertions;
+import org.fuin.objects4j.common.ConstraintViolationException;
+import org.fuin.units4j.AbstractPersistenceTest;
+import org.junit.jupiter.api.Test;
 
 import java.util.Iterator;
 
-import nl.jqno.equalsverifier.EqualsVerifier;
-import nl.jqno.equalsverifier.Warning;
-
-import org.fuin.objects4j.common.ConstraintViolationException;
-import org.fuin.units4j.AbstractPersistenceTest;
-import org.junit.Test;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 // CHECKSTYLE:OFF
 public class MultiDayOfTheWeekTest extends AbstractPersistenceTest {
@@ -46,7 +45,7 @@ public class MultiDayOfTheWeekTest extends AbstractPersistenceTest {
 
         try {
             m("MON+TUE");
-            fail();
+            Assertions.fail("");
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo(
                     "The argument 'multipleDayOfTheWeek' does not represent valid days of the week like 'Mon/Tue/Wed-Fri': 'MON+TUE'");
@@ -142,14 +141,14 @@ public class MultiDayOfTheWeekTest extends AbstractPersistenceTest {
 
         try {
             MultiDayOfTheWeek.requireArgValid("a", "");
-            fail();
+            Assertions.fail("");
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo("The argument 'a' does not represent valid days of the week like 'Mon/Tue/Wed-Fri': ''");
         }
 
         try {
             MultiDayOfTheWeek.requireArgValid("b", "Mon+Tue");
-            fail();
+            Assertions.fail("");
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage())
                     .isEqualTo("The argument 'b' does not represent valid days of the week like 'Mon/Tue/Wed-Fri': 'Mon+Tue'");

@@ -19,8 +19,7 @@ package org.fuin.objects4j.vo;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 //CHECKSTYLE:OFF
 public class AbstractIntegerValueObjectTest {

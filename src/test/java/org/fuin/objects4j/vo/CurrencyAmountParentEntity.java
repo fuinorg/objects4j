@@ -17,14 +17,7 @@
  */
 package org.fuin.objects4j.vo;
 
-import jakarta.persistence.AttributeOverride;
-import jakarta.persistence.AttributeOverrides;
-import jakarta.persistence.Basic;
-import jakarta.persistence.Column;
-import jakarta.persistence.Convert;
-import jakarta.persistence.Embedded;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 // CHECKSTYLE:OFF
 @Entity(name = "CURRENCY_AMOUNT_PARENT")

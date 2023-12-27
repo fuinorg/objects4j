@@ -17,24 +17,17 @@
  */
 package org.fuin.objects4j.vo;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.StringTokenizer;
-
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
 import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.common.Immutable;
 import org.fuin.objects4j.common.Nullable;
 import org.fuin.objects4j.ui.Prompt;
 import org.fuin.objects4j.vo.DayOpeningHours.Change;
+
+import java.util.*;
 
 /**
  * Represents weekly opening hours separated by a comma ','.<br>
