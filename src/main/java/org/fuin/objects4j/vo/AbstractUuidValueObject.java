@@ -17,6 +17,8 @@
  */
 package org.fuin.objects4j.vo;
 
+import org.fuin.objects4j.common.HasPublicStaticIsValidMethod;
+
 import java.io.Serializable;
 import java.util.UUID;
 import java.util.regex.Pattern;
@@ -25,6 +27,7 @@ import java.util.regex.Pattern;
  * Base class for UUID value objects that that overrides {@link Object#hashCode()} and {@link Object#equals(Object)} and it implements
  * comparable based on the {@link #asBaseType()} method.
  */
+@HasPublicStaticIsValidMethod
 public abstract class AbstractUuidValueObject implements ValueObjectWithBaseType<UUID>, Comparable<AbstractUuidValueObject>, Serializable {
 
     private static final long serialVersionUID = 1000L;

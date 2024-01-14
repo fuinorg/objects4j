@@ -20,10 +20,8 @@ package org.fuin.objects4j.vo;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import org.fuin.objects4j.common.ConstraintViolationException;
-import org.fuin.objects4j.common.Contract;
-import org.fuin.objects4j.common.Immutable;
-import org.fuin.objects4j.common.Nullable;
+import org.fuin.objects4j.common.*;
+import org.fuin.objects4j.common.HasPublicStaticValueOfMethod;
 import org.fuin.objects4j.ui.Prompt;
 import org.fuin.objects4j.vo.DayOpeningHours.Change;
 
@@ -37,6 +35,8 @@ import java.util.*;
 @Immutable
 @Prompt("Mon-Fri 09:00-12:00+13:00-17:00,Sat/Sun 09:-12:00")
 @XmlJavaTypeAdapter(WeeklyOpeningHoursConverter.class)
+@HasPublicStaticIsValidMethod
+@HasPublicStaticValueOfMethod
 public final class WeeklyOpeningHours extends AbstractStringValueObject implements Iterable<DayOpeningHours> {
 
     private static final long serialVersionUID = 1000L;

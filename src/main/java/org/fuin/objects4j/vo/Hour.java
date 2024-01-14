@@ -20,10 +20,8 @@ package org.fuin.objects4j.vo;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import org.fuin.objects4j.common.ConstraintViolationException;
-import org.fuin.objects4j.common.Contract;
-import org.fuin.objects4j.common.Immutable;
-import org.fuin.objects4j.common.Nullable;
+import org.fuin.objects4j.common.*;
+import org.fuin.objects4j.common.HasPublicStaticValueOfMethod;
 import org.fuin.objects4j.ui.Label;
 import org.fuin.objects4j.ui.Prompt;
 import org.fuin.objects4j.ui.ShortLabel;
@@ -51,6 +49,8 @@ import java.util.regex.Pattern;
 @Tooltip("Hour of a day")
 @Prompt("23:59")
 @XmlJavaTypeAdapter(HourConverter.class)
+@HasPublicStaticIsValidMethod
+@HasPublicStaticValueOfMethod
 public final class Hour extends AbstractStringValueObject {
 
     private static final long serialVersionUID = 1000L;

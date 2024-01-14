@@ -20,10 +20,8 @@ package org.fuin.objects4j.vo;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import org.fuin.objects4j.common.ConstraintViolationException;
-import org.fuin.objects4j.common.Contract;
-import org.fuin.objects4j.common.Immutable;
-import org.fuin.objects4j.common.Nullable;
+import org.fuin.objects4j.common.*;
+import org.fuin.objects4j.common.HasPublicStaticValueOfMethod;
 import org.fuin.objects4j.ui.Prompt;
 
 import java.util.*;
@@ -35,6 +33,9 @@ import java.util.*;
 @Immutable
 @Prompt("09:00-12:00+13:00-17:00")
 @XmlJavaTypeAdapter(HourRangesConverter.class)
+@HasPublicStaticIsValidMethod
+@HasPublicStaticValueOfMethod(method = "valueOf", param = String.class)
+@HasPublicStaticValueOfMethod(method = "valueOf", param = BitSet.class)
 public final class HourRanges extends AbstractStringValueObject implements Iterable<HourRange> {
 
     private static final long serialVersionUID = 1000L;

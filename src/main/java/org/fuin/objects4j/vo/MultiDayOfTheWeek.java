@@ -20,10 +20,8 @@ package org.fuin.objects4j.vo;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import org.fuin.objects4j.common.ConstraintViolationException;
-import org.fuin.objects4j.common.Contract;
-import org.fuin.objects4j.common.Immutable;
-import org.fuin.objects4j.common.Nullable;
+import org.fuin.objects4j.common.*;
+import org.fuin.objects4j.common.HasPublicStaticValueOfMethod;
 import org.fuin.objects4j.ui.Prompt;
 
 import java.util.*;
@@ -41,6 +39,8 @@ import java.util.*;
 @Immutable
 @Prompt("Mon/Tue/Wed-Fri")
 @XmlJavaTypeAdapter(MultiDayOfTheWeekConverter.class)
+@HasPublicStaticIsValidMethod
+@HasPublicStaticValueOfMethod
 public final class MultiDayOfTheWeek extends AbstractStringValueObject implements Iterable<DayOfTheWeek> {
 
     private static final long serialVersionUID = 1000L;

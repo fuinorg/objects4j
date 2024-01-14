@@ -1,5 +1,8 @@
 package org.fuin.objects4j.common;
 
+import jakarta.validation.Constraint;
+import jakarta.validation.Payload;
+
 import java.lang.annotation.*;
 
 /**
@@ -10,8 +13,9 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE)
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
-@Repeatable(IsValidCapables.class)
-public @interface IsValidCapable {
+@Repeatable(HasPublicStaticIsValidMethods.class)
+@Constraint(validatedBy = { HasPublicStaticIsValidMethodValidator.class })
+public @interface HasPublicStaticIsValidMethod {
 
     /**
      * Returns the name of a public static method in the annotated class.<br>
@@ -33,5 +37,11 @@ public @interface IsValidCapable {
      * @return Parameter type of the public static method.
      */
     Class<?> param() default String.class;
+
+    String message() default "Does not define a public static method with the given argument type and returns boolean";
+
+    Class<?>[] groups() default {};
+
+    Class<? extends Payload>[] payload() default {};
 
 }
