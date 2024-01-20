@@ -43,31 +43,93 @@ public final class HasPublicStaticValueOfMethodValidatorTest {
     @Test
     public final void testValid() {
         assertThat(validator.validate(new MyClassValid())).isEmpty();
+        assertThat(HasPublicStaticValueOfMethodValidator.findMethod(MyClassValid.class, "valueOf", String.class)).isNotNull();
+        assertThat(HasPublicStaticValueOfMethodValidator.findFunction(MyClassValid.class, "valueOf", String.class)).isNotNull();
     }
 
     @Test
     public final void testNotStatic() {
+
         assertThat(first(validator.validate(new MyClassNotStatic()))).contains("#1");
+
+        assertThatThrownBy(
+                () -> HasPublicStaticValueOfMethodValidator.findMethod(MyClassNotStatic.class, "valueOf", String.class))
+            .isInstanceOf(IllegalArgumentException.class)
+            .hasMessageContaining("#1");
+
+        assertThatThrownBy(
+                () -> HasPublicStaticValueOfMethodValidator.findFunction(MyClassNotStatic.class, "valueOf", String.class))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("#1");
+
     }
 
     @Test
     public final void testNotPublic() {
+
         assertThat(first(validator.validate(new MyClassNotPublic()))).contains("#2");
+
+        assertThatThrownBy(
+                () -> HasPublicStaticValueOfMethodValidator.findMethod(MyClassNotPublic.class, "valueOf", String.class))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("#2");
+
+        assertThatThrownBy(
+                () -> HasPublicStaticValueOfMethodValidator.findFunction(MyClassNotPublic.class, "valueOf", String.class))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("#2");
+
     }
 
     @Test
     public final void testWrongReturnType() {
+
         assertThat(first(validator.validate(new MyClassWrongReturnType()))).contains("#3");
+
+        assertThatThrownBy(
+                () -> HasPublicStaticValueOfMethodValidator.findMethod(MyClassWrongReturnType.class, "valueOf", String.class))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("#3");
+
+        assertThatThrownBy(
+                () -> HasPublicStaticValueOfMethodValidator.findFunction(MyClassWrongReturnType.class, "valueOf", String.class))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("#3");
+
     }
 
     @Test
     public final void testWrongReturn() {
+
         assertThat(first(validator.validate(new MyClassWrongReturnValue()))).contains("#4");
+
+        assertThatThrownBy(
+                () -> HasPublicStaticValueOfMethodValidator.findMethod(MyClassWrongReturnValue.class, "valueOf", String.class))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("#4");
+
+        assertThatThrownBy(
+                () -> HasPublicStaticValueOfMethodValidator.findFunction(MyClassWrongReturnValue.class, "valueOf", String.class))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("#4");
+
     }
 
     @Test
     public final void testNoMethod() {
+
         assertThat(first(validator.validate(new MyClassNoMethod()))).contains("#2");
+
+        assertThatThrownBy(
+                () -> HasPublicStaticValueOfMethodValidator.findMethod(MyClassNoMethod.class, "valueOf", String.class))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("#2");
+
+        assertThatThrownBy(
+                () -> HasPublicStaticValueOfMethodValidator.findFunction(MyClassNoMethod.class, "valueOf", String.class))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("#2");
+
     }
 
     private static String first(Set<?> violations) {

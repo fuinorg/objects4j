@@ -100,7 +100,7 @@
         <dependency>
             <groupId>org.fuin</groupId>
             <artifactId>units4j</artifactId>
-            <version>0.11.0</version>
+            <version>0.12.0-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
 

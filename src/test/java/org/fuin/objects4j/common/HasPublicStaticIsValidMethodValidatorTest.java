@@ -27,6 +27,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public final class HasPublicStaticIsValidMethodValidatorTest {
 
@@ -42,31 +43,94 @@ public final class HasPublicStaticIsValidMethodValidatorTest {
     @Test
     public final void testValid() {
         assertThat(validator.validate(new MyClassValid())).isEmpty();
+        assertThat(HasPublicStaticIsValidMethodValidator.findMethod(MyClassValid.class, "isValid", String.class)).isNotNull();
+        assertThat(HasPublicStaticIsValidMethodValidator.findFunction(MyClassValid.class, "isValid", String.class)).isNotNull();
     }
 
     @Test
     public final void testNotStatic() {
+
         assertThat(first(validator.validate(new MyClassNotStatic()))).contains("#1");
+
+        assertThatThrownBy(
+                () -> HasPublicStaticIsValidMethodValidator.findMethod(MyClassNotStatic.class, "isValid", String.class))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("#1");
+
+        assertThatThrownBy(
+                () -> HasPublicStaticIsValidMethodValidator.findFunction(MyClassNotStatic.class, "isValid", String.class))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("#1");
+
     }
 
     @Test
     public final void testNotPublic() {
+
         assertThat(first(validator.validate(new MyClassNotPublic()))).contains("#2");
+
+        assertThatThrownBy(
+                () -> HasPublicStaticIsValidMethodValidator.findMethod(MyClassNotPublic.class, "isValid", String.class))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("#2");
+
+        assertThatThrownBy(
+                () -> HasPublicStaticIsValidMethodValidator.findFunction(MyClassNotPublic.class, "isValid", String.class))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("#2");
+
     }
 
     @Test
     public final void testWrongReturnType() {
+
         assertThat(first(validator.validate(new MyClassWrongReturnType()))).contains("#3");
+
+        assertThatThrownBy(
+                () -> HasPublicStaticIsValidMethodValidator.findMethod(MyClassWrongReturnType.class, "isValid", String.class))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("#3");
+
+        assertThatThrownBy(
+                () -> HasPublicStaticIsValidMethodValidator.findFunction(MyClassWrongReturnType.class, "isValid", String.class))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("#3");
+
     }
 
     @Test
     public final void testWrongReturn() {
+
         assertThat(first(validator.validate(new MyClassWrongReturnValue()))).contains("#4");
+
+        assertThatThrownBy(
+                () -> HasPublicStaticIsValidMethodValidator.findMethod(MyClassWrongReturnValue.class, "isValid", String.class))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("#4");
+
+        assertThatThrownBy(
+                () -> HasPublicStaticIsValidMethodValidator.findFunction(MyClassWrongReturnValue.class, "isValid", String.class))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("#4");
+
+
     }
 
     @Test
     public final void testNoMethod() {
+
         assertThat(first(validator.validate(new MyClassNoMethod()))).contains("#2");
+
+        assertThatThrownBy(
+                () -> HasPublicStaticIsValidMethodValidator.findMethod(MyClassNoMethod.class, "isValid", String.class))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("#2");
+
+        assertThatThrownBy(
+                () -> HasPublicStaticIsValidMethodValidator.findFunction(MyClassNoMethod.class, "isValid", String.class))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("#2");
+
     }
 
     private static String first(Set<?> violations) {
