@@ -77,7 +77,7 @@ public class HasPublicStaticValueOfMethodValidator implements ConstraintValidato
         if (result.message() == null) {
             return result.method();
         }
-        throw new IllegalArgumentException(result.message());
+        throw new IllegalArgumentException(result.message() + " (" + clasz.getName() + ")");
     }
 
     /**
