@@ -4,6 +4,5 @@
 !.github
 !.mvn
 target
-META-INF
 *.log
 *.iml
