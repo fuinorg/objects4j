@@ -19,11 +19,14 @@ package org.fuin.objects4j.common;
 
 import jakarta.validation.constraints.NotNull;
 
+import java.io.Serial;
+
 /**
  * Exception that provides a number for the exception that is unique in the context.
  */
 public abstract class UniquelyNumberedException extends Exception implements UniquelyNumbered {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private final long number;

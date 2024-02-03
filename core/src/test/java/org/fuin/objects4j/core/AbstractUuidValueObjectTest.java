@@ -21,6 +21,7 @@ import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 import org.junit.jupiter.api.Test;
 
+import java.io.Serial;
 import java.util.UUID;
 
 //CHECKSTYLE:OFF
@@ -37,6 +38,7 @@ public class AbstractUuidValueObjectTest {
     /** Implementation for tests. */
     public static final class TestStringVO extends AbstractUuidValueObject {
 
+        @Serial
         private static final long serialVersionUID = 1L;
 
         private final UUID value;

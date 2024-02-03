@@ -25,7 +25,7 @@ import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * Used to express that a method's return value is never <code>null</code> or empty.
+ * Used to express that a method's return value is never {@literal null} or empty.
  *
  * @deprecated Use <code>jakarta.validation.constraints.NotNull</code> from bean validation instead.
  *              It wasn't allowed to use it for a return value, but it is now.

@@ -28,7 +28,7 @@ import static java.lang.annotation.ElementType.*;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * The string is not <code>null</code> and the trimmed size is at least one.
+ * The string is not {@literal null} and the trimmed size is at least one.
  */
 // CHECKSTYLE:OFF
 @Documented

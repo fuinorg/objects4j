@@ -14,6 +14,10 @@ import java.util.Optional;
 
 import static com.tngtech.archunit.lang.ConditionEvent.createMessage;
 
+/**
+ * Verifies if a class has a public static "isValid" method that matches the conditions defined
+ * with the annotation {@link HasPublicStaticIsValidMethods} attached to that class.
+ */
 public final class HasPublicStaticIsValidMethodCondition extends ArchCondition<JavaClass> {
 
     private final HasPublicStaticIsValidMethodValidator validator;

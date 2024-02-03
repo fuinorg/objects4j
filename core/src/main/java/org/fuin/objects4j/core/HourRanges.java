@@ -23,10 +23,11 @@ import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.common.HasPublicStaticIsValidMethod;
 import org.fuin.objects4j.common.HasPublicStaticValueOfMethod;
-import org.fuin.objects4j.common.Immutable;
-import org.fuin.objects4j.common.Nullable;
+import javax.annotation.concurrent.Immutable;
+import jakarta.annotation.Nullable;
 import org.fuin.objects4j.ui.Prompt;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.Collections;
@@ -45,6 +46,7 @@ import java.util.StringTokenizer;
 @HasPublicStaticValueOfMethod(method = "valueOf", param = BitSet.class)
 public final class HourRanges extends AbstractStringValueObject implements Iterable<HourRange> {
 
+    @Serial
     private static final long serialVersionUID = 1000L;
 
     @NotEmpty

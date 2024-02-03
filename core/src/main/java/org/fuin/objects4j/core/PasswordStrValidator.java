@@ -29,6 +29,7 @@ public final class PasswordStrValidator implements ConstraintValidator<PasswordS
 
     @Override
     public final void initialize(final PasswordStr constraintAnnotation) {
+        // No initialization needed
     }
 
     @Override
@@ -48,10 +49,7 @@ public final class PasswordStrValidator implements ConstraintValidator<PasswordS
         if (value == null) {
             return true;
         }
-        if ((value.length() < 8) || (value.length() > 20)) {
-            return false;
-        }
-        return true;
+        return value.length() >= 8 && value.length() <= 20;
     }
 
     /**

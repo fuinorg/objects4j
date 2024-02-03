@@ -19,11 +19,13 @@ package org.fuin.objects4j.core;
 
 import jakarta.validation.constraints.NotNull;
 import org.fuin.objects4j.common.Contract;
-import org.fuin.objects4j.common.Immutable;
-import org.fuin.objects4j.common.Nullable;
+import javax.annotation.concurrent.Immutable;
+import jakarta.annotation.Nullable;
 import org.fuin.objects4j.ui.Label;
 import org.fuin.objects4j.ui.ShortLabel;
 import org.fuin.objects4j.ui.Tooltip;
+
+import java.io.Serial;
 
 /**
  * A password with a length between 8 and 20 characters.
@@ -34,6 +36,7 @@ import org.fuin.objects4j.ui.Tooltip;
 @Tooltip("Secret password")
 public final class Password extends AbstractStringValueObject {
 
+    @Serial
     private static final long serialVersionUID = -7745110729063955842L;
 
     @NotNull

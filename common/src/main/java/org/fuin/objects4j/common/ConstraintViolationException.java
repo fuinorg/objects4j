@@ -18,7 +18,9 @@
 package org.fuin.objects4j.common;
 
 import jakarta.validation.ConstraintViolation;
+import jakarta.validation.constraints.NotEmpty;
 
+import java.io.Serial;
 import java.util.Collections;
 import java.util.Set;
 
@@ -27,8 +29,10 @@ import java.util.Set;
  */
 public final class ConstraintViolationException extends RuntimeException {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
+    @SuppressWarnings("squid:S1948") // Cannot fix as external interface, but Hibernate is serializable
     private final Set<ConstraintViolation<Object>> constraintViolations;
 
     /**
@@ -37,7 +41,7 @@ public final class ConstraintViolationException extends RuntimeException {
      * @param message
      *            Message.
      */
-    public ConstraintViolationException(final String message) {
+    public ConstraintViolationException(@NotEmpty final String message) {
         super(message);
         this.constraintViolations = null;
     }
@@ -50,7 +54,7 @@ public final class ConstraintViolationException extends RuntimeException {
      * @param constraintViolations
      *            Constraint violations.
      */
-    public ConstraintViolationException(final String message, final Set<ConstraintViolation<Object>> constraintViolations) {
+    public ConstraintViolationException(@NotEmpty final String message, @Nullable final Set<ConstraintViolation<Object>> constraintViolations) {
         super(message);
         this.constraintViolations = constraintViolations;
     }
@@ -58,8 +62,9 @@ public final class ConstraintViolationException extends RuntimeException {
     /**
      * Returns the constraint violations.
      * 
-     * @return Immutable set of constraint violations or <code>null</code> if only a message is available.
+     * @return Immutable set of constraint violations or {@literal null} if only a message is available.
      */
+    @SuppressWarnings("squid:S1168") // Won't fix. Needs to be backward compatible.
     public final Set<ConstraintViolation<Object>> getConstraintViolations() {
         if (constraintViolations == null) {
             return null;

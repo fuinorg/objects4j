@@ -19,7 +19,7 @@ package org.fuin.objects4j.ui;
 
 import jakarta.validation.constraints.NotNull;
 import org.fuin.objects4j.common.Contract;
-import org.fuin.objects4j.common.Immutable;
+import javax.annotation.concurrent.Immutable;
 
 import java.lang.reflect.Field;
 import java.util.Locale;
@@ -55,7 +55,7 @@ public class TextFieldInfo {
     /**
      * Returns the field.
      * 
-     * @return Field - Never <code>null</code>
+     * @return Field - Never {@literal null}
      */
     public final Field getField() {
         return field;
@@ -101,7 +101,7 @@ public class TextFieldInfo {
      * @param locale
      *            Locale to use.
      * 
-     * @return Information or <code>null</code>.
+     * @return Information or {@literal null}.
      */
     public static TextFieldInfo create(@NotNull final Field field, @NotNull final Locale locale) {
 

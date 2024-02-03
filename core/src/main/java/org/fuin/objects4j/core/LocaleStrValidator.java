@@ -32,6 +32,7 @@ public final class LocaleStrValidator implements ConstraintValidator<LocaleStr, 
 
     @Override
     public final void initialize(final LocaleStr constraintAnnotation) {
+        // No initialization required
     }
 
     @Override

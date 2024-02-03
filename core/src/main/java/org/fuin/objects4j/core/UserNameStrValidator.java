@@ -27,6 +27,7 @@ public final class UserNameStrValidator implements ConstraintValidator<UserNameS
 
     @Override
     public final void initialize(final UserNameStr constraintAnnotation) {
+        // No initialization needed
     }
 
     @Override

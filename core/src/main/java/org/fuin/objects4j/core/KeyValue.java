@@ -19,7 +19,7 @@ package org.fuin.objects4j.core;
 
 import jakarta.validation.constraints.NotNull;
 import org.fuin.objects4j.common.Contract;
-import org.fuin.objects4j.common.Immutable;
+import javax.annotation.concurrent.Immutable;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -96,7 +96,7 @@ public final class KeyValue implements ValueObject {
      * @param message
      *            Message to replace.
      * @param keyValue
-     *            Array of key values or <code>null</code>.
+     *            Array of key values or {@literal null}.
      * 
      * @return Replaced message.
      */
@@ -136,9 +136,9 @@ public final class KeyValue implements ValueObject {
      * Replaces all variables inside a string with values from a map.
      * 
      * @param str
-     *            Text with variables (Format: ${key} ) - May be <code>null</code> or empty.
+     *            Text with variables (Format: ${key} ) - May be {@literal null} or empty.
      * @param vars
-     *            Map with key/values (both of type <code>String</code> - Cannot be <code>null</code>.
+     *            Map with key/values (both of type <code>String</code> - Cannot be {@literal null}.
      * 
      * @return String with replaced variables. Unknown variables will remain unchanged.
      */

@@ -17,7 +17,7 @@
  */
 package org.fuin.objects4j.ui;
 
-import org.fuin.objects4j.common.Immutable;
+import javax.annotation.concurrent.Immutable;
 
 /**
  * Stores some text.
@@ -31,7 +31,7 @@ public abstract class TextInfo {
      * Constructor with text.
      * 
      * @param text
-     *            Text or <code>null</code>.
+     *            Text or {@literal null}.
      */
     public TextInfo(final String text) {
         super();
@@ -41,7 +41,7 @@ public abstract class TextInfo {
     /**
      * Returns the text.
      * 
-     * @return Text or <code>null</code>.
+     * @return Text or {@literal null}.
      */
     public final String getText() {
         return text;

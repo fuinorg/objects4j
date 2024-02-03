@@ -4,12 +4,15 @@ import com.tngtech.archunit.junit.ArchIgnore;
 import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.core.AbstractStringValueObject;
 
+import java.io.Serial;
+
 /**
  * Test implementation for a {@link AbstractStringValueObject}.
  */
 @ArchIgnore
 public final class AnyStr extends AbstractStringValueObject {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private String str;

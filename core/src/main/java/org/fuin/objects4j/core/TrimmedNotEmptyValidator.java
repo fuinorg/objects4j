@@ -24,7 +24,7 @@ import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.objects4j.common.Contract;
 
 /**
- * Check that a given string is not <code>null</code> and the trimmed length is greater than zero.
+ * Check that a given string is not {@literal null} and the trimmed length is greater than zero.
  */
 public class TrimmedNotEmptyValidator implements ConstraintValidator<TrimmedNotEmpty, String> {
 

@@ -19,7 +19,7 @@ package org.fuin.objects4j.ui;
 
 import jakarta.validation.constraints.NotNull;
 import org.fuin.objects4j.common.Contract;
-import org.fuin.objects4j.common.Immutable;
+import javax.annotation.concurrent.Immutable;
 
 /**
  * Stores some text associated with a class.
@@ -35,7 +35,7 @@ public final class ClassTextInfo extends TextInfo {
      * @param clasz
      *            Class the text belongs to.
      * @param text
-     *            Text or <code>null</code>.
+     *            Text or {@literal null}.
      */
     public ClassTextInfo(@NotNull final Class<?> clasz, final String text) {
         super(text);
@@ -46,7 +46,7 @@ public final class ClassTextInfo extends TextInfo {
     /**
      * Returns the class the text belongs to.
      * 
-     * @return Class - Never <code>null</code>.
+     * @return Class - Never {@literal null}.
      */
     public final Class<?> getClasz() {
         return clasz;

@@ -30,7 +30,7 @@ import java.util.Currency;
 public final class CurrencyConverter extends XmlAdapter<String, Currency> {
 
     /**
-     * Verifies that the given value can be converted into a value object using the factory. A <code>null</code> parameter will return
+     * Verifies that the given value can be converted into a value object using the factory. A {@literal null} parameter will return
      * {@literal true}.
      *
      * @param value Value to check.
@@ -41,7 +41,7 @@ public final class CurrencyConverter extends XmlAdapter<String, Currency> {
     }
 
     /**
-     * Converts the base type into an value object. A <code>null</code> parameter will return <code>null</code>.
+     * Converts the base type into an value object. A {@literal null} parameter will return {@literal null}.
      *
      * @param value Representation of the value object as base type.
      * @return Value object.
@@ -54,7 +54,7 @@ public final class CurrencyConverter extends XmlAdapter<String, Currency> {
     }
 
     /**
-     * Converts the value object into an base type. A <code>null</code> parameter will return <code>null</code>.
+     * Converts the value object into an base type. A {@literal null} parameter will return {@literal null}.
      *
      * @param value Value object.
      * @return Base type.

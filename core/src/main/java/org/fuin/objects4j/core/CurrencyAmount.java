@@ -23,10 +23,11 @@ import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.common.HasPublicStaticIsValidMethod;
 import org.fuin.objects4j.common.HasPublicStaticValueOfMethod;
-import org.fuin.objects4j.common.Immutable;
+import javax.annotation.concurrent.Immutable;
 import org.fuin.objects4j.ui.Label;
 import org.fuin.objects4j.ui.ShortLabel;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -43,6 +44,7 @@ import java.util.Currency;
 @HasPublicStaticValueOfMethod(method = "valueOf", param = String.class)
 public final class CurrencyAmount implements ValueObjectWithBaseType<String>, Comparable<CurrencyAmount>, Serializable, AsStringCapable {
 
+    @Serial
     private static final long serialVersionUID = 1000L;
 
     private static final String DECIMAL = "((\\+|-)?([0-9]+(\\.?[0-9]+)))";
@@ -200,7 +202,7 @@ public final class CurrencyAmount implements ValueObjectWithBaseType<String>, Co
     }
 
     /**
-     * Converts a big decimal into a canonical string representation. A <code>null</code> argument will return <code>null</code>.
+     * Converts a big decimal into a canonical string representation. A {@literal null} argument will return {@literal null}.
      *
      * @param amount
      *            Amount to convert.
@@ -227,8 +229,8 @@ public final class CurrencyAmount implements ValueObjectWithBaseType<String>, Co
     }
 
     /**
-     * Converts an amount from its canonical string representation back into a big decimal. A <code>null</code> argument will return
-     * <code>null</code>.
+     * Converts an amount from its canonical string representation back into a big decimal. A {@literal null} argument will return
+     * {@literal null}.
      *
      * @param amount
      *            Amount string to convert.

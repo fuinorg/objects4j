@@ -19,8 +19,9 @@ package org.fuin.objects4j.ui;
 
 import jakarta.validation.constraints.NotNull;
 import org.fuin.objects4j.common.Contract;
-import org.fuin.objects4j.common.Immutable;
+import javax.annotation.concurrent.Immutable;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.text.DecimalFormat;
 
@@ -30,6 +31,7 @@ import java.text.DecimalFormat;
 @Immutable
 public final class FontSize implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = -1572749922357083439L;
 
     private final float size;

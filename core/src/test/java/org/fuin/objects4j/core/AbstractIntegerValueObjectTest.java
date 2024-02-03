@@ -21,6 +21,8 @@ import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 import org.junit.jupiter.api.Test;
 
+import java.io.Serial;
+
 //CHECKSTYLE:OFF
 public class AbstractIntegerValueObjectTest {
 
@@ -34,6 +36,7 @@ public class AbstractIntegerValueObjectTest {
     /** Implementation for tests. */
     public static final class TestIntegerVO extends AbstractIntegerValueObject {
 
+        @Serial
         private static final long serialVersionUID = 1L;
 
         private final Integer value;

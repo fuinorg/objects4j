@@ -25,7 +25,7 @@ import static java.lang.annotation.ElementType.*;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * Used to express that a value may be <code>null</code>.
+ * Used to express that a value may be {@literal null}.
  * 
  * @deprecated Use <code>jakarta.annotation.Nullable</code> from Jakarta annotations instead.
  */

@@ -20,7 +20,7 @@ package org.fuin.objects4j.ui;
 import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotNull;
 import org.fuin.objects4j.common.Contract;
-import org.fuin.objects4j.common.Immutable;
+import javax.annotation.concurrent.Immutable;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -107,7 +107,7 @@ public final class TableColumnInfo implements Comparable<TableColumnInfo> {
     /**
      * Returns the field.
      * 
-     * @return Field - Never <code>null</code>.
+     * @return Field - Never {@literal null}.
      */
     public final Field getField() {
         return field;
@@ -161,7 +161,7 @@ public final class TableColumnInfo implements Comparable<TableColumnInfo> {
     /**
      * The name of the getter for the table column field.
      * 
-     * @return Getter name - Never <code>null</code>.
+     * @return Getter name - Never {@literal null}.
      */
     public final String getGetter() {
         return getter;
@@ -235,7 +235,7 @@ public final class TableColumnInfo implements Comparable<TableColumnInfo> {
      * @param locale
      *            Locale to use.
      * 
-     * @return Information or <code>null</code>.
+     * @return Information or {@literal null}.
      */
     public static TableColumnInfo create(@NotNull final Field field, @NotNull final Locale locale) {
 

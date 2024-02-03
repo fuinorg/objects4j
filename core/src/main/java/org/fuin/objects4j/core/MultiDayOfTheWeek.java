@@ -23,10 +23,11 @@ import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.common.HasPublicStaticIsValidMethod;
 import org.fuin.objects4j.common.HasPublicStaticValueOfMethod;
-import org.fuin.objects4j.common.Immutable;
-import org.fuin.objects4j.common.Nullable;
+import javax.annotation.concurrent.Immutable;
+import jakarta.annotation.Nullable;
 import org.fuin.objects4j.ui.Prompt;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -49,6 +50,7 @@ import java.util.StringTokenizer;
 @HasPublicStaticValueOfMethod
 public final class MultiDayOfTheWeek extends AbstractStringValueObject implements Iterable<DayOfTheWeek> {
 
+    @Serial
     private static final long serialVersionUID = 1000L;
 
     @NotEmpty
@@ -135,11 +137,15 @@ public final class MultiDayOfTheWeek extends AbstractStringValueObject implement
      * @return Shortened version.
      */
     public MultiDayOfTheWeek compress() {
-
         if (multipleDayOfTheWeek.size() == 1) {
             return this;
         }
+        return new MultiDayOfTheWeek(optimize());
 
+    }
+
+    @SuppressWarnings("java:S3776") // Complexity OK here
+    private String optimize() {
         DayOfTheWeek start = null;
         final StringBuilder sb = new StringBuilder();
         for (int i = 0; i < multipleDayOfTheWeek.size(); i++) {
@@ -163,8 +169,7 @@ public final class MultiDayOfTheWeek extends AbstractStringValueObject implement
                 }
             }
         }
-        return new MultiDayOfTheWeek(sb.toString());
-
+        return sb.toString();
     }
 
     private String separator(DayOfTheWeek start, final DayOfTheWeek current) {
@@ -177,7 +182,7 @@ public final class MultiDayOfTheWeek extends AbstractStringValueObject implement
     private static String asStr(final List<DayOfTheWeek> days) {
         final StringBuilder sb = new StringBuilder();
         for (final DayOfTheWeek dow : days) {
-            if (sb.length() > 0) {
+            if (!sb.isEmpty()) {
                 sb.append("/");
             }
             sb.append(dow);
@@ -193,6 +198,7 @@ public final class MultiDayOfTheWeek extends AbstractStringValueObject implement
      * 
      * @return {@literal true} if the string is a valid string, else {@literal false}.
      */
+    @SuppressWarnings("java:S3776") // Complexity not nice, but OK here
     public static boolean isValid(@Nullable final String multiDayOfTheWeeks) {
         if (multiDayOfTheWeeks == null) {
             return true;

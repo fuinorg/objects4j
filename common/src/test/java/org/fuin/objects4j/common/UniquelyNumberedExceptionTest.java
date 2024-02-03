@@ -19,6 +19,8 @@ package org.fuin.objects4j.common;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.Serial;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public final class UniquelyNumberedExceptionTest {
@@ -71,6 +73,7 @@ public final class UniquelyNumberedExceptionTest {
 
     public static final class MyException extends UniquelyNumberedException {
 
+        @Serial
         private static final long serialVersionUID = 1L;
 
         public MyException(long number, String message, Throwable cause) {

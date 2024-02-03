@@ -63,7 +63,7 @@ public final class AnnotationAnalyzer {
      * @param annotationClasz
      *            Type of annotation to find.
      * 
-     * @return Label information - Never <code>null</code>.
+     * @return Label information - Never {@literal null}.
      */
     public final ClassTextInfo createClassInfo(@NotNull final Class<?> clasz, @NotNull final Locale locale,
             @NotNull final Class<? extends Annotation> annotationClasz) {
@@ -101,7 +101,7 @@ public final class AnnotationAnalyzer {
      * @param annotationClasz
      *            Type of annotation to find.
      * 
-     * @return List of informations - Never <code>null</code>, but may be empty.
+     * @return List of informations - Never {@literal null}, but may be empty.
      */
     public final List<FieldTextInfo> createFieldInfos(@NotNull final Class<?> clasz, @NotNull final Locale locale,
             @NotNull final Class<? extends Annotation> annotationClasz) {
@@ -146,7 +146,7 @@ public final class AnnotationAnalyzer {
      * @param annotationClasz
      *            Type of annotation to find.
      * 
-     * @return Label information - May be <code>null</code> in case the annotation was not found.
+     * @return Label information - May be {@literal null} in case the annotation was not found.
      */
     public final FieldTextInfo createFieldInfo(@NotNull final Field field, @NotNull final Locale locale,
             @NotNull final Class<? extends Annotation> annotationClasz) {
@@ -172,7 +172,7 @@ public final class AnnotationAnalyzer {
 
     /**
      * Returns the text for the annotation. If no entry is found in the resource bundle for <code>Annotation#key()</code> then
-     * <code>Annotation#value()</code> will be returned instead. If <code>Annotation#value()</code> is also empty then <code>null</code> is
+     * <code>Annotation#value()</code> will be returned instead. If <code>Annotation#value()</code> is also empty then {@literal null} is
      * returned. If <code>Annotation#key()</code> is empty <code>defaultKey</code> will be used as key in the properties file.
      * 
      * @param bundle
@@ -182,7 +182,7 @@ public final class AnnotationAnalyzer {
      * @param defaultKey
      *            Default key if <code>Annotation#key()</code> is empty.
      * 
-     * @return Text or <code>null</code>.
+     * @return Text or {@literal null}.
      */
     private String getText(@NotNull final ResourceBundle bundle, @NotNull final Annotation annotation, @NotNull final String defaultKey) {
 
@@ -217,7 +217,7 @@ public final class AnnotationAnalyzer {
      *            Class to use if the <code>Annotation#bundle()</code> is empty. Example: <code>a.b.c.MyClass</code> is used as
      *            <code>a/b/c/MyClass.properties</code> (default) or <code>a/b/c/MyClass_en.properties</code> (with {@link Locale#ENGLISH}).
      * 
-     * @return Resource bundle - Never <code>null</code>.
+     * @return Resource bundle - Never {@literal null}.
      */
     private ResourceBundle getResourceBundle(@NotNull final Annotation annotation, @NotNull final Locale locale,
             @NotNull final Class<?> clasz) {
@@ -232,12 +232,12 @@ public final class AnnotationAnalyzer {
     }
 
     /**
-     * Returns <code>null</code> if the argument is an empty string.
+     * Returns {@literal null} if the argument is an empty string.
      * 
      * @param value
      *            Argument to check.
      * 
-     * @return Argument or <code>null</code>.
+     * @return Argument or {@literal null}.
      */
     private final String toNullableString(final String value) {
         if (value.equals("")) {
@@ -262,9 +262,9 @@ public final class AnnotationAnalyzer {
      * Calls a method with no arguments using reflection and maps all errors into a runtime exception.
      * 
      * @param obj
-     *            The object the underlying method is invoked from - Cannot be <code>null</code>.
+     *            The object the underlying method is invoked from - Cannot be {@literal null}.
      * @param methodName
-     *            Name of the Method - Cannot be <code>null</code>.
+     *            Name of the Method - Cannot be {@literal null}.
      * 
      * @return The result of dispatching the method represented by this object on <code>obj</code> with parameters <code>args</code>.
      * 
@@ -280,13 +280,13 @@ public final class AnnotationAnalyzer {
      * Calls a method with reflection and maps all errors into a runtime exception.
      * 
      * @param obj
-     *            The object the underlying method is invoked from - Cannot be <code>null</code>.
+     *            The object the underlying method is invoked from - Cannot be {@literal null}.
      * @param methodName
-     *            Name of the Method - Cannot be <code>null</code> or empty.
+     *            Name of the Method - Cannot be {@literal null} or empty.
      * @param argTypes
-     *            The list of parameters - May be <code>null</code>.
+     *            The list of parameters - May be {@literal null}.
      * @param args
-     *            Arguments the arguments used for the method call - May be <code>null</code> if "argTypes" is also <code>null</code>.
+     *            Arguments the arguments used for the method call - May be {@literal null} if "argTypes" is also {@literal null}.
      * 
      * @return The result of dispatching the method represented by this object on <code>obj</code> with parameters <code>args</code>.
      */
@@ -352,11 +352,11 @@ public final class AnnotationAnalyzer {
      * Creates a textual representation of the method.
      * 
      * @param returnType
-     *            Return type of the method - Cannot be <code>null</code>.
+     *            Return type of the method - Cannot be {@literal null}.
      * @param methodName
-     *            Name of the method - Cannot be <code>null</code>.
+     *            Name of the method - Cannot be {@literal null}.
      * @param argTypes
-     *            The list of parameters - Can be <code>null</code>.
+     *            The list of parameters - Can be {@literal null}.
      * 
      * @return Textual signature of the method.
      */

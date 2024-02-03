@@ -17,6 +17,7 @@
  */
 package org.fuin.objects4j.core;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -26,6 +27,7 @@ import java.io.Serializable;
 public abstract class AbstractStringValueObject
         implements ValueObjectWithBaseType<String>, Comparable<AbstractStringValueObject>, Serializable, AsStringCapable {
 
+    @Serial
     private static final long serialVersionUID = 1000L;
 
     @Override

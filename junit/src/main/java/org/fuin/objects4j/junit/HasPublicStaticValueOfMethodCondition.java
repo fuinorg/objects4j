@@ -7,20 +7,20 @@ import com.tngtech.archunit.lang.ArchCondition;
 import com.tngtech.archunit.lang.ConditionEvents;
 import com.tngtech.archunit.lang.SimpleConditionEvent;
 import org.fuin.objects4j.common.HasPublicStaticValueOfMethod;
-import org.fuin.objects4j.common.HasPublicStaticValueOfMethodValidator;
 import org.fuin.objects4j.common.HasPublicStaticValueOfMethods;
 
 import java.util.Optional;
 
 import static com.tngtech.archunit.lang.ConditionEvent.createMessage;
 
+/**
+ * Verifies if a class has a public static "valueOf" method that matches the conditions defined
+ * with the annotation {@link HasPublicStaticValueOfMethods} attached to that class.
+ */
 public final class HasPublicStaticValueOfMethodCondition extends ArchCondition<JavaClass> {
-
-    private final HasPublicStaticValueOfMethodValidator validator;
 
     public HasPublicStaticValueOfMethodCondition() {
         super("have a public static 'value of' method with the signature defined by the annotation");
-        validator = new HasPublicStaticValueOfMethodValidator();
     }
 
     @Override

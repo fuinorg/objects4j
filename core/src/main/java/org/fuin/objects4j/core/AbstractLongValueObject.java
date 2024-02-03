@@ -17,6 +17,7 @@
  */
 package org.fuin.objects4j.core;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -25,6 +26,7 @@ import java.io.Serializable;
  */
 public abstract class AbstractLongValueObject implements ValueObjectWithBaseType<Long>, Comparable<AbstractLongValueObject>, Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1000L;
 
     @Override

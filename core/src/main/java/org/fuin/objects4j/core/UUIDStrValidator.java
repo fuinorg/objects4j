@@ -31,6 +31,7 @@ public final class UUIDStrValidator implements ConstraintValidator<UUIDStr, Stri
 
     @Override
     public final void initialize(final UUIDStr constraintAnnotation) {
+        // No initialization needed
     }
 
     @Override

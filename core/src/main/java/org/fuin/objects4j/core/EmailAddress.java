@@ -25,10 +25,12 @@ import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.common.HasPublicStaticIsValidMethod;
 import org.fuin.objects4j.common.HasPublicStaticValueOfMethod;
-import org.fuin.objects4j.common.Immutable;
+import javax.annotation.concurrent.Immutable;
 import org.fuin.objects4j.ui.Label;
 import org.fuin.objects4j.ui.ShortLabel;
 import org.fuin.objects4j.ui.Tooltip;
+
+import java.io.Serial;
 
 /**
  * A valid email address with all characters lower case.
@@ -41,6 +43,7 @@ import org.fuin.objects4j.ui.Tooltip;
 @HasPublicStaticValueOfMethod
 public final class EmailAddress extends AbstractStringValueObject {
 
+    @Serial
     private static final long serialVersionUID = 811127657088134517L;
 
     @NotNull

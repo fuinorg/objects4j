@@ -19,6 +19,7 @@ package org.fuin.objects4j.core;
 
 import org.fuin.objects4j.common.HasPublicStaticIsValidMethod;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.UUID;
 import java.util.regex.Pattern;
@@ -30,6 +31,7 @@ import java.util.regex.Pattern;
 @HasPublicStaticIsValidMethod
 public abstract class AbstractUuidValueObject implements ValueObjectWithBaseType<UUID>, Comparable<AbstractUuidValueObject>, Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1000L;
 
     @Override
@@ -66,7 +68,7 @@ public abstract class AbstractUuidValueObject implements ValueObjectWithBaseType
      * Verifies that a given string is a valid UUID.
      * 
      * @param value
-     *            Value to check. A <code>null</code> value returns {@literal true}.
+     *            Value to check. A {@literal null} value returns {@literal true}.
      * 
      * @return TRUE if it's a valid key, else FALSE.
      */

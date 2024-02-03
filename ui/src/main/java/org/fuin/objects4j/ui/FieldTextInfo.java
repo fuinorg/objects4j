@@ -46,16 +46,16 @@ public final class FieldTextInfo extends TextInfo {
     /**
      * Returns the field.
      * 
-     * @return Field - Never <code>null</code>.
+     * @return Field - Never {@literal null}.
      */
     public final Field getField() {
         return field;
     }
 
     /**
-     * Returns the text of the label or the name of the field if the text is <code>null</code>.
+     * Returns the text of the label or the name of the field if the text is {@literal null}.
      * 
-     * @return Long text or field name - Never <code>null</code>.
+     * @return Long text or field name - Never {@literal null}.
      */
     public final String getTextOrField() {
         final String text = getText();

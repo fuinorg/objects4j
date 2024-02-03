@@ -27,6 +27,7 @@ public final class PasswordSha512StrValidator implements ConstraintValidator<Pas
 
     @Override
     public final void initialize(final PasswordSha512Str constraintAnnotation) {
+        // No initialization needed
     }
 
     @Override

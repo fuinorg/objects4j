@@ -1,22 +1,23 @@
 /**
- * Copyright (C) 2015 Michael Schnell. All rights reserved. 
+ * Copyright (C) 2015 Michael Schnell. All rights reserved.
  * http://www.fuin.org/
- *
+ * <p>
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
  * Software Foundation; either version 3 of the License, or (at your option) any
  * later version.
- *
+ * <p>
  * This library is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
- *
+ * <p>
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library. If not, see http://www.gnu.org/licenses/.
  */
 package org.fuin.objects4j.common;
 
+import jakarta.annotation.Nullable;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
@@ -40,7 +41,7 @@ public final class Contract {
     /**
      * Sets the validator to use for contract validation. This method is NOT thread safe. It should only be called once per application
      * during the initialization phase.
-     * 
+     *
      * @param newValidator
      *            Set the validator to a new value.
      */
@@ -51,7 +52,7 @@ public final class Contract {
     /**
      * Returns the validator that is used for contract validation. This method is NOT thread safe - This may lead to concurrent
      * initialization of the validator if it's not set yet.
-     * 
+     *
      * @return Current instance - If the validator is not set yet, a new default validator will be created.
      */
     public static Validator getValidator() {
@@ -70,12 +71,12 @@ public final class Contract {
 
     /**
      * Checks if the value is not null.
-     * 
+     *
      * @param name
      *            Name of the value for a possible error message.
      * @param value
      *            Value to check.
-     * 
+     *
      * @throws ConstraintViolationException
      *             The value was null.
      */
@@ -86,33 +87,33 @@ public final class Contract {
     }
 
     /**
-     * Checks if the value is not <code>null</code> or empty. A single space is considered a valid value.
-     * 
+     * Checks if the value is not {@literal null} or empty. A single space is considered a valid value.
+     *
      * @param name
      *            Name of the value for a possible error message.
      * @param value
      *            Value to check.
-     * 
+     *
      * @throws ConstraintViolationException
      *             The value was null or empty.
      */
     public static void requireArgNotEmpty(@NotNull final String name, final String value) throws ConstraintViolationException {
         requireArgNotNull(name, value);
-        if (value.length() < 1) {
+        if (value.isEmpty()) {
             throw new ConstraintViolationException("The argument '" + name + "' cannot be empty");
         }
     }
 
     /**
      * Checks if the length of value is not higher than a give maximum.
-     * 
+     *
      * @param name
      *            Name of the value for a possible error message.
      * @param value
      *            Value to check.
      * @param max
      *            Max length (inclusive).
-     * 
+     *
      * @throws ConstraintViolationException
      *             The length was more than <code>max</code>.
      */
@@ -125,14 +126,14 @@ public final class Contract {
 
     /**
      * Checks if the length of value is not less than a give minimum.
-     * 
+     *
      * @param name
      *            Name of the value for a possible error message.
      * @param value
      *            Value to check.
      * @param min
      *            Minimal length.
-     * 
+     *
      * @throws ConstraintViolationException
      *             The length was less than <code>min</code>.
      */
@@ -145,14 +146,14 @@ public final class Contract {
 
     /**
      * Checks if the value is not higher than a give maximum.
-     * 
+     *
      * @param name
      *            Name of the value for a possible error message.
      * @param value
      *            Value to check.
      * @param max
      *            Max value (inclusive).
-     * 
+     *
      * @throws ConstraintViolationException
      *             The value was more than <code>max</code>.
      */
@@ -165,14 +166,14 @@ public final class Contract {
 
     /**
      * Checks if the value is not less than a give minimum.
-     * 
+     *
      * @param name
      *            Name of the value for a possible error message.
      * @param value
      *            Value to check.
      * @param min
      *            Minimal value (inclusive).
-     * 
+     *
      * @throws ConstraintViolationException
      *             The value was less than <code>min</code>.
      */
@@ -185,14 +186,14 @@ public final class Contract {
 
     /**
      * Checks if the given value is valid.
-     * 
+     *
      * @param validator
      *            Validator to use.
      * @param value
      *            Value to check.
      * @param groups
      *            Group or list of groups targeted for validation (defaults to {@link Default})
-     * 
+     *
      * @throws ConstraintViolationException
      *             The value is invalid.
      */
@@ -203,11 +204,15 @@ public final class Contract {
         if (!constraintViolations.isEmpty()) {
             final StringBuilder sb = new StringBuilder();
             for (final ConstraintViolation<Object> constraintViolation : constraintViolations) {
-                if (sb.length() > 0) {
+                if (!sb.isEmpty()) {
                     sb.append(", ");
                 }
-                sb.append("[" + constraintViolation.getPropertyPath() + "] " + constraintViolation.getMessage() + " {"
-                        + constraintViolation.getInvalidValue() + "}");
+                sb.append("[")
+                        .append(constraintViolation.getPropertyPath())
+                        .append("] ")
+                        .append(constraintViolation.getMessage())
+                        .append(" {").append(constraintViolation.getInvalidValue())
+                        .append("}");
             }
             throw new ConstraintViolationException(sb.toString(), constraintViolations);
         }
@@ -216,12 +221,12 @@ public final class Contract {
 
     /**
      * Checks if the given value is valid using a default validator.
-     * 
+     *
      * @param value
      *            Value to check.
      * @param groups
      *            Group or list of groups targeted for validation (defaults to {@link Default})
-     * 
+     *
      * @throws ConstraintViolationException
      *             The value is invalid.
      */
@@ -231,38 +236,38 @@ public final class Contract {
 
     /**
      * Validates the given object.
-     * 
+     *
      * @param validator
      *            Validator to use.
      * @param value
      *            Value to validate.
      * @param groups
      *            Group or list of groups targeted for validation (defaults to {@link Default})
-     * 
+     *
      * @return List of constraint violations.
-     * 
+     *
      * @param <TYPE>
      *            Type of the validated object.
      */
     @NotNull
     public static <TYPE> Set<ConstraintViolation<TYPE>> validate(@NotNull final Validator validator, @Nullable final TYPE value,
-            @Nullable final Class<?>... groups) {
+                                                                 @Nullable final Class<?>... groups) {
         if (value == null) {
-            return new HashSet<ConstraintViolation<TYPE>>();
+            return new HashSet<>();
         }
         return validator.validate(value, groups);
     }
 
     /**
      * Validates the given object using a default validator.
-     * 
+     *
      * @param value
      *            Value to validate.
      * @param groups
      *            Group or list of groups targeted for validation (defaults to {@link Default})
-     * 
+     *
      * @return List of constraint violations.
-     * 
+     *
      * @param <TYPE>
      *            Type of the validated object.
      */
@@ -273,16 +278,16 @@ public final class Contract {
 
     /**
      * Converts a set of constraint violation into a string list.
-     * 
+     *
      * @param constraintViolations
      *            Violations to convert to a string.
-     * 
+     *
      * @return List of string representations for all violations.
-     * 
+     *
      * @param <T> Type of list content.
      */
     public static <T> List<String> asString(@Nullable final Set<ConstraintViolation<T>> constraintViolations) {
-        if (constraintViolations == null || constraintViolations.size() == 0) {
+        if (constraintViolations == null || constraintViolations.isEmpty()) {
             return Collections.emptyList();
         }
         final List<String> list = new ArrayList<>();
@@ -294,14 +299,14 @@ public final class Contract {
 
     /**
      * Converts a set of constraint violation into a string.
-     * 
+     *
      * @param constraintViolations
      *            Violations to convert to a string.
      * @param separator
      *            Separator to use between violations. Defaults to ', ' in case of {@literal null} argument.
-     * 
+     *
      * @return String representation of all violations.
-     * 
+     *
      * @param <T> Type of the root bean.
      */
     public static <T> String asString(@Nullable final Set<ConstraintViolation<T>> constraintViolations, @Nullable final String separator) {
@@ -314,9 +319,9 @@ public final class Contract {
         } else {
             sepStr = separator;
         }
-        final StringBuffer sb = new StringBuffer();
+        final StringBuilder sb = new StringBuilder();
         for (final ConstraintViolation<T> constraintViolation : constraintViolations) {
-            if (sb.length() > 0) {
+            if (!sb.isEmpty()) {
                 sb.append(sepStr);
             }
             sb.append(asString(constraintViolation));
@@ -326,12 +331,12 @@ public final class Contract {
 
     /**
      * Returns a constraint violation as string.
-     * 
+     *
      * @param violation
      *            Violation to convert to a string.
-     * 
+     *
      * @return Text like "SIMPLE_CLASS_NAME.PROPERTY_PATH MESSAGE" or "SIMPLE_CLASS_NAME.PROPERTY_PATH MESSAGE (INVALID_VALUE)".
-     * 
+     *
      * @param <T> Type of the validated root object.
      */
     public static <T> String asString(@Nullable final ConstraintViolation<T> violation) {

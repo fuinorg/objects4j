@@ -21,7 +21,7 @@ import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotNull;
 import org.fuin.objects4j.common.HasPublicStaticIsValidMethod;
 import org.fuin.objects4j.common.HasPublicStaticValueOfMethod;
-import org.fuin.objects4j.common.Immutable;
+import javax.annotation.concurrent.Immutable;
 
 import java.io.Serial;
 import java.security.MessageDigest;
@@ -41,8 +41,6 @@ public final class SecurityToken extends AbstractStringValueObject {
     @Serial
     private static final long serialVersionUID = 8737032520847641569L;
 
-    private static final char[] DIGITS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
-
     private static final Pattern PATTERN = Pattern.compile("^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$");
 
     private static final SecureRandom SECURE_RANDOM;
@@ -57,7 +55,7 @@ public final class SecurityToken extends AbstractStringValueObject {
     }
 
     @NotNull
-    private String token;
+    private final String token;
 
     /**
      * Constructor that creates a new random token.

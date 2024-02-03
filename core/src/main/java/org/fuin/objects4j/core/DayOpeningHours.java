@@ -23,11 +23,12 @@ import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.common.HasPublicStaticIsValidMethod;
 import org.fuin.objects4j.common.HasPublicStaticValueOfMethod;
-import org.fuin.objects4j.common.Immutable;
-import org.fuin.objects4j.common.Nullable;
+import javax.annotation.concurrent.Immutable;
+import jakarta.annotation.Nullable;
 import org.fuin.objects4j.core.HourRanges.ChangeType;
 import org.fuin.objects4j.ui.Prompt;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +49,7 @@ import java.util.List;
 @HasPublicStaticValueOfMethod
 public final class DayOpeningHours implements ValueObjectWithBaseType<String>, Comparable<DayOpeningHours>, Serializable, AsStringCapable {
 
+    @Serial
     private static final long serialVersionUID = 1000L;
 
     @NotNull

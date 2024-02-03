@@ -23,13 +23,14 @@ import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.common.HasPublicStaticIsValidMethod;
 import org.fuin.objects4j.common.HasPublicStaticValueOfMethod;
-import org.fuin.objects4j.common.Immutable;
-import org.fuin.objects4j.common.Nullable;
+import javax.annotation.concurrent.Immutable;
+import jakarta.annotation.Nullable;
 import org.fuin.objects4j.ui.Label;
 import org.fuin.objects4j.ui.Prompt;
 import org.fuin.objects4j.ui.ShortLabel;
 import org.fuin.objects4j.ui.Tooltip;
 
+import java.io.Serial;
 import java.util.regex.Pattern;
 
 /**
@@ -55,6 +56,7 @@ import java.util.regex.Pattern;
 @HasPublicStaticValueOfMethod
 public final class Hour extends AbstractStringValueObject {
 
+    @Serial
     private static final long serialVersionUID = 1000L;
 
     private static final Pattern PATTERN = Pattern.compile("^([01]\\d|2[0-3]):?([0-5]\\d)|24:00$");
