@@ -144,7 +144,7 @@ public final class EmailAddress extends AbstractStringValueObject {
             final InternetAddress[] addr = InternetAddress.parse(trimmedLowerCaseValue, false);
             if (addr.length != 1) {
                 throw new ConstraintViolationException(
-                        "The argument 'emailAddress' is not a single address: '" + trimmedLowerCaseValue + "'");
+                        "The argument '" + name + "' is not a single address: '" + trimmedLowerCaseValue + "'");
             }
             return addr[0];
         } catch (final AddressException ex) {

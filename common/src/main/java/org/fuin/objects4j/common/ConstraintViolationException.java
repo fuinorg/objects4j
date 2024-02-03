@@ -17,6 +17,7 @@
  */
 package org.fuin.objects4j.common;
 
+import jakarta.annotation.Nullable;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.constraints.NotEmpty;
 

@@ -7,7 +7,6 @@ import com.tngtech.archunit.lang.ArchCondition;
 import com.tngtech.archunit.lang.ConditionEvents;
 import com.tngtech.archunit.lang.SimpleConditionEvent;
 import org.fuin.objects4j.common.HasPublicStaticIsValidMethod;
-import org.fuin.objects4j.common.HasPublicStaticIsValidMethodValidator;
 import org.fuin.objects4j.common.HasPublicStaticIsValidMethods;
 
 import java.util.Optional;
@@ -20,11 +19,8 @@ import static com.tngtech.archunit.lang.ConditionEvent.createMessage;
  */
 public final class HasPublicStaticIsValidMethodCondition extends ArchCondition<JavaClass> {
 
-    private final HasPublicStaticIsValidMethodValidator validator;
-
     public HasPublicStaticIsValidMethodCondition() {
         super("have a public static 'is valid' method with the signature defined by the annotation");
-        validator = new HasPublicStaticIsValidMethodValidator();
     }
 
     @Override

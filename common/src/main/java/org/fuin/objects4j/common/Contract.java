@@ -200,7 +200,7 @@ public final class Contract {
     public static void requireValid(@NotNull final Validator validator, @NotNull final Object value, @Nullable final Class<?>... groups)
             throws ConstraintViolationException {
 
-        final Set<ConstraintViolation<Object>> constraintViolations = validator.validate(value);
+        final Set<ConstraintViolation<Object>> constraintViolations = validator.validate(value, groups);
         if (!constraintViolations.isEmpty()) {
             final StringBuilder sb = new StringBuilder();
             for (final ConstraintViolation<Object> constraintViolation : constraintViolations) {
