@@ -20,19 +20,16 @@
         <dependency>
             <groupId>org.fuin.objects4j</groupId>
             <artifactId>objects4j-common</artifactId>
-            <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.fuin.objects4j</groupId>
             <artifactId>objects4j-core</artifactId>
-            <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>jakarta.persistence</groupId>
             <artifactId>jakarta.persistence-api</artifactId>
-            <version>3.1.0</version>
         </dependency>
 
         <dependency>
@@ -40,13 +37,12 @@
             <artifactId>jakarta.validation-api</artifactId>
         </dependency>
 
-        <!-- Test -->
-
         <dependency>
-            <groupId>org.fuin.objects4j</groupId>
-            <artifactId>objects4j-ui</artifactId>
-            <scope>test</scope>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
         </dependency>
+
+        <!-- Test -->
 
         <dependency>
             <groupId>org.junit.jupiter</groupId>

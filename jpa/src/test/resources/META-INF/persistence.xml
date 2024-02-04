@@ -9,48 +9,48 @@
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
 		<class>org.fuin.objects4j.jpa.CurrencyAmountParentEntity</class>
-		<class>org.fuin.objects4j.jpa.CurrencyAmountConverter</class>
+		<class>org.fuin.objects4j.jpa.CurrencyAmountAttributeConverter</class>
 
 		<class>org.fuin.objects4j.jpa.CurrencyParentEntity</class>
-		<class>org.fuin.objects4j.jpa.CurrencyConverter</class>
+		<class>org.fuin.objects4j.jpa.CurrencyAttributeConverter</class>
 
 		<class>org.fuin.objects4j.jpa.EmailAddressParentEntity</class>
-		<class>org.fuin.objects4j.jpa.EmailAddressConverter</class>
+		<class>org.fuin.objects4j.jpa.EmailAddressAttributeConverter</class>
 
 		<class>org.fuin.objects4j.jpa.PasswordSha512ParentEntity</class>
-		<class>org.fuin.objects4j.jpa.PasswordSha512Converter</class>
+		<class>org.fuin.objects4j.jpa.PasswordSha512AttributeConverter</class>
 
 		<class>org.fuin.objects4j.jpa.UserNameParentEntity</class>
-		<class>org.fuin.objects4j.jpa.UserNameConverter</class>
+		<class>org.fuin.objects4j.jpa.UserNameAttributeConverter</class>
 
 		<class>org.fuin.objects4j.jpa.UUIDParentEntity</class>
-		<class>org.fuin.objects4j.jpa.UUIDConverter</class>
+		<class>org.fuin.objects4j.jpa.UUIDAttributeConverter</class>
 
 		<class>org.fuin.objects4j.jpa.LocaleParentEntity</class>
-		<class>org.fuin.objects4j.jpa.LocaleConverter</class>
+		<class>org.fuin.objects4j.jpa.LocaleAttributeConverter</class>
 
 		<class>org.fuin.objects4j.jpa.AnyStrParentEntity</class>
 
 		<class>org.fuin.objects4j.jpa.HourParentEntity</class>
-		<class>org.fuin.objects4j.jpa.HourConverter</class>
+		<class>org.fuin.objects4j.jpa.HourAttributeConverter</class>
 
 		<class>org.fuin.objects4j.jpa.HourRangeParentEntity</class>
-		<class>org.fuin.objects4j.jpa.HourRangeConverter</class>
+		<class>org.fuin.objects4j.jpa.HourRangeAttributeConverter</class>
 
 		<class>org.fuin.objects4j.jpa.HourRangesParentEntity</class>
-		<class>org.fuin.objects4j.jpa.HourRangesConverter</class>
+		<class>org.fuin.objects4j.jpa.HourRangesAttributeConverter</class>
 
 		<class>org.fuin.objects4j.jpa.DayOfTheWeekParentEntity</class>
-		<class>org.fuin.objects4j.jpa.DayOfTheWeekConverter</class>
+		<class>org.fuin.objects4j.jpa.DayOfTheWeekAttributeConverter</class>
 
 		<class>org.fuin.objects4j.jpa.MultiDayOfTheWeekParentEntity</class>
-		<class>org.fuin.objects4j.jpa.MultiDayOfTheWeekConverter</class>
+		<class>org.fuin.objects4j.jpa.MultiDayOfTheWeekAttributeConverter</class>
 
 		<class>org.fuin.objects4j.jpa.DayOpeningHoursParentEntity</class>
-		<class>org.fuin.objects4j.jpa.DayOpeningHoursConverter</class>
+		<class>org.fuin.objects4j.jpa.DayOpeningHoursAttributeConverter</class>
 
 		<class>org.fuin.objects4j.jpa.WeeklyOpeningHoursParentEntity</class>
-		<class>org.fuin.objects4j.jpa.WeeklyOpeningHoursConverter</class>
+		<class>org.fuin.objects4j.jpa.WeeklyOpeningHoursAttributeConverter</class>
 
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 

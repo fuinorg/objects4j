@@ -31,7 +31,7 @@ public class UUIDParentEntity {
     @Column(name = "ID")
     private long id;
 
-    @Convert(converter = UUIDConverter.class)
+    @Convert(converter = UUIDAttributeConverter.class)
     @Column(name = "UUID", nullable = true)
     private UUID uuid;
 

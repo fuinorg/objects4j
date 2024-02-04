@@ -36,44 +36,28 @@ import static org.fuin.utils4j.jaxb.JaxbUtils.unmarshal;
 @ArchIgnore
 class JaxbHelper {
 
-    private static final List<XmlAdapter<?, ?>> ADAPTERS = List.of(
-            new CurrencyAmountConverter(),
-            new CurrencyConverter(),
-            new DayOfTheWeekConverter(),
-            new DayOpeningHoursConverter(),
-            new EmailAddressConverter(),
-            new HourConverter(),
-            new HourRangeConverter(),
-            new HourRangesConverter(),
-            new LocaleConverter(),
-            new MultiDayOfTheWeekConverter(),
-            new PasswordConverter(),
-            new PasswordSha512Converter(),
-            new UserNameConverter(),
-            new UUIDConverter(),
-            new WeeklyOpeningHoursConverter(),
-            new AnyStrConverter()
-    );
-
     private JaxbHelper() {
         throw new UnsupportedOperationException("Instances of utility classes are not allowed");
     }
 
-
     public static Data unmarshalData(String xml) {
+        final List<XmlAdapter<?, ?>> adapters = JaxbUtils.getJaxbAdapters();
+        adapters.add(new AnyStrXmlAdapter());
         final Unmarshaller unmarshaller = new UnmarshallerBuilder()
                 .addClassesToBeBound(Data.class)
                 .withHandler(event -> false)
-                .addAdapters(ADAPTERS)
+                .addAdapters(adapters)
                 .build();
         return unmarshal(unmarshaller, xml);
     }
 
     public static String marshalData(Data data) {
+        final List<XmlAdapter<?, ?>> adapters = JaxbUtils.getJaxbAdapters();
+        adapters.add(new AnyStrXmlAdapter());
         final Marshaller marshaller = new MarshallerBuilder()
                 .addClassesToBeBound(Data.class)
                 .withHandler(event -> false)
-                .addAdapters(ADAPTERS)
+                .addAdapters(adapters)
                 .build();
         try {
             final StringWriter writer = new StringWriter();

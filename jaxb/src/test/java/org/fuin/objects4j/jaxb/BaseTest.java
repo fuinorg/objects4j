@@ -35,7 +35,7 @@ import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 import static java.util.Collections.emptySet;
 import static java.util.stream.Collectors.toSet;
 
-@AnalyzeClasses(packagesOf = CurrencyAmountConverter.class)
+@AnalyzeClasses(packagesOf = CurrencyAmountXmlAdapter.class)
 class BaseTest {
 
     @ArchTest

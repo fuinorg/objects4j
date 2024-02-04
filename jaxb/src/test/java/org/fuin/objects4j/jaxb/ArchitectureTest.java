@@ -34,7 +34,7 @@ class ArchitectureTest {
 
     private static final String CORE_PACKAGE = AbstractIntegerValueObject.class.getPackageName();
 
-    private static final String JAXB_PACKAGE = CurrencyConverter.class.getPackageName();
+    private static final String JAXB_PACKAGE = CurrencyXmlAdapter.class.getPackageName();
 
     @ArchTest
     static final ArchRule no_accesses_to_upper_package = NO_CLASSES_SHOULD_DEPEND_UPPER_PACKAGES;

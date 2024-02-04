@@ -42,7 +42,7 @@ public class CurrencyAmountParentEntity {
 	// @formatter:on
     private CurrencyAmount amount;
 
-    @Convert(converter = CurrencyAmountConverter.class)
+    @Convert(converter = CurrencyAmountAttributeConverter.class)
     @Column(name = "PRICE", nullable = true)
     @Basic
     private CurrencyAmount price;

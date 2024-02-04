@@ -1,19 +1,19 @@
 @XmlJavaTypeAdapters({
-        @XmlJavaTypeAdapter(value = CurrencyAmountConverter.class, type = CurrencyAmount.class),
-        @XmlJavaTypeAdapter(value = CurrencyConverter.class, type = Currency.class),
-        @XmlJavaTypeAdapter(value = DayOfTheWeekConverter.class, type = DayOfTheWeek.class),
-        @XmlJavaTypeAdapter(value = DayOpeningHoursConverter.class, type = DayOpeningHours.class),
-        @XmlJavaTypeAdapter(value = EmailAddressConverter.class, type = EmailAddress.class),
-        @XmlJavaTypeAdapter(value = HourConverter.class, type = Hour.class),
-        @XmlJavaTypeAdapter(value = HourRangeConverter.class, type = HourRange.class),
-        @XmlJavaTypeAdapter(value = HourRangesConverter.class, type = HourRanges.class),
-        @XmlJavaTypeAdapter(value = LocaleConverter.class, type = Locale.class),
-        @XmlJavaTypeAdapter(value = MultiDayOfTheWeekConverter.class, type = MultiDayOfTheWeek.class),
-        @XmlJavaTypeAdapter(value = PasswordConverter.class, type = Password.class),
-        @XmlJavaTypeAdapter(value = PasswordSha512Converter.class, type = PasswordSha512.class),
-        @XmlJavaTypeAdapter(value = UserNameConverter.class, type = UserName.class),
-        @XmlJavaTypeAdapter(value = UUIDConverter.class, type = UUID.class),
-        @XmlJavaTypeAdapter(value = WeeklyOpeningHoursConverter.class, type = WeeklyOpeningHours.class)
+        @XmlJavaTypeAdapter(value = CurrencyAmountXmlAdapter.class, type = CurrencyAmount.class),
+        @XmlJavaTypeAdapter(value = CurrencyXmlAdapter.class, type = Currency.class),
+        @XmlJavaTypeAdapter(value = DayOfTheWeekXmlAdapter.class, type = DayOfTheWeek.class),
+        @XmlJavaTypeAdapter(value = DayOpeningHoursXmlAdapter.class, type = DayOpeningHours.class),
+        @XmlJavaTypeAdapter(value = EmailAddressXmlAdapter.class, type = EmailAddress.class),
+        @XmlJavaTypeAdapter(value = HourXmlAdapter.class, type = Hour.class),
+        @XmlJavaTypeAdapter(value = HourRangeXmlAdapter.class, type = HourRange.class),
+        @XmlJavaTypeAdapter(value = HourRangesXmlAdapter.class, type = HourRanges.class),
+        @XmlJavaTypeAdapter(value = LocaleXmlAdapter.class, type = Locale.class),
+        @XmlJavaTypeAdapter(value = MultiDayOfTheWeekXmlAdapter.class, type = MultiDayOfTheWeek.class),
+        @XmlJavaTypeAdapter(value = PasswordXmlAdapter.class, type = Password.class),
+        @XmlJavaTypeAdapter(value = PasswordSha512XmlAdapter.class, type = PasswordSha512.class),
+        @XmlJavaTypeAdapter(value = UserNameXmlAdapter.class, type = UserName.class),
+        @XmlJavaTypeAdapter(value = UUIDXmlAdapter.class, type = UUID.class),
+        @XmlJavaTypeAdapter(value = WeeklyOpeningHoursXmlAdapter.class, type = WeeklyOpeningHours.class)
 })
 package org.fuin.objects4j.jaxb;
 

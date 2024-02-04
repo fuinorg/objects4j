@@ -26,7 +26,7 @@ import static org.fuin.objects4j.jsonb.JsonbHelper.fromJson;
 import static org.fuin.objects4j.jsonb.JsonbHelper.toJson;
 
 /**
- * Test for the {@link DayOfTheWeekConverter} class.
+ * Test for the {@link DayOfTheWeekJsonbAdapter} class.
  */
 class DayOfTheWeekConverterTest {
 
@@ -37,14 +37,14 @@ class DayOfTheWeekConverterTest {
 
         final Data data = new Data();
         data.dayOfTheWeek = DayOfTheWeek.FRI;
-        assertThat(toJson(data, new DayOfTheWeekConverter())).isEqualTo(JSON);
+        assertThat(toJson(data)).isEqualTo(JSON);
 
     }
 
     @Test
     void testMarshalUnmarshalJsonb() {
 
-        final Data data = fromJson(JSON, Data.class, new DayOfTheWeekConverter());
+        final Data data = fromJson(JSON, Data.class);
         assertThat(data.dayOfTheWeek).isEqualTo(DayOfTheWeek.FRI);
 
     }
@@ -53,7 +53,7 @@ class DayOfTheWeekConverterTest {
     void testUnmarshalErrorJsonb() {
 
         final String invalidJsonData = "{\"dayOfTheWeek\":\"Monday\"}";
-        assertThatThrownBy(() -> fromJson(invalidJsonData, Data.class, new DayOfTheWeekConverter()))
+        assertThatThrownBy(() -> fromJson(invalidJsonData, Data.class))
                 .hasRootCauseInstanceOf(IllegalArgumentException.class)
                 .hasRootCauseMessage("Unknown day of week: 'Monday'");
 

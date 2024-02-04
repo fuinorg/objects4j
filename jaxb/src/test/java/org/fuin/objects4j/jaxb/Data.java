@@ -67,7 +67,7 @@ public class Data {
     public Currency currency;
 
     @XmlAttribute(name = "any-str")
-    @XmlJavaTypeAdapter(AnyStrConverter.class)
+    @XmlJavaTypeAdapter(AnyStrXmlAdapter.class)
     public AnyStr anyStr;
 
     @XmlAttribute

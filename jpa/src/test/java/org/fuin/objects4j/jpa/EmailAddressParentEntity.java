@@ -31,7 +31,7 @@ public class EmailAddressParentEntity {
     private long id;
 
     @Column(name = "EMAIL", nullable = true)
-    @Convert(converter = EmailAddressConverter.class)
+    @Convert(converter = EmailAddressAttributeConverter.class)
     private EmailAddress emailAddress;
 
     public EmailAddressParentEntity() {

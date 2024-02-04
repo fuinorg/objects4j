@@ -37,13 +37,12 @@
             <artifactId>jakarta.validation-api</artifactId>
         </dependency>
 
-        <!-- Test -->
-
         <dependency>
-            <groupId>org.fuin.objects4j</groupId>
-            <artifactId>objects4j-ui</artifactId>
-            <scope>test</scope>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
         </dependency>
+
+        <!-- Test -->
 
         <dependency>
             <groupId>org.fuin</groupId>

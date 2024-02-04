@@ -32,7 +32,7 @@ public class CurrencyParentEntity {
     @Column(name = "ID")
     private long id;
 
-    @Convert(converter = CurrencyConverter.class)
+    @Convert(converter = CurrencyAttributeConverter.class)
     @Column(name = "CURRENCY", nullable = true)
     @Basic
     private Currency currency;

@@ -27,7 +27,7 @@ import static org.fuin.objects4j.jsonb.JsonbHelper.fromJson;
 import static org.fuin.objects4j.jsonb.JsonbHelper.toJson;
 
 /**
- * Test for the {@link WeeklyOpeningHoursConverter} class.
+ * Test for the {@link WeeklyOpeningHoursJsonbAdapter} class.
  */
 public class WeeklyOpeningHoursConverterTest {
 
@@ -40,14 +40,14 @@ public class WeeklyOpeningHoursConverterTest {
 
         final Data data = new Data();
         data.weeklyOpeningHours = new WeeklyOpeningHours(HOURS);
-        assertThat(toJson(data, new WeeklyOpeningHoursConverter())).isEqualTo(JSON);
+        assertThat(toJson(data)).isEqualTo(JSON);
 
     }
 
     @Test
     void testMarshalUnmarshalJsonb() {
 
-        final Data data = fromJson(JSON, Data.class, new WeeklyOpeningHoursConverter());
+        final Data data = fromJson(JSON, Data.class);
         assertThat(data.weeklyOpeningHours).isEqualTo(new WeeklyOpeningHours(HOURS));
 
     }
@@ -56,7 +56,7 @@ public class WeeklyOpeningHoursConverterTest {
     void testUnmarshalErrorJsonb() {
 
         final String invalidJsonData = "{\"weeklyOpeningHours\":\"17-18+19-20\"}";
-        assertThatThrownBy(() -> fromJson(invalidJsonData, Data.class, new WeeklyOpeningHoursConverter()))
+        assertThatThrownBy(() -> fromJson(invalidJsonData, Data.class))
                 .hasRootCauseInstanceOf(ConstraintViolationException.class)
                 .hasRootCauseMessage("The argument 'weeklyOpeningHours' does not represent valid weekly opening hours like 'Mon-Fri 09:00-12:00+13:00-17:00,Sat/Sun 09:-12:00': '17-18+19-20'");
 

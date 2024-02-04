@@ -31,7 +31,7 @@ public class PasswordSha512ParentEntity {
     private long id;
 
     @Column(name = "PW", nullable = true)
-    @Convert(converter = PasswordSha512Converter.class)
+    @Convert(converter = PasswordSha512AttributeConverter.class)
     private PasswordSha512 pw;
 
     public PasswordSha512ParentEntity() {
