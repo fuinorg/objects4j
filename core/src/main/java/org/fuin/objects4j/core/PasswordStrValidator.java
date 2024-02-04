@@ -45,7 +45,7 @@ public final class PasswordStrValidator implements ConstraintValidator<PasswordS
      * 
      * @return Returns {@literal true} if it's an allowed password else {@literal false} is returned.
      */
-    public static final boolean isValid(final String value) {
+    public static boolean isValid(final String value) {
         if (value == null) {
             return true;
         }

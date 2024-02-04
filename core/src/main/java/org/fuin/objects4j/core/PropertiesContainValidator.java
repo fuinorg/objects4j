@@ -34,7 +34,7 @@ public final class PropertiesContainValidator implements ConstraintValidator<Pro
 
     @Override
     public final void initialize(final PropertiesContain constraintAnnotation) {
-        expectedKeys = new HashSet<String>();
+        expectedKeys = new HashSet<>();
         expectedKeys.addAll(Arrays.asList(constraintAnnotation.value()));
     }
 

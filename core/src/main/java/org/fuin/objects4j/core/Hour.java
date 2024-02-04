@@ -82,8 +82,8 @@ public final class Hour extends AbstractStringValueObject {
         super();
         Contract.requireArgNotEmpty("hour", hour);
         requireArgValid("hour", hour);
-        this.hourValue = Integer.valueOf(hour.substring(0, 2));
-        this.minuteValue = Integer.valueOf(hour.substring(3));
+        this.hourValue = Integer.parseInt(hour.substring(0, 2));
+        this.minuteValue = Integer.parseInt(hour.substring(3));
     }
 
     /**

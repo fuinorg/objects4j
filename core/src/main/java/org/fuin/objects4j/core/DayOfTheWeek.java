@@ -190,11 +190,8 @@ public final class DayOfTheWeek implements ValueObjectWithBaseType<String>, Comp
         if (getClass() != obj.getClass()) {
             return false;
         }
-        DayOfTheWeek other = (DayOfTheWeek) obj;
-        if (id != other.id) {
-            return false;
-        }
-        return true;
+        final DayOfTheWeek other = (DayOfTheWeek) obj;
+        return id == other.id;
     }
 
     /**
@@ -208,13 +205,7 @@ public final class DayOfTheWeek implements ValueObjectWithBaseType<String>, Comp
 
     @Override
     public int compareTo(final DayOfTheWeek other) {
-        if (id > other.id) {
-            return 1;
-        }
-        if (id < other.id) {
-            return -1;
-        }
-        return 0;
+        return Integer.compare(id, other.id);
     }
 
     @Override

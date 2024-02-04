@@ -52,7 +52,7 @@ public final class HourStrValidator implements ConstraintValidator<HourStr, Stri
      * 
      * @return Returns {@literal true} if it's a valid Hourd else {@literal false} is returned.
      */
-    public static final boolean isValid(final String value) {
+    public static boolean isValid(final String value) {
         return Hour.isValid(value);
     }
 

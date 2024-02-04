@@ -130,10 +130,7 @@ public final class CurrencyAmount implements ValueObjectWithBaseType<String>, Co
         if (!amount.equals(other.amount)) {
             return false;
         }
-        if (!currency.getCurrencyCode().equals(other.currency.getCurrencyCode())) {
-            return false;
-        }
-        return true;
+        return currency.getCurrencyCode().equals(other.currency.getCurrencyCode());
     }
 
     @Override

@@ -33,7 +33,7 @@ public class TrimmedNotEmptyValidator implements ConstraintValidator<TrimmedNotE
         if (value == null) {
             return true;
         }
-        return value.trim().length() > 0;
+        return !value.trim().isEmpty();
     }
 
     /**

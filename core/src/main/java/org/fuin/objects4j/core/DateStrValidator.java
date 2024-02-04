@@ -41,7 +41,7 @@ public final class DateStrValidator implements ConstraintValidator<DateStr, Stri
         if (value == null) {
             return true;
         }
-        if (value.length() == 0) {
+        if (value.isEmpty()) {
             return false;
         }
         try {

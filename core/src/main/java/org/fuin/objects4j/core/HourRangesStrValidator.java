@@ -44,7 +44,7 @@ public final class HourRangesStrValidator implements ConstraintValidator<HourRan
      * 
      * @return Returns {@literal true} if it's a valid string representation else {@literal false} is returned.
      */
-    public static final boolean isValid(final String value) {
+    public static boolean isValid(final String value) {
         return HourRanges.isValid(value);
     }
 

@@ -598,10 +598,7 @@ public final class DayOpeningHours implements ValueObjectWithBaseType<String>, C
             } else if (!range.equals(other.range)) {
                 return false;
             }
-            if (type != other.type) {
-                return false;
-            }
-            return true;
+            return type == other.type;
         }
 
         @Override

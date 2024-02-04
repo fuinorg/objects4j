@@ -143,9 +143,9 @@ public final class HourRanges extends AbstractStringValueObject implements Itera
             }
         }
         final List<HourRanges> list = new ArrayList<>();
-        list.add(new HourRanges(today.toArray(new HourRange[today.size()])));
-        if (tommorrow.size() > 0) {
-            list.add(new HourRanges(tommorrow.toArray(new HourRange[tommorrow.size()])));
+        list.add(new HourRanges(today.toArray(new HourRange[0])));
+        if (!tommorrow.isEmpty()) {
+            list.add(new HourRanges(tommorrow.toArray(new HourRange[0])));
         }
         return list;
     }
@@ -379,7 +379,7 @@ public final class HourRanges extends AbstractStringValueObject implements Itera
     private static String asStr(final List<HourRange> ranges) {
         final StringBuilder sb = new StringBuilder();
         for (final HourRange range : ranges) {
-            if (sb.length() > 0) {
+            if (!sb.isEmpty()) {
                 sb.append("+");
             }
             sb.append(range.toString());
@@ -478,7 +478,7 @@ public final class HourRanges extends AbstractStringValueObject implements Itera
             ranges.add(createHourRange(startHour, startMinute, minutes.length()));
         }
 
-        return new HourRanges(ranges.toArray(new HourRange[ranges.size()]));
+        return new HourRanges(ranges.toArray(new HourRange[0]));
 
     }
 
@@ -518,7 +518,7 @@ public final class HourRanges extends AbstractStringValueObject implements Itera
     /**
      * Types of changes.
      */
-    public static enum ChangeType {
+    public enum ChangeType {
 
         /** An hour range was added. */
         ADDED,
@@ -599,10 +599,7 @@ public final class HourRanges extends AbstractStringValueObject implements Itera
             } else if (!range.equals(other.range)) {
                 return false;
             }
-            if (type != other.type) {
-                return false;
-            }
-            return true;
+            return type == other.type;
         }
 
         @Override

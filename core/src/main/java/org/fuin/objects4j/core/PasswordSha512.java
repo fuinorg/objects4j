@@ -86,9 +86,9 @@ public final class PasswordSha512 extends AbstractStringValueObject {
         final int l = hash.length;
         final char[] out = new char[l << 1];
         int j = 0;
-        for (int i = 0; i < l; i++) {
-            out[j++] = DIGITS[(0xF0 & hash[i]) >>> 4];
-            out[j++] = DIGITS[0x0F & hash[i]];
+        for (byte b : hash) {
+            out[j++] = DIGITS[(0xF0 & b) >>> 4];
+            out[j++] = DIGITS[0x0F & b];
         }
         return String.copyValueOf(out);
     }

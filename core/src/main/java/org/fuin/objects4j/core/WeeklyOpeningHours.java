@@ -160,7 +160,7 @@ public final class WeeklyOpeningHours extends AbstractStringValueObject implemen
 
         Collections.sort(days);
 
-        return new WeeklyOpeningHours(days.toArray(new DayOpeningHours[days.size()]));
+        return new WeeklyOpeningHours(days.toArray(new DayOpeningHours[0]));
 
     }
 

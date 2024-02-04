@@ -78,9 +78,7 @@ public final class MultiDayOfTheWeek extends AbstractStringValueObject implement
             if (p > -1) {
                 final DayOfTheWeek from = DayOfTheWeek.valueOf(part.substring(0, p));
                 final DayOfTheWeek to = DayOfTheWeek.valueOf(part.substring(p + 1));
-                for (final DayOfTheWeek dow : DayOfTheWeek.getPart(from, to)) {
-                    this.multipleDayOfTheWeek.add(dow);
-                }
+                this.multipleDayOfTheWeek.addAll(DayOfTheWeek.getPart(from, to));
             } else {
                 this.multipleDayOfTheWeek.add(DayOfTheWeek.valueOf(part));
             }
