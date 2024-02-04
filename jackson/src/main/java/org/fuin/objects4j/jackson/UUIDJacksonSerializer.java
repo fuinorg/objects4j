@@ -15,23 +15,36 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library. If not, see http://www.gnu.org/licenses/.
  */
-package org.fuin.objects4j.jsonb;
+package org.fuin.objects4j.jackson;
 
-import org.fuin.objects4j.core.Password;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 
 import javax.annotation.concurrent.ThreadSafe;
+import java.io.IOException;
+import java.util.UUID;
 
 /**
- * Converts a {@link Password} from/to String.
+ * Converts a {@link UUID} into a String.
  */
 @ThreadSafe
-public class PasswordJsonbAdapter extends ValueObjectStringJsonbAdapter<Password> {
+public final class UUIDJacksonSerializer extends StdSerializer<UUID> {
 
     /**
      * Default constructor.
      */
-    public PasswordJsonbAdapter() {
-        super(Password::valueOf);
+    public UUIDJacksonSerializer() {
+        super(UUID.class);
+    }
+
+    @Override
+    public void serialize(UUID value, JsonGenerator gen, SerializerProvider provider) throws IOException {
+        if (value == null) {
+            gen.writeNull();
+        } else {
+            gen.writeString(value.toString());
+        }
     }
 
 }

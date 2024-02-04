@@ -70,7 +70,7 @@
 
         <dependency>
             <groupId>com.tngtech.archunit</groupId>
-            <artifactId>archunit-junit5-api</artifactId>
+            <artifactId>archunit-junit5</artifactId>
             <scope>test</scope>
         </dependency>
 
@@ -148,7 +148,11 @@
                         <ignoredUnusedDeclaredDependency>org.glassfish:jakarta.el</ignoredUnusedDeclaredDependency>
                         <ignoredUnusedDeclaredDependency>org.hibernate.validator:hibernate-validator</ignoredUnusedDeclaredDependency>
                         <ignoredUnusedDeclaredDependency>org.glassfish.jaxb:jaxb-runtime</ignoredUnusedDeclaredDependency>
+                        <ignoredUnusedDeclaredDependency>com.tngtech.archunit:archunit-junit5</ignoredUnusedDeclaredDependency>
                     </ignoredUnusedDeclaredDependencies>
+                    <ignoredUsedUndeclaredDependencies>
+                        <ignoredUsedUndeclaredDependency>com.tngtech.archunit:archunit-junit5-api</ignoredUsedUndeclaredDependency>
+                    </ignoredUsedUndeclaredDependencies>
                 </configuration>
             </plugin>
 

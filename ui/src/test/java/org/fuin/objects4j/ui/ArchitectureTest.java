@@ -43,7 +43,8 @@ class ArchitectureTest {
             .onlyDependOnClassesThat()
             .resideInAnyPackage(COMMON_PACKAGE, UI_PACKAGE,
                     "java.lang..", "java.util..", "java.io..", "java.text..",
-                    "jakarta.validation..", "jakarta.annotation..", "jakarta.enterprise.inject..");
+                    "jakarta.validation..", "jakarta.annotation..", "jakarta.enterprise.inject..",
+                    "javax.annotation.concurrent");
 
 }
 

@@ -61,7 +61,7 @@
 
         <dependency>
             <groupId>com.tngtech.archunit</groupId>
-            <artifactId>archunit-junit5-api</artifactId>
+            <artifactId>archunit-junit5</artifactId>
             <scope>test</scope>
         </dependency>
 
@@ -113,7 +113,11 @@
                         <ignoredUnusedDeclaredDependency>org.fuin.objects4j:objects4j-jpa</ignoredUnusedDeclaredDependency>
                         <ignoredUnusedDeclaredDependency>org.fuin.objects4j:objects4j-jsonb</ignoredUnusedDeclaredDependency>
                         <ignoredUnusedDeclaredDependency>org.fuin.objects4j:objects4j-ui</ignoredUnusedDeclaredDependency>
+                        <ignoredUnusedDeclaredDependency>com.tngtech.archunit:archunit-junit5</ignoredUnusedDeclaredDependency>
                     </ignoredUnusedDeclaredDependencies>
+                    <ignoredUsedUndeclaredDependencies>
+                        <ignoredUsedUndeclaredDependency>com.tngtech.archunit:archunit-junit5-api</ignoredUsedUndeclaredDependency>
+                    </ignoredUsedUndeclaredDependencies>
                 </configuration>
             </plugin>
 

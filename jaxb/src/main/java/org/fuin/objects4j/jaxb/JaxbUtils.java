@@ -38,7 +38,6 @@ public final class JaxbUtils {
             new HourRangesXmlAdapter(),
             new LocaleXmlAdapter(),
             new MultiDayOfTheWeekXmlAdapter(),
-            new PasswordXmlAdapter(),
             new PasswordSha512XmlAdapter(),
             new UserNameXmlAdapter(),
             new UUIDXmlAdapter(),

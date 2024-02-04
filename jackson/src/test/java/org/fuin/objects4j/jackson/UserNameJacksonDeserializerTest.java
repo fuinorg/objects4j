@@ -15,46 +15,40 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fuin.objects4j.jaxb;
+package org.fuin.objects4j.jackson;
 
-import jakarta.xml.bind.JAXBException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.fuin.objects4j.common.ConstraintViolationException;
-import org.fuin.objects4j.core.Password;
+import org.fuin.objects4j.core.UserName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.fuin.utils4j.jaxb.JaxbUtils.XML_PREFIX;
 
-public class PasswordXmlAdapterTest {
+/**
+ * Test for the {@link UserNameJacksonDeserializer} class.
+ */
+public class UserNameJacksonDeserializerTest {
 
-    private static final String XML = XML_PREFIX + "<data password=\"abcd1234\"/>";
+    private static final String USER_NAME = "michael-1_a";
 
-    @Test
-    public final void testMarshal() throws JAXBException {
-
-        final Data data = new Data();
-        data.password = new Password("abcd1234");
-        assertThat(JaxbHelper.marshalData(data)).isEqualTo(XML);
-
-    }
+    private static final String JSON = "{\"userName\":\"" + USER_NAME + "\"}";
 
     @Test
-    public final void testMarshalUnmarshal() throws JAXBException {
+    public final void testMarshalUnmarshal() throws JsonProcessingException {
 
-        final Data data = JaxbHelper.unmarshalData(XML);
-        assertThat(data.password).isNotNull();
-        assertThat(data.password).isEqualTo(new Password("abcd1234"));
+        final Data data = JacksonHelper.fromJson(JSON, Data.class);
+        assertThat(data.userName).isEqualTo(new UserName(USER_NAME));
 
     }
 
     @Test
     public final void testUnmarshalError() {
 
-        final String invalidXmlData = XML_PREFIX + "<data password=\"abcd123\"/>";
-        assertThatThrownBy(() -> JaxbHelper.unmarshalData(invalidXmlData))
+        final String invalidJsonData = "{\"userName\":\"x\"}";
+        assertThatThrownBy(() -> JacksonHelper.fromJson(invalidJsonData, Data.class))
                 .hasRootCauseInstanceOf(ConstraintViolationException.class)
-                .hasRootCauseMessage("The argument 'password' is not valid: 'abcd123'");
+                .hasRootCauseMessage("The argument 'userName' is not valid: 'x'");
 
     }
 

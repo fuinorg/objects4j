@@ -31,6 +31,7 @@
 
     <properties>
         <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/../junit/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+        <jackson.version>2.16.1</jackson.version>
     </properties>
 
     <dependencyManagement>
@@ -165,7 +166,7 @@
 
             <dependency>
                 <groupId>com.tngtech.archunit</groupId>
-                <artifactId>archunit-junit5-api</artifactId>
+                <artifactId>archunit-junit5</artifactId>
                 <version>1.2.1</version>
             </dependency>
 
@@ -289,6 +290,24 @@
                 <version>1.19.4</version>
             </dependency>
 
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+
         </dependencies>
 
     </dependencyManagement>
@@ -367,6 +386,7 @@
         <module>ui</module>
         <module>core</module>
         <module>jaxb</module>
+        <module>jackson</module>
         <module>jpa</module>
         <module>jsonb</module>
         <module>junit</module>

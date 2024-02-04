@@ -15,7 +15,6 @@ public final class JsonbUtils {
             new HourRangesJsonbAdapter(),
             new LocaleJsonbAdapter(),
             new EmailAddressJsonbAdapter(),
-            new PasswordJsonbAdapter(),
             new CurrencyAmountJsonbAdapter(),
             new WeeklyOpeningHoursJsonbAdapter(),
             new UUIDJsonbAdapter(),

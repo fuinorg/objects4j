@@ -48,7 +48,8 @@ class ArchitectureTest {
             .resideInAnyPackage(COMMON_PACKAGE, UI_PACKAGE, CORE_PACKAGE,
                     "java.lang..", "java.util..", "java.io..", "java.text..", "java.security..",
                     "java.math..", "java.time..", "jakarta.mail..",
-                    "jakarta.validation..", "jakarta.annotation..", "jakarta.enterprise.inject..");
+                    "jakarta.validation..", "jakarta.annotation..", "jakarta.enterprise.inject..",
+                    "javax.annotation.concurrent");
 
 }
 

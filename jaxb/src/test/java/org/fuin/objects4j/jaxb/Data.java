@@ -29,7 +29,6 @@ import org.fuin.objects4j.core.Hour;
 import org.fuin.objects4j.core.HourRange;
 import org.fuin.objects4j.core.HourRanges;
 import org.fuin.objects4j.core.MultiDayOfTheWeek;
-import org.fuin.objects4j.core.Password;
 import org.fuin.objects4j.core.PasswordSha512;
 import org.fuin.objects4j.core.UserName;
 import org.fuin.objects4j.core.WeeklyOpeningHours;
@@ -47,9 +46,6 @@ public class Data {
 
     @XmlAttribute
     public EmailAddress email;
-
-    @XmlAttribute
-    public Password password;
 
     @XmlAttribute
     public PasswordSha512 passwordSha512;

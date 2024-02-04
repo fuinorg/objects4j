@@ -15,45 +15,38 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fuin.objects4j.jaxb;
+package org.fuin.objects4j.jackson;
 
-import jakarta.xml.bind.JAXBException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.fuin.objects4j.common.ConstraintViolationException;
-import org.fuin.objects4j.core.HourRange;
+import org.fuin.objects4j.core.EmailAddress;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.fuin.utils4j.jaxb.JaxbUtils.XML_PREFIX;
 
-public class HourRangeConverterTest {
+/**
+ * Test for the {@link EmailAddressJacksonDeserializer} class.
+ */
+public class EmailAddressJacksonDeserializerTest {
 
-    private static final String XML = XML_PREFIX + "<data hourRange=\"00:00-24:00\"/>";
-
-    @Test
-    public final void testMarshal() throws JAXBException {
-
-        final Data data = new Data();
-        data.hourRange = new HourRange("00:00-24:00");
-        assertThat(JaxbHelper.marshalData(data)).isEqualTo(XML);
-
-    }
+    private static final String JSON = "{\"email\":\"a@b.c\"}";
 
     @Test
-    public final void testMarshalUnmarshal() throws JAXBException {
+    public final void testMarshalUnmarshal() throws JsonProcessingException {
 
-        final Data data = JaxbHelper.unmarshalData(XML);
-        assertThat(data.hourRange).isEqualTo(new HourRange("00:00-24:00"));
+        final Data data = JacksonHelper.fromJson(JSON, Data.class);
+        assertThat(data.email).isEqualTo(new EmailAddress("a@b.c"));
 
     }
 
     @Test
     public final void testUnmarshalError() {
 
-        final String invalidXmlData = XML_PREFIX + "<data hourRange=\"17-18\"/>";
-        assertThatThrownBy(() -> JaxbHelper.unmarshalData(invalidXmlData))
+        final String invalidJsonData = "{\"email\":\"abc@\"}";
+        assertThatThrownBy(() -> JacksonHelper.fromJson(invalidJsonData, Data.class))
                 .hasRootCauseInstanceOf(ConstraintViolationException.class)
-                .hasRootCauseMessage("The argument 'hourRange' does not represent a valid hour range like '00:00-24:00' or '06:00-21:00': '17-18'");
+                .hasRootCauseMessage("The argument 'emailAddress' is not valid: 'abc@'");
 
     }
 }

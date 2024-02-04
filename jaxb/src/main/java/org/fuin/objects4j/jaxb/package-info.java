@@ -9,7 +9,6 @@
         @XmlJavaTypeAdapter(value = HourRangesXmlAdapter.class, type = HourRanges.class),
         @XmlJavaTypeAdapter(value = LocaleXmlAdapter.class, type = Locale.class),
         @XmlJavaTypeAdapter(value = MultiDayOfTheWeekXmlAdapter.class, type = MultiDayOfTheWeek.class),
-        @XmlJavaTypeAdapter(value = PasswordXmlAdapter.class, type = Password.class),
         @XmlJavaTypeAdapter(value = PasswordSha512XmlAdapter.class, type = PasswordSha512.class),
         @XmlJavaTypeAdapter(value = UserNameXmlAdapter.class, type = UserName.class),
         @XmlJavaTypeAdapter(value = UUIDXmlAdapter.class, type = UUID.class),
@@ -27,7 +26,6 @@ import org.fuin.objects4j.core.Hour;
 import org.fuin.objects4j.core.HourRange;
 import org.fuin.objects4j.core.HourRanges;
 import org.fuin.objects4j.core.MultiDayOfTheWeek;
-import org.fuin.objects4j.core.Password;
 import org.fuin.objects4j.core.PasswordSha512;
 import org.fuin.objects4j.core.UserName;
 import org.fuin.objects4j.core.WeeklyOpeningHours;
