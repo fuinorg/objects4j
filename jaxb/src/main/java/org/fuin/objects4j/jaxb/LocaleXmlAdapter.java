@@ -18,9 +18,9 @@
 package org.fuin.objects4j.jaxb;
 
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;
-import javax.annotation.concurrent.ThreadSafe;
 import org.fuin.objects4j.core.LocaleHelper;
 
+import javax.annotation.concurrent.ThreadSafe;
 import java.util.Locale;
 
 /**

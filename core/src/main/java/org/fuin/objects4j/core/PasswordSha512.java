@@ -17,14 +17,14 @@
  */
 package org.fuin.objects4j.core;
 
+import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotNull;
 import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.common.HasPublicStaticIsValidMethod;
 import org.fuin.objects4j.common.HasPublicStaticValueOfMethod;
-import javax.annotation.concurrent.Immutable;
-import jakarta.annotation.Nullable;
 
+import javax.annotation.concurrent.Immutable;
 import java.io.Serial;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

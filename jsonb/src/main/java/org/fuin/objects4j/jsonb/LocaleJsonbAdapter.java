@@ -18,9 +18,9 @@
 package org.fuin.objects4j.jsonb;
 
 import jakarta.json.bind.adapter.JsonbAdapter;
-import javax.annotation.concurrent.ThreadSafe;
 import org.fuin.objects4j.core.LocaleHelper;
 
+import javax.annotation.concurrent.ThreadSafe;
 import java.util.Locale;
 
 /**

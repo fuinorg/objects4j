@@ -19,9 +19,9 @@ package org.fuin.objects4j.jpa;
 
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
-import javax.annotation.concurrent.ThreadSafe;
 import org.fuin.objects4j.core.LocaleHelper;
 
+import javax.annotation.concurrent.ThreadSafe;
 import java.util.Locale;
 
 /**

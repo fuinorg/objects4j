@@ -87,7 +87,6 @@ class QuarkusAppTest {
         original.passwordSha512 = new PasswordSha512(new Password("abc123xyz"));
         original.userName = new UserName("peter-parker");
         original.uuid = UUID.randomUUID();
-        // TODO original.amount = new CurrencyAmount(BigDecimal.TEN, Currency.getInstance("EUR"));
         original.price = new CurrencyAmount(BigDecimal.ONE, Currency.getInstance("EUR"));
         original.currency = Currency.getInstance("EUR");
         original.hour = new Hour("23:59");
@@ -113,7 +112,6 @@ class QuarkusAppTest {
         assertThat(copy.passwordSha512).isEqualTo(original.passwordSha512);
         assertThat(copy.userName).isEqualTo(original.userName);
         assertThat(copy.uuid).isEqualTo(original.uuid);
-        // TODO assertThat(copy.amount).isEqualTo(original.amount);
         assertThat(copy.price).isEqualTo(original.price);
         assertThat(copy.hour).isEqualTo(original.hour);
         assertThat(copy.hourRange).isEqualTo(original.hourRange);

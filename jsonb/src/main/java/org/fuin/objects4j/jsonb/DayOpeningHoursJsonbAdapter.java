@@ -17,8 +17,9 @@
  */
 package org.fuin.objects4j.jsonb;
 
-import javax.annotation.concurrent.ThreadSafe;
 import org.fuin.objects4j.core.DayOpeningHours;
+
+import javax.annotation.concurrent.ThreadSafe;
 
 /**
  * Converts a {@link DayOpeningHours} into a String and back.

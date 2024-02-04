@@ -19,8 +19,8 @@ package org.fuin.objects4j.ui;
 
 import jakarta.validation.constraints.NotNull;
 import org.fuin.objects4j.common.Contract;
-import javax.annotation.concurrent.Immutable;
 
+import javax.annotation.concurrent.Immutable;
 import java.lang.reflect.Field;
 import java.util.Locale;
 

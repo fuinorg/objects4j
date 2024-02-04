@@ -19,6 +19,7 @@ package org.fuin.objects4j.ui;
 
 import jakarta.validation.constraints.NotNull;
 import org.fuin.objects4j.common.Contract;
+
 import javax.annotation.concurrent.Immutable;
 
 /**

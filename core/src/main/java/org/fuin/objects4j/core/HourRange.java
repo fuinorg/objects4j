@@ -17,19 +17,19 @@
  */
 package org.fuin.objects4j.core;
 
+import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.common.HasPublicStaticIsValidMethod;
 import org.fuin.objects4j.common.HasPublicStaticValueOfMethod;
-import javax.annotation.concurrent.Immutable;
-import jakarta.annotation.Nullable;
 import org.fuin.objects4j.ui.Label;
 import org.fuin.objects4j.ui.Prompt;
 import org.fuin.objects4j.ui.ShortLabel;
 import org.fuin.objects4j.ui.Tooltip;
 
+import javax.annotation.concurrent.Immutable;
 import java.io.Serial;
 import java.util.ArrayList;
 import java.util.BitSet;

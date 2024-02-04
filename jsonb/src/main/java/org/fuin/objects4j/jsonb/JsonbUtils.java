@@ -3,7 +3,6 @@ package org.fuin.objects4j.jsonb;
 import jakarta.json.bind.adapter.JsonbAdapter;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**

@@ -18,8 +18,8 @@
 package org.fuin.objects4j.jaxb;
 
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;
-import javax.annotation.concurrent.ThreadSafe;
 
+import javax.annotation.concurrent.ThreadSafe;
 import java.util.UUID;
 
 /**

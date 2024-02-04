@@ -19,8 +19,8 @@ package org.fuin.objects4j.jpa;
 
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
-import javax.annotation.concurrent.ThreadSafe;
 
+import javax.annotation.concurrent.ThreadSafe;
 import java.util.UUID;
 
 /**

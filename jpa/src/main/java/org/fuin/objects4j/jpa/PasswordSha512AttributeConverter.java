@@ -18,8 +18,9 @@
 package org.fuin.objects4j.jpa;
 
 import jakarta.persistence.Converter;
-import javax.annotation.concurrent.ThreadSafe;
 import org.fuin.objects4j.core.PasswordSha512;
+
+import javax.annotation.concurrent.ThreadSafe;
 
 /**
  * Creates a {@link PasswordSha512}.

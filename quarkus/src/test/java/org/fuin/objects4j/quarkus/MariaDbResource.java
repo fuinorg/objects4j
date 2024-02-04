@@ -1,11 +1,10 @@
 package org.fuin.objects4j.quarkus;
 
-import java.util.Collections;
-import java.util.Map;
-
+import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.testcontainers.containers.MariaDBContainer;
 
-import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+import java.util.Collections;
+import java.util.Map;
 
 public class MariaDbResource implements QuarkusTestResourceLifecycleManager {
 

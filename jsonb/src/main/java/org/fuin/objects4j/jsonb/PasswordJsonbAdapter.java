@@ -17,8 +17,9 @@
  */
 package org.fuin.objects4j.jsonb;
 
-import javax.annotation.concurrent.ThreadSafe;
 import org.fuin.objects4j.core.Password;
+
+import javax.annotation.concurrent.ThreadSafe;
 
 /**
  * Converts a {@link Password} from/to String.

@@ -17,8 +17,9 @@
  */
 package org.fuin.objects4j.jaxb;
 
-import javax.annotation.concurrent.ThreadSafe;
 import org.fuin.objects4j.core.DayOfTheWeek;
+
+import javax.annotation.concurrent.ThreadSafe;
 
 /**
  * Converts a {@link DayOfTheWeek} from/to String.

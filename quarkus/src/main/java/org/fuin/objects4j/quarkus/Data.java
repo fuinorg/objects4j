@@ -2,10 +2,8 @@ package org.fuin.objects4j.quarkus;
 
 import jakarta.json.bind.annotation.JsonbProperty;
 import jakarta.json.bind.annotation.JsonbTypeAdapter;
-import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
-import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.xml.bind.annotation.XmlAttribute;
@@ -46,7 +44,6 @@ import org.fuin.objects4j.jsonb.HourRangeJsonbAdapter;
 import org.fuin.objects4j.jsonb.HourRangesJsonbAdapter;
 import org.fuin.objects4j.jsonb.LocaleJsonbAdapter;
 import org.fuin.objects4j.jsonb.MultiDayOfTheWeekJsonbAdapter;
-import org.fuin.objects4j.jsonb.PasswordJsonbAdapter;
 import org.fuin.objects4j.jsonb.PasswordSha512JsonbAdapter;
 import org.fuin.objects4j.jsonb.UUIDJsonbAdapter;
 import org.fuin.objects4j.jsonb.UserNameJsonbAdapter;
@@ -94,17 +91,6 @@ public class Data {
     @XmlJavaTypeAdapter(UUIDXmlAdapter.class)
     public UUID uuid;
 
-/*
-    TODO CurrencyAmount requires an annotation @Embeddable but it should have no dependency to JPA as it's in CORE
-    @Embedded
-    @AttributeOverride(name = "amount", column = @Column(name = "AMOUNT", precision = 12, scale = 2, nullable = true))
-    @AttributeOverride(name = "currency", column = @Column(name = "CURRENCY", columnDefinition = "varchar(255)", nullable = true))
-    @JsonbProperty
-    @JsonbTypeAdapter(CurrencyAmountJsonbAdapter.class)
-    @XmlAttribute
-    @XmlJavaTypeAdapter(CurrencyAmountXmlAdapter.class)
-    public CurrencyAmount amount;
-*/
     @Column(name = "PRICE", nullable = true)
     @Basic
     @JsonbProperty

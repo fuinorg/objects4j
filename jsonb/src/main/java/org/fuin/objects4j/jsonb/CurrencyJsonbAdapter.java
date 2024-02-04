@@ -18,8 +18,8 @@
 package org.fuin.objects4j.jsonb;
 
 import jakarta.json.bind.adapter.JsonbAdapter;
-import javax.annotation.concurrent.ThreadSafe;
 
+import javax.annotation.concurrent.ThreadSafe;
 import java.util.Currency;
 
 /**

@@ -17,8 +17,9 @@
  */
 package org.fuin.objects4j.jsonb;
 
-import javax.annotation.concurrent.ThreadSafe;
 import org.fuin.objects4j.core.EmailAddress;
+
+import javax.annotation.concurrent.ThreadSafe;
 
 /**
  * Creates a {@link EmailAddress}.
