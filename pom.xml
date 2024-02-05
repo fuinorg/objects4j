@@ -58,6 +58,12 @@
 
             <dependency>
                 <groupId>org.fuin.objects4j</groupId>
+                <artifactId>objects4j-jackson</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.fuin.objects4j</groupId>
                 <artifactId>objects4j-jpa</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -150,12 +156,6 @@
                 <groupId>org.assertj</groupId>
                 <artifactId>assertj-core</artifactId>
                 <version>3.24.2</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.fuin.objects4j</groupId>
-                <artifactId>units4j</artifactId>
-                <version>0.12.0-SNAPSHOT</version>
             </dependency>
 
             <dependency>
@@ -308,6 +308,12 @@
                 <version>${jackson.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.mariadb.jdbc</groupId>
+                <artifactId>mariadb-java-client</artifactId>
+                <version>3.3.2</version>
+            </dependency>
+
         </dependencies>
 
     </dependencyManagement>
@@ -392,6 +398,7 @@
         <module>junit</module>
         <module>jacoco</module>
         <module>quarkus</module>
+        <module>spring-boot</module>
     </modules>
 
 </project>
