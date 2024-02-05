@@ -215,7 +215,7 @@ public final class TableColumnInfo implements Comparable<TableColumnInfo> {
         Contract.requireArgNotNull("clasz", clasz);
         Contract.requireArgNotNull("locale", locale);
 
-        final List<TableColumnInfo> list = new ArrayList<TableColumnInfo>();
+        final List<TableColumnInfo> list = new ArrayList<>();
         final Field[] fields = clasz.getDeclaredFields();
         for (int i = 0; i < fields.length; i++) {
             final TableColumnInfo tableColumnInfo = create(fields[i], locale);

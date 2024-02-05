@@ -103,6 +103,7 @@ public class TextFieldInfo {
      * 
      * @return Information or {@literal null}.
      */
+    @SuppressWarnings("java:S1172") // We will stay backward compatible with the "locale" parameter
     public static TextFieldInfo create(@NotNull final Field field, @NotNull final Locale locale) {
 
         final TextField textField = field.getAnnotation(TextField.class);

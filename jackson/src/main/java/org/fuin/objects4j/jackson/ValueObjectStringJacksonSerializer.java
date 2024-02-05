@@ -21,7 +21,6 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import jakarta.validation.constraints.NotNull;
-import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.core.AsStringCapable;
 import org.fuin.objects4j.core.ValueOfCapable;
 
@@ -34,8 +33,6 @@ import java.io.IOException;
  */
 public abstract class ValueObjectStringJacksonSerializer<TYPE extends AsStringCapable> extends StdSerializer<TYPE> {
 
-    private final ValueOfCapable<TYPE> vop;
-
     /**
      * Constructor with mandatory data.
      *
@@ -43,8 +40,6 @@ public abstract class ValueObjectStringJacksonSerializer<TYPE extends AsStringCa
      */
     public ValueObjectStringJacksonSerializer(@NotNull final Class<TYPE> clasz, @NotNull final ValueOfCapable<TYPE> vop) {
         super(clasz);
-        Contract.requireArgNotNull("vop", vop);
-        this.vop = vop;
     }
 
     @Override

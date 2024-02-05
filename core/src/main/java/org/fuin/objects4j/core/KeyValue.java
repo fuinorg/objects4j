@@ -104,7 +104,7 @@ public final class KeyValue implements ValueObject {
         if (keyValue == null) {
             return message;
         }
-        final Map<String, String> map = new HashMap<String, String>();
+        final Map<String, String> map = new HashMap<>();
         for (final KeyValue kv : keyValue) {
             if (kv.getValue() instanceof Collection<?> coll) {
                 final StringBuilder sb = new StringBuilder();

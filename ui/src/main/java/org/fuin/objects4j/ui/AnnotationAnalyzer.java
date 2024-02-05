@@ -39,10 +39,9 @@ import java.util.ResourceBundle;
  */
 public final class AnnotationAnalyzer {
 
-    private static final Map<Class<?>, String> CLASS_NAME_MAP = new HashMap<Class<?>, String>();
+    private static final Map<Class<?>, String> CLASS_NAME_MAP = new HashMap<>();
 
     static {
-        CLASS_NAME_MAP.put(String.class, String.class.getSimpleName());
         CLASS_NAME_MAP.put(Byte.class, Byte.class.getSimpleName());
         CLASS_NAME_MAP.put(Short.class, Short.class.getSimpleName());
         CLASS_NAME_MAP.put(Integer.class, Integer.class.getSimpleName());
@@ -110,7 +109,7 @@ public final class AnnotationAnalyzer {
         Contract.requireArgNotNull("locale", locale);
         Contract.requireArgNotNull("annotationClasz", annotationClasz);
 
-        final List<FieldTextInfo> infos = new ArrayList<FieldTextInfo>();
+        final List<FieldTextInfo> infos = new ArrayList<>();
 
         final Field[] fields = clasz.getDeclaredFields();
         for (final Field field : fields) {
