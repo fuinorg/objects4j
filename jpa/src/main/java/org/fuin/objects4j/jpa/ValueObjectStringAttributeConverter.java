@@ -20,8 +20,8 @@ package org.fuin.objects4j.jpa;
 import jakarta.persistence.AttributeConverter;
 import jakarta.validation.constraints.NotNull;
 import org.fuin.objects4j.common.Contract;
-import org.fuin.objects4j.core.AsStringCapable;
-import org.fuin.objects4j.core.ValueOfCapable;
+import org.fuin.objects4j.common.AsStringCapable;
+import org.fuin.objects4j.common.ValueOfCapable;
 
 /**
  * Converts a type into a string and back.

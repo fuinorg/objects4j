@@ -21,8 +21,8 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import jakarta.validation.constraints.NotNull;
-import org.fuin.objects4j.core.AsStringCapable;
-import org.fuin.objects4j.core.ValueOfCapable;
+import org.fuin.objects4j.common.AsStringCapable;
+import org.fuin.objects4j.common.ValueOfCapable;
 
 import java.io.IOException;
 

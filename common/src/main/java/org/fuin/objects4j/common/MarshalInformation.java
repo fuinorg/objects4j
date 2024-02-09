@@ -18,9 +18,9 @@
 package org.fuin.objects4j.common;
 
 /**
- * Tags any instance that is capable of delivering additional informations for serialization/deserialization. In contrast to XML where the
+ * Tags any instance that is capable of delivering additional information for serialization/deserialization. In contrast to XML where the
  * element name can be used to determine the type of the object, as with JSON there is often just an unknown type of object. This class
- * helps determining the full qualified name of the class and the tag name to use.
+ * helps to determine the full qualified name of the class and the tag name to use.
  * 
  * @param <DATA>
  *            Type of data returned.

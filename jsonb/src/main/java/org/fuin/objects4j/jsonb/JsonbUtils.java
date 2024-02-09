@@ -39,4 +39,13 @@ public final class JsonbUtils {
         return new ArrayList<>(ADAPTERS);
     }
 
+    /**
+     * Returns an array of {@link JsonbAdapter} objects defined by the package.
+     *
+     * @return Array with adapters.
+     */
+    public static JsonbAdapter<?, ?>[] getJsonbAdapterArray() {
+        return getJsonbAdapters().toArray(new JsonbAdapter[0]);
+    }
+
 }

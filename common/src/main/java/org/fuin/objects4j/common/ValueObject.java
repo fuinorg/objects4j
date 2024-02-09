@@ -15,27 +15,12 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library. If not, see http://www.gnu.org/licenses/.
  */
-package org.fuin.objects4j.core;
-
-import jakarta.annotation.Nullable;
+package org.fuin.objects4j.common;
 
 /**
- * Can convert a string into a type.
- *
- * @param <T>
- *            Target type.
+ * Immutable object that represents an object whose equality isn't based on identity.
+ * That means instances of this type are equal when they have the same value, not necessarily being the same object.
  */
-public interface ValueOfCapable<T> {
-
-    /**
-     * Parses a string and returns the converted type.
-     * 
-     * @param value
-     *            Value to convert. A {@literal null} value returns {@literal null}.
-     * 
-     * @return Converted value.
-     */
-    @Nullable
-    public T valueOf(@Nullable String value);
+public interface ValueObject {
 
 }

@@ -19,6 +19,6 @@
  */
 
 /**
- * Contains base classes like utilities and general annotation.
+ * Some interfaces, annotations and validators.
  */
 package org.fuin.objects4j.common;

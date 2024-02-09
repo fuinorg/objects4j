@@ -15,13 +15,13 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library. If not, see http://www.gnu.org/licenses/.
  */
-package org.fuin.objects4j.core;
+package org.fuin.objects4j.common;
 
 import jakarta.validation.constraints.NotNull;
 
 /**
- * Value object that may be expressed in a more general type with relaxed restrictions. Often basic Java types like String or numeric values
- * (Long, Integer, ...) are used for this.
+ * Value object that may be expressed in a more general type with relaxed restrictions.
+ * Often basic Java types like String or numeric values (Long, Integer, ...) are used for this.
  * 
  * @param <BASE_TYPE>
  *            Base type that may represent this type of value object.

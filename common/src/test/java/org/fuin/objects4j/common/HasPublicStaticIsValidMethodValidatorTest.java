@@ -137,7 +137,7 @@ public final class HasPublicStaticIsValidMethodValidatorTest {
         return violations.stream().map(v -> ((ConstraintViolation<?>) v).getMessage()).findFirst().orElse(null);
     }
 
-    @HasPublicStaticIsValidMethod
+    @HasPublicStaticIsValidMethod(method = "isValid", param = String.class)
     public static final class MyClassValid {
         public static boolean isValid(String str) {
             if (str == null) {

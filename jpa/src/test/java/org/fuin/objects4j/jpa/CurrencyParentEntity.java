@@ -34,7 +34,6 @@ public class CurrencyParentEntity {
 
     @Convert(converter = CurrencyAttributeConverter.class)
     @Column(name = "CURRENCY", nullable = true)
-    @Basic
     private Currency currency;
 
     public CurrencyParentEntity() {

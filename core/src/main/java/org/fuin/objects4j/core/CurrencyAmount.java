@@ -19,10 +19,12 @@ package org.fuin.objects4j.core;
 
 import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotNull;
+import org.fuin.objects4j.common.AsStringCapable;
 import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.common.HasPublicStaticIsValidMethod;
 import org.fuin.objects4j.common.HasPublicStaticValueOfMethod;
+import org.fuin.objects4j.common.ValueObjectWithBaseType;
 import org.fuin.objects4j.ui.Label;
 import org.fuin.objects4j.ui.ShortLabel;
 

@@ -18,7 +18,7 @@
 package org.fuin.objects4j.common;
 
 /**
- * Marks an exception that provides a unique short identifier. This identifier should be human readable and is meant to be displayed to an
+ * Marks an exception that provides a unique short identifier. This identifier should be human-readable and is meant to be displayed to an
  * end user. A service desk can use it to identify the type of error quickly and for example attach a guideline to it that explains how to
  * solve the problem.
  */

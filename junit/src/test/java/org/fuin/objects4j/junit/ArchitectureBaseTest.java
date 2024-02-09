@@ -9,9 +9,9 @@ import org.fuin.objects4j.common.HasPublicStaticIsValidMethod;
 import org.fuin.objects4j.common.HasPublicStaticIsValidMethods;
 import org.fuin.objects4j.common.HasPublicStaticValueOfMethod;
 import org.fuin.objects4j.common.HasPublicStaticValueOfMethods;
-import org.fuin.objects4j.core.AsStringCapable;
+import org.fuin.objects4j.common.ValueObjectWithBaseType;
+import org.fuin.objects4j.core.AbstractStringValueObject;
 import org.fuin.objects4j.core.Password;
-import org.fuin.objects4j.core.ValueObjectWithBaseType;
 
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 import static org.fuin.objects4j.junit.Objects4Conditions.haveACorrespondingPublicStaticIsValidMethod;
@@ -22,7 +22,7 @@ import static org.fuin.objects4j.junit.Objects4Conditions.haveACorrespondingPubl
  * <p>
  * The tests are located in this module and not in the affected modules to avoid a circular dependency.
  */
-@AnalyzeClasses(packagesOf = AsStringCapable.class, importOptions = ImportOption.DoNotIncludeTests.class)
+@AnalyzeClasses(packagesOf = AbstractStringValueObject.class, importOptions = ImportOption.DoNotIncludeTests.class)
 public class ArchitectureBaseTest {
 
     @ArchTest

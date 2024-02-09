@@ -19,6 +19,7 @@ package org.fuin.objects4j.core;
 
 import jakarta.validation.constraints.NotNull;
 import org.fuin.objects4j.common.Contract;
+import org.fuin.objects4j.common.ValueObject;
 
 import javax.annotation.concurrent.Immutable;
 import java.util.Collection;

@@ -20,8 +20,8 @@ package org.fuin.objects4j.jaxb;
 import jakarta.validation.constraints.NotNull;
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 import org.fuin.objects4j.common.Contract;
-import org.fuin.objects4j.core.AsStringCapable;
-import org.fuin.objects4j.core.ValueOfCapable;
+import org.fuin.objects4j.common.AsStringCapable;
+import org.fuin.objects4j.common.ValueOfCapable;
 
 /**
  * Converts a type into a string and back.

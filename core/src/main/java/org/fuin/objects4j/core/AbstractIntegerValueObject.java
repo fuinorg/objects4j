@@ -17,6 +17,8 @@
  */
 package org.fuin.objects4j.core;
 
+import org.fuin.objects4j.common.ValueObjectWithBaseType;
+
 import java.io.Serial;
 import java.io.Serializable;
 

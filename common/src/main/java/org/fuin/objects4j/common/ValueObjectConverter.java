@@ -15,7 +15,9 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library. If not, see http://www.gnu.org/licenses/.
  */
-package org.fuin.objects4j.core;
+package org.fuin.objects4j.common;
+
+import org.fuin.objects4j.common.ValueObjectWithBaseType;
 
 /**
  * Converts a value object into it's base type and back.

@@ -15,12 +15,18 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library. If not, see http://www.gnu.org/licenses/.
  */
-package org.fuin.objects4j.core;
+package org.fuin.objects4j.common;
 
 /**
- * Immutable object that represents an object whose equality isn't based on identity. That means instances of this type are equal when they
- * have the same value, not necessarily being the same object.
+ * Provides a string representation of itself.
  */
-public interface ValueObject {
+public interface AsStringCapable {
+
+    /**
+     * Returns this type as string.
+     * 
+     * @return String.
+     */
+    public String asString();
 
 }
