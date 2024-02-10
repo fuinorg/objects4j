@@ -20,8 +20,10 @@ package org.fuin.objects4j.core;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 
@@ -43,12 +45,13 @@ public final class PropertiesContainValidator implements ConstraintValidator<Pro
         if (props == null) {
             return true;
         }
+        final List<String> missing = new ArrayList<>();
         for (final String key : expectedKeys) {
             if (!props.containsKey(key)) {
-                return false;
+                missing.add(key);
             }
         }
-        return true;
+        return missing.isEmpty();
     }
 
 }

@@ -36,7 +36,7 @@ import java.lang.annotation.Target;
 @Documented
 public @interface DayOfTheWeekStr {
 
-    String message() default "{org.fuin.objects4j.vo.DaysOfTheWeekStr.message}";
+    String message() default "{org.fuin.objects4j.core.DaysOfTheWeekStr.message}";
 
     Class<?>[] groups() default {};
 

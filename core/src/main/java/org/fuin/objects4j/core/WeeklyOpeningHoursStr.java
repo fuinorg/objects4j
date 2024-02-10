@@ -37,7 +37,7 @@ import java.lang.annotation.Target;
 @Documented
 public @interface WeeklyOpeningHoursStr {
 
-    String message() default "{org.fuin.objects4j.vo.WeeklyOpeningHoursStr.message}";
+    String message() default "{org.fuin.objects4j.core.WeeklyOpeningHoursStr.message}";
 
     Class<?>[] groups() default {};
 

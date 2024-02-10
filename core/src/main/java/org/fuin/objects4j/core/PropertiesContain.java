@@ -36,7 +36,7 @@ import java.lang.annotation.Target;
 @Documented
 public @interface PropertiesContain {
 
-    String message() default "{org.fuin.objects4j.vo.PropertiesContain.message}";
+    String message() default "{org.fuin.objects4j.core.PropertiesContain.message}";
 
     Class<?>[] groups() default {};
 

@@ -48,7 +48,7 @@ import java.lang.annotation.Target;
 @Documented
 public @interface UserNameStr {
 
-    String message() default "{org.fuin.objects4j.vo.UserNameStr.message}";
+    String message() default "{org.fuin.objects4j.core.UserNameStr.message}";
 
     Class<?>[] groups() default {};
 

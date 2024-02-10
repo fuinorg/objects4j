@@ -43,7 +43,7 @@ import java.lang.annotation.Target;
 @Documented
 public @interface DayOpeningHoursStr {
 
-    String message() default "{org.fuin.objects4j.vo.DayOpeningHoursStr.message}";
+    String message() default "{org.fuin.objects4j.core.DayOpeningHoursStr.message}";
 
     Class<?>[] groups() default {};
 

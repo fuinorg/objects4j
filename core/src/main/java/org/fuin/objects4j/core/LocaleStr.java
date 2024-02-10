@@ -36,7 +36,7 @@ import java.lang.annotation.Target;
 @Documented
 public @interface LocaleStr {
 
-    String message() default "{org.fuin.objects4j.vo.LocaleStr.message}";
+    String message() default "{org.fuin.objects4j.core.LocaleStr.message}";
 
     Class<?>[] groups() default {};
 

@@ -36,7 +36,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER })
 @Retention(RUNTIME)
 public @interface TrimmedNotEmpty {
-    String message() default "{org.fuin.objects4j.vo.TrimmedNotEmpty.message}";
+    String message() default "{org.fuin.objects4j.core.TrimmedNotEmpty.message}";
 
     Class<?>[] groups() default {};
 

@@ -37,7 +37,7 @@ import java.lang.annotation.Target;
 @Documented
 public @interface MultiDayOfTheWeekStr {
 
-    String message() default "{org.fuin.objects4j.vo.MultiDayOfTheWeekStr.message}";
+    String message() default "{org.fuin.objects4j.core.MultiDayOfTheWeekStr.message}";
 
     Class<?>[] groups() default {};
 

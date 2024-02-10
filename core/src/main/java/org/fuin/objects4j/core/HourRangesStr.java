@@ -37,7 +37,7 @@ import java.lang.annotation.Target;
 @Documented
 public @interface HourRangesStr {
 
-    String message() default "{org.fuin.objects4j.vo.HourRangesStr.message}";
+    String message() default "{org.fuin.objects4j.core.HourRangesStr.message}";
 
     Class<?>[] groups() default {};
 

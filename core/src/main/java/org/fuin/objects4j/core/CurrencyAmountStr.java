@@ -37,7 +37,7 @@ import java.lang.annotation.Target;
 @Documented
 public @interface CurrencyAmountStr {
 
-    String message() default "{org.fuin.objects4j.vo.CurrencyAmountStr.message}";
+    String message() default "{org.fuin.objects4j.core.CurrencyAmountStr.message}";
 
     Class<?>[] groups() default {};
 

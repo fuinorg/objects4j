@@ -40,7 +40,7 @@ import java.lang.annotation.Target;
 @Documented
 public @interface UUIDStr {
 
-    String message() default "{org.fuin.objects4j.vo.UUIDStr.message}";
+    String message() default "{org.fuin.objects4j.core.UUIDStr.message}";
 
     Class<?>[] groups() default {};
 

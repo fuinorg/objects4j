@@ -17,6 +17,9 @@
  */
 package org.fuin.objects4j.core;
 
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,6 +36,8 @@ public final class PropertiesContainValidatorTest {
 
     private PropertiesContain constraintAnnotation;
 
+    private Validator validator;
+
     @BeforeEach
     public final void setUp() {
         testee = new PropertiesContainValidator();
@@ -41,21 +46,32 @@ public final class PropertiesContainValidatorTest {
         expect(constraintAnnotation.value()).andReturn(expected);
         replay(constraintAnnotation);
         testee.initialize(constraintAnnotation);
+        try (final ValidatorFactory factory = Validation.buildDefaultValidatorFactory()) {
+            validator = factory.getValidator();
+        }
     }
 
     @AfterEach
     public final void tearDown() {
         testee = null;
         constraintAnnotation = null;
+        this.validator = null;
     }
 
     @Test
     void testIsValidTRUE() {
 
         assertThat(testee.isValid(createProperties("b=1,c=2"), null)).isTrue();
+        assertThat(validator.validate(new MyExample(createProperties("b=1,c=2")))).isEmpty();
+
         assertThat(testee.isValid(createProperties("a=1,b=2,c=3,d=3"), null)).isTrue();
+        assertThat(validator.validate(new MyExample(createProperties("a=1,b=2,c=3,d=3")))).isEmpty();
+
         assertThat(testee.isValid(createProperties("b=2,c=3,d=3"), null)).isTrue();
+        assertThat(validator.validate(new MyExample(createProperties("b=2,c=3,d=3")))).isEmpty();
+
         assertThat(testee.isValid(null, null)).isTrue();
+        assertThat(validator.validate(new MyExample(null))).isEmpty();
 
     }
 
@@ -63,8 +79,13 @@ public final class PropertiesContainValidatorTest {
     void testIsValidFALSE() {
 
         assertThat(testee.isValid(createProperties("c=1,d=2"), null)).isFalse();
+        assertThat(validator.validate(new MyExample(createProperties("c=1,d=2")))).isNotEmpty();
+
         assertThat(testee.isValid(createProperties("c=1"), null)).isFalse();
+        assertThat(validator.validate(new MyExample(createProperties("c=2")))).isNotEmpty();
+
         assertThat(testee.isValid(createProperties(""), null)).isFalse();
+        assertThat(validator.validate(new MyExample(createProperties("")))).isNotEmpty();
 
     }
 
@@ -77,6 +98,17 @@ public final class PropertiesContainValidatorTest {
             props.put(tokEq.nextToken(), tokEq.nextToken());
         }
         return props;
+    }
+
+    public static class MyExample {
+
+        @PropertiesContain( { "b", "c" })
+        private Properties props;
+
+        public MyExample(final Properties props) {
+            this.props = props;
+        }
+
     }
 
 }

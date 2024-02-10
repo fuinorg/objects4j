@@ -40,7 +40,7 @@ import java.lang.annotation.Target;
 @Documented
 public @interface PasswordStr {
 
-    String message() default "{org.fuin.objects4j.vo.PasswordStr.message}";
+    String message() default "{org.fuin.objects4j.core.PasswordStr.message}";
 
     Class<?>[] groups() default {};
 

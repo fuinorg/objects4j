@@ -36,7 +36,7 @@ import java.lang.annotation.Target;
 @Documented
 public @interface DateStr {
 
-    String message() default "{org.fuin.objects4j.vo.DateStr.message}";
+    String message() default "{org.fuin.objects4j.core.DateStr.message}";
 
     Class<?>[] groups() default {};
 

@@ -40,7 +40,7 @@ import java.lang.annotation.Target;
 @Documented
 public @interface PasswordSha512Str {
 
-    String message() default "{org.fuin.objects4j.vo.PasswordSha512Str.message}";
+    String message() default "{org.fuin.objects4j.core.PasswordSha512Str.message}";
 
     Class<?>[] groups() default {};
 
