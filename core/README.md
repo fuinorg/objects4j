@@ -6,16 +6,16 @@ Provides Value Objects (immutable objects) that represents an object whose equal
 That means instances of this type are equal when they have the same value, not necessarily being the same object. 
 Additionally, some helper classes (like validators) are placed in this package.
 
-**Tip**: Starting with Java 14 [records](https://docs.oracle.com/en/java/javase/14/language/records.html) are also a good choice for defining Value Objects. 
+**Tip**: Java [records](https://docs.oracle.com/en/java/javase/14/language/records.html) are also a good choice for defining Value Objects. 
 
-## Base classes** that allow an easy implementation of concrete classes. 
+## Base classes that allow an easy implementation of concrete value object classes. 
 * [AbstractIntegerValueObject](src/main/java/org/fuin/objects4j/core/AbstractIntegerValueObject.java) - A value object that is based on an integer.
 * [AbstractLongValueObject](src/main/java/org/fuin/objects4j/core/AbstractLongValueObject.java) - A value object that is based on a long.
 * [AbstractStringValueObject](src/main/java/org/fuin/objects4j/core/AbstractStringValueObject.java) - A value object that is based on a string.
 * [AbstractUuidValueObject](src/main/java/org/fuin/objects4j/core/AbstractUuidValueObject.java) - A value object that is based on a UUID.
 
 ## Predefined Value Objects
-You can find different kind of converters for all value objects in the other modules:
+You can find different kind of converters for below value objects in the other modules:
 - Jackson [serializer/deserializer](../jackson)
 - JAX-B [adapter](../jaxb)
 - JPA [attribute converter](../jpa)
