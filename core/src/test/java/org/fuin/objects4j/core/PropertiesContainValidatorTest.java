@@ -20,7 +20,9 @@ package org.fuin.objects4j.core;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -36,7 +38,20 @@ public final class PropertiesContainValidatorTest {
 
     private PropertiesContain constraintAnnotation;
 
+    private static ValidatorFactory validatorFactory;
+
     private Validator validator;
+
+    @BeforeAll
+    public static void beforeAll() {
+        validatorFactory = Validation.buildDefaultValidatorFactory();
+    }
+
+    @AfterAll
+    public static void afterAll() {
+        validatorFactory.close();
+        validatorFactory = null;
+    }
 
     @BeforeEach
     public final void setUp() {
@@ -46,9 +61,7 @@ public final class PropertiesContainValidatorTest {
         expect(constraintAnnotation.value()).andReturn(expected);
         replay(constraintAnnotation);
         testee.initialize(constraintAnnotation);
-        try (final ValidatorFactory factory = Validation.buildDefaultValidatorFactory()) {
-            validator = factory.getValidator();
-        }
+        validator = validatorFactory.getValidator();
     }
 
     @AfterEach
