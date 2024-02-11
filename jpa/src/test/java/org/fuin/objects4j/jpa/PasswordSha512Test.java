@@ -19,7 +19,6 @@ package org.fuin.objects4j.jpa;
 
 import org.fuin.objects4j.core.Password;
 import org.fuin.objects4j.core.PasswordSha512;
-import org.fuin.units4j.AbstractPersistenceTest;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

@@ -19,7 +19,6 @@ package org.fuin.objects4j.jpa;
 
 import jakarta.persistence.Query;
 import org.fuin.objects4j.core.CurrencyAmount;
-import org.fuin.units4j.AbstractPersistenceTest;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
