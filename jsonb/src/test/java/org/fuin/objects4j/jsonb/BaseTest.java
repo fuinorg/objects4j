@@ -17,23 +17,14 @@
  */
 package org.fuin.objects4j.jsonb;
 
-import com.tngtech.archunit.core.domain.JavaClass;
 import com.tngtech.archunit.core.domain.JavaModifier;
 import com.tngtech.archunit.junit.AnalyzeClasses;
 import com.tngtech.archunit.junit.ArchIgnore;
 import com.tngtech.archunit.junit.ArchTest;
-import com.tngtech.archunit.lang.ArchCondition;
 import com.tngtech.archunit.lang.ArchRule;
-import com.tngtech.archunit.lang.ConditionEvents;
-import com.tngtech.archunit.lang.SimpleConditionEvent;
 
-import java.util.Collection;
-import java.util.Set;
-
-import static com.tngtech.archunit.lang.ConditionEvent.createMessage;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
-import static java.util.Collections.emptySet;
-import static java.util.stream.Collectors.toSet;
+import static org.fuin.units4j.archunit.AllTopLevelClassesHaveATestCondition.haveACorrespondingClassEndingWith;
 
 @AnalyzeClasses(packagesOf = BaseTest.class)
 class BaseTest {
@@ -49,43 +40,6 @@ class BaseTest {
                     .and().doNotHaveModifier(JavaModifier.ABSTRACT)
                     .and().areNotAnnotatedWith(ArchIgnore.class)
                     .should(haveACorrespondingClassEndingWith("Test"));
-
-    private static ArchCondition<JavaClass> haveACorrespondingClassEndingWith(String suffix) {
-        return new AllTopLevelClassesHaveATestCondition(suffix);
-    }
-
-    private static class AllTopLevelClassesHaveATestCondition extends ArchCondition<JavaClass> {
-
-        private final String suffix;
-
-        private Set<String> testedClassNames;
-
-        public AllTopLevelClassesHaveATestCondition(final String suffix) {
-            super("have a corresponding test class with suffix '" + suffix + "'");
-            this.suffix = suffix;
-            this.testedClassNames = emptySet();
-        }
-
-        @Override
-        public void init(Collection<JavaClass> allClasses) {
-            testedClassNames = allClasses.stream()
-                    .map(JavaClass::getName)
-                    .filter(className -> className.endsWith(suffix))
-                    .map(className -> className.substring(0, className.length() - suffix.length()))
-                    .collect(toSet());
-        }
-
-        @Override
-        public void check(JavaClass clazz, ConditionEvents events) {
-            if (!clazz.getName().endsWith(suffix)) {
-                boolean satisfied = testedClassNames.contains(clazz.getName());
-                String message = createMessage(clazz, "has " + (satisfied ? "a" : "no") + " corresponding test class");
-                events.add(new SimpleConditionEvent(clazz, satisfied, message));
-            }
-        }
-
-    }
-
 
 }
 

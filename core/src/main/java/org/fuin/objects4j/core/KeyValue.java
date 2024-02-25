@@ -1,17 +1,17 @@
 /**
- * Copyright (C) 2015 Michael Schnell. All rights reserved. 
+ * Copyright (C) 2015 Michael Schnell. All rights reserved.
  * http://www.fuin.org/
- *
+ * <p>
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
  * Software Foundation; either version 3 of the License, or (at your option) any
  * later version.
- *
+ * <p>
  * This library is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
- *
+ * <p>
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library. If not, see http://www.gnu.org/licenses/.
  */
@@ -46,7 +46,7 @@ public final class KeyValue implements ValueObject {
 
     /**
      * Constructor with key and value.
-     * 
+     *
      * @param key
      *            Key.
      * @param value
@@ -62,7 +62,7 @@ public final class KeyValue implements ValueObject {
 
     /**
      * Returns the key.
-     * 
+     *
      * @return Key.
      */
     public final String getKey() {
@@ -71,7 +71,7 @@ public final class KeyValue implements ValueObject {
 
     /**
      * Returns the value.
-     * 
+     *
      * @return Value.
      */
     public final Object getValue() {
@@ -80,7 +80,7 @@ public final class KeyValue implements ValueObject {
 
     /**
      * Returns the value as string.
-     * 
+     *
      * @return Value or "null".
      */
     public final String getValueString() {
@@ -90,15 +90,23 @@ public final class KeyValue implements ValueObject {
         return value.toString();
     }
 
+    @Override
+    public String toString() {
+        return "KeyValue{" +
+                "key='" + key + '\'' +
+                ", value=" + value +
+                '}';
+    }
+
     /**
      * Replaces all variables in the format "${NAME}" with the corresponding value. NAME is the name of a key from the <code>keyValue</code>
      * array.
-     * 
+     *
      * @param message
      *            Message to replace.
      * @param keyValue
      *            Array of key values or {@literal null}.
-     * 
+     *
      * @return Replaced message.
      */
     public static String replace(final String message, final KeyValue... keyValue) {
@@ -134,12 +142,12 @@ public final class KeyValue implements ValueObject {
 
     /**
      * Replaces all variables inside a string with values from a map.
-     * 
+     *
      * @param str
      *            Text with variables (Format: ${key} ) - May be {@literal null} or empty.
      * @param vars
      *            Map with key/values (both of type <code>String</code> - Cannot be {@literal null}.
-     * 
+     *
      * @return String with replaced variables. Unknown variables will remain unchanged.
      */
     public static String replaceVars(final String str, final Map<String, String> vars) {

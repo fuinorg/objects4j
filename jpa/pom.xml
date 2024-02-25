@@ -98,6 +98,12 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.fuin</groupId>
+            <artifactId>units4j</artifactId>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -161,6 +167,7 @@
                         <ignoredUnusedDeclaredDependency>org.hibernate.validator:hibernate-validator</ignoredUnusedDeclaredDependency>
                         <ignoredUnusedDeclaredDependency>org.hibernate.orm:hibernate-core</ignoredUnusedDeclaredDependency>
                         <ignoredUnusedDeclaredDependency>org.hsqldb:hsqldb</ignoredUnusedDeclaredDependency>
+                        <ignoredUnusedDeclaredDependency>org.fuin:units4j</ignoredUnusedDeclaredDependency>
                         <ignoredUnusedDeclaredDependency>com.tngtech.archunit:archunit-junit5</ignoredUnusedDeclaredDependency>
                         <ignoredUnusedDeclaredDependency>org.junit.jupiter:junit-jupiter</ignoredUnusedDeclaredDependency>
                     </ignoredUnusedDeclaredDependencies>
