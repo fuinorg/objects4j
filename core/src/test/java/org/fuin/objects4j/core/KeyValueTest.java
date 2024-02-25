@@ -17,7 +17,9 @@
  */
 package org.fuin.objects4j.core;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
 import org.fuin.objects4j.common.ConstraintViolationException;
+import org.fuin.utils4j.Utils4J;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -52,6 +54,21 @@ public final class KeyValueTest {
             assertThat(ex.getMessage()).isEqualTo("The argument 'key' cannot be empty");
         }
 
+    }
+
+    @Test
+    void testEqualHashCode() {
+        EqualsVerifier.forClass(KeyValue.class).withIgnoredFields("value").verify();
+    }
+
+    @Test
+    void testSerializeDeserialize() {
+        final KeyValue original = new KeyValue("one", 1);
+        final KeyValue copy = Utils4J.deserialize(Utils4J.serialize(original));
+        assertThat(copy).isEqualTo(original);
+        assertThat(copy.getKey()).isEqualTo(original.getKey());
+        assertThat(copy.getValue()).isEqualTo(original.getValue());
+        assertThat(copy.getValueString()).isEqualTo("1");
     }
 
     @Test

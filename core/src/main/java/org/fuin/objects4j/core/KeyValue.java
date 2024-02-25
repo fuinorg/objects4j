@@ -22,35 +22,41 @@ import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.common.ValueObject;
 
 import javax.annotation.concurrent.Immutable;
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
- * Container for a key and a value.
+ * Container for a key and a value. Equals and hashcode are based on the key only.
  */
 @Immutable
-public final class KeyValue implements ValueObject {
+public final class KeyValue implements ValueObject, Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1000L;
 
     @TrimmedNotEmpty
-    private String key;
+    private final String key;
 
-    private Object value;
+    private final Object value;
 
     /**
      * Protected default constructor for deserialization.
      */
     protected KeyValue() {
         super();
+        this.key = null;
+        this.value = null;
     }
 
     /**
      * Constructor with key and value.
      *
-     * @param key
-     *            Key.
-     * @param value
-     *            Value.
+     * @param key   Key.
+     * @param value Value.
      */
     public KeyValue(@NotNull @TrimmedNotEmpty final String key, final Object value) {
         super();
@@ -65,7 +71,7 @@ public final class KeyValue implements ValueObject {
      *
      * @return Key.
      */
-    public final String getKey() {
+    public String getKey() {
         return key;
     }
 
@@ -74,7 +80,7 @@ public final class KeyValue implements ValueObject {
      *
      * @return Value.
      */
-    public final Object getValue() {
+    public Object getValue() {
         return value;
     }
 
@@ -83,11 +89,24 @@ public final class KeyValue implements ValueObject {
      *
      * @return Value or "null".
      */
-    public final String getValueString() {
+    public String getValueString() {
         if (value == null) {
             return "null";
         }
         return value.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        KeyValue keyValue = (KeyValue) o;
+        return Objects.equals(key, keyValue.key);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(key);
     }
 
     @Override
@@ -102,11 +121,8 @@ public final class KeyValue implements ValueObject {
      * Replaces all variables in the format "${NAME}" with the corresponding value. NAME is the name of a key from the <code>keyValue</code>
      * array.
      *
-     * @param message
-     *            Message to replace.
-     * @param keyValue
-     *            Array of key values or {@literal null}.
-     *
+     * @param message  Message to replace.
+     * @param keyValue Array of key values or {@literal null}.
      * @return Replaced message.
      */
     public static String replace(final String message, final KeyValue... keyValue) {
@@ -143,11 +159,8 @@ public final class KeyValue implements ValueObject {
     /**
      * Replaces all variables inside a string with values from a map.
      *
-     * @param str
-     *            Text with variables (Format: ${key} ) - May be {@literal null} or empty.
-     * @param vars
-     *            Map with key/values (both of type <code>String</code> - Cannot be {@literal null}.
-     *
+     * @param str  Text with variables (Format: ${key} ) - May be {@literal null} or empty.
+     * @param vars Map with key/values (both of type <code>String</code> - Cannot be {@literal null}.
      * @return String with replaced variables. Unknown variables will remain unchanged.
      */
     public static String replaceVars(final String str, final Map<String, String> vars) {
