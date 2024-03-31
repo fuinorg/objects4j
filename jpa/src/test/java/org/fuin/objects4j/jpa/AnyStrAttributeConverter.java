@@ -1,11 +1,11 @@
 package org.fuin.objects4j.jpa;
 
-import com.tngtech.archunit.junit.ArchIgnore;
+import org.fuin.utils4j.TestOmitted;
 
 /**
  * Test implementation for a {@link ValueObjectStringAttributeConverter}.
  */
-@ArchIgnore
+@TestOmitted("Only a test class")
 public class AnyStrAttributeConverter extends ValueObjectStringAttributeConverter<AnyStr> {
 
     /**

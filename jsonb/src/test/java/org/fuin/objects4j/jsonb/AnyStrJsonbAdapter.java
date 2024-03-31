@@ -1,11 +1,11 @@
 package org.fuin.objects4j.jsonb;
 
-import com.tngtech.archunit.junit.ArchIgnore;
+import org.fuin.utils4j.TestOmitted;
 
 /**
  * Test implementation for a {@link ValueObjectStringJsonbAdapter}.
  */
-@ArchIgnore
+@TestOmitted("Only a test class")
 public class AnyStrJsonbAdapter extends ValueObjectStringJsonbAdapter<AnyStr> {
 
     /**

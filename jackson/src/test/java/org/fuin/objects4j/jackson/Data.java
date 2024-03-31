@@ -20,7 +20,6 @@ package org.fuin.objects4j.jackson;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.tngtech.archunit.junit.ArchIgnore;
 import org.fuin.objects4j.core.CurrencyAmount;
 import org.fuin.objects4j.core.DayOfTheWeek;
 import org.fuin.objects4j.core.DayOpeningHours;
@@ -32,6 +31,7 @@ import org.fuin.objects4j.core.MultiDayOfTheWeek;
 import org.fuin.objects4j.core.PasswordSha512;
 import org.fuin.objects4j.core.UserName;
 import org.fuin.objects4j.core.WeeklyOpeningHours;
+import org.fuin.utils4j.TestOmitted;
 
 import java.util.Currency;
 import java.util.Locale;
@@ -40,7 +40,7 @@ import java.util.UUID;
 /**
  * JSON container used for tests.
  */
-@ArchIgnore
+@TestOmitted("Only a test class")
 public class Data {
 
     @JsonSerialize(using = EmailAddressJacksonSerializer.class)

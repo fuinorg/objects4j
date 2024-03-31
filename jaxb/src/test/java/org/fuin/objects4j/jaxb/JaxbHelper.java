@@ -17,11 +17,11 @@
  */
 package org.fuin.objects4j.jaxb;
 
-import com.tngtech.archunit.junit.ArchIgnore;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;
+import org.fuin.utils4j.TestOmitted;
 import org.fuin.utils4j.jaxb.MarshallerBuilder;
 import org.fuin.utils4j.jaxb.UnmarshallerBuilder;
 
@@ -33,7 +33,7 @@ import static org.fuin.utils4j.jaxb.JaxbUtils.unmarshal;
 /**
  * Utility class for this package.
  */
-@ArchIgnore
+@TestOmitted("Only a test class")
 class JaxbHelper {
 
     private JaxbHelper() {

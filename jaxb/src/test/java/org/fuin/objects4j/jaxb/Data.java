@@ -17,7 +17,6 @@
  */
 package org.fuin.objects4j.jaxb;
 
-import com.tngtech.archunit.junit.ArchIgnore;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -32,6 +31,7 @@ import org.fuin.objects4j.core.MultiDayOfTheWeek;
 import org.fuin.objects4j.core.PasswordSha512;
 import org.fuin.objects4j.core.UserName;
 import org.fuin.objects4j.core.WeeklyOpeningHours;
+import org.fuin.utils4j.TestOmitted;
 
 import java.util.Currency;
 import java.util.Locale;
@@ -40,7 +40,7 @@ import java.util.UUID;
 /**
  * XML container used for tests.
  */
-@ArchIgnore
+@TestOmitted("Only a test class")
 @XmlRootElement
 public class Data {
 

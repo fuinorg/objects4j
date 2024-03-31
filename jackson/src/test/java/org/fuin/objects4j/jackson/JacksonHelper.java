@@ -20,12 +20,12 @@ package org.fuin.objects4j.jackson;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tngtech.archunit.junit.ArchIgnore;
+import org.fuin.utils4j.TestOmitted;
 
 /**
  * Utility class for this package.
  */
-@ArchIgnore
+@TestOmitted("Only a test class")
 class JacksonHelper {
 
     private JacksonHelper() {

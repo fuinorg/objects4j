@@ -17,8 +17,8 @@
  */
 package org.fuin.objects4j.ui;
 
-import com.tngtech.archunit.junit.ArchIgnore;
 import my.test.MyClass;
+import org.fuin.utils4j.TestOmitted;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
@@ -28,7 +28,7 @@ import java.util.Locale;
 /**
  * Usage examples.
  */
-@ArchIgnore
+@TestOmitted("Only a test class")
 public class UsageExamples {
 
     /**

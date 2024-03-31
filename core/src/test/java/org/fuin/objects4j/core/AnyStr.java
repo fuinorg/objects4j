@@ -1,14 +1,14 @@
 package org.fuin.objects4j.core;
 
-import com.tngtech.archunit.junit.ArchIgnore;
 import org.fuin.objects4j.common.Contract;
+import org.fuin.utils4j.TestOmitted;
 
 import java.io.Serial;
 
 /**
  * Test implementation for a {@link AbstractStringValueObject}.
  */
-@ArchIgnore
+@TestOmitted("Only a test class")
 public final class AnyStr extends AbstractStringValueObject {
 
     @Serial

@@ -1,11 +1,11 @@
 package org.fuin.objects4j.jackson;
 
-import com.tngtech.archunit.junit.ArchIgnore;
+import org.fuin.utils4j.TestOmitted;
 
 /**
  * Test implementation for a {@link ValueObjectStringJacksonSerializer}.
  */
-@ArchIgnore
+@TestOmitted("Only a test class")
 public class AnyStrJacksonSerializer extends ValueObjectStringJacksonSerializer<AnyStr> {
 
     /**

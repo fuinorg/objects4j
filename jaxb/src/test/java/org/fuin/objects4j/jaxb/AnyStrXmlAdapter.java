@@ -1,11 +1,11 @@
 package org.fuin.objects4j.jaxb;
 
-import com.tngtech.archunit.junit.ArchIgnore;
+import org.fuin.utils4j.TestOmitted;
 
 /**
  * Test implementation for a {@link ValueObjectStringXmlAdapter}.
  */
-@ArchIgnore
+@TestOmitted("Only a test class")
 public class AnyStrXmlAdapter extends ValueObjectStringXmlAdapter<AnyStr> {
 
     /**

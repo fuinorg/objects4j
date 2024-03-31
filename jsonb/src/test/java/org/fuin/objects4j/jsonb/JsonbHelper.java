@@ -17,19 +17,19 @@
  */
 package org.fuin.objects4j.jsonb;
 
-import com.tngtech.archunit.junit.ArchIgnore;
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
 import jakarta.json.bind.JsonbConfig;
 import jakarta.json.bind.adapter.JsonbAdapter;
 import org.eclipse.yasson.FieldAccessStrategy;
+import org.fuin.utils4j.TestOmitted;
 
 import java.util.List;
 
 /**
  * Utility class for this package.
  */
-@ArchIgnore
+@TestOmitted("Only a test class")
 class JsonbHelper {
 
     private JsonbHelper() {

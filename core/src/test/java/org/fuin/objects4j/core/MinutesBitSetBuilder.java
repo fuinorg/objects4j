@@ -17,16 +17,16 @@
  */
 package org.fuin.objects4j.core;
 
-import com.tngtech.archunit.junit.ArchIgnore;
 import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.objects4j.common.Contract;
+import org.fuin.utils4j.TestOmitted;
 
 import java.util.BitSet;
 
 /**
  * Helps building a bit set for hour/minutes.
  */
-@ArchIgnore
+@TestOmitted("Only a test class")
 public final class MinutesBitSetBuilder {
 
     private BitSet bitSet;
