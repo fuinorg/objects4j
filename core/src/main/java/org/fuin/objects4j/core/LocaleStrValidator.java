@@ -46,7 +46,7 @@ public final class LocaleStrValidator implements ConstraintValidator<LocaleStr, 
      * @param value
      *            Value to check.
      *
-     * @return Returns {@literal true} if it's a valid Localed else {@literal false} is returned.
+     * @return Returns {@literal true} if it's a valid Locale else {@literal false} is returned.
      */
     public static boolean isValid(final String value) {
         if (value == null) {

@@ -52,7 +52,7 @@ public final class LocaleStrValidatorTest {
         for (final Locale locale : locales) {
             final String value = locale.toString();
             // Skip locales like ja_JP_JP_#u-ca-japanese as we cannot handle it
-            if (!value.contains("#") && !value.equals("")) {
+            if (!value.contains("#") && !value.isEmpty()) {
                 assertThat(testee.isValid(value, CONTEXT)).describedAs(value).isTrue();
                 assertThat(LocaleStrValidator.parseArg("a", value)).describedAs(value).isEqualTo(locale);
             }
