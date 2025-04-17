@@ -70,7 +70,8 @@ public class Objects4JJacksonAdapterModule extends Module {
 
     @Override
     public Version version() {
-        return new Version(0, 10, 0, "SNAPSHOT");
+        // Don't forget to change from release to SNAPSHOT and back!
+        return new Version(0, 10, 0, null);
     }
 
 }
