@@ -89,13 +89,13 @@
             <dependency>
                 <groupId>org.fuin</groupId>
                 <artifactId>utils4j</artifactId>
-                <version>0.14.0-SNAPSHOT</version>
+                <version>0.14.0</version>
             </dependency>
 
             <dependency>
                 <groupId>org.fuin</groupId>
                 <artifactId>units4j</artifactId>
-                <version>0.12.0-SNAPSHOT</version>
+                <version>0.12.0</version>
             </dependency>
 
             <dependency>
@@ -360,7 +360,7 @@
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>3.2.3</version>
                     <configuration>
-                        <argLine>-Duser.country=US -Duser.language=en --add-opens java.base/java.util=ALL-UNNAMED ${argLine}</argLine>
+                        <argLine>@{argLine} -Duser.country=US -Duser.language=en --add-opens java.base/java.util=ALL-UNNAMED</argLine>
                     </configuration>
                 </plugin>
 

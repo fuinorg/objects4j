@@ -8,7 +8,7 @@ A library with common Java types that are mostly immutable value objects.
 [![Java Development Kit 17](https://img.shields.io/badge/JDK-17-green.svg)](https://openjdk.java.net/projects/jdk/17/)
 
 ## Versions
-- 0.10.x(or later) = **New (incompatible) module structure** (See [New Module Structure](new-module-structure.md))
+- 0.10.0 = See [Release Notes](release-notes.md)
 - 0.9.0 = **Java 17**
 - 0.8.0 = **Java 11** with new **jakarta** namespace
 - 0.7.x = **Java 11** before namespace change from 'javax' to 'jakarta'
