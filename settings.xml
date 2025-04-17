@@ -30,6 +30,7 @@
                 <sonar.host.url>https://sonarcloud.io</sonar.host.url>
                 <sonar.organization>fuinorg</sonar.organization>
                 <sonar.projectKey>org.fuin:objects4j</sonar.projectKey>
+                <sonar.moduleKey>${artifactId}</sonar.moduleKey>
             </properties>
 
             <repositories>
@@ -66,7 +67,7 @@
                 <pluginRepository>
                     <id>sonatype.oss.snapshots</id>
                     <name>Sonatype OSS Snapshot Repository</name>
-                    <url>http://oss.sonatype.org/content/repositories/snapshots</url>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
                     <releases>
                         <enabled>false</enabled>
                     </releases>
