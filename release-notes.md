@@ -1,5 +1,8 @@
 # Release Notes
 
+## 0.11.0
+- Removed unnecessary Jackson serializer/deserializer classes
+
 ## 0.10.0
 
 ### General

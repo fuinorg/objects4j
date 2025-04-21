@@ -13,7 +13,7 @@
     <groupId>org.fuin.objects4j</groupId>
     <artifactId>objects4j-parent</artifactId>
     <packaging>pom</packaging>
-    <version>0.10.0</version>
+    <version>0.11.0-SNAPSHOT</version>
 
     <description>A library with common Java types that are mostly immutable value objects.</description>
     <url>http://www.fuin.org/objects4j/</url>

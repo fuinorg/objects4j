@@ -40,7 +40,7 @@ class JacksonHelper {
      */
     public static <T> String toJson(final T obj) {
         try {
-            final ObjectMapper mapper = new ObjectMapper();
+            final ObjectMapper mapper = new ObjectMapper().registerModule(new Objects4JJacksonAdapterModule());
             mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
             return mapper.writeValueAsString(obj);
         } catch (JsonProcessingException e) {
@@ -57,7 +57,7 @@ class JacksonHelper {
      */
     public static <T> T fromJson(final String json, final Class<T> clasz) {
         try {
-            final ObjectMapper mapper = new ObjectMapper();
+            final ObjectMapper mapper = new ObjectMapper().registerModule(new Objects4JJacksonAdapterModule());
             return mapper.readValue(json, clasz);
         } catch (final JsonProcessingException ex) {
             throw new RuntimeException(ex);

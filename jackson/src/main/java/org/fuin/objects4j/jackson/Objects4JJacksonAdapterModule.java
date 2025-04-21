@@ -34,44 +34,44 @@ public class Objects4JJacksonAdapterModule extends Module {
     public void setupModule(Module.SetupContext context) {
 
         final SimpleSerializers serializers = new SimpleSerializers();
-        serializers.addSerializer(new CurrencyAmountJacksonSerializer());
+        serializers.addSerializer(new ValueObjectStringJacksonSerializer<>(CurrencyAmount.class));
         serializers.addSerializer(new CurrencyJacksonSerializer());
-        serializers.addSerializer(new DayOfTheWeekJacksonSerializer());
-        serializers.addSerializer(new DayOpeningHoursJacksonSerializer());
-        serializers.addSerializer(new EmailAddressJacksonSerializer());
-        serializers.addSerializer(new HourJacksonSerializer());
-        serializers.addSerializer(new HourRangeJacksonSerializer());
-        serializers.addSerializer(new HourRangesJacksonSerializer());
+        serializers.addSerializer(new ValueObjectStringJacksonSerializer<>(DayOfTheWeek.class));
+        serializers.addSerializer(new ValueObjectStringJacksonSerializer<>(DayOpeningHours.class));
+        serializers.addSerializer(new ValueObjectStringJacksonSerializer<>(EmailAddress.class));
+        serializers.addSerializer(new ValueObjectStringJacksonSerializer<>(Hour.class));
+        serializers.addSerializer(new ValueObjectStringJacksonSerializer<>(HourRange.class));
+        serializers.addSerializer(new ValueObjectStringJacksonSerializer<>(HourRanges.class));
         serializers.addSerializer(new LocaleJacksonSerializer());
-        serializers.addSerializer(new MultiDayOfTheWeekJacksonSerializer());
-        serializers.addSerializer(new PasswordSha512JacksonSerializer());
-        serializers.addSerializer(new UserNameJacksonSerializer());
+        serializers.addSerializer(new ValueObjectStringJacksonSerializer<>(MultiDayOfTheWeek.class));
+        serializers.addSerializer(new ValueObjectStringJacksonSerializer<>(PasswordSha512.class));
+        serializers.addSerializer(new ValueObjectStringJacksonSerializer<>(UserName.class));
         serializers.addSerializer(new UUIDJacksonSerializer());
-        serializers.addSerializer(new WeeklyOpeningHoursJacksonSerializer());
+        serializers.addSerializer(new ValueObjectStringJacksonSerializer<>(WeeklyOpeningHours.class));
         context.addSerializers(serializers);
 
         final SimpleDeserializers deserializers = new SimpleDeserializers();
-        deserializers.addDeserializer(CurrencyAmount.class, new CurrencyAmountJacksonDeserializer());
+        deserializers.addDeserializer(CurrencyAmount.class, new ValueObjectStringJacksonDeserializer<>(CurrencyAmount.class, CurrencyAmount::valueOf));
         deserializers.addDeserializer(Currency.class, new CurrencyJacksonDeserializer());
-        deserializers.addDeserializer(DayOfTheWeek.class, new DayOfTheWeekJacksonDeserializer());
-        deserializers.addDeserializer(DayOpeningHours.class, new DayOpeningHoursJacksonDeserializer());
-        deserializers.addDeserializer(EmailAddress.class, new EmailAddressJacksonDeserializer());
-        deserializers.addDeserializer(Hour.class, new HourJacksonDeserializer());
-        deserializers.addDeserializer(HourRange.class, new HourRangeJacksonDeserializer());
-        deserializers.addDeserializer(HourRanges.class, new HourRangesJacksonDeserializer());
+        deserializers.addDeserializer(DayOfTheWeek.class, new ValueObjectStringJacksonDeserializer<>(DayOfTheWeek.class, DayOfTheWeek::valueOf));
+        deserializers.addDeserializer(DayOpeningHours.class, new ValueObjectStringJacksonDeserializer<>(DayOpeningHours.class, DayOpeningHours::valueOf));
+        deserializers.addDeserializer(EmailAddress.class, new ValueObjectStringJacksonDeserializer<>(EmailAddress.class, EmailAddress::valueOf));
+        deserializers.addDeserializer(Hour.class, new ValueObjectStringJacksonDeserializer<>(Hour.class, Hour::valueOf));
+        deserializers.addDeserializer(HourRange.class, new ValueObjectStringJacksonDeserializer<>(HourRange.class, HourRange::valueOf));
+        deserializers.addDeserializer(HourRanges.class, new ValueObjectStringJacksonDeserializer<>(HourRanges.class, HourRanges::valueOf));
         deserializers.addDeserializer(Locale.class, new LocaleJacksonDeserializer());
-        deserializers.addDeserializer(MultiDayOfTheWeek.class, new MultiDayOfTheWeekJacksonDeserializer());
-        deserializers.addDeserializer(PasswordSha512.class, new PasswordSha512JacksonDeserializer());
-        deserializers.addDeserializer(UserName.class, new UserNameJacksonDeserializer());
+        deserializers.addDeserializer(MultiDayOfTheWeek.class, new ValueObjectStringJacksonDeserializer<>(MultiDayOfTheWeek.class, MultiDayOfTheWeek::valueOf));
+        deserializers.addDeserializer(PasswordSha512.class, new ValueObjectStringJacksonDeserializer<>(PasswordSha512.class, PasswordSha512::valueOf));
+        deserializers.addDeserializer(UserName.class, new ValueObjectStringJacksonDeserializer<>(UserName.class, UserName::valueOf));
         deserializers.addDeserializer(UUID.class, new UUIDJacksonDeserializer());
-        deserializers.addDeserializer(WeeklyOpeningHours.class, new WeeklyOpeningHoursJacksonDeserializer());
+        deserializers.addDeserializer(WeeklyOpeningHours.class, new ValueObjectStringJacksonDeserializer<>(WeeklyOpeningHours.class, WeeklyOpeningHours::valueOf));
         context.addDeserializers(deserializers);
     }
 
     @Override
     public Version version() {
         // Don't forget to change from release to SNAPSHOT and back!
-        return new Version(0, 10, 0, null);
+        return new Version(0, 11, 0, "SNAPSHOT");
     }
 
 }

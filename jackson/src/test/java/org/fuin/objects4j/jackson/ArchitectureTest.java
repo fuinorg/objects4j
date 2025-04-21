@@ -46,9 +46,14 @@ class ArchitectureTest {
             .should()
             .onlyDependOnClassesThat()
             .resideInAnyPackage(JACKSON_PACKAGE, COMMON_PACKAGE, CORE_PACKAGE,
-                    "java.lang..", "java.util..", "java.io",
-                    "jakarta.validation..", "jakarta.annotation..", "com.fasterxml.jackson..",
-                    "javax.annotation.concurrent");
+                    "java.lang..",
+                    "java.util..",
+                    "java.io",
+                    "jakarta.validation..",
+                    "jakarta.annotation..",
+                    "com.fasterxml.jackson..",
+                    "javax.annotation.concurrent",
+                    "org.fuin.utils4j..");
 
 
 }

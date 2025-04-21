@@ -38,7 +38,7 @@ public final class LocaleJacksonDeserializer extends StdDeserializer<Locale> {
      * Default constructor.
      */
     public LocaleJacksonDeserializer() {
-        super(Currency.class);
+        super(Locale.class);
     }
 
     @Override
