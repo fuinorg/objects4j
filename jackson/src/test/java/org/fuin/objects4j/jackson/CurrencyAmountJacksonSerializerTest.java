@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test for the {@link CurrencyAmountJacksonSerializer} class.
+ * Test for {@link CurrencyAmount} serialization.
  */
 class CurrencyAmountJacksonSerializerTest {
 

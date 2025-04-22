@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 /**
- * Test for the {@link MultiDayOfTheWeekJacksonSerializer} class.
+ * Test for {@link MultiDayOfTheWeek} serialization.
  */
 public class MultiDayOfTheWeekJacksonSerializerTest {
 

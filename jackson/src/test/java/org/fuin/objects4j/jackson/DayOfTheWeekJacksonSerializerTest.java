@@ -25,7 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 /**
- * Test for the {@link DayOfTheWeekJacksonSerializer} class.
+ * Test for {@link DayOfTheWeek} serialization.
  */
 public class DayOfTheWeekJacksonSerializerTest {
 

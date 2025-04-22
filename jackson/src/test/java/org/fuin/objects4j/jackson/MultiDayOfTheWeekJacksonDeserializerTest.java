@@ -26,7 +26,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 /**
- * Test for the {@link MultiDayOfTheWeekJacksonDeserializer} class.
+ * Test for {@link MultiDayOfTheWeek} deserialization.
  */
 public class MultiDayOfTheWeekJacksonDeserializerTest {
 

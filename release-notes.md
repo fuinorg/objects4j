@@ -2,6 +2,7 @@
 
 ## 0.11.0
 - Removed unnecessary Jackson serializer/deserializer classes
+- Added new [Objects4JacksonUtils](jackson/src/main/java/org/fuin/objects4j/jackson/Objects4JacksonUtils.java) utility class 
 
 ## 0.10.0
 

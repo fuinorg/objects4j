@@ -26,7 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
- * Test for the {@link UserNameJacksonSerializer} class.
+ * Test for {@link UserName} serialization.
  */
 public class UserNameJacksonSerializerTest {
 

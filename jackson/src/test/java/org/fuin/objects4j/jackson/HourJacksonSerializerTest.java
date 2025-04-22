@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test for the {@link HourJacksonSerializer} class.
+ * Test for {@link Hour} serialization.
  */
 public class HourJacksonSerializerTest {
 

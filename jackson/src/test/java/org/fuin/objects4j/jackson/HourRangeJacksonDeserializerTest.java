@@ -26,7 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
- * Test for the {@link HourRangeJacksonDeserializer} class.
+ * Test for {@link HourRange} deserialization.
  */
 public class HourRangeJacksonDeserializerTest {
 
