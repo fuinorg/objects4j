@@ -12,11 +12,28 @@ import java.util.Objects;
 /**
  * Thread-safe access to Jackson's {@link com.fasterxml.jackson.databind.ObjectMapper}.
  *
- * @param reader Reader that is thread-safe to use.
- * @param writer Writer that is thread-safe to use.
+ * @param objectMapper Mapper that provides the reader and writer.
  */
 @ThreadSafe
-public record ImmutableObjectMapper(ObjectReader reader, ObjectWriter writer) {
+public record ImmutableObjectMapper(ObjectMapper objectMapper) {
+
+    /**
+     * Thread-safe reader.
+     *
+     * @return Reader.
+     */
+    public ObjectReader reader() {
+        return objectMapper.reader();
+    }
+
+    /**
+     * Thread-safe writer.
+     *
+     * @return Writer.
+     */
+    public ObjectWriter writer() {
+        return objectMapper.writer();
+    }
 
     /**
      * Helper to allow late initialization of the mapper.
@@ -113,7 +130,7 @@ public record ImmutableObjectMapper(ObjectReader reader, ObjectWriter writer) {
         public ImmutableObjectMapper build() {
             ensureNotBuilt();
             built = true;
-            return new ImmutableObjectMapper(mapper.reader(), mapper.writer());
+            return new ImmutableObjectMapper(mapper);
         }
 
         private void ensureNotBuilt() {
