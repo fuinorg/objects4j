@@ -386,6 +386,7 @@ public final class AnnotationAnalyzer {
         return name;
     }
 
+    @SuppressWarnings("java:S101") // We don't care here about class name
     private static final class UNKNOWN_CLASS {
 
     }

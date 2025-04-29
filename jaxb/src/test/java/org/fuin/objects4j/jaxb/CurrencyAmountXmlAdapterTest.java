@@ -29,8 +29,6 @@ public class CurrencyAmountXmlAdapterTest {
 
     private static final String XML = XML_PREFIX + "<data ca=\"1234.56 EUR\"/>";
 
-    private static final String JSON = "{\"ca\":\"1234.56 EUR\"}";
-
     @Test
     public final void testMarshalJaxb() throws JAXBException {
 

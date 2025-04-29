@@ -71,7 +71,8 @@ public class Objects4JJacksonAdapterModule extends Module {
     @Override
     public Version version() {
         // Don't forget to change from release to SNAPSHOT and back!
-        return new Version(0, 11, 0, "SNAPSHOT");
+        return new Version(0, 11, 0, "SNAPSHOT",
+                "org.fuin.objects4j", "objects4j-jackson");
     }
 
 }

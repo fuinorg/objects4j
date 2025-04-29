@@ -30,8 +30,6 @@ public class EmailAddressXmlAdapterTest {
 
     private static final String XML = XML_PREFIX + "<data email=\"a@b.c\"/>";
 
-    private static final String JSON = "{\"email\":\"a@b.c\"}";
-
     @Test
     public final void testMarshal() throws JAXBException {
 

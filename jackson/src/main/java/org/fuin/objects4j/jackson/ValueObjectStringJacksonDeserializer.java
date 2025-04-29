@@ -23,7 +23,6 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import jakarta.validation.constraints.NotNull;
 import org.fuin.objects4j.common.Contract;
-import org.fuin.objects4j.common.AsStringCapable;
 import org.fuin.objects4j.common.ValueOfCapable;
 import org.fuin.utils4j.TestOmitted;
 

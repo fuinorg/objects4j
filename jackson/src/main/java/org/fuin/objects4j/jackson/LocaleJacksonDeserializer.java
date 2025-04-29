@@ -25,7 +25,6 @@ import org.fuin.objects4j.core.LocaleHelper;
 
 import javax.annotation.concurrent.ThreadSafe;
 import java.io.IOException;
-import java.util.Currency;
 import java.util.Locale;
 
 /**

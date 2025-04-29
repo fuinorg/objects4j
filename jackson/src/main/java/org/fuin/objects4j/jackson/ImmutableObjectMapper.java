@@ -5,19 +5,29 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
+import javax.annotation.concurrent.NotThreadSafe;
+import javax.annotation.concurrent.ThreadSafe;
 import java.util.Objects;
 
 /**
- * Thread-safe access to Jacksons {@link com.fasterxml.jackson.databind.ObjectMapper}.
+ * Thread-safe access to Jackson's {@link com.fasterxml.jackson.databind.ObjectMapper}.
  *
  * @param reader Reader that is thread-safe to use.
  * @param writer Writer that is thread-safe to use.
  */
+@ThreadSafe
 public record ImmutableObjectMapper(ObjectReader reader, ObjectWriter writer) {
 
     /**
      * Helper to allow late initialization of the mapper.
+     * <p>
+     * To make the provider thread-safe for processing you need to finalize the instance
+     * by calling the {@link #mapper()} once your application startup has finished.
+     * For Spring and Quarkus a good option is to have another "@ApplicationScope"
+     * bean with a "@PostConstruct" method that will do it.
+     * </p>
      */
+    @NotThreadSafe
     public static final class Provider {
 
         private final Builder builder;
@@ -68,6 +78,7 @@ public record ImmutableObjectMapper(ObjectReader reader, ObjectWriter writer) {
     /**
      * Builds an instance of the outer class.
      */
+    @NotThreadSafe
     public static final class Builder {
 
         private final ObjectMapper mapper;

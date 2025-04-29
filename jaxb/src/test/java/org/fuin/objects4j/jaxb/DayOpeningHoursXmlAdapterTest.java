@@ -30,8 +30,6 @@ public class DayOpeningHoursXmlAdapterTest {
 
     private static final String XML = XML_PREFIX + "<data dayOpeningHours=\"MON 00:00-24:00\"/>";
 
-    private static final String JSON = "{\"dayOpeningHours\":\"MON 00:00-24:00\"}";
-
     @Test
     public final void testMarshal() throws JAXBException {
 

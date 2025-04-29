@@ -18,12 +18,10 @@
 package org.fuin.objects4j.jackson;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.objects4j.core.PasswordSha512;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
  * Test for {@link PasswordSha512} serialization.

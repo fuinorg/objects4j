@@ -72,16 +72,4 @@ public class CurrencyAmountTest extends AbstractPersistenceTest {
         return query.getSingleResult();
     }
 
-    private static Currency cu(String code) {
-        return Currency.getInstance(code);
-    }
-
-    private static BigDecimal bd(int number, int scale) {
-        return new BigDecimal(number).setScale(scale, RoundingMode.HALF_UP);
-    }
-
-    private static BigDecimal bd(double number, int scale) {
-        return new BigDecimal(number).setScale(scale, RoundingMode.HALF_UP);
-    }
-
 }

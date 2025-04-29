@@ -29,8 +29,6 @@ public class DayOfTheWeekXmlAdapterTest {
 
     private static final String XML = XML_PREFIX + "<data dayOfTheWeek=\"FRI\"/>";
 
-    private static final String JSON = "{\"dayOfTheWeek\":\"FRI\"}";
-
     @Test
     public final void testMarshal() throws JAXBException {
 

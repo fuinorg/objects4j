@@ -17,8 +17,6 @@
  */
 package org.fuin.objects4j.common;
 
-import org.fuin.objects4j.common.ValueObjectWithBaseType;
-
 /**
  * Converts a value object into it's base type and back.
  * 

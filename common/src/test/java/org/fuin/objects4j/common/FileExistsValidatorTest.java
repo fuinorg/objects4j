@@ -42,11 +42,8 @@ public final class FileExistsValidatorTest {
     public final void setUp() throws IOException {
         testee = new FileExistsValidator();
         existingFile = new File(Utils4J.getTempDir(), "FileExistsValidatorTest_File");
-        final OutputStream out = new FileOutputStream(existingFile);
-        try {
+        try (final OutputStream out = new FileOutputStream(existingFile)) {
             out.write("Test".getBytes());
-        } finally {
-            out.close();
         }
         existingDir = new File(Utils4J.getTempDir(), "FileExistsValidatorTest_Dir");
         existingDir.mkdir();

@@ -41,11 +41,8 @@ public final class IsFileValidatorTest {
     public final void setUp() throws IOException {
         testee = new IsFileValidator();
         existingFile = new File(Utils4J.getTempDir(), "IsFileValidatorTest_File");
-        final OutputStream out = new FileOutputStream(existingFile);
-        try {
+        try (final OutputStream out = new FileOutputStream(existingFile)) {
             out.write("Test".getBytes());
-        } finally {
-            out.close();
         }
         existingDir = new File(Utils4J.getTempDir(), "IsFileValidatorTest_Dir");
         existingDir.mkdir();

@@ -18,7 +18,6 @@
 package org.fuin.objects4j.jpa;
 
 import jakarta.persistence.AttributeOverride;
-import jakarta.persistence.AttributeOverrides;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
@@ -36,9 +35,8 @@ public class CurrencyAmountParentEntity {
 
     // @formatter:off
 	@Embedded
-	@AttributeOverrides({
-			@AttributeOverride(name = "amount", column = @Column(name = "AMOUNT", precision = 12, scale = 2, nullable = true)),
-			@AttributeOverride(name = "currency", column = @Column(name = "CURRENCY", columnDefinition = "varchar(255)", nullable = true)) })
+    @AttributeOverride(name = "amount", column = @Column(name = "AMOUNT", precision = 12, scale = 2, nullable = true))
+    @AttributeOverride(name = "currency", column = @Column(name = "CURRENCY", columnDefinition = "varchar(255)", nullable = true))
 	// @formatter:on
     private CurrencyAmount amount;
 

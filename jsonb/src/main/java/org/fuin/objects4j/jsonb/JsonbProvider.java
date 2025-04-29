@@ -4,11 +4,19 @@ import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
 import jakarta.json.bind.JsonbConfig;
 
+import javax.annotation.concurrent.NotThreadSafe;
 import java.util.Objects;
 
 /**
  * Helper to allow late initialization of the JSON-B instance.
+ * <p>
+ * To make the provider thread-safe for processing you need to finalize the instance
+ * by calling the {@link #jsonb()} once your application startup has finished.
+ * For Spring and Quarkus a good option is to have another "@ApplicationScope"
+ * bean with a "@PostConstruct" method that will do it.
+ * </p>
  */
+@NotThreadSafe
 public final class JsonbProvider implements AutoCloseable {
 
     private final JsonbConfig config;

@@ -17,7 +17,6 @@
  */
 package org.fuin.objects4j.jpa;
 
-import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
