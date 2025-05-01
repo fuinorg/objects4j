@@ -149,6 +149,7 @@ public final class HasPublicStaticIsValidMethodValidatorTest {
 
     @HasPublicStaticIsValidMethod
     public static final class MyClassNotStatic {
+        @SuppressWarnings("java:S1172") // Unused method parameter is ok here
         public boolean isValid(String str) {
             return true;
         }

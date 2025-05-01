@@ -30,8 +30,6 @@ public class HourXmlAdapterTest {
 
     private static final String XML = XML_PREFIX + "<data hour=\"23:59\"/>";
 
-    private static final String JSON = "{\"hour\":\"23:59\"}";
-
     @Test
     public final void testMarshal() throws JAXBException {
 

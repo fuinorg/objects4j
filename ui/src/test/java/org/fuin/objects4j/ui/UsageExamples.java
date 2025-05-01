@@ -40,6 +40,7 @@ public class UsageExamples {
      * @throws Exception
      *             Something went wrong.
      */
+    @SuppressWarnings("java:S125") // Code is commented out intentionally
     public static void main(String[] args) throws Exception {
 
         AnnotationAnalyzer analyzer = new AnnotationAnalyzer();

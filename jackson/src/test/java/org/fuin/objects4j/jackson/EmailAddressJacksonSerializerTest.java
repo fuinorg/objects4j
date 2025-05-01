@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test for the {@link EmailAddressJacksonSerializer} class.
+ * Test for {@link EmailAddress} serialization.
  */
 public class EmailAddressJacksonSerializerTest {
 

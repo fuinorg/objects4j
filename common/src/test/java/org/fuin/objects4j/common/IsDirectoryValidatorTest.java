@@ -41,11 +41,8 @@ public final class IsDirectoryValidatorTest {
     public final void setUp() throws IOException {
         testee = new IsDirectoryValidator();
         existingFile = new File(Utils4J.getTempDir(), "IsDirectoryValidatorTest_File");
-        final OutputStream out = new FileOutputStream(existingFile);
-        try {
+        try (final OutputStream out = new FileOutputStream(existingFile)) {
             out.write("Test".getBytes());
-        } finally {
-            out.close();
         }
         existingDir = new File(Utils4J.getTempDir(), "IsDirectoryValidatorTest_Dir");
         existingDir.mkdir();

@@ -22,7 +22,7 @@ import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
 import org.fuin.units4j.archunit.Units4JConditions;
 
-@AnalyzeClasses(packagesOf = CurrencyAmountJacksonSerializer.class)
+@AnalyzeClasses(packagesOf = BaseTest.class)
 public class BaseTest {
 
     @ArchTest

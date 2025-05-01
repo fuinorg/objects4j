@@ -44,7 +44,6 @@ public final class UUIDStrValidatorTest {
 
     @Test
     void testValidConstantLowerCase() {
-
         final String value = "089ba5d3-1027-421d-add7-7e65f95b6ed6";
         assertThat(testee.isValid(value, null)).isTrue();
         assertThat(UUIDStrValidator.parseArg("a", value)).isEqualTo(UUID.fromString(value));
@@ -53,7 +52,7 @@ public final class UUIDStrValidatorTest {
 
     @Test
     void testValidConstantUpperCase() {
-        final String value = "089ba5d3-1027-421d-add7-7e65f95b6ed6";
+        final String value = "089BA5D3-1027-421D-ADD7-7E65F95B6ED6";
         assertThat(testee.isValid(value, null)).isTrue();
         assertThat(UUIDStrValidator.parseArg("a", value)).isEqualTo(UUID.fromString(value));
     }
@@ -114,11 +113,6 @@ public final class UUIDStrValidatorTest {
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo("The argument 'a' is not valid: '" + value + "'");
         }
-
-    }
-
-    @Test
-    void testParseArg() {
 
     }
 

@@ -26,7 +26,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 /**
- * Test for the {@link WeeklyOpeningHoursJacksonDeserializer} class.
+ * Test for {@link WeeklyOpeningHours} deserialization.
  */
 public class WeeklyOpeningHoursJacksonDeserializerTest {
 

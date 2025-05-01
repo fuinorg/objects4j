@@ -13,7 +13,7 @@
     <groupId>org.fuin.objects4j</groupId>
     <artifactId>objects4j-parent</artifactId>
     <packaging>pom</packaging>
-    <version>0.10.0</version>
+    <version>0.11.0-SNAPSHOT</version>
 
     <description>A library with common Java types that are mostly immutable value objects.</description>
     <url>http://www.fuin.org/objects4j/</url>
@@ -89,7 +89,7 @@
             <dependency>
                 <groupId>org.fuin</groupId>
                 <artifactId>utils4j</artifactId>
-                <version>0.14.0</version>
+                <version>0.15.0</version>
             </dependency>
 
             <dependency>
@@ -397,8 +397,8 @@
         <module>jsonb</module>
         <module>junit</module>
         <module>jacoco</module>
-        <module>quarkus</module>
-        <module>spring-boot</module>
+        <module>quarkus-test</module>
+        <module>spring-boot-test</module>
     </modules>
 
 </project>

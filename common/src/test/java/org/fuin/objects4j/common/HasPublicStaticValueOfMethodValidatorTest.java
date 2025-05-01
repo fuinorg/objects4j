@@ -182,6 +182,7 @@ public final class HasPublicStaticValueOfMethodValidatorTest {
 
     @HasPublicStaticValueOfMethod
     public static final class MyClassWrongReturnValue {
+        @SuppressWarnings("java:S1172") // Unused method parameter is ok here
         public static MyClassWrongReturnValue valueOf(String str) {
             return new MyClassWrongReturnValue();
         }

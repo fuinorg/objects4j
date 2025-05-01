@@ -22,7 +22,7 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import jakarta.validation.constraints.NotNull;
 import org.fuin.objects4j.common.AsStringCapable;
-import org.fuin.objects4j.common.ValueOfCapable;
+import org.fuin.utils4j.TestOmitted;
 
 import java.io.IOException;
 
@@ -31,14 +31,13 @@ import java.io.IOException;
  *
  * @param <TYPE> Type to convert.
  */
-public abstract class ValueObjectStringJacksonSerializer<TYPE extends AsStringCapable> extends StdSerializer<TYPE> {
+@TestOmitted("Already tested with other classes")
+public final class ValueObjectStringJacksonSerializer<TYPE extends AsStringCapable> extends StdSerializer<TYPE> {
 
     /**
      * Constructor with mandatory data.
-     *
-     * @param vop Provides a valueOf method.
      */
-    public ValueObjectStringJacksonSerializer(@NotNull final Class<TYPE> clasz, @NotNull final ValueOfCapable<TYPE> vop) {
+    public ValueObjectStringJacksonSerializer(@NotNull final Class<TYPE> clasz) {
         super(clasz);
     }
 

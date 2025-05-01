@@ -18,8 +18,6 @@
 package org.fuin.objects4j.jackson;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.fuin.objects4j.core.CurrencyAmount;
 import org.fuin.objects4j.core.DayOfTheWeek;
 import org.fuin.objects4j.core.DayOpeningHours;
@@ -43,67 +41,34 @@ import java.util.UUID;
 @TestOmitted("Only a test class")
 public class Data {
 
-    @JsonSerialize(using = EmailAddressJacksonSerializer.class)
-    @JsonDeserialize(using = EmailAddressJacksonDeserializer.class)
     public EmailAddress email;
 
-    @JsonSerialize(using = PasswordSha512JacksonSerializer.class)
-    @JsonDeserialize(using = PasswordSha512JacksonDeserializer.class)
     public PasswordSha512 passwordSha512;
 
-    @JsonSerialize(using = UserNameJacksonSerializer.class)
-    @JsonDeserialize(using = UserNameJacksonDeserializer.class)
     public UserName userName;
 
-    @JsonSerialize(using = UUIDJacksonSerializer.class)
-    @JsonDeserialize(using = UUIDJacksonDeserializer.class)
     public UUID uuid;
 
     @JsonProperty("ca")
-    @JsonSerialize(using = CurrencyAmountJacksonSerializer.class)
-    @JsonDeserialize(using = CurrencyAmountJacksonDeserializer.class)
     public CurrencyAmount currencyAmount;
 
     @JsonProperty("c")
-    @JsonSerialize(using = CurrencyJacksonSerializer.class)
-    @JsonDeserialize(using = CurrencyJacksonDeserializer.class)
     public Currency currency;
 
-    @JsonProperty("any-str")
-    @JsonSerialize(using = AnyStrJacksonSerializer.class)
-    @JsonDeserialize(using = AnyStrJacksonDeserializer.class)
-    public AnyStr anyStr;
-
-    @JsonSerialize(using = HourJacksonSerializer.class)
-    @JsonDeserialize(using = HourJacksonDeserializer.class)
     public Hour hour;
 
-    @JsonSerialize(using = HourRangeJacksonSerializer.class)
-    @JsonDeserialize(using = HourRangeJacksonDeserializer.class)
     public HourRange hourRange;
 
-    @JsonSerialize(using = HourRangesJacksonSerializer.class)
-    @JsonDeserialize(using = HourRangesJacksonDeserializer.class)
     public HourRanges hourRanges;
 
-    @JsonSerialize(using = DayOfTheWeekJacksonSerializer.class)
-    @JsonDeserialize(using = DayOfTheWeekJacksonDeserializer.class)
     public DayOfTheWeek dayOfTheWeek;
 
-    @JsonSerialize(using = MultiDayOfTheWeekJacksonSerializer.class)
-    @JsonDeserialize(using = MultiDayOfTheWeekJacksonDeserializer.class)
     public MultiDayOfTheWeek multiDayOfTheWeek;
 
-    @JsonSerialize(using = DayOpeningHoursJacksonSerializer.class)
-    @JsonDeserialize(using = DayOpeningHoursJacksonDeserializer.class)
     public DayOpeningHours dayOpeningHours;
 
-    @JsonSerialize(using = WeeklyOpeningHoursJacksonSerializer.class)
-    @JsonDeserialize(using = WeeklyOpeningHoursJacksonDeserializer.class)
     public WeeklyOpeningHours weeklyOpeningHours;
 
-    @JsonSerialize(using = LocaleJacksonSerializer.class)
-    @JsonDeserialize(using = LocaleJacksonDeserializer.class)
     public Locale locale;
 
 }

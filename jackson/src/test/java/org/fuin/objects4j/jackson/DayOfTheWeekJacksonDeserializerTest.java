@@ -26,7 +26,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 
 /**
- * Test for the {@link DayOfTheWeekJacksonDeserializer} class.
+ * Test for {@link DayOfTheWeek} deserialization.
  */
 public class DayOfTheWeekJacksonDeserializerTest {
 

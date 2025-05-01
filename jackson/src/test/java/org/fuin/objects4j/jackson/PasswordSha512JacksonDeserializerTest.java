@@ -26,7 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
- * Test for the {@link PasswordSha512JacksonDeserializer} class.
+ * Test for {@link PasswordSha512} deserialization.
  */
 public class PasswordSha512JacksonDeserializerTest {
 

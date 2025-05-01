@@ -42,6 +42,7 @@ public class CurrencyAmountTest  {
     }
 
     @Test
+    @SuppressWarnings("java:S117") // Underscore in var name is ok here
     void testCompareTo() {
 
         final CurrencyAmount eur123_2 = new CurrencyAmount(bd(123, 2), cu("EUR"));

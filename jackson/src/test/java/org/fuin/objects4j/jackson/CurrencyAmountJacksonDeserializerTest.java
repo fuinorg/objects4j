@@ -18,7 +18,6 @@
 package org.fuin.objects4j.jackson;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.fuin.objects4j.core.CurrencyAmount;
 import org.junit.jupiter.api.Test;
 
@@ -26,7 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
- * Test for the {@link CurrencyAmountJacksonDeserializer} class.
+ * Test for {@link CurrencyAmount} deserialization.
  */
 class CurrencyAmountJacksonDeserializerTest {
 

@@ -25,7 +25,6 @@ import org.fuin.objects4j.core.LocaleHelper;
 
 import javax.annotation.concurrent.ThreadSafe;
 import java.io.IOException;
-import java.util.Currency;
 import java.util.Locale;
 
 /**
@@ -38,7 +37,7 @@ public final class LocaleJacksonDeserializer extends StdDeserializer<Locale> {
      * Default constructor.
      */
     public LocaleJacksonDeserializer() {
-        super(Currency.class);
+        super(Locale.class);
     }
 
     @Override

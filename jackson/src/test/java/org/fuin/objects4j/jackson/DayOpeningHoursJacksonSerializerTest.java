@@ -18,15 +18,13 @@
 package org.fuin.objects4j.jackson;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.objects4j.core.DayOpeningHours;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
- * Test for the {@link DayOpeningHoursJacksonSerializer} class.
+ * Test for {@link DayOpeningHours} serialization.
  */
 public class DayOpeningHoursJacksonSerializerTest {
 

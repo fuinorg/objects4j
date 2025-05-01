@@ -1,5 +1,11 @@
 # Release Notes
 
+## 0.11.0
+- Removed unnecessary Jackson serializer/deserializer classes
+- Added new [Objects4JacksonUtils](jackson/src/main/java/org/fuin/objects4j/jackson/Objects4JacksonUtils.java) utility class 
+- Added new [ImmutableObjectMapper](jackson/src/main/java/org/fuin/objects4j/jackson/ImmutableObjectMapper.java) to allow thread-safe access and late creation.
+- Added new [JsonbProvider](jsonb/src/main/java/org/fuin/objects4j/jsonb/JsonbProvider.java) to allow late creation.
+
 ## 0.10.0
 
 ### General
