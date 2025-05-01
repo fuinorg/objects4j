@@ -20,7 +20,7 @@ class ImmutableObjectMapperTest {
 
         final ImmutableObjectMapper.Builder builder = new ImmutableObjectMapper.Builder(new ObjectMapper());
         final ImmutableObjectMapper.Provider provider = new ImmutableObjectMapper.Provider(builder);
-        builder.registerModule(new Objects4JJacksonAdapterModule());
+        builder.registerModule(new Objects4JJacksonModule());
 
         final EmailAddress emailAddress = new EmailAddress("oh-no@mowhere.com");
         String str = provider.writer().writeValueAsString(emailAddress);
@@ -37,7 +37,7 @@ class ImmutableObjectMapperTest {
     void testBuilder() throws IOException {
 
         final ImmutableObjectMapper.Builder builder = new ImmutableObjectMapper.Builder(new ObjectMapper());
-        builder.registerModule(new Objects4JJacksonAdapterModule());
+        builder.registerModule(new Objects4JJacksonModule());
         final ImmutableObjectMapper mapper = builder.build();
 
         assertThatThrownBy(() -> builder.registerModule(new SimpleModule("Bar")))

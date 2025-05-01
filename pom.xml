@@ -397,8 +397,8 @@
         <module>jsonb</module>
         <module>junit</module>
         <module>jacoco</module>
-        <module>quarkus</module>
-        <module>spring-boot</module>
+        <module>quarkus-test</module>
+        <module>spring-boot-test</module>
     </modules>
 
 </project>

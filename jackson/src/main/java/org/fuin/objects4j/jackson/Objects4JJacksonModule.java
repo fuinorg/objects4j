@@ -23,7 +23,7 @@ import java.util.UUID;
 /**
  * Module that registers the adapters for the package.
  */
-public class Objects4JJacksonAdapterModule extends Module {
+public class Objects4JJacksonModule extends Module {
 
     @Override
     public String getModuleName() {
