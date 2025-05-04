@@ -8,6 +8,7 @@ A library with common Java types that are mostly immutable value objects.
 [![Java Development Kit 17](https://img.shields.io/badge/JDK-17-green.svg)](https://openjdk.java.net/projects/jdk/17/)
 
 ## Versions
+- [0.11.1](release-notes.md#0111)
 - [0.11.0](release-notes.md#0110)
 - [0.10.0](release-notes.md#0100)
 - 0.9.0 = **Java 17**
