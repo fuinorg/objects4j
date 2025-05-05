@@ -2,6 +2,7 @@ package org.fuin.objects4j.common;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import org.fuin.utils4j.Utils4J;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -9,6 +10,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
+import java.util.Locale;
+import java.util.Map;
+import java.util.ResourceBundle;
 
 /**
  * Determines if the annotated class has a <b>public static</b> constant with a given name and type.
@@ -17,9 +21,19 @@ import java.util.Arrays;
  */
 public abstract class TypeConstantValidator<A extends Annotation> implements ConstraintValidator<A, Object> {
 
+    private static final String POSTFIX = ".message";
+
+    private static final ResourceBundle MESSAGES = ResourceBundle.getBundle("ValidationMessages", Locale.getDefault());
+
+    private final String prefix;
+
     private String fieldName;
 
     private Class<?> fieldType;
+
+    public TypeConstantValidator(final Class<A> annotationType) {
+        prefix = annotationType.getName() + ".";
+    }
 
     @Override
     public void initialize(A annotation) {
@@ -33,29 +47,39 @@ public abstract class TypeConstantValidator<A extends Annotation> implements Con
             final Field field = obj.getClass().getField(fieldName);
             final int modifiers = field.getModifiers();
             if (!Modifier.isStatic(modifiers)) {
-                error(context, "Field '" + fieldName + "' is not static (#1)");
+                error(context, msg("1", Map.of("field", fieldName)));
                 return false;
             }
             if (!fieldType.isAssignableFrom(field.getType())) {
-                error(context, "Expected constant '" + fieldName + "' to be of type '" + fieldType.getName() + "', but was: " + field.getType().getName() + " (#3)");
+                error(context, msg("3", Map.of("field", fieldName, "expectedType", fieldType.getName(), "actualType", field.getType().getName())));
                 return false;
             }
             final Object value = field.get(obj);
             if (value == null) {
-                error(context, "Constant '" + fieldName + "' is expected to be a non-null value (#4)");
+                error(context, msg("4", Map.of("field", fieldName)));
                 return false;
             }
             if (!Modifier.isFinal(modifiers)) {
-                error(context, "Constant '" + fieldName + "' is not not final (#5)");
+                error(context, msg("5", Map.of("field", fieldName)));
                 return false;
             }
             return true;
         } catch (final NoSuchFieldException ex) {
-            error(context, "The field '" + fieldName + "' is undefined or it is not public (#2)");
+            error(context, msg("2", Map.of("field", fieldName)));
             return false;
         } catch (final IllegalAccessException ex) {
             throw new IllegalStateException("Failed to execute method", ex);
         }
+    }
+
+    private String msg(String key, Map<String, String> vars) {
+        final String k;
+        if (MESSAGES.containsKey(prefix + key + POSTFIX)) {
+            k = MESSAGES.getString(prefix + key + POSTFIX);
+        } else {
+            k = MESSAGES.getString(TypeConstantValidator.class.getName() + "." + key + POSTFIX);
+        }
+        return Utils4J.replaceVars(k, vars);
     }
 
     private void error(ConstraintValidatorContext context, String message) {

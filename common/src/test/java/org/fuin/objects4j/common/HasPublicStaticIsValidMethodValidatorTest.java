@@ -50,7 +50,7 @@ public final class HasPublicStaticIsValidMethodValidatorTest {
     @Test
     void testNotStatic() {
 
-        assertThat(first(validator.validate(new MyClassNotStatic()))).contains("#1");
+        assertThat(first(validator.validate(new MyClassNotStatic()))).isEqualTo("Method 'isValid' is not static (#1)");
 
         assertThatThrownBy(
                 () -> HasPublicStaticIsValidMethodValidator.findMethod(MyClassNotStatic.class, "isValid", String.class))
@@ -67,7 +67,7 @@ public final class HasPublicStaticIsValidMethodValidatorTest {
     @Test
     void testNotPublic() {
 
-        assertThat(first(validator.validate(new MyClassNotPublic()))).contains("#2");
+        assertThat(first(validator.validate(new MyClassNotPublic()))).isEqualTo("The method 'isValid' is undefined or it is not public (#2)");
 
         assertThatThrownBy(
                 () -> HasPublicStaticIsValidMethodValidator.findMethod(MyClassNotPublic.class, "isValid", String.class))
@@ -84,7 +84,7 @@ public final class HasPublicStaticIsValidMethodValidatorTest {
     @Test
     void testWrongReturnType() {
 
-        assertThat(first(validator.validate(new MyClassWrongReturnType()))).contains("#3");
+        assertThat(first(validator.validate(new MyClassWrongReturnType()))).isEqualTo("Method 'isValid' does not return 'org.fuin.objects4j.common.HasPublicStaticIsValidMethodValidatorTest$MyClassWrongReturnType', but: java.lang.Boolean (#3)");
 
         assertThatThrownBy(
                 () -> HasPublicStaticIsValidMethodValidator.findMethod(MyClassWrongReturnType.class, "isValid", String.class))
@@ -101,7 +101,7 @@ public final class HasPublicStaticIsValidMethodValidatorTest {
     @Test
     void testWrongReturn() {
 
-        assertThat(first(validator.validate(new MyClassWrongReturnValue()))).contains("#4");
+        assertThat(first(validator.validate(new MyClassWrongReturnValue()))).isEqualTo("Method 'isValid' is expected to return 'true' on 'null' argument, but was 'false' (#4)");
 
         assertThatThrownBy(
                 () -> HasPublicStaticIsValidMethodValidator.findMethod(MyClassWrongReturnValue.class, "isValid", String.class))
@@ -119,7 +119,7 @@ public final class HasPublicStaticIsValidMethodValidatorTest {
     @Test
     void testNoMethod() {
 
-        assertThat(first(validator.validate(new MyClassNoMethod()))).contains("#2");
+        assertThat(first(validator.validate(new MyClassNoMethod()))).isEqualTo("The method 'isValid' is undefined or it is not public (#2)");
 
         assertThatThrownBy(
                 () -> HasPublicStaticIsValidMethodValidator.findMethod(MyClassNoMethod.class, "isValid", String.class))

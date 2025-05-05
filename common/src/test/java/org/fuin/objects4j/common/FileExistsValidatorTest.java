@@ -17,6 +17,8 @@
  */
 package org.fuin.objects4j.common;
 
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
 import org.assertj.core.api.Assertions;
 import org.fuin.utils4j.Utils4J;
 import org.junit.jupiter.api.AfterEach;
@@ -58,6 +60,16 @@ public final class FileExistsValidatorTest {
         existingFile = null;
         existingDir = null;
         notExisting = null;
+    }
+
+    @Test
+    void testValidation() {
+        final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+        assertThat(validator.validate(new MyClass(existingFile))).isEmpty();
+        assertThat(validator.validate(new MyClass(existingDir))).isEmpty();
+        assertThat(validator.validate(new MyClass(null))).isEmpty();
+        assertThat(validator.validate(new MyClass(notExisting)))
+                .anyMatch(v -> v.getMessage().contains("does not exist"));
     }
 
     @Test
@@ -113,5 +125,7 @@ public final class FileExistsValidatorTest {
         }
 
     }
+
+    public record MyClass(@FileExists File file) {}
 
 }

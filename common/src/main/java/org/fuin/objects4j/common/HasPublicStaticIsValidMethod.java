@@ -44,7 +44,7 @@ public @interface HasPublicStaticIsValidMethod {
      */
     Class<?> param() default String.class;
 
-    String message() default "Does not define a public static method with the given argument type and returns boolean";
+    String message() default "{org.fuin.objects4j.common.HasPublicStaticIsValidMethod.message}";
 
     Class<?>[] groups() default {};
 

@@ -17,6 +17,8 @@
  */
 package org.fuin.objects4j.common;
 
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
 import org.assertj.core.api.Assertions;
 import org.fuin.utils4j.Utils4J;
 import org.junit.jupiter.api.AfterEach;
@@ -34,12 +36,15 @@ public final class IsFileValidatorTest {
 
     private IsFileValidator testee;
 
+    private Validator validator;
+
     private File existingFile;
     private File existingDir;
 
     @BeforeEach
     public final void setUp() throws IOException {
         testee = new IsFileValidator();
+        validator = Validation.buildDefaultValidatorFactory().getValidator();
         existingFile = new File(Utils4J.getTempDir(), "IsFileValidatorTest_File");
         try (final OutputStream out = new FileOutputStream(existingFile)) {
             out.write("Test".getBytes());
@@ -68,6 +73,10 @@ public final class IsFileValidatorTest {
         assertThat(testee.isValid(existingFile, null)).isTrue();
         assertThat(testee.isValid(null, null)).isTrue();
 
+        // TEST & VERIFY
+        assertThat(validator.validate(new MyClass(existingFile))).isEmpty();
+        assertThat(validator.validate(new MyClass(null))).isEmpty();
+
     }
 
     @Test
@@ -79,6 +88,10 @@ public final class IsFileValidatorTest {
 
         // TEST & VERIFY
         assertThat(testee.isValid(existingDir, null)).isFalse();
+
+        // TEST & VERIFY
+        assertThat(validator.validate(new MyClass(existingDir)))
+                .anyMatch(v -> v.getMessage().contains("Not a file"));
 
     }
 
@@ -110,5 +123,7 @@ public final class IsFileValidatorTest {
         }
 
     }
+
+    private record MyClass(@IsFile File file) {}
 
 }

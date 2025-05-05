@@ -129,12 +129,16 @@ class TypeConstantValidatorTest {
     public @interface HasPublicStaticType {
         String name() default "TYPE";
         Class<?> value();
-        String message() default "Does not define a public static constant with the given argument type and name";
+        String message() default "HasPublicStaticType validation failed";
         Class<?>[] groups() default {};
         Class<? extends Payload>[] payload() default {};
     }
 
     public static class HasPublicStaticTypeValidator extends TypeConstantValidator<HasPublicStaticType> {
+
+        public HasPublicStaticTypeValidator() {
+            super(HasPublicStaticType.class);
+        }
     }
 
     @HasPublicStaticType(name ="X", value = Class.class)
