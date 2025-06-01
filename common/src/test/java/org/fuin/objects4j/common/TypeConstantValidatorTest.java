@@ -4,22 +4,21 @@ import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
-import jakarta.validation.ValidatorFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.lang.annotation.Annotation;
-import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
-import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Test for the {@link TypeConstantValidator} class.
@@ -123,6 +122,20 @@ class TypeConstantValidatorTest {
                 .hasMessageContaining("#5");
     }
 
+    @Test
+    void testValueProxiedAnnotation() {
+        final HasPublicStaticType annotation = MyClassOtherName.class.getAnnotation(HasPublicStaticType.class);
+        final HasPublicStaticType proxied = (HasPublicStaticType) Proxy.newProxyInstance(annotation.getClass().getClassLoader(), annotation.getClass().getInterfaces(), new AnnotationProxy(annotation));
+        assertThat(TypeConstantValidator.value(proxied, "name", String.class)).isEqualTo("X");
+        assertThat(TypeConstantValidator.value(proxied, "value", Class.class)).isEqualTo(Class.class);
+        validator.validate(MyClassOtherName.class);
+    }
+
+    @Test
+    void testExtractValueWithoutFields() {
+        validator.validate(MyFooClass.class);
+    }
+
     @Target(ElementType.TYPE)
     @Retention(RetentionPolicy.RUNTIME)
     @Constraint(validatedBy = { HasPublicStaticTypeValidator.class })
@@ -175,5 +188,43 @@ class TypeConstantValidatorTest {
     public static class MyClassNullValue {
         public static final String TYPE = null;
     }
+
+    public static class AnnotationProxy implements InvocationHandler {
+
+        private final Annotation instance;
+
+        public AnnotationProxy(Annotation instance) {
+            this.instance = instance;
+        }
+
+        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+            return method.invoke(instance, args);
+        }
+    }
+
+    @Target(ElementType.TYPE)
+    @Retention(RetentionPolicy.RUNTIME)
+    @Constraint(validatedBy = { HasPublicStaticFooValidator.class })
+    public @interface HasPublicStaticFoo {
+        String message() default "HasPublicStaticType validation failed";
+        Class<?>[] groups() default {};
+        Class<? extends Payload>[] payload() default {};
+    }
+
+    public static class HasPublicStaticFooValidator extends TypeConstantValidator<HasPublicStaticFoo> {
+
+        public HasPublicStaticFooValidator() {
+            super(HasPublicStaticFoo.class, null, "X", null, String.class);
+        }
+
+    }
+
+    @HasPublicStaticFoo
+    public static class MyFooClass {
+
+        public static final String X = "Hello";
+
+    }
+
 
 }

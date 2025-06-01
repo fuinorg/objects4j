@@ -3,6 +3,7 @@
 ## 0.11.1
 - Added new [TypeConstantValidator](common/src/main/java/org/fuin/objects4j/common/TypeConstantValidator.java) base class for validators based on existence a static constant in a class.
 - Added missing [ValidationMessages.properties](common/src/main/resources/ValidationMessages.properties)
+- Fixed bug in [TypeConstantValidator](common/src/main/java/org/fuin/objects4j/common/TypeConstantValidator.java) - In case of a proxied annotation it used to fail. 
 
 ## 0.11.0
 - Removed unnecessary Jackson serializer/deserializer classes

@@ -1,5 +1,7 @@
 package org.fuin.objects4j.common;
 
+
+import jakarta.annotation.Nullable;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.fuin.utils4j.Utils4J;
@@ -9,7 +11,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.Arrays;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -27,18 +28,59 @@ public abstract class TypeConstantValidator<A extends Annotation> implements Con
 
     private final String prefix;
 
+    private final String nameMethod;
+
     private String fieldName;
+
+    private final String typeMethod;
 
     private Class<?> fieldType;
 
     public TypeConstantValidator(final Class<A> annotationType) {
+        this(annotationType, "name", null, "value", null);
+    }
+
+    /**
+     * Constructor with all data.
+     *
+     * @param annotationType Concrete annotation class.
+     * @param nameMethod Method containing the "name" of the constant field to read.
+     * @param nameConstant Static name in case there is no field like "name" in the annotation.
+     * @param typeMethod Method containing the expected "type" of the constant field to read.
+     * @param typeConstant Static type in case there is no field with a type in the annotation.
+     */
+    public TypeConstantValidator(final Class<A> annotationType,
+                                 @Nullable final String nameMethod,
+                                 @Nullable final String nameConstant,
+                                 @Nullable final String typeMethod,
+                                 @Nullable final Class<?> typeConstant) {
         prefix = annotationType.getName() + ".";
+        if (nameMethod == null && nameConstant == null) {
+            throw new IllegalArgumentException("Either 'nameMethod' or 'nameConstant' must not be null");
+        }
+        if (nameMethod != null && nameConstant != null) {
+            throw new IllegalArgumentException("Only one of 'nameMethod' and 'nameConstant' can be set");
+        }
+        if (typeMethod == null && typeConstant == null) {
+            throw new IllegalArgumentException("Either 'typeMethod' or 'typeConstant' must not be null");
+        }
+        if (typeMethod != null && typeConstant != null) {
+            throw new IllegalArgumentException("Only one of 'typeMethod' and 'typeConstant' can be set");
+        }
+        this.nameMethod = nameMethod;
+        fieldName = nameConstant;
+        this.typeMethod = typeMethod;
+        fieldType = typeConstant;
     }
 
     @Override
     public void initialize(A annotation) {
-        this.fieldName = value(annotation, "name", String.class);
-        this.fieldType = value(annotation, "value", Class.class);
+        if (fieldName == null) {
+            this.fieldName = value(annotation, nameMethod, String.class);
+        }
+        if (fieldType == null) {
+            this.fieldType = value(annotation, typeMethod, Class.class);
+        }
     }
 
     @Override
@@ -133,9 +175,10 @@ public abstract class TypeConstantValidator<A extends Annotation> implements Con
         throw new IllegalArgumentException(result.message());
     }
 
+    @SuppressWarnings("unchecked")
     static <T> T value(Annotation annotation, String name, Class<T> type) {
         try {
-            final Method method = annotation.getClass().getMethod(name);
+            final Method method = annotation.annotationType().getMethod(name);
             final Object value = method.invoke(annotation);
             if (type.isAssignableFrom(value.getClass())) {
                 return (T) value;
