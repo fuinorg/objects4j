@@ -32,6 +32,8 @@
     <properties>
         <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/../junit/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
         <jackson.version>2.18.2</jackson.version>
+        <utils4j.version>0.15.1-SNAPSHOT</utils4j.version>
+        <units4j.version>0.12.0</units4j.version>
     </properties>
 
     <dependencyManagement>
@@ -89,13 +91,13 @@
             <dependency>
                 <groupId>org.fuin</groupId>
                 <artifactId>utils4j</artifactId>
-                <version>0.15.0</version>
+                <version>${utils4j.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.fuin</groupId>
                 <artifactId>units4j</artifactId>
-                <version>0.12.0</version>
+                <version>${units4j.version}</version>
             </dependency>
 
             <dependency>
