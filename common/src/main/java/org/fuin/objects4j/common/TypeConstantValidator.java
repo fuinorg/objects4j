@@ -160,6 +160,7 @@ public abstract class TypeConstantValidator<A extends Annotation> implements Con
      * Returns a constant of a given type in a class. Throws an {@link IllegalArgumentException}
      * in case there is a problem with the field.
      *
+     * @param <V>                  Type of the constant value.
      * @param claszWithStaticField Class to inspect.
      * @param expectedTypeOfField  Expected field type.
      * @param fieldName            Name of the public static field.

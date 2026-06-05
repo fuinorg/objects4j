@@ -47,7 +47,7 @@ public final class LocaleHelper {
         final Locale locale;
         final int p = value.indexOf("__");
         if (p > -1) {
-            locale = new Locale(value.substring(0, p), null, value.substring(p + 2));
+            locale = new Locale(value.substring(0, p), "", value.substring(p + 2));
         } else {
             final StringTokenizer tok = new StringTokenizer(value, "_");
             if (tok.countTokens() == 1) {

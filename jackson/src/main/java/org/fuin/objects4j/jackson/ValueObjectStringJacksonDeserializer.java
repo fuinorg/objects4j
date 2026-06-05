@@ -41,6 +41,7 @@ public final class ValueObjectStringJacksonDeserializer<TYPE> extends StdDeseria
     /**
      * Constructor with mandatory data.
      *
+     * @param clasz Type handled by this deserializer.
      * @param vop Provides a valueOf method.
      */
     public ValueObjectStringJacksonDeserializer(@NotNull final Class<TYPE> clasz,

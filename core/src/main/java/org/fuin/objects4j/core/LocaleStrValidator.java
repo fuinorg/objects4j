@@ -23,7 +23,6 @@ import jakarta.validation.constraints.NotNull;
 import org.fuin.objects4j.common.ConstraintViolationException;
 
 import java.util.Locale;
-import java.util.StringTokenizer;
 
 /**
  * Check that a given string is a valid {@link java.util.Locale}.
@@ -52,26 +51,11 @@ public final class LocaleStrValidator implements ConstraintValidator<LocaleStr, 
         if (value == null) {
             return true;
         }
-        final Locale locale;
-        if (value.contains("__")) {
-            try {
-                locale = new Locale(value);
-            } catch (final RuntimeException ex) {
-                return false;
-            }
-        } else {
-            final StringTokenizer tok = new StringTokenizer(value, "_");
-            if (tok.countTokens() == 1) {
-                locale = new Locale(value);
-            } else if (tok.countTokens() == 2) {
-                locale = new Locale(tok.nextToken(), tok.nextToken());
-            } else if (tok.countTokens() == 3) {
-                locale = new Locale(tok.nextToken(), tok.nextToken(), tok.nextToken());
-            } else {
-                return false;
-            }
+        try {
+            return LocaleHelper.validLocale(LocaleHelper.asLocale(value));
+        } catch (final RuntimeException ex) {
+            return false;
         }
-        return LocaleHelper.validLocale(locale);
     }
 
     /**

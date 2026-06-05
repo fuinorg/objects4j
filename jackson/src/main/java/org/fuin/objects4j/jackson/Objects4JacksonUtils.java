@@ -43,6 +43,8 @@ public final class Objects4JacksonUtils {
     /**
      * Creates all available Jakcson serializers necessary for the ESC implementation.
      *
+     * @param serializersA First array of serializers to join.
+     * @param serializersB Additional serializers to append.
      * @return New array with serializers.
      */
     public static JsonSerializer<?>[] joinJacksonSerializers(final JsonSerializer<?>[] serializersA,
@@ -53,6 +55,7 @@ public final class Objects4JacksonUtils {
     /**
      * Creates all available JSON-B serializers necessary for the ESC implementation.
      *
+     * @param serializerArrays Arrays of serializers to join.
      * @return New array with serializers.
      */
     public static JsonSerializer<?>[] joinJacksonSerializerArrays(final JsonSerializer<?>[]... serializerArrays) {
@@ -63,6 +66,8 @@ public final class Objects4JacksonUtils {
     /**
      * Creates all available JSON-B deserializers necessary for the ESC implementation.
      *
+     * @param deserializersA First array of deserializers to join.
+     * @param deserializersB Additional deserializers to append.
      * @return New array with deserializers.
      */
     public static JsonDeserializer<?>[] joinJacksonDeserializers(final JsonDeserializer<?>[] deserializersA,
@@ -73,6 +78,7 @@ public final class Objects4JacksonUtils {
     /**
      * Creates all available JSON-B deserializers necessary for the ESC implementation.
      *
+     * @param deserializerArrays Arrays of deserializers to join.
      * @return New array with deserializers.
      */
     public static JsonDeserializer<?>[] joinJacksonDeserializerArrays(final JsonDeserializer<?>[]... deserializerArrays) {

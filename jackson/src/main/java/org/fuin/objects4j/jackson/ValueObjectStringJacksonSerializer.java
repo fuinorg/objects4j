@@ -36,6 +36,8 @@ public final class ValueObjectStringJacksonSerializer<TYPE extends AsStringCapab
 
     /**
      * Constructor with mandatory data.
+     *
+     * @param clasz Type handled by this serializer.
      */
     public ValueObjectStringJacksonSerializer(@NotNull final Class<TYPE> clasz) {
         super(clasz);

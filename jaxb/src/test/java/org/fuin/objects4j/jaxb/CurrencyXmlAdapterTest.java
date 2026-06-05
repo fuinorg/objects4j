@@ -53,7 +53,7 @@ public class CurrencyXmlAdapterTest {
         final String invalidXmlData = XML_PREFIX + "<data c=\"ABCD\"/>";
         assertThatThrownBy(() -> JaxbHelper.unmarshalData(invalidXmlData))
                 .hasRootCauseInstanceOf(IllegalArgumentException.class)
-                .hasRootCauseMessage(null);
+                .hasRootCauseMessage("The input currency code: \"ABCD\" must have a length of 3 characters");
 
     }
 

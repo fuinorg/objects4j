@@ -46,7 +46,7 @@ class CurrencyJacksonDeserializerTest {
         final String invalidJsonData = "{\"c\":\"ABCD\"}";
         assertThatThrownBy(() -> JacksonHelper.fromJson(invalidJsonData, Data.class))
                 .hasRootCauseInstanceOf(IllegalArgumentException.class)
-                .hasRootCauseMessage(null);
+                .hasRootCauseMessage("The input currency code: \"ABCD\" must have a length of 3 characters");
 
     }
 
