@@ -31,8 +31,8 @@
 
     <properties>
         <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/../junit/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
-        <utils4j.version>0.15.1-SNAPSHOT</utils4j.version>
-        <units4j.version>0.12.0</units4j.version>
+        <utils4j.version>0.16.1-SNAPSHOT</utils4j.version>
+        <units4j.version>0.12.1-SNAPSHOT</units4j.version>
     </properties>
 
     <dependencyManagement>
