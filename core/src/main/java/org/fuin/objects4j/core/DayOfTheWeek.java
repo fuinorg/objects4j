@@ -17,9 +17,8 @@
  */
 package org.fuin.objects4j.core;
 
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import org.fuin.objects4j.common.AsStringCapable;
 import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.objects4j.common.Contract;
@@ -91,7 +90,7 @@ public final class DayOfTheWeek implements ValueObjectWithBaseType<String>, Comp
      * @param dayOfTheWeek
      *            Day of the week 'Mon'-'Sun'(from Monday to Sunday) plus 'PH' (Public Holiday).
      */
-    private DayOfTheWeek(final int id, @NotNull @DayOfTheWeekStr final String dayOfTheWeek) {
+    private DayOfTheWeek(final int id, @DayOfTheWeekStr final String dayOfTheWeek) {
         super();
         this.id = id;
         this.value = dayOfTheWeek.toUpperCase();
@@ -112,7 +111,7 @@ public final class DayOfTheWeek implements ValueObjectWithBaseType<String>, Comp
      * 
      * @return {@literal true} if this day of the week is the one right after the given one.
      */
-    public boolean follows(@NotNull final DayOfTheWeek other) {
+    public boolean follows(final DayOfTheWeek other) {
         Contract.requireArgNotNull("other", other);
         if (this == PH || other == PH) {
             return false;
@@ -129,7 +128,7 @@ public final class DayOfTheWeek implements ValueObjectWithBaseType<String>, Comp
      * 
      * @return {@literal true} if this day of the week is later in the week than the given one.
      */
-    public boolean after(@NotNull final DayOfTheWeek other) {
+    public boolean after(final DayOfTheWeek other) {
         Contract.requireArgNotNull("other", other);
         return this.id > other.id;
     }
@@ -139,6 +138,7 @@ public final class DayOfTheWeek implements ValueObjectWithBaseType<String>, Comp
      * 
      * @return Day that follows this one. In case of {@link #PH} {@literal null} is returned.
      */
+    @Nullable
     public DayOfTheWeek next() {
         if (this == PH) {
             return null;
@@ -160,6 +160,7 @@ public final class DayOfTheWeek implements ValueObjectWithBaseType<String>, Comp
      * 
      * @return Day before this one. In case of {@link #PH} {@literal null} is returned.
      */
+    @Nullable
     public DayOfTheWeek previous() {
         if (this == PH) {
             return null;
@@ -312,7 +313,7 @@ public final class DayOfTheWeek implements ValueObjectWithBaseType<String>, Comp
      *             The value was not valid.
      */
     // CHECKSTYLE:OFF:RedundantThrows
-    public static void requireArgValid(@NotNull final String name, @NotNull final String value) throws ConstraintViolationException {
+    public static void requireArgValid(final String name, final String value) throws ConstraintViolationException {
         // CHECKSTYLE:ON
 
         if (!DayOfTheWeek.isValid(value)) {
@@ -346,7 +347,7 @@ public final class DayOfTheWeek implements ValueObjectWithBaseType<String>, Comp
      * 
      * @return Unmodifiable list.
      */
-    public static List<DayOfTheWeek> getPart(@NotNull final DayOfTheWeek from, @NotNull final DayOfTheWeek to) {
+    public static List<DayOfTheWeek> getPart(final DayOfTheWeek from, final DayOfTheWeek to) {
         final List<DayOfTheWeek> days = new ArrayList<>();
         for (final DayOfTheWeek day : ALL) {
             if (day.id >= from.id && day.id <= to.id) {

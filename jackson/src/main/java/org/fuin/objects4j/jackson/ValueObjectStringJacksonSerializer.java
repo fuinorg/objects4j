@@ -20,7 +20,6 @@ package org.fuin.objects4j.jackson;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
-import jakarta.validation.constraints.NotNull;
 import org.fuin.objects4j.common.AsStringCapable;
 import org.fuin.utils4j.TestOmitted;
 
@@ -39,7 +38,7 @@ public final class ValueObjectStringJacksonSerializer<TYPE extends AsStringCapab
      *
      * @param clasz Type handled by this serializer.
      */
-    public ValueObjectStringJacksonSerializer(@NotNull final Class<TYPE> clasz) {
+    public ValueObjectStringJacksonSerializer(final Class<TYPE> clasz) {
         super(clasz);
     }
 

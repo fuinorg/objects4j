@@ -14,8 +14,10 @@
         @XmlJavaTypeAdapter(value = UUIDXmlAdapter.class, type = UUID.class),
         @XmlJavaTypeAdapter(value = WeeklyOpeningHoursXmlAdapter.class, type = WeeklyOpeningHours.class)
 })
+@NullMarked
 package org.fuin.objects4j.jaxb;
 
+import org.jspecify.annotations.NullMarked;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapters;
 import org.fuin.objects4j.core.CurrencyAmount;

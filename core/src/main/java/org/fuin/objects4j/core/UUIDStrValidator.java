@@ -19,7 +19,6 @@ package org.fuin.objects4j.core;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import jakarta.validation.constraints.NotNull;
 import org.fuin.objects4j.common.ConstraintViolationException;
 
 import java.util.UUID;
@@ -76,7 +75,7 @@ public final class UUIDStrValidator implements ConstraintValidator<UUIDStr, Stri
      *             The value was not valid.
      */
     // CHECKSTYLE:OFF:RedundantThrows
-    public static UUID parseArg(@NotNull final String name, @NotNull final String value) throws ConstraintViolationException {
+    public static UUID parseArg(final String name, final String value) throws ConstraintViolationException {
         // CHECKSTYLE:ON
 
         if (value.length() != 36) {

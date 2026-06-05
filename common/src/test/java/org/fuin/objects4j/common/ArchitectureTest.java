@@ -42,7 +42,7 @@ class ArchitectureTest {
             .resideInAnyPackage(COMMON_PACKAGE,
                     "java.lang..", "java.util..", "java.io..", "java.text..",
                     "jakarta.validation..", "jakarta.annotation..", "jakarta.enterprise.inject..",
-                    "org.fuin.utils4j..");
+                    "org.jspecify..", "org.fuin.utils4j..");
 
 
 }

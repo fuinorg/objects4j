@@ -47,8 +47,8 @@ class ArchitectureTest {
             .onlyDependOnClassesThat()
             .resideInAnyPackage(JPA_PACKAGE, COMMON_PACKAGE, CORE_PACKAGE,
                     "java.lang..", "java.util..",
-                    "jakarta.validation..", "jakarta.annotation..", "jakarta.persistence..",
-                    "javax.annotation.concurrent");
+                    "jakarta.annotation..", "jakarta.persistence..",
+                    "javax.annotation.concurrent", "org.jspecify..");
 
 
 }

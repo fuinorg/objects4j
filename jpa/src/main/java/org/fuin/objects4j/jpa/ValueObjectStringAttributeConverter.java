@@ -18,10 +18,10 @@
 package org.fuin.objects4j.jpa;
 
 import jakarta.persistence.AttributeConverter;
-import jakarta.validation.constraints.NotNull;
 import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.common.AsStringCapable;
 import org.fuin.objects4j.common.ValueOfCapable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Converts a type into a string and back.
@@ -39,14 +39,15 @@ public abstract class ValueObjectStringAttributeConverter<TYPE extends AsStringC
      * @param vop
      *            Provides a valueOf method.
      */
-    public ValueObjectStringAttributeConverter(@NotNull final ValueOfCapable<TYPE> vop) {
+    public ValueObjectStringAttributeConverter(final ValueOfCapable<TYPE> vop) {
         super();
         Contract.requireArgNotNull("vop", vop);
         this.vop = vop;
     }
 
     @Override
-    public final String convertToDatabaseColumn(final TYPE value) {
+    @Nullable
+    public final String convertToDatabaseColumn(final @Nullable TYPE value) {
         if (value == null) {
             return null;
         }
@@ -54,7 +55,8 @@ public abstract class ValueObjectStringAttributeConverter<TYPE extends AsStringC
     }
 
     @Override
-    public final TYPE convertToEntityAttribute(final String value) {
+    @Nullable
+    public final TYPE convertToEntityAttribute(final @Nullable String value) {
         return vop.valueOf(value);
     }
 

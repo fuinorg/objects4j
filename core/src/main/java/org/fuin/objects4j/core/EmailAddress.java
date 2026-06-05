@@ -17,7 +17,7 @@
  */
 package org.fuin.objects4j.core;
 
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import jakarta.mail.internet.AddressException;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.validation.constraints.NotNull;
@@ -62,7 +62,7 @@ public final class EmailAddress extends AbstractStringValueObject {
      * @param emailAddress
      *            Email address.
      */
-    public EmailAddress(@NotNull @EmailAddressStr final String emailAddress) {
+    public EmailAddress(@EmailAddressStr final String emailAddress) {
         super();
         Contract.requireArgNotEmpty("emailAddress", emailAddress);
         this.adr = parseArg("emailAddress", emailAddress);
@@ -128,7 +128,7 @@ public final class EmailAddress extends AbstractStringValueObject {
      * @throws ConstraintViolationException
      *             The value was not valid.
      */
-    public static void requireArgValid(@NotNull final String name, @NotNull final String value) throws ConstraintViolationException {
+    public static void requireArgValid(final String name, final String value) throws ConstraintViolationException {
 
         final String trimmedLowerCaseValue = value.trim().toLowerCase();
         if (!isValid(trimmedLowerCaseValue)) {
@@ -137,7 +137,7 @@ public final class EmailAddress extends AbstractStringValueObject {
 
     }
 
-    private static InternetAddress parseArg(@NotNull final String name, @NotNull final String value) {
+    private static InternetAddress parseArg(final String name, final String value) {
 
         final String trimmedLowerCaseValue = value.trim().toLowerCase();
         try {

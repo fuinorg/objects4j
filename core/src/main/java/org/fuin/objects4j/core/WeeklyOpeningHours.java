@@ -17,9 +17,8 @@
  */
 package org.fuin.objects4j.core;
 
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.common.HasPublicStaticIsValidMethod;
@@ -35,6 +34,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.StringTokenizer;
 
 /**
@@ -62,7 +62,7 @@ public final class WeeklyOpeningHours extends AbstractStringValueObject implemen
      * @param openingHours
      *            Opening hours like 'Mon-Fri 09:00-12:00+13:00-17:00,Sat/Sun 09:-12:00'.
      */
-    public WeeklyOpeningHours(@NotNull @WeeklyOpeningHoursStr final String openingHours) {
+    public WeeklyOpeningHours(@WeeklyOpeningHoursStr final String openingHours) {
         super();
         Contract.requireArgNotEmpty("weeklyOpeningHours", openingHours);
         requireArgValid("weeklyOpeningHours", openingHours);
@@ -73,7 +73,7 @@ public final class WeeklyOpeningHours extends AbstractStringValueObject implemen
         while (tok.hasMoreTokens()) {
             final String part = tok.nextToken();
             final int p = part.indexOf(' ');
-            final MultiDayOfTheWeek dayPart = MultiDayOfTheWeek.valueOf(part.substring(0, p));
+            final MultiDayOfTheWeek dayPart = Objects.requireNonNull(MultiDayOfTheWeek.valueOf(part.substring(0, p)));
             final HourRanges hourPart = new HourRanges(part.substring(p + 1));
             for (DayOfTheWeek dow : dayPart) {
                 final DayOpeningHours doh = new DayOpeningHours(dow, hourPart);
@@ -177,7 +177,7 @@ public final class WeeklyOpeningHours extends AbstractStringValueObject implemen
      * 
      * @return Changes from this week to the new one.
      */
-    public List<Change> diff(@NotNull final WeeklyOpeningHours toOther) {
+    public List<Change> diff(final WeeklyOpeningHours toOther) {
 
         Contract.requireArgNotNull("toOther", toOther);
 
@@ -236,6 +236,7 @@ public final class WeeklyOpeningHours extends AbstractStringValueObject implemen
         return changes;
     }
 
+    @Nullable
     private DayOpeningHours findDay(final DayOpeningHours toFind) {
         final int idx = openingHours.indexOf(toFind);
         if (idx < 0) {
@@ -255,7 +256,7 @@ public final class WeeklyOpeningHours extends AbstractStringValueObject implemen
      * 
      * @return {@literal true} if open else {@literal false} if not open.
      */
-    public final boolean openAt(@NotNull final DayOpeningHours dayOpeningHours) {
+    public final boolean openAt(final DayOpeningHours dayOpeningHours) {
         Contract.requireArgNotNull("dayOpeningHours", dayOpeningHours);
         if (!dayOpeningHours.isNormalized()) {
             throw new ConstraintViolationException(
@@ -370,7 +371,7 @@ public final class WeeklyOpeningHours extends AbstractStringValueObject implemen
             if (!MultiDayOfTheWeek.isValid(dayPartStr)) {
                 return false;
             }
-            final MultiDayOfTheWeek dayPart = MultiDayOfTheWeek.valueOf(dayPartStr);
+            final MultiDayOfTheWeek dayPart = Objects.requireNonNull(MultiDayOfTheWeek.valueOf(dayPartStr));
 
             // Next part should be one or more hours
             final String hourPartStr = part.substring(p + 1);
@@ -435,7 +436,7 @@ public final class WeeklyOpeningHours extends AbstractStringValueObject implemen
      *             The value was not valid.
      */
     // CHECKSTYLE:OFF:RedundantThrows
-    public static void requireArgValid(@NotNull final String name, @NotNull final String value) throws ConstraintViolationException {
+    public static void requireArgValid(final String name, final String value) throws ConstraintViolationException {
         // CHECKSTYLE:ON
 
         if (!isValid(value)) {

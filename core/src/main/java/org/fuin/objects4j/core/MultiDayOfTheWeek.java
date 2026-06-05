@@ -17,7 +17,7 @@
  */
 package org.fuin.objects4j.core;
 
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import org.fuin.objects4j.common.ConstraintViolationException;
@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import java.util.StringTokenizer;
 
 /**
@@ -65,7 +66,7 @@ public final class MultiDayOfTheWeek extends AbstractStringValueObject implement
      * @param multipleDayOfTheWeek
      *            Value like 'Mon/Tue/Wed-Fri'.
      */
-    public MultiDayOfTheWeek(@NotNull @MultiDayOfTheWeekStr final String multipleDayOfTheWeek) {
+    public MultiDayOfTheWeek(@MultiDayOfTheWeekStr final String multipleDayOfTheWeek) {
         super();
         Contract.requireArgNotEmpty("multipleDayOfTheWeek", multipleDayOfTheWeek);
         requireArgValid("multipleDayOfTheWeek", multipleDayOfTheWeek);
@@ -76,8 +77,8 @@ public final class MultiDayOfTheWeek extends AbstractStringValueObject implement
             final String part = tok.nextToken();
             final int p = part.indexOf('-');
             if (p > -1) {
-                final DayOfTheWeek from = DayOfTheWeek.valueOf(part.substring(0, p));
-                final DayOfTheWeek to = DayOfTheWeek.valueOf(part.substring(p + 1));
+                final DayOfTheWeek from = Objects.requireNonNull(DayOfTheWeek.valueOf(part.substring(0, p)));
+                final DayOfTheWeek to = Objects.requireNonNull(DayOfTheWeek.valueOf(part.substring(p + 1)));
                 this.multipleDayOfTheWeek.addAll(DayOfTheWeek.getPart(from, to));
             } else {
                 this.multipleDayOfTheWeek.add(DayOfTheWeek.valueOf(part));
@@ -216,8 +217,8 @@ public final class MultiDayOfTheWeek extends AbstractStringValueObject implement
                 if (!DayOfTheWeek.isValid(part1) || !DayOfTheWeek.isValid(part2)) {
                     return false;
                 }
-                final DayOfTheWeek from = DayOfTheWeek.valueOf(part1);
-                final DayOfTheWeek to = DayOfTheWeek.valueOf(part2);
+                final DayOfTheWeek from = Objects.requireNonNull(DayOfTheWeek.valueOf(part1));
+                final DayOfTheWeek to = Objects.requireNonNull(DayOfTheWeek.valueOf(part2));
                 if (from == to || from.after(to)) {
                     return false;
                 }
@@ -271,7 +272,7 @@ public final class MultiDayOfTheWeek extends AbstractStringValueObject implement
      *             The value was not valid.
      */
     // CHECKSTYLE:OFF:RedundantThrows
-    public static void requireArgValid(@NotNull final String name, @NotNull final String value) throws ConstraintViolationException {
+    public static void requireArgValid(final String name, final String value) throws ConstraintViolationException {
         // CHECKSTYLE:ON
 
         if (!isValid(value)) {

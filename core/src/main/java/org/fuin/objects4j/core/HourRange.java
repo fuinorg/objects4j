@@ -17,7 +17,7 @@
  */
 package org.fuin.objects4j.core;
 
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import org.fuin.objects4j.common.ConstraintViolationException;
@@ -78,7 +78,7 @@ public final class HourRange extends AbstractStringValueObject {
      * @param hourRange
      *            Hour like '00:00-24:00' (24 hours).
      */
-    public HourRange(@NotNull @HourRangeStr final String hourRange) {
+    public HourRange(@HourRangeStr final String hourRange) {
         super();
         Contract.requireArgNotEmpty("hourRange", hourRange);
         requireArgValid("hourRange", hourRange);
@@ -103,7 +103,7 @@ public final class HourRange extends AbstractStringValueObject {
      * @param to
      *            To hour.
      */
-    public HourRange(@NotNull final Hour from, @NotNull final Hour to) {
+    public HourRange(final Hour from, final Hour to) {
         super();
         Contract.requireArgNotNull("from", from);
         Contract.requireArgNotNull("to", to);
@@ -184,7 +184,7 @@ public final class HourRange extends AbstractStringValueObject {
      *
      * @return {@literal true} if the two ranges overlap, else {@literal false}.
      */
-    public final boolean overlaps(@NotNull final HourRange other) {
+    public final boolean overlaps(final HourRange other) {
         Contract.requireArgNotNull("other", other);
         if (this.equals(other)) {
             return true;
@@ -252,7 +252,7 @@ public final class HourRange extends AbstractStringValueObject {
      *
      * @return New instance with "from" taken from this instance and 'to' taken from the other one.
      */
-    public HourRange joinWithNextDay(@NotNull final HourRange other) {
+    public HourRange joinWithNextDay(final HourRange other) {
         Contract.requireArgNotNull("other", other);
         if (!this.to.equals(new Hour(24, 0))) {
             throw new ConstraintViolationException("The 'to' hour value of this instance is not '24:00', but was: '" + this.to + "'");
@@ -334,7 +334,7 @@ public final class HourRange extends AbstractStringValueObject {
      *             The value was not valid.
      */
     // CHECKSTYLE:OFF:RedundantThrows
-    public static void requireArgValid(@NotNull final String name, @NotNull final String value) throws ConstraintViolationException {
+    public static void requireArgValid(final String name, final String value) throws ConstraintViolationException {
         // CHECKSTYLE:ON
 
         if (!isValid(value)) {

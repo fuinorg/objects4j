@@ -17,9 +17,8 @@
  */
 package org.fuin.objects4j.core;
 
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.common.HasPublicStaticIsValidMethod;
@@ -78,7 +77,7 @@ public final class Hour extends AbstractStringValueObject {
      * @param hour
      *            Hour like '00:00' (midnight new day), '24:00' (midnight prev. day), '12:00' (noon) or '23:59' (a minute before midnight).
      */
-    public Hour(@NotNull @HourStr final String hour) {
+    public Hour(@HourStr final String hour) {
         super();
         Contract.requireArgNotEmpty("hour", hour);
         requireArgValid("hour", hour);
@@ -181,7 +180,7 @@ public final class Hour extends AbstractStringValueObject {
      *             The value was not valid.
      */
     // CHECKSTYLE:OFF:RedundantThrows
-    public static void requireArgValid(@NotNull final String name, @NotNull final String value) throws ConstraintViolationException {
+    public static void requireArgValid(final String name, final String value) throws ConstraintViolationException {
         // CHECKSTYLE:ON
 
         if (!Hour.isValid(value)) {

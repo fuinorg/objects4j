@@ -17,8 +17,8 @@
  */
 package org.fuin.objects4j.ui;
 
-import jakarta.validation.constraints.NotNull;
 import org.fuin.objects4j.common.Contract;
+import org.jspecify.annotations.Nullable;
 
 import javax.annotation.concurrent.Immutable;
 import java.lang.reflect.Field;
@@ -42,7 +42,7 @@ public class TextFieldInfo {
      * @param width
      *            Number of characters to be shown.
      */
-    public TextFieldInfo(@NotNull final Field field, final int width) {
+    public TextFieldInfo(final Field field, final int width) {
         super();
 
         Contract.requireArgNotNull("field", field);
@@ -104,7 +104,8 @@ public class TextFieldInfo {
      * @return Information or {@literal null}.
      */
     @SuppressWarnings("java:S1172") // We will stay backward compatible with the "locale" parameter
-    public static TextFieldInfo create(@NotNull final Field field, @NotNull final Locale locale) {
+    @Nullable
+    public static TextFieldInfo create(final Field field, final Locale locale) {
 
         final TextField textField = field.getAnnotation(TextField.class);
         if (textField == null) {

@@ -49,10 +49,10 @@ class ArchitectureTest {
                     "java.lang..",
                     "java.util..",
                     "java.io",
-                    "jakarta.validation..",
                     "jakarta.annotation..",
                     "com.fasterxml.jackson..",
                     "javax.annotation.concurrent",
+                    "org.jspecify..",
                     "org.fuin.utils4j..");
 
 

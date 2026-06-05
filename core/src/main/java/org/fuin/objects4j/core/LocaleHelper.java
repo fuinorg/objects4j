@@ -17,7 +17,7 @@
  */
 package org.fuin.objects4j.core;
 
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import java.util.Locale;
 import java.util.StringTokenizer;
@@ -71,7 +71,7 @@ public final class LocaleHelper {
      *
      * @return TRUE if the locale is known else FALSE.
      */
-    public static boolean validLocale(final Locale locale) {
+    public static boolean validLocale(final @Nullable Locale locale) {
         for (final Locale found : Locale.getAvailableLocales()) {
             if (found.equals(locale)) {
                 return true;

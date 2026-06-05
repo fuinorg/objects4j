@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import org.jspecify.annotations.Nullable;
 
 import javax.annotation.concurrent.NotThreadSafe;
 import javax.annotation.concurrent.ThreadSafe;
@@ -49,7 +50,7 @@ public record ImmutableObjectMapper(ObjectMapper objectMapper) {
 
         private final Builder builder;
 
-        private ImmutableObjectMapper mapper;
+        private @Nullable ImmutableObjectMapper mapper;
 
         /**
          * Constructor with builder.

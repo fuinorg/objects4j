@@ -21,10 +21,10 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
-import jakarta.validation.constraints.NotNull;
 import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.common.ValueOfCapable;
 import org.fuin.utils4j.TestOmitted;
+import org.jspecify.annotations.Nullable;
 
 import java.io.IOException;
 
@@ -44,8 +44,8 @@ public final class ValueObjectStringJacksonDeserializer<TYPE> extends StdDeseria
      * @param clasz Type handled by this deserializer.
      * @param vop Provides a valueOf method.
      */
-    public ValueObjectStringJacksonDeserializer(@NotNull final Class<TYPE> clasz,
-                                                @NotNull final ValueOfCapable<TYPE> vop) {
+    public ValueObjectStringJacksonDeserializer(final Class<TYPE> clasz,
+                                                final ValueOfCapable<TYPE> vop) {
         super(clasz);
         Contract.requireArgNotNull("vop", vop);
         this.vop = vop;
@@ -53,6 +53,7 @@ public final class ValueObjectStringJacksonDeserializer<TYPE> extends StdDeseria
 
     @Override
     @SuppressWarnings("unchecked")
+    @Nullable
     public TYPE deserialize(JsonParser parser, DeserializationContext context) throws IOException {
         final JsonToken currentToken = parser.getCurrentToken();
         if (currentToken.equals(JsonToken.VALUE_STRING)) {

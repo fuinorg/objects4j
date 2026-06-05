@@ -17,9 +17,9 @@
  */
 package org.fuin.objects4j.core;
 
-import jakarta.validation.constraints.NotNull;
 import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.common.ValueObject;
+import org.jspecify.annotations.Nullable;
 
 import javax.annotation.concurrent.Immutable;
 import java.io.Serial;
@@ -41,11 +41,12 @@ public final class KeyValue implements ValueObject, Serializable {
     @TrimmedNotEmpty
     private final String key;
 
-    private final Object value;
+    private final @Nullable Object value;
 
     /**
      * Protected default constructor for deserialization.
      */
+    @SuppressWarnings("NullAway") // Fields are populated by the deserialization framework
     protected KeyValue() {
         super();
         this.key = null;
@@ -58,7 +59,7 @@ public final class KeyValue implements ValueObject, Serializable {
      * @param key   Key.
      * @param value Value.
      */
-    public KeyValue(@NotNull @TrimmedNotEmpty final String key, final Object value) {
+    public KeyValue(@TrimmedNotEmpty final String key, @Nullable final Object value) {
         super();
         Contract.requireArgNotNull("key", key);
         TrimmedNotEmptyValidator.requireArgValid("key", key);
@@ -80,6 +81,7 @@ public final class KeyValue implements ValueObject, Serializable {
      *
      * @return Value.
      */
+    @Nullable
     public Object getValue() {
         return value;
     }
@@ -125,7 +127,8 @@ public final class KeyValue implements ValueObject, Serializable {
      * @param keyValue Array of key values or {@literal null}.
      * @return Replaced message.
      */
-    public static String replace(final String message, final KeyValue... keyValue) {
+    @Nullable
+    public static String replace(@Nullable final String message, final KeyValue... keyValue) {
         if (keyValue == null) {
             return message;
         }
@@ -149,7 +152,7 @@ public final class KeyValue implements ValueObject, Serializable {
         return replaceVars(message, map);
     }
 
-    private static String nullSafeAsString(final Object obj) {
+    private static String nullSafeAsString(@Nullable final Object obj) {
         if (obj == null) {
             return "null";
         }
@@ -163,7 +166,8 @@ public final class KeyValue implements ValueObject, Serializable {
      * @param vars Map with key/values (both of type <code>String</code> - Cannot be {@literal null}.
      * @return String with replaced variables. Unknown variables will remain unchanged.
      */
-    public static String replaceVars(final String str, final Map<String, String> vars) {
+    @Nullable
+    public static String replaceVars(@Nullable final String str, final Map<String, String> vars) {
 
         if (str == null) {
             return null;

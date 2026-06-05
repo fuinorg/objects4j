@@ -17,9 +17,8 @@
  */
 package org.fuin.objects4j.ui;
 
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import org.fuin.objects4j.common.Contract;
 
 import java.lang.annotation.Annotation;
@@ -64,8 +63,9 @@ public final class AnnotationAnalyzer {
      * 
      * @return Label information - Never {@literal null}.
      */
-    public final ClassTextInfo createClassInfo(@NotNull final Class<?> clasz, @NotNull final Locale locale,
-            @NotNull final Class<? extends Annotation> annotationClasz) {
+    @Nullable
+    public final ClassTextInfo createClassInfo(final Class<?> clasz, final Locale locale,
+            final Class<? extends Annotation> annotationClasz) {
 
         Contract.requireArgNotNull("clasz", clasz);
         Contract.requireArgNotNull("locale", locale);
@@ -102,8 +102,8 @@ public final class AnnotationAnalyzer {
      * 
      * @return List of informations - Never {@literal null}, but may be empty.
      */
-    public final List<FieldTextInfo> createFieldInfos(@NotNull final Class<?> clasz, @NotNull final Locale locale,
-            @NotNull final Class<? extends Annotation> annotationClasz) {
+    public final List<FieldTextInfo> createFieldInfos(final Class<?> clasz, final Locale locale,
+            final Class<? extends Annotation> annotationClasz) {
 
         Contract.requireArgNotNull("clasz", clasz);
         Contract.requireArgNotNull("locale", locale);
@@ -147,8 +147,9 @@ public final class AnnotationAnalyzer {
      * 
      * @return Label information - May be {@literal null} in case the annotation was not found.
      */
-    public final FieldTextInfo createFieldInfo(@NotNull final Field field, @NotNull final Locale locale,
-            @NotNull final Class<? extends Annotation> annotationClasz) {
+    @Nullable
+    public final FieldTextInfo createFieldInfo(final Field field, final Locale locale,
+            final Class<? extends Annotation> annotationClasz) {
 
         Contract.requireArgNotNull("field", field);
         Contract.requireArgNotNull("locale", locale);
@@ -183,7 +184,8 @@ public final class AnnotationAnalyzer {
      * 
      * @return Text or {@literal null}.
      */
-    private String getText(@NotNull final ResourceBundle bundle, @NotNull final Annotation annotation, @NotNull final String defaultKey) {
+    @Nullable
+    private String getText(final ResourceBundle bundle, final Annotation annotation, final String defaultKey) {
 
         Contract.requireArgNotNull("bundle", bundle);
         Contract.requireArgNotNull("annotation", annotation);
@@ -218,8 +220,8 @@ public final class AnnotationAnalyzer {
      * 
      * @return Resource bundle - Never {@literal null}.
      */
-    private ResourceBundle getResourceBundle(@NotNull final Annotation annotation, @NotNull final Locale locale,
-            @NotNull final Class<?> clasz) {
+    private ResourceBundle getResourceBundle(final Annotation annotation, final Locale locale,
+            final Class<?> clasz) {
 
         if (getBundle(annotation).equals("")) {
             final String path = clasz.getPackage().getName().replace('.', '/');
@@ -238,6 +240,7 @@ public final class AnnotationAnalyzer {
      * 
      * @return Argument or {@literal null}.
      */
+    @Nullable
     private final String toNullableString(final String value) {
         if (value.equals("")) {
             return null;
@@ -289,8 +292,8 @@ public final class AnnotationAnalyzer {
      * 
      * @return The result of dispatching the method represented by this object on <code>obj</code> with parameters <code>args</code>.
      */
-    private static Object invoke(@NotNull final Object obj, @NotEmpty final String methodName, @Nullable final Class<?>[] argTypes,
-            @Nullable final Object[] args) {
+    private static Object invoke(final Object obj, @NotEmpty final String methodName, final Class<?> @Nullable [] argTypes,
+            final Object @Nullable [] args) {
 
         Contract.requireArgNotNull("obj", obj);
         Contract.requireArgNotNull("methodName", methodName);
@@ -359,7 +362,7 @@ public final class AnnotationAnalyzer {
      * 
      * @return Textual signature of the method.
      */
-    public static String getMethodSignature(@NotNull final Class<?> returnType, @NotNull final String methodName,
+    public static String getMethodSignature(final Class<?> returnType, final String methodName,
             final Class<?>[] argTypes) {
         final StringBuilder sb = new StringBuilder();
         sb.append(name(returnType));
@@ -378,7 +381,7 @@ public final class AnnotationAnalyzer {
         return sb.toString();
     }
 
-    private static String name(@NotNull final Class<?> clasz) {
+    private static String name(final Class<?> clasz) {
         final String name = CLASS_NAME_MAP.get(clasz);
         if (name == null) {
             return clasz.getName();

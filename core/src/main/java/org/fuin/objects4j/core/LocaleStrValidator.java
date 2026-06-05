@@ -19,10 +19,10 @@ package org.fuin.objects4j.core;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import jakarta.validation.constraints.NotNull;
 import org.fuin.objects4j.common.ConstraintViolationException;
 
 import java.util.Locale;
+import java.util.Objects;
 
 /**
  * Check that a given string is a valid {@link java.util.Locale}.
@@ -72,7 +72,7 @@ public final class LocaleStrValidator implements ConstraintValidator<LocaleStr, 
      *             The value was not valid.
      */
     // CHECKSTYLE:OFF:RedundantThrows
-    public static Locale parseArg(@NotNull final String name, @NotNull final String value) throws ConstraintViolationException {
+    public static Locale parseArg(final String name, final String value) throws ConstraintViolationException {
         // CHECKSTYLE:ON
 
         try {
@@ -80,7 +80,7 @@ public final class LocaleStrValidator implements ConstraintValidator<LocaleStr, 
             if (!LocaleHelper.validLocale(locale)) {
                 throw new ConstraintViolationException("The argument '" + name + "' is not valid: '" + value + "'");
             }
-            return locale;
+            return Objects.requireNonNull(locale);
         } catch (final RuntimeException ex) {
             throw new ConstraintViolationException("The argument '" + name + "' is not valid: '" + value + "'");
         }

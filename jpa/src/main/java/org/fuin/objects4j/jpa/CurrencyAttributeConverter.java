@@ -19,6 +19,7 @@ package org.fuin.objects4j.jpa;
 
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
+import org.jspecify.annotations.Nullable;
 
 import javax.annotation.concurrent.ThreadSafe;
 import java.util.Currency;
@@ -31,7 +32,8 @@ import java.util.Currency;
 public final class CurrencyAttributeConverter implements AttributeConverter<Currency, String> {
 
     @Override
-    public String convertToDatabaseColumn(Currency value) {
+    @Nullable
+    public String convertToDatabaseColumn(@Nullable Currency value) {
         if (value == null) {
             return null;
         }
@@ -39,7 +41,8 @@ public final class CurrencyAttributeConverter implements AttributeConverter<Curr
     }
 
     @Override
-    public Currency convertToEntityAttribute(String dbData) {
+    @Nullable
+    public Currency convertToEntityAttribute(@Nullable String dbData) {
         if (dbData == null) {
             return null;
         }

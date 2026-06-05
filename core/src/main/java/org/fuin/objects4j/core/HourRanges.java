@@ -17,7 +17,7 @@
  */
 package org.fuin.objects4j.core;
 
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import org.fuin.objects4j.common.ConstraintViolationException;
@@ -33,6 +33,7 @@ import java.util.BitSet;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import java.util.StringTokenizer;
 
 /**
@@ -60,7 +61,7 @@ public final class HourRanges extends AbstractStringValueObject implements Itera
      * @param ranges
      *            Hour like '09:00-12:00+13:00-17:00'.
      */
-    public HourRanges(@NotNull @HourRangesStr final String ranges) {
+    public HourRanges(@HourRangesStr final String ranges) {
         super();
         Contract.requireArgNotEmpty("ranges", ranges);
         requireArgValid("ranges", ranges);
@@ -190,13 +191,13 @@ public final class HourRanges extends AbstractStringValueObject implements Itera
         final List<Change> changes = new ArrayList<>();
 
         if (!removedMinutes.isEmpty()) {
-            final HourRanges removed = HourRanges.valueOf(removedMinutes);
+            final HourRanges removed = Objects.requireNonNull(HourRanges.valueOf(removedMinutes));
             for (final HourRange hr : removed) {
                 changes.add(new Change(ChangeType.REMOVED, hr));
             }
         }
         if (!addedMinutes.isEmpty()) {
-            final HourRanges added = HourRanges.valueOf(addedMinutes);
+            final HourRanges added = Objects.requireNonNull(HourRanges.valueOf(addedMinutes));
             for (final HourRange hr : added) {
                 changes.add(new Change(ChangeType.ADDED, hr));
             }
@@ -233,7 +234,7 @@ public final class HourRanges extends AbstractStringValueObject implements Itera
      * 
      * @return {@literal true} if at least one minute is the same for both days.
      */
-    public final boolean overlaps(@NotNull final HourRanges other) {
+    public final boolean overlaps(final HourRanges other) {
         final BitSet thisMinutes = this.toMinutes();
         final BitSet otherMinutes = other.toMinutes();
         thisMinutes.and(otherMinutes);
@@ -252,7 +253,7 @@ public final class HourRanges extends AbstractStringValueObject implements Itera
      * 
      * @return {@literal true} if open else {@literal false} if not open.
      */
-    public final boolean openAt(@NotNull final HourRange range) {
+    public final boolean openAt(final HourRange range) {
         Contract.requireArgNotNull("range", range);
         ensureSingleDayOnly("this", this);
 
@@ -277,7 +278,7 @@ public final class HourRanges extends AbstractStringValueObject implements Itera
      * @return New instance with added times.
      */
     @NotNull
-    public final HourRanges add(@NotNull final HourRanges other) {
+    public final HourRanges add(final HourRanges other) {
         Contract.requireArgNotNull("other", other);
         ensureSingleDayOnly("this", this);
         ensureSingleDayOnly("other", other);
@@ -286,7 +287,7 @@ public final class HourRanges extends AbstractStringValueObject implements Itera
         final BitSet otherMinutes = other.toMinutes();
         thisMinutes.or(otherMinutes);
 
-        return HourRanges.valueOf(thisMinutes);
+        return Objects.requireNonNull(HourRanges.valueOf(thisMinutes));
 
     }
 
@@ -303,7 +304,7 @@ public final class HourRanges extends AbstractStringValueObject implements Itera
      * @return New instance with removed times or {@literal null} if all times where removed.
      */
     @Nullable
-    public final HourRanges remove(@NotNull final HourRanges other) {
+    public final HourRanges remove(final HourRanges other) {
         Contract.requireArgNotNull("other", other);
         ensureSingleDayOnly("this", this);
         ensureSingleDayOnly("other", other);
@@ -342,9 +343,9 @@ public final class HourRanges extends AbstractStringValueObject implements Itera
     public final HourRanges compress() {
         final List<HourRanges> normalized = normalize();
         if (normalized.size() == 1) {
-            return valueOf(normalized.get(0).toMinutes());
+            return Objects.requireNonNull(valueOf(normalized.get(0).toMinutes()));
         } else if (normalized.size() == 2) {
-            final HourRanges firstDay = valueOf(normalized.get(0).toMinutes());
+            final HourRanges firstDay = Objects.requireNonNull(valueOf(normalized.get(0).toMinutes()));
             final HourRanges secondDay = normalized.get(1);
             if (secondDay.ranges.size() != 1) {
                 throw new IllegalStateException(
@@ -443,10 +444,12 @@ public final class HourRanges extends AbstractStringValueObject implements Itera
      * 
      * @return New instance.
      */
+    @Nullable
     public static HourRanges valueOf(@Nullable final BitSet minutes) {
         return valueOf(minutes, 1440);
     }
 
+    @Nullable
     private static HourRanges valueOf(@Nullable final BitSet minutes, final int max) {
         if (minutes == null) {
             return null;
@@ -468,14 +471,14 @@ public final class HourRanges extends AbstractStringValueObject implements Itera
                 }
             } else {
                 if (startHour != null) {
-                    ranges.add(createHourRange(startHour, startMinute, i));
+                    ranges.add(createHourRange(startHour, Objects.requireNonNull(startMinute), i));
                     startHour = null;
                     startMinute = 0;
                 }
             }
         }
         if (startHour != null) {
-            ranges.add(createHourRange(startHour, startMinute, minutes.length()));
+            ranges.add(createHourRange(startHour, Objects.requireNonNull(startMinute), minutes.length()));
         }
 
         return new HourRanges(ranges.toArray(new HourRange[0]));
@@ -505,7 +508,7 @@ public final class HourRanges extends AbstractStringValueObject implements Itera
      *             The value was not valid.
      */
     // CHECKSTYLE:OFF:RedundantThrows
-    public static void requireArgValid(@NotNull final String name, @NotNull final String value) throws ConstraintViolationException {
+    public static void requireArgValid(final String name, final String value) throws ConstraintViolationException {
         // CHECKSTYLE:ON
 
         if (!isValid(value)) {
@@ -545,7 +548,7 @@ public final class HourRanges extends AbstractStringValueObject implements Itera
          * @param range
          *            The changed hours.
          */
-        public Change(@NotNull final ChangeType type, @NotNull final HourRange range) {
+        public Change(final ChangeType type, final HourRange range) {
             super();
             Contract.requireArgNotNull("type", type);
             Contract.requireArgNotNull("range", range);

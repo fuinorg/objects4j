@@ -19,6 +19,7 @@ package org.fuin.objects4j.jaxb;
 
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 import org.fuin.objects4j.core.LocaleHelper;
+import org.jspecify.annotations.Nullable;
 
 import javax.annotation.concurrent.ThreadSafe;
 import java.util.Locale;
@@ -30,7 +31,8 @@ import java.util.Locale;
 public final class LocaleXmlAdapter extends XmlAdapter<String, Locale> {
 
     @Override
-    public final String marshal(final Locale value) throws Exception {
+    @Nullable
+    public final String marshal(final @Nullable Locale value) throws Exception {
         if (value == null) {
             return null;
         }
@@ -38,7 +40,8 @@ public final class LocaleXmlAdapter extends XmlAdapter<String, Locale> {
     }
 
     @Override
-    public final Locale unmarshal(final String value) throws Exception {
+    @Nullable
+    public final Locale unmarshal(final @Nullable String value) throws Exception {
         return LocaleHelper.asLocale(value);
     }
 

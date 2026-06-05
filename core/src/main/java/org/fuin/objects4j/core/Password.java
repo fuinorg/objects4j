@@ -17,7 +17,7 @@
  */
 package org.fuin.objects4j.core;
 
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import jakarta.validation.constraints.NotNull;
 import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.ui.Label;
@@ -56,7 +56,7 @@ public final class Password extends AbstractStringValueObject {
      * @param password
      *            Password.
      */
-    public Password(@NotNull @PasswordStr final String password) {
+    public Password(@PasswordStr final String password) {
         super();
         Contract.requireArgNotEmpty("password", password);
         PasswordStrValidator.requireArgValid("password", password);

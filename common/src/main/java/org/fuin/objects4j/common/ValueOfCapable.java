@@ -17,7 +17,7 @@
  */
 package org.fuin.objects4j.common;
 
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Functional interface used ton convert a string into a type.

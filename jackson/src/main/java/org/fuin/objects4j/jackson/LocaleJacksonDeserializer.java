@@ -22,6 +22,7 @@ import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import org.fuin.objects4j.core.LocaleHelper;
+import org.jspecify.annotations.Nullable;
 
 import javax.annotation.concurrent.ThreadSafe;
 import java.io.IOException;
@@ -41,6 +42,7 @@ public final class LocaleJacksonDeserializer extends StdDeserializer<Locale> {
     }
 
     @Override
+    @Nullable
     public Locale deserialize(JsonParser parser, DeserializationContext context) throws IOException {
         final JsonToken currentToken = parser.getCurrentToken();
         if (currentToken.equals(JsonToken.VALUE_STRING)) {

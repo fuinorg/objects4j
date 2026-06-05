@@ -49,7 +49,7 @@ class ArchitectureTest {
                     "java.lang..", "java.util..", "java.io..", "java.text..", "java.security..",
                     "java.math..", "java.time..", "jakarta.mail..",
                     "jakarta.validation..", "jakarta.annotation..", "jakarta.enterprise.inject..",
-                    "javax.annotation.concurrent");
+                    "javax.annotation.concurrent", "org.jspecify..");
 
 }
 

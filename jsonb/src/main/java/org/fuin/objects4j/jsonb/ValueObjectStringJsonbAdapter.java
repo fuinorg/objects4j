@@ -18,10 +18,10 @@
 package org.fuin.objects4j.jsonb;
 
 import jakarta.json.bind.adapter.JsonbAdapter;
-import jakarta.validation.constraints.NotNull;
 import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.common.AsStringCapable;
 import org.fuin.objects4j.common.ValueOfCapable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Converts a type into a string and back.
@@ -39,14 +39,15 @@ public abstract class ValueObjectStringJsonbAdapter<TYPE extends AsStringCapable
      * @param vop
      *            Provides a valueOf method.
      */
-    public ValueObjectStringJsonbAdapter(@NotNull final ValueOfCapable<TYPE> vop) {
+    public ValueObjectStringJsonbAdapter(final ValueOfCapable<TYPE> vop) {
         super();
         Contract.requireArgNotNull("vop", vop);
         this.vop = vop;
     }
 
     @Override
-    public final String adaptToJson(final TYPE obj) throws Exception {
+    @Nullable
+    public final String adaptToJson(final @Nullable TYPE obj) throws Exception {
         if (obj == null) {
             return null;
         }
@@ -54,7 +55,8 @@ public abstract class ValueObjectStringJsonbAdapter<TYPE extends AsStringCapable
     }
 
     @Override
-    public final TYPE adaptFromJson(final String str) throws Exception {
+    @Nullable
+    public final TYPE adaptFromJson(final @Nullable String str) throws Exception {
         return vop.valueOf(str);
     }
 

@@ -21,6 +21,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
+import org.jspecify.annotations.Nullable;
 
 import javax.annotation.concurrent.ThreadSafe;
 import java.io.IOException;
@@ -40,6 +41,7 @@ public final class CurrencyJacksonDeserializer extends StdDeserializer<Currency>
     }
 
     @Override
+    @Nullable
     public Currency deserialize(JsonParser parser, DeserializationContext context) throws IOException {
         final JsonToken currentToken = parser.getCurrentToken();
         if (currentToken.equals(JsonToken.VALUE_STRING)) {

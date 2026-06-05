@@ -19,7 +19,6 @@ package org.fuin.objects4j.common;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import jakarta.validation.constraints.NotNull;
 
 import java.io.File;
 
@@ -52,7 +51,7 @@ public final class FileExistsValidator implements ConstraintValidator<FileExists
      * @throws ConstraintViolationException
      *             The file does not exist.
      */
-    public static void requireArgValid(@NotNull final String name, @NotNull final File value) throws ConstraintViolationException {
+    public static void requireArgValid(final String name, final File value) throws ConstraintViolationException {
         if (!value.exists()) {
             throw new ConstraintViolationException("The argument '" + name + "' is not an existing file: '" + value + "'");
         }

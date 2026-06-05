@@ -17,11 +17,11 @@
  */
 package org.fuin.objects4j.jaxb;
 
-import jakarta.validation.constraints.NotNull;
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.common.AsStringCapable;
 import org.fuin.objects4j.common.ValueOfCapable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Converts a type into a string and back.
@@ -37,7 +37,7 @@ public abstract class ValueObjectStringXmlAdapter<TYPE extends AsStringCapable> 
      *
      * @param vop Provides a valueOf method.
      */
-    public ValueObjectStringXmlAdapter(@NotNull final ValueOfCapable<TYPE> vop) {
+    public ValueObjectStringXmlAdapter(final ValueOfCapable<TYPE> vop) {
         super();
         Contract.requireArgNotNull("vop", vop);
         this.vop = vop;
@@ -46,12 +46,14 @@ public abstract class ValueObjectStringXmlAdapter<TYPE extends AsStringCapable> 
     // JAX-B
 
     @Override
-    public final TYPE unmarshal(final String value) {
+    @Nullable
+    public final TYPE unmarshal(final @Nullable String value) {
         return vop.valueOf(value);
     }
 
     @Override
-    public final String marshal(final TYPE value) {
+    @Nullable
+    public final String marshal(final @Nullable TYPE value) {
         if (value == null) {
             return null;
         }

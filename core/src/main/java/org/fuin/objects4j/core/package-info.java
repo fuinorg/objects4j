@@ -20,4 +20,7 @@
  * Contains immutable object that represents an object whose equality isn't based on identity. That means instances of this type are equal
  * when they have the same value, not necessarily being the same object. Additionally, some helper classes are placed in this package.
  */
+@NullMarked
 package org.fuin.objects4j.core;
+
+import org.jspecify.annotations.NullMarked;

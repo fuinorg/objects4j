@@ -19,4 +19,7 @@
 /**
  * Contains annotations that can be placed on plain objects but may be used by a user interface to render that object in some way.
  */
+@NullMarked
 package org.fuin.objects4j.ui;
+
+import org.jspecify.annotations.NullMarked;

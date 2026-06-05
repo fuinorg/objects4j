@@ -19,6 +19,7 @@ package org.fuin.objects4j.jsonb;
 
 import jakarta.json.bind.adapter.JsonbAdapter;
 import org.fuin.objects4j.core.LocaleHelper;
+import org.jspecify.annotations.Nullable;
 
 import javax.annotation.concurrent.ThreadSafe;
 import java.util.Locale;
@@ -30,7 +31,8 @@ import java.util.Locale;
 public final class LocaleJsonbAdapter implements JsonbAdapter<Locale, String> {
 
     @Override
-    public String adaptToJson(final Locale obj) throws Exception {
+    @Nullable
+    public String adaptToJson(final @Nullable Locale obj) throws Exception {
         if (obj == null) {
             return null;
         }
@@ -38,7 +40,8 @@ public final class LocaleJsonbAdapter implements JsonbAdapter<Locale, String> {
     }
 
     @Override
-    public Locale adaptFromJson(final String str) throws Exception {
+    @Nullable
+    public Locale adaptFromJson(final @Nullable String str) throws Exception {
         if (str == null) {
             return null;
         }

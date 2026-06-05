@@ -48,10 +48,10 @@ class ArchitectureTest {
             .resideInAnyPackage(JSONB_PACKAGE, COMMON_PACKAGE, CORE_PACKAGE,
                     "java.lang..",
                     "java.util..",
-                    "jakarta.validation..",
                     "jakarta.annotation..",
                     "jakarta.json.bind..",
                     "javax.annotation.concurrent",
+                    "org.jspecify..",
                     "org.fuin.utils4j..");
 
 

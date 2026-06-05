@@ -17,7 +17,6 @@
  */
 package org.fuin.objects4j.common;
 
-import jakarta.validation.constraints.NotNull;
 
 import java.io.Serial;
 
@@ -39,7 +38,7 @@ public abstract class UniquelyNumberedException extends Exception implements Uni
      * @param message
      *            The detail message.
      */
-    public UniquelyNumberedException(final long number, @NotNull final String message) {
+    public UniquelyNumberedException(final long number, final String message) {
         super(message);
         this.number = number;
     }
@@ -54,7 +53,7 @@ public abstract class UniquelyNumberedException extends Exception implements Uni
      * @param cause
      *            The cause .
      */
-    public UniquelyNumberedException(final long number, @NotNull final String message, @NotNull final Throwable cause) {
+    public UniquelyNumberedException(final long number, final String message, final Throwable cause) {
         super(message, cause);
         this.number = number;
     }
@@ -67,7 +66,7 @@ public abstract class UniquelyNumberedException extends Exception implements Uni
      * @param cause
      *            The cause.
      */
-    public UniquelyNumberedException(final long number, @NotNull final Throwable cause) {
+    public UniquelyNumberedException(final long number, final Throwable cause) {
         super(cause);
         this.number = number;
     }

@@ -18,6 +18,7 @@
 package org.fuin.objects4j.jaxb;
 
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;
+import org.jspecify.annotations.Nullable;
 
 import javax.annotation.concurrent.ThreadSafe;
 import java.util.UUID;
@@ -29,7 +30,8 @@ import java.util.UUID;
 public final class UUIDXmlAdapter extends XmlAdapter<String, UUID> {
 
     @Override
-    public final String marshal(final UUID value) throws Exception {
+    @Nullable
+    public final String marshal(final @Nullable UUID value) throws Exception {
         if (value == null) {
             return null;
         }
@@ -37,7 +39,8 @@ public final class UUIDXmlAdapter extends XmlAdapter<String, UUID> {
     }
 
     @Override
-    public final UUID unmarshal(final String value) throws Exception {
+    @Nullable
+    public final UUID unmarshal(final @Nullable String value) throws Exception {
         if (value == null) {
             return null;
         }

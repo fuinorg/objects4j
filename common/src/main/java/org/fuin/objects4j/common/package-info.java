@@ -21,4 +21,7 @@
 /**
  * Some interfaces, annotations and validators.
  */
+@NullMarked
 package org.fuin.objects4j.common;
+
+import org.jspecify.annotations.NullMarked;

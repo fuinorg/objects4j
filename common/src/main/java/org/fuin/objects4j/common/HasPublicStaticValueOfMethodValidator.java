@@ -3,12 +3,14 @@ package org.fuin.objects4j.common;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.fuin.utils4j.Utils4J;
+import org.jspecify.annotations.Nullable;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.function.Function;
 
@@ -89,7 +91,7 @@ public class HasPublicStaticValueOfMethodValidator implements ConstraintValidato
     public static Method findMethod(final Class<?> clasz, final String methodName, final Class<?> paramClass) {
         final Result result = analyze(clasz, methodName, paramClass);
         if (result.message() == null) {
-            return result.method();
+            return Objects.requireNonNull(result.method(), "result.method()");
         }
         throw new IllegalArgumentException(result.message() + " (" + clasz.getName() + ")");
     }
@@ -116,7 +118,7 @@ public class HasPublicStaticValueOfMethodValidator implements ConstraintValidato
         };
     }
 
-    private record Result(String message, Method method) {
+    private record Result(@Nullable String message, @Nullable Method method) {
     }
 
 }

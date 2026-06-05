@@ -17,7 +17,7 @@
  */
 package org.fuin.objects4j.core;
 
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import jakarta.validation.constraints.NotNull;
 import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.objects4j.common.Contract;
@@ -55,7 +55,7 @@ public final class PasswordSha512 extends AbstractStringValueObject {
      * @param hexEncodedHash
      *            Hash code as HEX encoded string.
      */
-    public PasswordSha512(@NotNull @PasswordSha512Str final String hexEncodedHash) {
+    public PasswordSha512(@PasswordSha512Str final String hexEncodedHash) {
         super();
         this.hash = hexEncodedHash;
         Contract.requireArgNotEmpty("hexEncodedHash", hexEncodedHash);
@@ -70,7 +70,7 @@ public final class PasswordSha512 extends AbstractStringValueObject {
      * @param password
      *            Clear text password.
      */
-    public PasswordSha512(@NotNull final Password password) {// NOSONAR False "hash ... not initialized in this
+    public PasswordSha512(final Password password) {// NOSONAR False "hash ... not initialized in this
                                                              // constructor"
         super();
         try {
@@ -148,7 +148,7 @@ public final class PasswordSha512 extends AbstractStringValueObject {
      * @throws ConstraintViolationException
      *             The value was not valid.
      */
-    public static void requireArgValid(@NotNull final String name, @NotNull final String value) throws ConstraintViolationException {
+    public static void requireArgValid(final String name, final String value) throws ConstraintViolationException {
         if (!isValid(value)) {
             throw new ConstraintViolationException("The argument '" + name + "' is not valid: '" + value + "'");
         }

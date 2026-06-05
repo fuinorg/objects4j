@@ -17,7 +17,7 @@
  */
 package org.fuin.objects4j.common;
 
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.constraints.NotEmpty;
 
@@ -34,7 +34,7 @@ public final class ConstraintViolationException extends RuntimeException {
     private static final long serialVersionUID = 1L;
 
     @SuppressWarnings("squid:S1948") // Cannot fix as external interface, but Hibernate is serializable
-    private final Set<ConstraintViolation<Object>> constraintViolations;
+    private final @Nullable Set<ConstraintViolation<Object>> constraintViolations;
 
     /**
      * Constructor with error message.
@@ -66,6 +66,7 @@ public final class ConstraintViolationException extends RuntimeException {
      * @return Immutable set of constraint violations or {@literal null} if only a message is available.
      */
     @SuppressWarnings("squid:S1168") // Won't fix. Needs to be backward compatible.
+    @Nullable
     public final Set<ConstraintViolation<Object>> getConstraintViolations() {
         if (constraintViolations == null) {
             return null;

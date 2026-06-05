@@ -19,6 +19,7 @@ package org.fuin.objects4j.jpa;
 
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
+import org.jspecify.annotations.Nullable;
 
 import javax.annotation.concurrent.ThreadSafe;
 import java.util.UUID;
@@ -31,7 +32,8 @@ import java.util.UUID;
 public final class UUIDAttributeConverter implements AttributeConverter<UUID, String> {
 
     @Override
-    public String convertToDatabaseColumn(UUID value) {
+    @Nullable
+    public String convertToDatabaseColumn(@Nullable UUID value) {
         if (value == null) {
             return null;
         }

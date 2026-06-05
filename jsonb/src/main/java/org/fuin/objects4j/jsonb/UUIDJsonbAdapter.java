@@ -18,6 +18,7 @@
 package org.fuin.objects4j.jsonb;
 
 import jakarta.json.bind.adapter.JsonbAdapter;
+import org.jspecify.annotations.Nullable;
 
 import javax.annotation.concurrent.ThreadSafe;
 import java.util.UUID;
@@ -29,7 +30,8 @@ import java.util.UUID;
 public final class UUIDJsonbAdapter implements JsonbAdapter<UUID, String> {
 
     @Override
-    public String adaptToJson(final UUID obj) throws Exception {
+    @Nullable
+    public String adaptToJson(final @Nullable UUID obj) throws Exception {
         if (obj == null) {
             return null;
         }
@@ -37,7 +39,8 @@ public final class UUIDJsonbAdapter implements JsonbAdapter<UUID, String> {
     }
 
     @Override
-    public UUID adaptFromJson(final String str) throws Exception {
+    @Nullable
+    public UUID adaptFromJson(final @Nullable String str) throws Exception {
         if (str == null) {
             return null;
         }

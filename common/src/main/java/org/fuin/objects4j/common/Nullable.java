@@ -27,7 +27,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 /**
  * Used to express that a value may be {@literal null}.
  * 
- * @deprecated Use <code>jakarta.annotation.Nullable</code> from Jakarta annotations instead.
+ * @deprecated Use <code>org.jspecify.annotations.Nullable</code> from JSpecify instead.
  */
 @Documented
 @Target(value = { METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER })

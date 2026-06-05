@@ -3,6 +3,7 @@ package org.fuin.objects4j.jsonb;
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
 import jakarta.json.bind.JsonbConfig;
+import org.jspecify.annotations.Nullable;
 
 import javax.annotation.concurrent.NotThreadSafe;
 import java.util.Objects;
@@ -21,7 +22,7 @@ public final class JsonbProvider implements AutoCloseable {
 
     private final JsonbConfig config;
 
-    private Jsonb jsonb;
+    private @Nullable Jsonb jsonb;
 
     /**
      * Constructor with config.

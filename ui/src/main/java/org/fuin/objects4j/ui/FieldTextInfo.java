@@ -17,8 +17,8 @@
  */
 package org.fuin.objects4j.ui;
 
-import jakarta.validation.constraints.NotNull;
 import org.fuin.objects4j.common.Contract;
+import org.jspecify.annotations.Nullable;
 
 import java.lang.reflect.Field;
 
@@ -37,7 +37,7 @@ public final class FieldTextInfo extends TextInfo {
      * @param text
      *            Text.
      */
-    public FieldTextInfo(@NotNull final Field field, final String text) {
+    public FieldTextInfo(final Field field, @Nullable final String text) {
         super(text);
         Contract.requireArgNotNull("field", field);
         this.field = field;

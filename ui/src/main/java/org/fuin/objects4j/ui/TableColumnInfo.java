@@ -17,8 +17,7 @@
  */
 package org.fuin.objects4j.ui;
 
-import jakarta.annotation.Nullable;
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.Nullable;
 import org.fuin.objects4j.common.Contract;
 
 import javax.annotation.concurrent.Immutable;
@@ -36,11 +35,11 @@ public final class TableColumnInfo implements Comparable<TableColumnInfo> {
 
     private final Field field;
 
-    private final String text;
+    private final @Nullable String text;
 
-    private final String shortText;
+    private final @Nullable String shortText;
 
-    private final String tooltip;
+    private final @Nullable String tooltip;
 
     private final FontSize width;
 
@@ -64,8 +63,8 @@ public final class TableColumnInfo implements Comparable<TableColumnInfo> {
      * @param getter
      *            Name of the getter for the field.
      */
-    public TableColumnInfo(@NotNull final Field field, final String text, final String shortText, final int pos,
-            @NotNull final FontSize width, @NotNull final String getter) {
+    public TableColumnInfo(final Field field, final String text, final String shortText, final int pos,
+            final FontSize width, final String getter) {
         this(field, text, shortText, null, pos, width, getter);
     }
 
@@ -87,8 +86,8 @@ public final class TableColumnInfo implements Comparable<TableColumnInfo> {
      * @param getter
      *            Name of the getter for the field.
      */
-    public TableColumnInfo(@NotNull final Field field, @Nullable final String text, @Nullable final String shortText,
-            @Nullable final String tooltip, final int pos, @NotNull final FontSize width, @NotNull final String getter) {
+    public TableColumnInfo(final Field field, @Nullable final String text, @Nullable final String shortText,
+            @Nullable final String tooltip, final int pos, final FontSize width, final String getter) {
         super();
 
         Contract.requireArgNotNull("field", field);
@@ -118,24 +117,27 @@ public final class TableColumnInfo implements Comparable<TableColumnInfo> {
      * 
      * @return Long text.
      */
+    @Nullable
     public final String getText() {
         return text;
     }
 
     /**
      * Returns the abbreviation of the text.
-     * 
+     *
      * @return Short text.
      */
+    @Nullable
     public final String getShortText() {
         return shortText;
     }
 
     /**
      * Returns the tooltip.
-     * 
+     *
      * @return Tooltip text.
      */
+    @Nullable
     public final String getTooltip() {
         return tooltip;
     }
@@ -210,7 +212,7 @@ public final class TableColumnInfo implements Comparable<TableColumnInfo> {
      * 
      * @return List of table columns sorted by the position.
      */
-    public static List<TableColumnInfo> create(@NotNull final Class<?> clasz, @NotNull final Locale locale) {
+    public static List<TableColumnInfo> create(final Class<?> clasz, final Locale locale) {
 
         Contract.requireArgNotNull("clasz", clasz);
         Contract.requireArgNotNull("locale", locale);
@@ -237,7 +239,8 @@ public final class TableColumnInfo implements Comparable<TableColumnInfo> {
      * 
      * @return Information or {@literal null}.
      */
-    public static TableColumnInfo create(@NotNull final Field field, @NotNull final Locale locale) {
+    @Nullable
+    public static TableColumnInfo create(final Field field, final Locale locale) {
 
         Contract.requireArgNotNull("field", field);
         Contract.requireArgNotNull("locale", locale);
@@ -306,9 +309,6 @@ public final class TableColumnInfo implements Comparable<TableColumnInfo> {
      * @return Text with first character upper case.
      */
     private static String firstCharUpper(final String str) {
-        if (str == null) {
-            return null;
-        }
         if (str.length() == 0) {
             return str;
         }

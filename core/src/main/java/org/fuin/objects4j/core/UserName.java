@@ -17,7 +17,7 @@
  */
 package org.fuin.objects4j.core;
 
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import jakarta.validation.constraints.NotNull;
 import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.objects4j.common.Contract;
@@ -70,7 +70,7 @@ public final class UserName extends AbstractStringValueObject {
      * @param userName
      *            User name.
      */
-    public UserName(@NotNull @UserNameStr final String userName) {
+    public UserName(@UserNameStr final String userName) {
         super();
         Contract.requireArgNotNull("userName", userName);
         parseArg("userName", userName);
@@ -132,7 +132,7 @@ public final class UserName extends AbstractStringValueObject {
      * @throws ConstraintViolationException
      *             The value was not valid.
      */
-    public static void parseArg(@NotNull final String name, @NotNull final String value) throws ConstraintViolationException {
+    public static void parseArg(final String name, final String value) throws ConstraintViolationException {
         final String trimmed = value.trim().toLowerCase();
         if (!isValid(trimmed)) {
             throw new ConstraintViolationException("The argument '" + name + "' is not valid: '" + trimmed + "'");

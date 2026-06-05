@@ -17,7 +17,7 @@
  */
 package org.fuin.objects4j.core;
 
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import jakarta.validation.constraints.NotNull;
 import org.fuin.objects4j.common.AsStringCapable;
 import org.fuin.objects4j.common.ConstraintViolationException;
@@ -34,6 +34,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Currency;
+import java.util.Objects;
 
 /**
  * Amount of a currency.
@@ -59,7 +60,7 @@ public final class CurrencyAmount implements ValueObjectWithBaseType<String>, Co
     private Currency currency;
 
     /** Used to store the string representation, if computed. */
-    private transient String stringCache;
+    private transient @Nullable String stringCache;
 
     /**
      * Protected default constructor for deserialization.
@@ -76,7 +77,7 @@ public final class CurrencyAmount implements ValueObjectWithBaseType<String>, Co
      * @param currency
      *            Currency.
      */
-    public CurrencyAmount(@NotNull final BigDecimal amount, @NotNull final Currency currency) {
+    public CurrencyAmount(final BigDecimal amount, final Currency currency) {
         super();
         Contract.requireArgNotNull("amount", amount);
         Contract.requireArgNotNull("currency", currency);
@@ -92,8 +93,8 @@ public final class CurrencyAmount implements ValueObjectWithBaseType<String>, Co
      * @param currency
      *            Currency.
      */
-    public CurrencyAmount(@NotNull final String amount, @NotNull final Currency currency) {
-        this(strToAmount(amount), currency);
+    public CurrencyAmount(final String amount, final Currency currency) {
+        this(Objects.requireNonNull(strToAmount(amount), "amount"), currency);
     }
 
     /**
@@ -104,8 +105,8 @@ public final class CurrencyAmount implements ValueObjectWithBaseType<String>, Co
      * @param currencyCode
      *            ISO 4217 code of the currency.
      */
-    public CurrencyAmount(@NotNull final String amount, @NotNull final String currencyCode) {
-        this(strToAmount(amount), Currency.getInstance(currencyCode));
+    public CurrencyAmount(final String amount, final String currencyCode) {
+        this(Objects.requireNonNull(strToAmount(amount), "amount"), Currency.getInstance(currencyCode));
     }
 
     @Override
@@ -207,7 +208,8 @@ public final class CurrencyAmount implements ValueObjectWithBaseType<String>, Co
      *
      * @return Amount as string.
      */
-    public static String amountToStr(final BigDecimal amount) {
+    @Nullable
+    public static String amountToStr(@Nullable final BigDecimal amount) {
         if (amount == null) {
             return null;
         }
@@ -235,7 +237,8 @@ public final class CurrencyAmount implements ValueObjectWithBaseType<String>, Co
      *
      * @return String as big decimal.
      */
-    public static BigDecimal strToAmount(@CurrencyAmountStr final String amount) {
+    @Nullable
+    public static BigDecimal strToAmount(@CurrencyAmountStr @Nullable final String amount) {
         if (amount == null) {
             return null;
         }
@@ -318,7 +321,7 @@ public final class CurrencyAmount implements ValueObjectWithBaseType<String>, Co
      *             The value was not valid.
      */
     // CHECKSTYLE:OFF:RedundantThrows
-    public static void requireArgValid(@NotNull final String name, @NotNull final String value) throws ConstraintViolationException {
+    public static void requireArgValid(final String name, final String value) throws ConstraintViolationException {
         // CHECKSTYLE:ON
 
         if (!isValid(value)) {

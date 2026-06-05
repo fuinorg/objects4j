@@ -20,6 +20,7 @@ package org.fuin.objects4j.jpa;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 import org.fuin.objects4j.core.LocaleHelper;
+import org.jspecify.annotations.Nullable;
 
 import javax.annotation.concurrent.ThreadSafe;
 import java.util.Locale;
@@ -32,7 +33,8 @@ import java.util.Locale;
 public final class LocaleAttributeConverter implements AttributeConverter<Locale, String> {
 
     @Override
-    public String convertToDatabaseColumn(Locale value) {
+    @Nullable
+    public String convertToDatabaseColumn(@Nullable Locale value) {
         if (value == null) {
             return null;
         }
@@ -40,7 +42,8 @@ public final class LocaleAttributeConverter implements AttributeConverter<Locale
     }
 
     @Override
-    public Locale convertToEntityAttribute(String dbData) {
+    @Nullable
+    public Locale convertToEntityAttribute(@Nullable String dbData) {
         return LocaleHelper.asLocale(dbData);
     }
 }

@@ -19,7 +19,6 @@ package org.fuin.objects4j.core;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import jakarta.validation.constraints.NotNull;
 import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.objects4j.common.Contract;
 
@@ -48,7 +47,7 @@ public class TrimmedNotEmptyValidator implements ConstraintValidator<TrimmedNotE
      *             The trimmed value was empty.
      */
     // CHECKSTYLE:OFF:RedundantThrows
-    public static void requireArgValid(@NotNull final String name, @NotNull final String value) throws ConstraintViolationException {
+    public static void requireArgValid(final String name, final String value) throws ConstraintViolationException {
         // CHECKSTYLE:ON
         final String trimmedValue = value.trim();
         Contract.requireArgNotEmpty(name, trimmedValue);

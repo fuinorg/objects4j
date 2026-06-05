@@ -17,8 +17,8 @@
  */
 package org.fuin.objects4j.ui;
 
-import jakarta.validation.constraints.NotNull;
 import org.fuin.objects4j.common.Contract;
+import org.jspecify.annotations.Nullable;
 
 import javax.annotation.concurrent.Immutable;
 
@@ -38,7 +38,7 @@ public final class ClassTextInfo extends TextInfo {
      * @param text
      *            Text or {@literal null}.
      */
-    public ClassTextInfo(@NotNull final Class<?> clasz, final String text) {
+    public ClassTextInfo(final Class<?> clasz, @Nullable final String text) {
         super(text);
         Contract.requireArgNotNull("clasz", clasz);
         this.clasz = clasz;

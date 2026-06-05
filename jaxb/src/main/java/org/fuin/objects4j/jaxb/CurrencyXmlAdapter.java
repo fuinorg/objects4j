@@ -19,6 +19,7 @@ package org.fuin.objects4j.jaxb;
 
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 import org.fuin.objects4j.core.CurrencyStrValidator;
+import org.jspecify.annotations.Nullable;
 
 import javax.annotation.concurrent.ThreadSafe;
 import java.util.Currency;
@@ -46,7 +47,8 @@ public final class CurrencyXmlAdapter extends XmlAdapter<String, Currency> {
      * @param value Representation of the value object as base type.
      * @return Value object.
      */
-    public final Currency toVO(final String value) {
+    @Nullable
+    public final Currency toVO(final @Nullable String value) {
         if (value == null) {
             return null;
         }
@@ -59,7 +61,8 @@ public final class CurrencyXmlAdapter extends XmlAdapter<String, Currency> {
      * @param value Value object.
      * @return Base type.
      */
-    public final String fromVO(final Currency value) {
+    @Nullable
+    public final String fromVO(final @Nullable Currency value) {
         if (value == null) {
             return null;
         }
@@ -67,12 +70,14 @@ public final class CurrencyXmlAdapter extends XmlAdapter<String, Currency> {
     }
 
     @Override
-    public final String marshal(final Currency value) throws Exception {
+    @Nullable
+    public final String marshal(final @Nullable Currency value) throws Exception {
         return fromVO(value);
     }
 
     @Override
-    public final Currency unmarshal(final String value) throws Exception {
+    @Nullable
+    public final Currency unmarshal(final @Nullable String value) throws Exception {
         return toVO(value);
     }
 

@@ -1,7 +1,7 @@
 package org.fuin.objects4j.common;
 
 
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.fuin.utils4j.Utils4J;
@@ -13,6 +13,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 /**
@@ -28,13 +29,13 @@ public abstract class TypeConstantValidator<A extends Annotation> implements Con
 
     private final String prefix;
 
-    private final String nameMethod;
+    private final @Nullable String nameMethod;
 
-    private String fieldName;
+    private @Nullable String fieldName;
 
-    private final String typeMethod;
+    private final @Nullable String typeMethod;
 
-    private Class<?> fieldType;
+    private @Nullable Class<?> fieldType;
 
     public TypeConstantValidator(final Class<A> annotationType) {
         this(annotationType, "name", null, "value", null);
@@ -76,15 +77,17 @@ public abstract class TypeConstantValidator<A extends Annotation> implements Con
     @Override
     public void initialize(A annotation) {
         if (fieldName == null) {
-            this.fieldName = value(annotation, nameMethod, String.class);
+            this.fieldName = value(annotation, Objects.requireNonNull(nameMethod, "nameMethod"), String.class);
         }
         if (fieldType == null) {
-            this.fieldType = value(annotation, typeMethod, Class.class);
+            this.fieldType = value(annotation, Objects.requireNonNull(typeMethod, "typeMethod"), Class.class);
         }
     }
 
     @Override
     public boolean isValid(Object obj, ConstraintValidatorContext context) {
+        final String fieldName = Objects.requireNonNull(this.fieldName, "fieldName");
+        final Class<?> fieldType = Objects.requireNonNull(this.fieldType, "fieldType");
         try {
             final Field field = obj.getClass().getField(fieldName);
             final int modifiers = field.getModifiers();
@@ -171,7 +174,7 @@ public abstract class TypeConstantValidator<A extends Annotation> implements Con
                                      final String fieldName) {
         final Result<V> result = analyze(claszWithStaticField, expectedTypeOfField, fieldName);
         if (result.message() == null) {
-            return result.value();
+            return Objects.requireNonNull(result.value(), "result.value()");
         }
         throw new IllegalArgumentException(result.message());
     }
@@ -190,7 +193,7 @@ public abstract class TypeConstantValidator<A extends Annotation> implements Con
         }
     }
 
-    private record Result<V>(String message, V value) {
+    private record Result<V>(@Nullable String message, @Nullable V value) {
     }
 
 

@@ -19,6 +19,7 @@ package org.fuin.objects4j.jsonb;
 
 import jakarta.json.bind.adapter.JsonbAdapter;
 import org.fuin.objects4j.core.CurrencyAmount;
+import org.jspecify.annotations.Nullable;
 
 import javax.annotation.concurrent.ThreadSafe;
 import java.util.Currency;
@@ -30,7 +31,8 @@ import java.util.Currency;
 public final class CurrencyAmountJsonbAdapter implements JsonbAdapter<CurrencyAmount, String> {
 
     @Override
-    public String adaptToJson(final CurrencyAmount obj) throws Exception {
+    @Nullable
+    public String adaptToJson(final @Nullable CurrencyAmount obj) throws Exception {
         if (obj == null) {
             return null;
         }
@@ -38,7 +40,8 @@ public final class CurrencyAmountJsonbAdapter implements JsonbAdapter<CurrencyAm
     }
 
     @Override
-    public CurrencyAmount adaptFromJson(final String str) throws Exception {
+    @Nullable
+    public CurrencyAmount adaptFromJson(final @Nullable String str) throws Exception {
         if (str == null) {
             return null;
         }

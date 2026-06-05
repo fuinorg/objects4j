@@ -17,6 +17,8 @@
  */
 package org.fuin.objects4j.ui;
 
+import org.jspecify.annotations.Nullable;
+
 import javax.annotation.concurrent.Immutable;
 
 /**
@@ -25,24 +27,25 @@ import javax.annotation.concurrent.Immutable;
 @Immutable
 public abstract class TextInfo {
 
-    private final String text;
+    private final @Nullable String text;
 
     /**
      * Constructor with text.
-     * 
+     *
      * @param text
      *            Text or {@literal null}.
      */
-    public TextInfo(final String text) {
+    public TextInfo(@Nullable final String text) {
         super();
         this.text = text;
     }
 
     /**
      * Returns the text.
-     * 
+     *
      * @return Text or {@literal null}.
      */
+    @Nullable
     public final String getText() {
         return text;
     }

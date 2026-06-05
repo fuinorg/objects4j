@@ -17,7 +17,7 @@
  */
 package org.fuin.objects4j.common;
 
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
@@ -36,7 +36,7 @@ import java.util.Set;
 public final class Contract {
 
     // According to the specification instances are thread safe
-    private static Validator validator;
+    private static @Nullable Validator validator;
 
     /**
      * Sets the validator to use for contract validation. This method is NOT thread safe. It should only be called once per application
@@ -80,7 +80,7 @@ public final class Contract {
      * @throws ConstraintViolationException
      *             The value was null.
      */
-    public static void requireArgNotNull(@NotNull final String name, final Object value) throws ConstraintViolationException {
+    public static void requireArgNotNull(final String name, final Object value) throws ConstraintViolationException {
         if (value == null) {
             throw new ConstraintViolationException("The argument '" + name + "' cannot be null");
         }
@@ -97,7 +97,7 @@ public final class Contract {
      * @throws ConstraintViolationException
      *             The value was null or empty.
      */
-    public static void requireArgNotEmpty(@NotNull final String name, final String value) throws ConstraintViolationException {
+    public static void requireArgNotEmpty(final String name, final String value) throws ConstraintViolationException {
         requireArgNotNull(name, value);
         if (value.isEmpty()) {
             throw new ConstraintViolationException("The argument '" + name + "' cannot be empty");
@@ -117,7 +117,7 @@ public final class Contract {
      * @throws ConstraintViolationException
      *             The length was more than <code>max</code>.
      */
-    public static void requireArgMaxLength(@NotNull final String name, @NotNull final String value, final int max)
+    public static void requireArgMaxLength(final String name, final String value, final int max)
             throws ConstraintViolationException {
         if (value.length() > max) {
             throw new ConstraintViolationException("Max length of argument '" + name + "' is " + max + ", but was: " + value.length());
@@ -137,7 +137,7 @@ public final class Contract {
      * @throws ConstraintViolationException
      *             The length was less than <code>min</code>.
      */
-    public static void requireArgMinLength(@NotNull final String name, @NotNull final String value, final int min)
+    public static void requireArgMinLength(final String name, final String value, final int min)
             throws ConstraintViolationException {
         if (value.length() < min) {
             throw new ConstraintViolationException("Min length of argument '" + name + "' is " + min + ", but was: " + value.length());
@@ -157,7 +157,7 @@ public final class Contract {
      * @throws ConstraintViolationException
      *             The value was more than <code>max</code>.
      */
-    public static void requireArgMax(@NotNull final String name, @NotNull final long value, final long max)
+    public static void requireArgMax(final String name, final long value, final long max)
             throws ConstraintViolationException {
         if (value > max) {
             throw new ConstraintViolationException("Max value of argument '" + name + "' is " + max + ", but was: " + value);
@@ -177,7 +177,7 @@ public final class Contract {
      * @throws ConstraintViolationException
      *             The value was less than <code>min</code>.
      */
-    public static void requireArgMin(@NotNull final String name, @NotNull final long value, final long min)
+    public static void requireArgMin(final String name, final long value, final long min)
             throws ConstraintViolationException {
         if (value < min) {
             throw new ConstraintViolationException("Min value of argument '" + name + "' is " + min + ", but was: " + value);
@@ -197,7 +197,7 @@ public final class Contract {
      * @throws ConstraintViolationException
      *             The value is invalid.
      */
-    public static void requireValid(@NotNull final Validator validator, @NotNull final Object value, @Nullable final Class<?>... groups)
+    public static void requireValid(final Validator validator, final Object value, @Nullable final Class<?>... groups)
             throws ConstraintViolationException {
 
         final Set<ConstraintViolation<Object>> constraintViolations = validator.validate(value, groups);
@@ -230,7 +230,7 @@ public final class Contract {
      * @throws ConstraintViolationException
      *             The value is invalid.
      */
-    public static void requireValid(@NotNull final Object value, @Nullable final Class<?>... groups) throws ConstraintViolationException {
+    public static void requireValid(final Object value, @Nullable final Class<?>... groups) throws ConstraintViolationException {
         requireValid(getValidator(), value, groups);
     }
 
@@ -250,7 +250,7 @@ public final class Contract {
      *            Type of the validated object.
      */
     @NotNull
-    public static <TYPE> Set<ConstraintViolation<TYPE>> validate(@NotNull final Validator validator, @Nullable final TYPE value,
+    public static <TYPE> Set<ConstraintViolation<TYPE>> validate(final Validator validator, @Nullable final TYPE value,
                                                                  @Nullable final Class<?>... groups) {
         if (value == null) {
             return new HashSet<>();

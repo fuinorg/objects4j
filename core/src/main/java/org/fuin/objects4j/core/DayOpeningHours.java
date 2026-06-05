@@ -17,7 +17,7 @@
  */
 package org.fuin.objects4j.core;
 
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import org.fuin.objects4j.common.AsStringCapable;
@@ -34,6 +34,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Represents the opening hours of one day of the week.<br>
@@ -73,12 +74,12 @@ public final class DayOpeningHours implements ValueObjectWithBaseType<String>, C
      * @param dayOpeningHours
      *            Opening hours like 'Mon 09:00-12:00+13:00-17:00'.
      */
-    public DayOpeningHours(@NotNull @DayOpeningHoursStr final String dayOpeningHours) {
+    public DayOpeningHours(@DayOpeningHoursStr final String dayOpeningHours) {
         super();
         Contract.requireArgNotEmpty("dayOpeningHours", dayOpeningHours);
         requireArgValid("dayOpeningHours", dayOpeningHours);
         final int p = dayOpeningHours.indexOf(' ');
-        dayOfTheWeek = DayOfTheWeek.valueOf(dayOpeningHours.substring(0, p));
+        dayOfTheWeek = Objects.requireNonNull(DayOfTheWeek.valueOf(dayOpeningHours.substring(0, p)));
         hourRanges = new HourRanges(dayOpeningHours.substring(p + 1));
     }
 
@@ -90,7 +91,7 @@ public final class DayOpeningHours implements ValueObjectWithBaseType<String>, C
      * @param hourRanges
      *            Open hours in that day of the week.
      */
-    public DayOpeningHours(@NotNull final DayOfTheWeek dayOfTheWeek, @NotNull final HourRanges hourRanges) {
+    public DayOpeningHours(final DayOfTheWeek dayOfTheWeek, final HourRanges hourRanges) {
         super();
         Contract.requireArgNotNull("dayOfTheWeek", dayOfTheWeek);
         Contract.requireArgNotNull("hourRanges", hourRanges);
@@ -184,7 +185,7 @@ public final class DayOpeningHours implements ValueObjectWithBaseType<String>, C
         final List<DayOpeningHours> list = new ArrayList<>();
         list.add(new DayOpeningHours(dayOfTheWeek, ranges.get(0)));
         if (ranges.size() > 1) {
-            list.add(new DayOpeningHours(dayOfTheWeek.next(), ranges.get(1)));
+            list.add(new DayOpeningHours(Objects.requireNonNull(dayOfTheWeek.next()), ranges.get(1)));
         }
         return list;
     }
@@ -264,7 +265,7 @@ public final class DayOpeningHours implements ValueObjectWithBaseType<String>, C
      * 
      * @return {@literal true} if at least one minute is the same for both days.
      */
-    public final boolean overlaps(@NotNull final DayOpeningHours other) {
+    public final boolean overlaps(final DayOpeningHours other) {
         Contract.requireArgNotNull("other", other);
         return hourRanges.overlaps(other.hourRanges);
     }
@@ -282,7 +283,7 @@ public final class DayOpeningHours implements ValueObjectWithBaseType<String>, C
      * @return New instance with added times.
      */
     @NotNull
-    public final DayOpeningHours add(@NotNull final HourRanges other) {
+    public final DayOpeningHours add(final HourRanges other) {
         Contract.requireArgNotNull("other", other);
         final HourRanges added = this.hourRanges.add(other);
         return new DayOpeningHours(dayOfTheWeek, added);
@@ -301,7 +302,7 @@ public final class DayOpeningHours implements ValueObjectWithBaseType<String>, C
      * @return New instance with added times.
      */
     @NotNull
-    public final DayOpeningHours add(@NotNull final DayOpeningHours other) {
+    public final DayOpeningHours add(final DayOpeningHours other) {
         Contract.requireArgNotNull("other", other);
         return this.add(other.hourRanges);
     }
@@ -319,7 +320,7 @@ public final class DayOpeningHours implements ValueObjectWithBaseType<String>, C
      * @return New instance with removed times or {@literal null} if all times where removed.
      */
     @Nullable
-    public final DayOpeningHours remove(@NotNull final HourRanges other) {
+    public final DayOpeningHours remove(final HourRanges other) {
         Contract.requireArgNotNull("other", other);
         final HourRanges removed = this.hourRanges.remove(other);
         if (removed == null) {
@@ -342,7 +343,7 @@ public final class DayOpeningHours implements ValueObjectWithBaseType<String>, C
      * @return New instance with removed times or {@literal null} if all times where removed.
      */
     @Nullable
-    public final DayOpeningHours remove(@NotNull final DayOpeningHours other) {
+    public final DayOpeningHours remove(final DayOpeningHours other) {
         Contract.requireArgNotNull("other", other);
         return this.remove(other.hourRanges);
 
@@ -384,7 +385,7 @@ public final class DayOpeningHours implements ValueObjectWithBaseType<String>, C
      * 
      * @return {@literal true} if open else {@literal false} if not open.
      */
-    public boolean openAt(@NotNull final HourRange range) {
+    public boolean openAt(final HourRange range) {
         Contract.requireArgNotNull("range", range);
         return hourRanges.openAt(range);
     }
@@ -400,7 +401,7 @@ public final class DayOpeningHours implements ValueObjectWithBaseType<String>, C
      * 
      * @return {@literal true} if open else {@literal false} if not open.
      */
-    public boolean openAt(@NotNull final DayOpeningHours other) {
+    public boolean openAt(final DayOpeningHours other) {
         Contract.requireArgNotNull("other", other);
         if (dayOfTheWeek != other.dayOfTheWeek) {
             return false;
@@ -479,7 +480,7 @@ public final class DayOpeningHours implements ValueObjectWithBaseType<String>, C
      *             The value was not valid.
      */
     // CHECKSTYLE:OFF:RedundantThrows
-    public static void requireArgValid(@NotNull final String name, @NotNull final String value) throws ConstraintViolationException {
+    public static void requireArgValid(final String name, final String value) throws ConstraintViolationException {
         // CHECKSTYLE:ON
 
         if (!isValid(value)) {
@@ -508,7 +509,7 @@ public final class DayOpeningHours implements ValueObjectWithBaseType<String>, C
          * @param change
          *            The changed hour ranges.
          */
-        public Change(@NotNull final DayOfTheWeek day, @NotNull final HourRanges.Change change) {
+        public Change(final DayOfTheWeek day, final HourRanges.Change change) {
             super();
             Contract.requireArgNotNull("day", day);
             Contract.requireArgNotNull("change", change);
@@ -527,7 +528,7 @@ public final class DayOpeningHours implements ValueObjectWithBaseType<String>, C
          * @param range
          *            The changed hours.
          */
-        public Change(@NotNull final ChangeType type, @NotNull final DayOfTheWeek day, @NotNull final HourRange range) {
+        public Change(final ChangeType type, final DayOfTheWeek day, final HourRange range) {
             super();
             Contract.requireArgNotNull("type", type);
             Contract.requireArgNotNull("day", day);
