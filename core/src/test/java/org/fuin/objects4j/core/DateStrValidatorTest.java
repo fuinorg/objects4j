@@ -22,7 +22,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.easymock.EasyMock.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public final class DateStrValidatorTest {
 
@@ -33,9 +34,8 @@ public final class DateStrValidatorTest {
     @BeforeEach
     public final void setUp() {
         testee = new DateStrValidator();
-        constraintAnnotation = createMock(DateStr.class);
-        expect(constraintAnnotation.value()).andReturn("yyyy-MM-dd");
-        replay(constraintAnnotation);
+        constraintAnnotation = mock(DateStr.class);
+        when(constraintAnnotation.value()).thenReturn("yyyy-MM-dd");
         testee.initialize(constraintAnnotation);
     }
 

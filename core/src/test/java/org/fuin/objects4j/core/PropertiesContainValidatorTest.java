@@ -30,7 +30,8 @@ import java.util.Properties;
 import java.util.StringTokenizer;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.easymock.EasyMock.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public final class PropertiesContainValidatorTest {
 
@@ -57,9 +58,8 @@ public final class PropertiesContainValidatorTest {
     public final void setUp() {
         testee = new PropertiesContainValidator();
         final String[] expected = new String[] { "b", "c" };
-        constraintAnnotation = createMock(PropertiesContain.class);
-        expect(constraintAnnotation.value()).andReturn(expected);
-        replay(constraintAnnotation);
+        constraintAnnotation = mock(PropertiesContain.class);
+        when(constraintAnnotation.value()).thenReturn(expected);
         testee.initialize(constraintAnnotation);
         validator = validatorFactory.getValidator();
     }
