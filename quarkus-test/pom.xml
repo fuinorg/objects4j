@@ -129,7 +129,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
-                <version>3.1.1</version>
+                <version>3.1.4</version>
                 <configuration>
                     <skip>true</skip>
                 </configuration>
@@ -169,6 +169,10 @@
                 <configuration>
                     <systemProperties>
                         <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+                        <!-- Byte Buddy (used by Hibernate during the Quarkus build augmentation) does not yet
+                             officially support the Java 25 class file format; enable experimental support so
+                             the tests run on JDK 25. Remove once the Quarkus-managed Byte Buddy supports Java 25. -->
+                        <net.bytebuddy.experimental>true</net.bytebuddy.experimental>
                     </systemProperties>
                 </configuration>
             </plugin>
@@ -176,7 +180,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>3.2.5</version>
+                <version>3.5.6</version>
                 <executions>
                     <execution>
                         <goals>
