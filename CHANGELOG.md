@@ -5,6 +5,7 @@
 - Added missing [ValidationMessages.properties](common/src/main/resources/ValidationMessages.properties)
 - Fixed bug in [TypeConstantValidator](common/src/main/java/org/fuin/objects4j/common/TypeConstantValidator.java) - In case of a proxied annotation it used to fail.
 - Added a BOM to allow easier usage
+- Added [JSpecify](https://jspecify.dev/) and [NullAway](https://github.com/uber/nullaway)
 
 ## 0.11.0
 - Removed unnecessary Jackson serializer/deserializer classes
