@@ -253,6 +253,7 @@
     </build>
 
     <modules>
+        <module>bom</module>
         <module>common</module>
         <module>ui</module>
         <module>core</module>
