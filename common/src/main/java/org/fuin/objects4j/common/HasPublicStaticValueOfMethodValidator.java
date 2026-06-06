@@ -76,7 +76,7 @@ public class HasPublicStaticValueOfMethodValidator implements ConstraintValidato
     }
 
     private static String msg(String key, Map<String, String> vars) {
-        return Utils4J.replaceVars(MESSAGES.getString(PREFIX + key + POSTFIX), vars);
+        return Objects.requireNonNull(Utils4J.replaceVars(MESSAGES.getString(PREFIX + key + POSTFIX), vars), "replaceVars");
     }
 
     /**

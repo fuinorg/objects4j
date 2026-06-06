@@ -124,7 +124,7 @@ public abstract class TypeConstantValidator<A extends Annotation> implements Con
         } else {
             k = MESSAGES.getString(TypeConstantValidator.class.getName() + "." + key + POSTFIX);
         }
-        return Utils4J.replaceVars(k, vars);
+        return Objects.requireNonNull(Utils4J.replaceVars(k, vars), "replaceVars");
     }
 
     private void error(ConstraintValidatorContext context, String message) {
