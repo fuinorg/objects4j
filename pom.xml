@@ -69,6 +69,12 @@
 
             <dependency>
                 <groupId>org.fuin.objects4j</groupId>
+                <artifactId>objects4j-openbao</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.fuin.objects4j</groupId>
                 <artifactId>objects4j-jaxb</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -264,6 +270,7 @@
         <module>ui</module>
         <module>core</module>
         <module>crypto</module>
+        <module>openbao</module>
         <module>jaxb</module>
         <module>jackson</module>
         <module>jpa</module>

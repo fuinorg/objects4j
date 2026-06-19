@@ -21,6 +21,7 @@ A library with common Java types that are mostly immutable value objects.
 - [Common](common) - Interfaces, annotations and validators.
 - [Core](core) - Value objects and utility classes for these value objects.
 - [Crypto](crypto) - Basic encryption/decryption service api.
+- [OpenBao](openbao) - [OpenBao](https://github.com/openbao/openbao) (Transit engine) based implementation of the [Crypto](crypto) api.
 - [Jackson](jackson) - FasterXML Jackson serializer/deserializer for the types defined in [Core](core).
 - [JAX-B](jaxb) - Jakarta XML Binding (JAX-B) XML adapters for the types defined in [Core](core).
 - [JPA](jpa) - Jakarta Persistence API (JPA) attribute converters for the types defined in [Core](core).
