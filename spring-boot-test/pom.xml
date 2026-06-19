@@ -163,7 +163,6 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <systemProperties>
-                        <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
                         <!-- Byte Buddy (used by Hibernate) does not yet officially support the Java 25 class
                              file format; enable experimental support so the tests run on JDK 25. Remove once
                              the managed Byte Buddy supports Java 25. -->
@@ -184,7 +183,10 @@
                         </goals>
                         <configuration>
                             <systemProperties>
-                                <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+                                <!-- Byte Buddy (used by Hibernate) does not yet officially support the Java 25 class
+                                     file format; enable experimental support so the tests run on JDK 25. Remove once
+                                     the managed Byte Buddy supports Java 25. -->
+                                <net.bytebuddy.experimental>true</net.bytebuddy.experimental>
                             </systemProperties>
                         </configuration>
                     </execution>
