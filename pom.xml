@@ -13,7 +13,7 @@
     <groupId>org.fuin.objects4j</groupId>
     <artifactId>objects4j-parent</artifactId>
     <packaging>pom</packaging>
-    <version>0.11.1-SNAPSHOT</version>
+    <version>0.12.0-SNAPSHOT</version>
 
     <description>A library with common Java types that are mostly immutable value objects.</description>
     <url>http://www.fuin.org/objects4j/</url>
@@ -58,6 +58,12 @@
             <dependency>
                 <groupId>org.fuin.objects4j</groupId>
                 <artifactId>objects4j-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.fuin.objects4j</groupId>
+                <artifactId>objects4j-crypto</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -257,6 +263,7 @@
         <module>common</module>
         <module>ui</module>
         <module>core</module>
+        <module>crypto</module>
         <module>jaxb</module>
         <module>jackson</module>
         <module>jpa</module>

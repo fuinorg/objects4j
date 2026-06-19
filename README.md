@@ -8,7 +8,7 @@ A library with common Java types that are mostly immutable value objects.
 [![Java Development Kit 17](https://img.shields.io/badge/JDK-17-green.svg)](https://openjdk.java.net/projects/jdk/17/)
 
 ## Versions
-- [0.11.1](CHANGELOG.md#0111)
+- [0.12.0](CHANGELOG.md#0120)
 - [0.11.0](CHANGELOG.md#0110)
 - [0.10.0](CHANGELOG.md#0100)
 - 0.9.0 = **Java 17**
@@ -20,6 +20,7 @@ A library with common Java types that are mostly immutable value objects.
 - [BOM](bom) - "Bill of Materials" that manages the versions of all other modules.
 - [Common](common) - Interfaces, annotations and validators.
 - [Core](core) - Value objects and utility classes for these value objects.
+- [Crypto](crypto) - Basic encryption/decryption service api.
 - [Jackson](jackson) - FasterXML Jackson serializer/deserializer for the types defined in [Core](core).
 - [JAX-B](jaxb) - Jakarta XML Binding (JAX-B) XML adapters for the types defined in [Core](core).
 - [JPA](jpa) - Jakarta Persistence API (JPA) attribute converters for the types defined in [Core](core).
@@ -41,7 +42,7 @@ modules you need without specifying a version:
         <dependency>
             <groupId>org.fuin.objects4j</groupId>
             <artifactId>objects4j-bom</artifactId>
-            <version>0.11.1</version>
+            <version>0.12.0</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>

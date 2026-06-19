@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.fuin.objects4j</groupId>
         <artifactId>objects4j-parent</artifactId>
-        <version>0.11.1-SNAPSHOT</version>
+        <version>0.12.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -29,6 +29,12 @@
             <dependency>
                 <groupId>org.fuin.objects4j</groupId>
                 <artifactId>objects4j-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.fuin.objects4j</groupId>
+                <artifactId>objects4j-crypto</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
