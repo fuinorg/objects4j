@@ -7,6 +7,7 @@
 - Added a BOM to allow easier usage
 - Added [JSpecify](https://jspecify.dev/) and [NullAway](https://github.com/uber/nullaway)
 - Added new [crypto](crypto) module that provides a basic encryption service api.
+- Added [openbao](openbao) as primary implementation of the vrypto service.
 
 ## 0.11.0
 - Removed unnecessary Jackson serializer/deserializer classes
