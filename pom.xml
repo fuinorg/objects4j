@@ -33,6 +33,13 @@
         <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/../junit/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
         <utils4j.version>0.16.1-SNAPSHOT</utils4j.version>
         <units4j.version>0.12.1-SNAPSHOT</units4j.version>
+        <fuin-bom.version>1.0.2-SNAPSHOT</fuin-bom.version>
+        <jsr305.version>3.0.2</jsr305.version>
+        <jakarta.json-api.version>2.1.3</jakarta.json-api.version>
+        <parsson.version>1.1.7</parsson.version>
+        <testcontainers.version>1.20.6</testcontainers.version>
+        <quarkus.version>3.21.0</quarkus.version>
+        <spring.boot.version>3.4.4</spring.boot.version>
     </properties>
 
     <dependencyManagement>
@@ -42,7 +49,7 @@
             <dependency>
                 <groupId>org.fuin</groupId>
                 <artifactId>bom</artifactId>
-                <version>1.0.2-SNAPSHOT</version>
+                <version>${fuin-bom.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -128,7 +135,7 @@
             <dependency>
                 <groupId>com.google.code.findbugs</groupId>
                 <artifactId>jsr305</artifactId>
-                <version>3.0.2</version>
+                <version>${jsr305.version}</version>
             </dependency>
 
         </dependencies>

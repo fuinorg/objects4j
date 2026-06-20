@@ -13,10 +13,6 @@
 
     <artifactId>objects4j-spring-boot-test</artifactId>
 
-    <properties>
-        <spring.boot.version>3.4.4</spring.boot.version>
-    </properties>
-
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -150,7 +146,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>3.4.4</version>
+                <version>${spring.boot.version}</version>
             </plugin>
 
             <plugin>

@@ -13,10 +13,6 @@
 
     <artifactId>objects4j-quarkus-test</artifactId>
 
-    <properties>
-        <quarkus.version>3.21.0</quarkus.version>
-    </properties>
-
     <dependencyManagement>
         <dependencies>
             <dependency>
