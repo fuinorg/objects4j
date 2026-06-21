@@ -8,6 +8,9 @@
 - Added [JSpecify](https://jspecify.dev/) and [NullAway](https://github.com/uber/nullaway)
 - Added new [crypto](crypto) module that provides a basic encryption service api.
 - Added [openbao](openbao) as primary implementation of the vrypto service.
+- Added new [@ImmutableAfterUnmarshal](common/src/main/java/org/fuin/objects4j/common/ImmutableAfterUnmarshal.java) annotation.
+- Added new [@ThreadSafetyUndefined](common/src/main/java/org/fuin/objects4j/common/ThreadSafetyUndefined.java) annotation.
+- Document immutable and thread-safety for all classes.
 
 ## 0.11.0
 - Removed unnecessary Jackson serializer/deserializer classes
