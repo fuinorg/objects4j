@@ -19,7 +19,7 @@ package org.fuin.objects4j.jaxb;
 
 import org.fuin.objects4j.core.EmailAddress;
 
-import javax.annotation.concurrent.ThreadSafe;
+import org.fuin.objects4j.common.ThreadSafe;
 
 /**
  * Converts {@link EmailAddress} from/to String.

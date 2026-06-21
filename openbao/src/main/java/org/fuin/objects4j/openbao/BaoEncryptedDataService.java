@@ -22,6 +22,7 @@ import jakarta.json.JsonObject;
 import jakarta.json.JsonReader;
 import jakarta.validation.constraints.NotEmpty;
 import org.fuin.objects4j.common.Contract;
+import org.fuin.objects4j.common.ThreadSafe;
 import org.fuin.objects4j.crypto.DecryptionFailedException;
 import org.fuin.objects4j.crypto.DuplicateEncryptionKeyIdException;
 import org.fuin.objects4j.crypto.EncryptedData;
@@ -52,6 +53,7 @@ import java.util.Objects;
  * The Transit engine has to be mounted once via {@link #createTransitEngine()}
  * before keys can be created.
  */
+@ThreadSafe
 public final class BaoEncryptedDataService implements EncryptedDataService {
 
     /** Default mount path of the Transit secrets engine. */

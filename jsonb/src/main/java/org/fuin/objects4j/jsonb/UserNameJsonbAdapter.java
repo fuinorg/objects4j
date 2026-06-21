@@ -19,7 +19,7 @@ package org.fuin.objects4j.jsonb;
 
 import org.fuin.objects4j.core.UserName;
 
-import javax.annotation.concurrent.ThreadSafe;
+import org.fuin.objects4j.common.ThreadSafe;
 
 /**
  * Creates a {@link UserName}.

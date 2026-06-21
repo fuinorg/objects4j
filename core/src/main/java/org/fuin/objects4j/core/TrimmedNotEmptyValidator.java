@@ -21,10 +21,12 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.objects4j.common.Contract;
+import org.fuin.objects4j.common.ThreadSafe;
 
 /**
  * Check that a given string is not {@literal null} and the trimmed length is greater than zero.
  */
+@ThreadSafe
 public class TrimmedNotEmptyValidator implements ConstraintValidator<TrimmedNotEmpty, String> {
 
     @Override

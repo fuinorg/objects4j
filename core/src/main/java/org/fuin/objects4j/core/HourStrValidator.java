@@ -19,6 +19,7 @@ package org.fuin.objects4j.core;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import org.fuin.objects4j.common.ThreadSafe;
 
 /**
  * Verifies the string is an hour of a day (24 hours, sometimes called Military Time). Valid examples are:
@@ -32,6 +33,7 @@ import jakarta.validation.ConstraintValidatorContext;
  * <li>'24:00' Midnight previous/current day</li>
  * </ul>
  */
+@ThreadSafe
 public final class HourStrValidator implements ConstraintValidator<HourStr, String> {
 
     @Override

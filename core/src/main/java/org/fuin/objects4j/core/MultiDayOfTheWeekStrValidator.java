@@ -19,11 +19,13 @@ package org.fuin.objects4j.core;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import org.fuin.objects4j.common.ThreadSafe;
 
 /**
  * Verifies if this field contains multiple ranges of hours of a day (24 hour representation) separated by a '+'.<br>
  * Example: '09:00-12:00+13:00-17:00' From 9 am to 12 noon and from 1 pm to 5 pm
  */
+@ThreadSafe
 public final class MultiDayOfTheWeekStrValidator implements ConstraintValidator<MultiDayOfTheWeekStr, String> {
 
     @Override

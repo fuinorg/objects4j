@@ -32,14 +32,11 @@ import java.lang.annotation.Target;
  * Official home: http://www.jcip.net
  * 
  * Original source: http://code.google.com/p/jsr-305/
- * 
- * @deprecated Use <code>javax.annotation.concurrent.ThreadSafe</code> from JSR 305 instead (See Maven library
- *             "com.google.code.findbugs:jsr305"). As everything is now in "jakarta" namespace, it is OK again to use
- *  *             the "javax.annotation" package without having problems with "split package" errors.
+ *
+ * See also {@link NotThreadSafe} and {@link ThreadSafetyUndefined}.
  */
 @Documented
 @Target({ ElementType.TYPE, ElementType.ANNOTATION_TYPE })
 @Retention(RetentionPolicy.CLASS)
-@Deprecated
 public @interface ThreadSafe {
 }

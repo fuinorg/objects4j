@@ -20,6 +20,7 @@ import java.util.function.Function;
  * - a parameter with the given type
  * defined in the annotation and the return type of that method is the same as the annotated class.
  */
+@ThreadSafe
 public class HasPublicStaticValueOfMethodValidator implements ConstraintValidator<HasPublicStaticValueOfMethod, Object> {
 
     private static final String PREFIX = HasPublicStaticValueOfMethod.class.getName() + ".";

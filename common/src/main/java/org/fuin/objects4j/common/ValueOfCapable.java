@@ -24,7 +24,10 @@ import org.jspecify.annotations.Nullable;
  *
  * @param <T>
  *            Target type.
+ * <p>
+ * All implementations are expected to be thread safe.
  */
+@ThreadSafe
 public interface ValueOfCapable<T> {
 
     /**

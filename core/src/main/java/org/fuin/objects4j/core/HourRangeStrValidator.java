@@ -19,6 +19,7 @@ package org.fuin.objects4j.core;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import org.fuin.objects4j.common.ThreadSafe;
 
 /**
  * Verifies the string is a range of hours of a day (24 hourRanges representation).<br>
@@ -32,6 +33,7 @@ import jakarta.validation.ConstraintValidatorContext;
  * <li>'17:00-03:00' From 5 pm (late afternoon) to 3 am (early morning)</li>
  * </ul>
  */
+@ThreadSafe
 public final class HourRangeStrValidator implements ConstraintValidator<HourRangeStr, String> {
 
     @Override

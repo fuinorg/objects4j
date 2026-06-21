@@ -17,9 +17,12 @@
  */
 package org.fuin.objects4j.crypto;
 
+import org.fuin.objects4j.common.ThreadSafe;
+
 /**
  * Utility constants for the crypto package.
  */
+@ThreadSafe
 public final class Objects4JCryptoUtils {
 
     /**

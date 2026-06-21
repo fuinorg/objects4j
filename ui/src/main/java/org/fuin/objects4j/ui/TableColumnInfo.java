@@ -20,7 +20,7 @@ package org.fuin.objects4j.ui;
 import org.jspecify.annotations.Nullable;
 import org.fuin.objects4j.common.Contract;
 
-import javax.annotation.concurrent.Immutable;
+import org.fuin.objects4j.common.Immutable;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;

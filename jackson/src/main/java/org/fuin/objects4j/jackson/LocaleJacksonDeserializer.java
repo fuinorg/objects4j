@@ -24,7 +24,7 @@ import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import org.fuin.objects4j.core.LocaleHelper;
 import org.jspecify.annotations.Nullable;
 
-import javax.annotation.concurrent.ThreadSafe;
+import org.fuin.objects4j.common.ThreadSafe;
 import java.io.IOException;
 import java.util.Locale;
 

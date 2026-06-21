@@ -20,6 +20,7 @@ package org.fuin.objects4j.common;
 /**
  * Tags objects that provide a unique number in their context.
  */
+@ThreadSafetyUndefined
 public interface UniquelyNumbered {
 
     /**

@@ -20,7 +20,7 @@ package org.fuin.objects4j.jpa;
 import jakarta.persistence.Converter;
 import org.fuin.objects4j.core.Hour;
 
-import javax.annotation.concurrent.ThreadSafe;
+import org.fuin.objects4j.common.ThreadSafe;
 
 /**
  * Converts a {@link Hour} into a String and back.

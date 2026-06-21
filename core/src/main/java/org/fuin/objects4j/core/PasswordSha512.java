@@ -24,7 +24,7 @@ import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.common.HasPublicStaticIsValidMethod;
 import org.fuin.objects4j.common.HasPublicStaticValueOfMethod;
 
-import javax.annotation.concurrent.Immutable;
+import org.fuin.objects4j.common.Immutable;
 import java.io.Serial;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

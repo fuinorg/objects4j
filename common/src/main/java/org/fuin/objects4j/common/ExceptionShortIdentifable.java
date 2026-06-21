@@ -22,6 +22,7 @@ package org.fuin.objects4j.common;
  * end user. A service desk can use it to identify the type of error quickly and for example attach a guideline to it that explains how to
  * solve the problem.
  */
+@ThreadSafetyUndefined
 public interface ExceptionShortIdentifable {
 
     /**

@@ -20,7 +20,10 @@ package org.fuin.objects4j.common;
 /**
  * Immutable object that represents an object whose equality isn't based on identity.
  * That means instances of this type are equal when they have the same value, not necessarily being the same object.
+ * <p>
+ * All implementations are expected to be thread safe.
  */
+@ThreadSafe
 public interface ValueObject {
 
 }

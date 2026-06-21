@@ -22,6 +22,7 @@ import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import org.fuin.objects4j.common.Contract;
+import org.fuin.objects4j.common.ThreadSafe;
 import org.fuin.objects4j.common.ValueOfCapable;
 import org.fuin.utils4j.TestOmitted;
 import org.jspecify.annotations.Nullable;
@@ -33,6 +34,7 @@ import java.io.IOException;
  *
  * @param <TYPE> Type to convert.
  */
+@ThreadSafe
 @TestOmitted("Already tested with other classes")
 public final class ValueObjectStringJacksonDeserializer<TYPE> extends StdDeserializer<TYPE> {
 

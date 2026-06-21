@@ -18,11 +18,13 @@
 package org.fuin.objects4j.common;
 
 
+
 import java.io.Serial;
 
 /**
  * Exception that provides a number for the exception that is unique in the context.
  */
+@NotThreadSafe
 public abstract class UniquelyNumberedException extends Exception implements UniquelyNumbered {
 
     @Serial

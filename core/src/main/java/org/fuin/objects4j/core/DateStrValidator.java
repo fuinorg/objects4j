@@ -19,6 +19,7 @@ package org.fuin.objects4j.core;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import org.fuin.objects4j.common.ThreadSafe;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -26,6 +27,7 @@ import java.text.SimpleDateFormat;
 /**
  * Check that a given string is a well-formed date/time based on a pattern.
  */
+@ThreadSafe
 public final class DateStrValidator implements ConstraintValidator<DateStr, String> {
 
     private SimpleDateFormat sdf;

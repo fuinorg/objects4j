@@ -19,6 +19,7 @@ package org.fuin.objects4j.core;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import org.fuin.objects4j.common.ThreadSafe;
 
 /**
  * /** Represents the opening hours of one day of the week.<br>
@@ -30,6 +31,7 @@ import jakarta.validation.ConstraintValidatorContext;
  * <li>'Fri 18:00-03:00 (Every Friday from 6 pm to early morning next day</li>
  * </ul>
  */
+@ThreadSafe
 public final class DayOpeningHoursStrValidator implements ConstraintValidator<DayOpeningHoursStr, String> {
 
     @Override

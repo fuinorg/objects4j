@@ -21,7 +21,7 @@ import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.common.ValueObject;
 import org.jspecify.annotations.Nullable;
 
-import javax.annotation.concurrent.Immutable;
+import org.fuin.objects4j.common.Immutable;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Collection;

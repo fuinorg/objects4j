@@ -18,6 +18,7 @@
 package org.fuin.objects4j.ui;
 
 import org.fuin.objects4j.common.Contract;
+import org.fuin.objects4j.common.Immutable;
 import org.jspecify.annotations.Nullable;
 
 import java.lang.reflect.Field;
@@ -25,6 +26,7 @@ import java.lang.reflect.Field;
 /**
  * Stores some text associated with a field.
  */
+@Immutable
 public final class FieldTextInfo extends TextInfo {
 
     private final Field field;

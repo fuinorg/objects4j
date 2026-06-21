@@ -28,7 +28,7 @@ import org.fuin.objects4j.ui.Prompt;
 import org.fuin.objects4j.ui.ShortLabel;
 import org.fuin.objects4j.ui.Tooltip;
 
-import javax.annotation.concurrent.Immutable;
+import org.fuin.objects4j.common.Immutable;
 import java.io.Serial;
 import java.util.regex.Pattern;
 
@@ -60,16 +60,9 @@ public final class Hour extends AbstractStringValueObject {
 
     private static final Pattern PATTERN = Pattern.compile("^([01]\\d|2[0-3]):?([0-5]\\d)|24:00$");
 
-    private int hourValue;
+    private final int hourValue;
 
-    private int minuteValue;
-
-    /**
-     * Protected default constructor for deserialization.
-     */
-    protected Hour() {// NOSONAR Ignore JAXB default constructor
-        super();
-    }
+    private final int minuteValue;
 
     /**
      * Constructor with string.

@@ -25,6 +25,7 @@ import java.io.File;
 /**
  * Checks if the file exists.
  */
+@ThreadSafe
 public final class FileExistsValidator implements ConstraintValidator<FileExists, File> {
 
     @Override

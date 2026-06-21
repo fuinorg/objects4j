@@ -19,10 +19,12 @@ package org.fuin.objects4j.core;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import org.fuin.objects4j.common.ThreadSafe;
 
 /**
  * Verifies the string is a valid abbreviated English day of the week 'Mon'-'Sun'(Monday to Sunday) plus 'PH' (Public Holiday).
  */
+@ThreadSafe
 public final class DayOfTheWeekStrValidator implements ConstraintValidator<DayOfTheWeekStr, String> {
 
     @Override

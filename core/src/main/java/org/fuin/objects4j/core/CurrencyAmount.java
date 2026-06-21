@@ -17,18 +17,12 @@
  */
 package org.fuin.objects4j.core;
 
+import org.fuin.objects4j.common.*;
 import org.jspecify.annotations.Nullable;
 import jakarta.validation.constraints.NotNull;
-import org.fuin.objects4j.common.AsStringCapable;
-import org.fuin.objects4j.common.ConstraintViolationException;
-import org.fuin.objects4j.common.Contract;
-import org.fuin.objects4j.common.HasPublicStaticIsValidMethod;
-import org.fuin.objects4j.common.HasPublicStaticValueOfMethod;
-import org.fuin.objects4j.common.ValueObjectWithBaseType;
 import org.fuin.objects4j.ui.Label;
 import org.fuin.objects4j.ui.ShortLabel;
 
-import javax.annotation.concurrent.Immutable;
 import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -54,20 +48,10 @@ public final class CurrencyAmount implements ValueObjectWithBaseType<String>, Co
     private static final String INTEGER = "((\\+|-)?[0-9]+)";
 
     @NotNull
-    private BigDecimal amount;
+    private final BigDecimal amount;
 
     @NotNull
-    private Currency currency;
-
-    /** Used to store the string representation, if computed. */
-    private transient @Nullable String stringCache;
-
-    /**
-     * Protected default constructor for deserialization.
-     */
-    protected CurrencyAmount() { // NOSONAR Ignore JAXB default constructor
-        super();
-    }
+    private final Currency currency;
 
     /**
      * Constructor with all data.
@@ -184,10 +168,7 @@ public final class CurrencyAmount implements ValueObjectWithBaseType<String>, Co
 
     @Override
     public String asBaseType() {
-        if (stringCache == null) {
-            stringCache = amountToStr(amount) + " " + currency.getCurrencyCode();
-        }
-        return stringCache;
+        return amountToStr(amount) + " " + currency.getCurrencyCode();
     }
 
     @Override

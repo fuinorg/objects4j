@@ -26,6 +26,7 @@ package org.fuin.objects4j.common;
  *            Concrete value object type.
  * @deprecated No longer needed as Java has functional interfaces nowadays.
  */
+@ThreadSafe
 @Deprecated
 public interface ValueObjectConverter<BASE_TYPE, VO_TYPE extends ValueObjectWithBaseType<BASE_TYPE>> {
 

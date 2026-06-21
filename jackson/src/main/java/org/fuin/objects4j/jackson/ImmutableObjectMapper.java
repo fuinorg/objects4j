@@ -6,8 +6,8 @@ import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import org.jspecify.annotations.Nullable;
 
-import javax.annotation.concurrent.NotThreadSafe;
-import javax.annotation.concurrent.ThreadSafe;
+import org.fuin.objects4j.common.NotThreadSafe;
+import org.fuin.objects4j.common.ThreadSafe;
 import java.util.Objects;
 
 /**

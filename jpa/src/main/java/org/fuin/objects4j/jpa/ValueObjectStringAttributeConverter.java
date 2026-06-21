@@ -20,6 +20,7 @@ package org.fuin.objects4j.jpa;
 import jakarta.persistence.AttributeConverter;
 import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.common.AsStringCapable;
+import org.fuin.objects4j.common.ThreadSafe;
 import org.fuin.objects4j.common.ValueOfCapable;
 import org.jspecify.annotations.Nullable;
 
@@ -29,6 +30,7 @@ import org.jspecify.annotations.Nullable;
  * @param <TYPE>
  *            Type to convert.
  */
+@ThreadSafe
 public abstract class ValueObjectStringAttributeConverter<TYPE extends AsStringCapable> implements AttributeConverter<TYPE, String> {
 
     private final ValueOfCapable<TYPE> vop;

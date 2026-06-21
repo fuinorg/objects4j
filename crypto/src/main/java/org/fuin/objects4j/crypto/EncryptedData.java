@@ -18,6 +18,7 @@
 package org.fuin.objects4j.crypto;
 
 import jakarta.validation.constraints.NotEmpty;
+import org.fuin.objects4j.common.ThreadSafe;
 import org.fuin.objects4j.common.ValueObject;
 
 import java.io.Serializable;
@@ -26,7 +27,10 @@ import java.io.Serializable;
  * Container for encrypted data. In addition to the data itself, the container has information about the key used to encrypt the data and
  * the format of the data. The receiving system must have a notion of what the key identifier, versions and data type means. Equals and hash
  * code is based on all data (value object).
+ * <p>
+ * All implementations are expected to be thread safe.
  */
+@ThreadSafe
 public interface EncryptedData extends ValueObject, Serializable {
 
     /**

@@ -21,7 +21,7 @@ import jakarta.json.bind.adapter.JsonbAdapter;
 import org.fuin.objects4j.core.CurrencyAmount;
 import org.jspecify.annotations.Nullable;
 
-import javax.annotation.concurrent.ThreadSafe;
+import org.fuin.objects4j.common.ThreadSafe;
 import java.util.Currency;
 
 /**

@@ -3,12 +3,14 @@ package org.fuin.objects4j.junit;
 import com.tngtech.archunit.PublicAPI;
 import com.tngtech.archunit.core.domain.JavaClass;
 import com.tngtech.archunit.lang.ArchCondition;
+import org.fuin.objects4j.common.ThreadSafe;
 
 import static com.tngtech.archunit.PublicAPI.Usage.ACCESS;
 
 /**
  * Defines ArchUnit conditions for classes depending on this library.
  */
+@ThreadSafe
 public final class Objects4Conditions {
 
     private Objects4Conditions() {

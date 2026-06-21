@@ -28,11 +28,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 /**
  * Utility class for assertions on objects.
  */
+@NotThreadSafe
 public final class Contract {
 
     // According to the specification instances are thread safe
@@ -80,7 +82,7 @@ public final class Contract {
      * @throws ConstraintViolationException
      *             The value was null.
      */
-    public static void requireArgNotNull(final String name, final Object value) throws ConstraintViolationException {
+    public static void requireArgNotNull(final String name, @Nullable final Object value) throws ConstraintViolationException {
         if (value == null) {
             throw new ConstraintViolationException("The argument '" + name + "' cannot be null");
         }
@@ -97,9 +99,9 @@ public final class Contract {
      * @throws ConstraintViolationException
      *             The value was null or empty.
      */
-    public static void requireArgNotEmpty(final String name, final String value) throws ConstraintViolationException {
+    public static void requireArgNotEmpty(final String name, @Nullable final String value) throws ConstraintViolationException {
         requireArgNotNull(name, value);
-        if (value.isEmpty()) {
+        if (Objects.requireNonNull(value).isEmpty()) {
             throw new ConstraintViolationException("The argument '" + name + "' cannot be empty");
         }
     }

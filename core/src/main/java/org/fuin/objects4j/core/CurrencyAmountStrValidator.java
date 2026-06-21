@@ -19,10 +19,12 @@ package org.fuin.objects4j.core;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import org.fuin.objects4j.common.ThreadSafe;
 
 /**
  * Check that a given string is a well-formed currency amount.
  */
+@ThreadSafe
 public final class CurrencyAmountStrValidator implements ConstraintValidator<CurrencyAmountStr, String> {
 
     @Override

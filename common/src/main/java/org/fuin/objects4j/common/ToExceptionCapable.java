@@ -22,6 +22,7 @@ package org.fuin.objects4j.common;
  * 
  * @param <EXCEPTION> Type of the exception.
  */
+@ThreadSafetyUndefined
 public interface ToExceptionCapable<EXCEPTION> {
 
     /**

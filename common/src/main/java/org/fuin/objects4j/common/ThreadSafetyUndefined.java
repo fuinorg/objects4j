@@ -1,33 +1,32 @@
 /**
- * Copyright (C) 2015 Michael Schnell. All rights reserved. 
+ * Copyright (C) 2015 Michael Schnell. All rights reserved.
  * http://www.fuin.org/
- *
+ * <p>
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
  * Software Foundation; either version 3 of the License, or (at your option) any
  * later version.
- *
+ * <p>
  * This library is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
- *
+ * <p>
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library. If not, see http://www.gnu.org/licenses/.
  */
 package org.fuin.objects4j.common;
 
+import java.lang.annotation.*;
+
 /**
- * Tags objects that can create a trace string representation.
+ * For classes implementing the interface to which this annotation is applied
+ * it is undefined if they are thread-safe or not.
+ *
+ * See also {@link NotThreadSafe} and {@link ThreadSafe}.
  */
-@ThreadSafetyUndefined
-public interface TraceStringCapable {
-
-    /**
-     * Creates a representation of the command for tracing.
-     * 
-     * @return A string for a technical log.
-     */
-    public String toTraceString();
-
+@Documented
+@Target({ElementType.TYPE, ElementType.ANNOTATION_TYPE})
+@Retention(RetentionPolicy.CLASS)
+public @interface ThreadSafetyUndefined {
 }

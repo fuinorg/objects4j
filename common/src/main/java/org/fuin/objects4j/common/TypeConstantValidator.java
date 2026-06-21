@@ -21,6 +21,7 @@ import java.util.ResourceBundle;
  *
  * @param <A> – The annotation type handled by the validator.
  */
+@ThreadSafe
 public abstract class TypeConstantValidator<A extends Annotation> implements ConstraintValidator<A, Object> {
 
     private static final String POSTFIX = ".message";

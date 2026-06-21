@@ -5,7 +5,7 @@ import jakarta.json.bind.JsonbBuilder;
 import jakarta.json.bind.JsonbConfig;
 import org.jspecify.annotations.Nullable;
 
-import javax.annotation.concurrent.NotThreadSafe;
+import org.fuin.objects4j.common.NotThreadSafe;
 import java.util.Objects;
 
 /**

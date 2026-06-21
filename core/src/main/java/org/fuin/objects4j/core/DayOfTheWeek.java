@@ -30,7 +30,7 @@ import org.fuin.objects4j.ui.Prompt;
 import org.fuin.objects4j.ui.ShortLabel;
 import org.fuin.objects4j.ui.Tooltip;
 
-import javax.annotation.concurrent.Immutable;
+import org.fuin.objects4j.common.Immutable;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.DayOfWeek;

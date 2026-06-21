@@ -26,7 +26,7 @@ import org.fuin.objects4j.common.HasPublicStaticValueOfMethod;
 import org.fuin.objects4j.ui.Label;
 import org.fuin.objects4j.ui.ShortLabel;
 
-import javax.annotation.concurrent.Immutable;
+import org.fuin.objects4j.common.Immutable;
 import java.io.Serial;
 import java.util.regex.Pattern;
 
@@ -55,14 +55,7 @@ public final class UserName extends AbstractStringValueObject {
 
     @NotNull
     @UserNameStr
-    private String str;
-
-    /**
-     * Protected default constructor for deserialization.
-     */
-    protected UserName() {// NOSONAR Ignore JAXB default constructor
-        super();
-    }
+    private final String str;
 
     /**
      * Constructor with user name.

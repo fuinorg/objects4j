@@ -21,6 +21,7 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import org.fuin.objects4j.common.AsStringCapable;
+import org.fuin.objects4j.common.ThreadSafe;
 import org.fuin.utils4j.TestOmitted;
 
 import java.io.IOException;
@@ -30,6 +31,7 @@ import java.io.IOException;
  *
  * @param <TYPE> Type to convert.
  */
+@ThreadSafe
 @TestOmitted("Already tested with other classes")
 public final class ValueObjectStringJacksonSerializer<TYPE extends AsStringCapable> extends StdSerializer<TYPE> {
 

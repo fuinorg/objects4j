@@ -19,7 +19,7 @@ package org.fuin.objects4j.jaxb;
 
 import org.fuin.objects4j.core.CurrencyAmount;
 
-import javax.annotation.concurrent.ThreadSafe;
+import org.fuin.objects4j.common.ThreadSafe;
 
 /**
  * Converts a {@link CurrencyAmount} from/to String.

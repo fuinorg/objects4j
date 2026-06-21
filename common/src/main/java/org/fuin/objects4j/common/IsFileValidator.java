@@ -25,6 +25,7 @@ import java.io.File;
 /**
  * Checks if a given file is a file (and not a directory).
  */
+@ThreadSafe
 public final class IsFileValidator implements ConstraintValidator<IsFile, File> {
 
     @Override

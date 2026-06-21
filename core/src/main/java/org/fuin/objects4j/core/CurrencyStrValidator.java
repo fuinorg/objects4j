@@ -20,6 +20,7 @@ package org.fuin.objects4j.core;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.fuin.objects4j.common.ConstraintViolationException;
+import org.fuin.objects4j.common.ThreadSafe;
 
 import java.util.Currency;
 import java.util.Set;
@@ -27,6 +28,7 @@ import java.util.Set;
 /**
  * Check that a given string is a well-formed currency.
  */
+@ThreadSafe
 public final class CurrencyStrValidator implements ConstraintValidator<CurrencyStr, String> {
 
     private static final String EXPRESSION = "[A-Z]{3}";

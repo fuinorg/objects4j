@@ -19,6 +19,7 @@ package org.fuin.objects4j.crypto;
 
 import jakarta.validation.constraints.NotEmpty;
 import org.fuin.objects4j.common.Contract;
+import org.fuin.objects4j.common.Immutable;
 import org.jspecify.annotations.Nullable;
 
 import java.io.Serial;
@@ -28,6 +29,7 @@ import java.util.Objects;
 /**
  * Default immutable implementation of {@link EncryptedData}. Equals and hash code are based on all data.
  */
+@Immutable
 public final class SimpleEncryptedData implements EncryptedData {
 
     @Serial

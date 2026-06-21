@@ -23,6 +23,7 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.JsonSerializer;
+import org.fuin.objects4j.common.ThreadSafe;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,6 +32,7 @@ import java.util.List;
 /**
  * Utilities for the Jackson serialization module.
  */
+@ThreadSafe
 public final class Objects4JacksonUtils {
 
     /**

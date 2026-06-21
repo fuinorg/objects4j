@@ -19,11 +19,13 @@ package org.fuin.objects4j.core;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import org.fuin.objects4j.common.ThreadSafe;
 
 /**
  * Verifies if this represents weekly opening hours separated by a comma ','.<br>
  * Example: 'Mon-Fri 09:00-12:00+13:00-17:00,Sat/Sun 09:-12:00'.
  */
+@ThreadSafe
 public final class WeeklyOpeningHoursStrValidator implements ConstraintValidator<WeeklyOpeningHoursStr, String> {
 
     @Override

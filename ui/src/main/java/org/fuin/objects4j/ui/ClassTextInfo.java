@@ -20,7 +20,7 @@ package org.fuin.objects4j.ui;
 import org.fuin.objects4j.common.Contract;
 import org.jspecify.annotations.Nullable;
 
-import javax.annotation.concurrent.Immutable;
+import org.fuin.objects4j.common.Immutable;
 
 /**
  * Stores some text associated with a class.

@@ -17,6 +17,7 @@
  */
 package org.fuin.objects4j.core;
 
+import org.fuin.objects4j.common.ThreadSafe;
 import org.jspecify.annotations.Nullable;
 
 import java.util.Locale;
@@ -25,6 +26,7 @@ import java.util.StringTokenizer;
 /**
  * Helper functions for the {@link Locale} class.
  */
+@ThreadSafe
 public final class LocaleHelper {
 
     private LocaleHelper() {

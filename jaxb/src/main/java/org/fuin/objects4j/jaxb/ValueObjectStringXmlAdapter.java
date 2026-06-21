@@ -20,6 +20,7 @@ package org.fuin.objects4j.jaxb;
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.common.AsStringCapable;
+import org.fuin.objects4j.common.ThreadSafe;
 import org.fuin.objects4j.common.ValueOfCapable;
 import org.jspecify.annotations.Nullable;
 
@@ -28,6 +29,7 @@ import org.jspecify.annotations.Nullable;
  *
  * @param <TYPE> Type to convert.
  */
+@ThreadSafe
 public abstract class ValueObjectStringXmlAdapter<TYPE extends AsStringCapable> extends XmlAdapter<String, TYPE> {
 
     private final ValueOfCapable<TYPE> vop;

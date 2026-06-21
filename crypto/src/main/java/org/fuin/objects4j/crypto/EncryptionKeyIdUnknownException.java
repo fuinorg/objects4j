@@ -20,6 +20,7 @@ package org.fuin.objects4j.crypto;
 import jakarta.validation.constraints.NotEmpty;
 import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.common.ExceptionShortIdentifable;
+import org.fuin.objects4j.common.NotThreadSafe;
 
 import java.io.Serial;
 
@@ -28,6 +29,7 @@ import static org.fuin.objects4j.crypto.Objects4JCryptoUtils.SHORT_ID_PREFIX;
 /**
  * Signals that the encryption key identifier is unknown.
  */
+@NotThreadSafe
 public final class EncryptionKeyIdUnknownException extends Exception implements ExceptionShortIdentifable {
 
     /**

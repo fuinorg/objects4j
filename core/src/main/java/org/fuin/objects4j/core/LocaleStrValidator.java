@@ -20,6 +20,7 @@ package org.fuin.objects4j.core;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.fuin.objects4j.common.ConstraintViolationException;
+import org.fuin.objects4j.common.ThreadSafe;
 
 import java.util.Locale;
 import java.util.Objects;
@@ -27,6 +28,7 @@ import java.util.Objects;
 /**
  * Check that a given string is a valid {@link java.util.Locale}.
  */
+@ThreadSafe
 public final class LocaleStrValidator implements ConstraintValidator<LocaleStr, String> {
 
     @Override

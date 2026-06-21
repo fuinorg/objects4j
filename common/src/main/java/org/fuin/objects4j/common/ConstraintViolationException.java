@@ -28,6 +28,7 @@ import java.util.Set;
 /**
  * The contract that was checked is violated.
  */
+@NotThreadSafe
 public final class ConstraintViolationException extends RuntimeException {
 
     @Serial

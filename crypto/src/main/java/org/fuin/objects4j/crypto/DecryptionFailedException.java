@@ -18,6 +18,7 @@
 package org.fuin.objects4j.crypto;
 
 import org.fuin.objects4j.common.ExceptionShortIdentifable;
+import org.fuin.objects4j.common.NotThreadSafe;
 
 import java.io.Serial;
 
@@ -26,6 +27,7 @@ import static org.fuin.objects4j.crypto.Objects4JCryptoUtils.SHORT_ID_PREFIX;
 /**
  * Signals that decrypting the data failed.
  */
+@NotThreadSafe
 public final class DecryptionFailedException extends Exception implements ExceptionShortIdentifable {
 
     /**

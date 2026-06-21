@@ -20,12 +20,14 @@ package org.fuin.objects4j.core;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.fuin.objects4j.common.ConstraintViolationException;
+import org.fuin.objects4j.common.ThreadSafe;
 
 import java.util.UUID;
 
 /**
  * Check that a given string is a valid {@link java.util.UUID}.
  */
+@ThreadSafe
 public final class UUIDStrValidator implements ConstraintValidator<UUIDStr, String> {
 
     @Override

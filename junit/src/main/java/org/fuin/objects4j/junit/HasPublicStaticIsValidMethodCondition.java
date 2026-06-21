@@ -8,6 +8,7 @@ import com.tngtech.archunit.lang.ConditionEvents;
 import com.tngtech.archunit.lang.SimpleConditionEvent;
 import org.fuin.objects4j.common.HasPublicStaticIsValidMethod;
 import org.fuin.objects4j.common.HasPublicStaticIsValidMethods;
+import org.fuin.objects4j.common.ThreadSafe;
 
 import java.util.Optional;
 
@@ -17,6 +18,7 @@ import static com.tngtech.archunit.lang.ConditionEvent.createMessage;
  * Verifies if a class has a public static "isValid" method that matches the conditions defined
  * with the annotation {@link HasPublicStaticIsValidMethods} attached to that class.
  */
+@ThreadSafe
 public final class HasPublicStaticIsValidMethodCondition extends ArchCondition<JavaClass> {
 
     public HasPublicStaticIsValidMethodCondition() {

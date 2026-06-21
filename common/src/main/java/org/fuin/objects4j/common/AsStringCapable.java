@@ -20,6 +20,7 @@ package org.fuin.objects4j.common;
 /**
  * Provides a string representation of itself.
  */
+@ThreadSafetyUndefined
 public interface AsStringCapable {
 
     /**
@@ -27,6 +28,6 @@ public interface AsStringCapable {
      * 
      * @return String.
      */
-    public String asString();
+    String asString();
 
 }

@@ -19,9 +19,14 @@ package org.fuin.objects4j.crypto;
 
 import jakarta.validation.constraints.NotEmpty;
 
+import org.fuin.objects4j.common.ThreadSafe;
+
 /**
  * Service for encrypting/decrypting {@link EncryptedData} and handling versioned secret keys.
+ * <p>
+ * All implementations are expected to be thread safe.
  */
+@ThreadSafe
 public interface EncryptedDataService {
 
     /**

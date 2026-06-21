@@ -25,6 +25,7 @@ import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import org.fuin.objects4j.core.CurrencyAmount;
+import org.hibernate.annotations.EmbeddableInstantiator;
 
 @Entity(name = "CURRENCY_AMOUNT_PARENT")
 public class CurrencyAmountParentEntity {
@@ -35,6 +36,7 @@ public class CurrencyAmountParentEntity {
 
     // @formatter:off
 	@Embedded
+    @EmbeddableInstantiator(CurrencyAmountInstantiator.class)
     @AttributeOverride(name = "amount", column = @Column(name = "AMOUNT", precision = 12, scale = 2, nullable = true))
     @AttributeOverride(name = "currency", column = @Column(name = "CURRENCY", columnDefinition = "varchar(255)", nullable = true))
 	// @formatter:on

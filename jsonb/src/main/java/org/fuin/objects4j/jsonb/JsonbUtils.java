@@ -1,6 +1,7 @@
 package org.fuin.objects4j.jsonb;
 
 import jakarta.json.bind.adapter.JsonbAdapter;
+import org.fuin.objects4j.common.ThreadSafe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.List;
 /**
  * Utility methods for JSON-B.
  */
+@ThreadSafe
 public final class JsonbUtils {
 
     private static final List<JsonbAdapter<?, ?>> ADAPTERS = List.of(

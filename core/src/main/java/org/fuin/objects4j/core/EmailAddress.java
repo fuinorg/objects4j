@@ -29,7 +29,7 @@ import org.fuin.objects4j.ui.Label;
 import org.fuin.objects4j.ui.ShortLabel;
 import org.fuin.objects4j.ui.Tooltip;
 
-import javax.annotation.concurrent.Immutable;
+import org.fuin.objects4j.common.Immutable;
 import java.io.Serial;
 
 /**
@@ -47,14 +47,7 @@ public final class EmailAddress extends AbstractStringValueObject {
     private static final long serialVersionUID = 811127657088134517L;
 
     @NotNull
-    private InternetAddress adr;
-
-    /**
-     * Protected default constructor for deserialization.
-     */
-    protected EmailAddress() {// NOSONAR Ignore JAXB default constructor
-        super();
-    }
+    private final InternetAddress adr;
 
     /**
      * Constructor with email address.

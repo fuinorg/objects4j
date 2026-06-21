@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.module.SimpleDeserializers;
 import com.fasterxml.jackson.databind.module.SimpleSerializers;
+import org.fuin.objects4j.common.ThreadSafe;
 import org.fuin.objects4j.core.CurrencyAmount;
 import org.fuin.objects4j.core.DayOfTheWeek;
 import org.fuin.objects4j.core.DayOpeningHours;
@@ -23,6 +24,7 @@ import java.util.UUID;
 /**
  * Module that registers the adapters for the package.
  */
+@ThreadSafe
 public class Objects4JJacksonModule extends Module {
 
     @Override

@@ -29,7 +29,7 @@ import org.fuin.objects4j.ui.Prompt;
 import org.fuin.objects4j.ui.ShortLabel;
 import org.fuin.objects4j.ui.Tooltip;
 
-import javax.annotation.concurrent.Immutable;
+import org.fuin.objects4j.common.Immutable;
 import java.io.Serial;
 import java.util.ArrayList;
 import java.util.BitSet;
@@ -60,17 +60,10 @@ public final class HourRange extends AbstractStringValueObject {
     private static final long serialVersionUID = 1000L;
 
     @NotNull
-    private Hour from;
+    private final Hour from;
 
     @NotNull
-    private Hour to;
-
-    /**
-     * Protected default constructor for deserialization.
-     */
-    protected HourRange() {// NOSONAR Ignore JAXB default constructor
-        super();
-    }
+    private final Hour to;
 
     /**
      * Constructor with hour range FROM-TO string.

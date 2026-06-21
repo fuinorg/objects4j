@@ -18,6 +18,7 @@
 package org.fuin.objects4j.core;
 
 import org.fuin.objects4j.common.AsStringCapable;
+import org.fuin.objects4j.common.Immutable;
 import org.fuin.objects4j.common.ValueObjectWithBaseType;
 
 import java.io.Serial;
@@ -27,6 +28,7 @@ import java.io.Serializable;
  * Base class for value objects that that overrides {@link Object#hashCode()} and {@link Object#equals(Object)} and implements comparable
  * all based on the {@link #asBaseType()} method.
  */
+@Immutable
 public abstract class AbstractStringValueObject
         implements ValueObjectWithBaseType<String>, Comparable<AbstractStringValueObject>, Serializable, AsStringCapable {
 

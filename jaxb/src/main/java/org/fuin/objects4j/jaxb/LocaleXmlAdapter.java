@@ -21,7 +21,7 @@ import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 import org.fuin.objects4j.core.LocaleHelper;
 import org.jspecify.annotations.Nullable;
 
-import javax.annotation.concurrent.ThreadSafe;
+import org.fuin.objects4j.common.ThreadSafe;
 import java.util.Locale;
 
 /**

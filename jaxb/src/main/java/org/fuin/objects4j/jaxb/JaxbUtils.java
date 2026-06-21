@@ -18,6 +18,7 @@
 package org.fuin.objects4j.jaxb;
 
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;
+import org.fuin.objects4j.common.ThreadSafe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,7 @@ import java.util.List;
 /**
  * Utility class for this package.
  */
+@ThreadSafe
 public final class JaxbUtils {
 
     private static final List<XmlAdapter<?, ?>> ADAPTERS = List.of(

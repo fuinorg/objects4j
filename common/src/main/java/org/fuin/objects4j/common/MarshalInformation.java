@@ -24,8 +24,9 @@ package org.fuin.objects4j.common;
  * 
  * @param <DATA>
  *            Type of data returned.
- * 
+ *
  */
+@ThreadSafetyUndefined
 public interface MarshalInformation<DATA> {
 
     /**

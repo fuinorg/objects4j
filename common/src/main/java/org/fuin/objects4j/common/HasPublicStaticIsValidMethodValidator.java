@@ -20,6 +20,7 @@ import java.util.function.Function;
  * - a parameter with the given type
  * defined in the annotation and the return type of that method is {@literal boolean}.
  */
+@ThreadSafe
 public class HasPublicStaticIsValidMethodValidator implements ConstraintValidator<HasPublicStaticIsValidMethod, Object> {
 
     private static final String PREFIX = HasPublicStaticIsValidMethod.class.getName() + ".";

@@ -22,10 +22,15 @@ import jakarta.validation.constraints.NotNull;
 /**
  * Value object that may be expressed in a more general type with relaxed restrictions.
  * Often basic Java types like String or numeric values (Long, Integer, ...) are used for this.
- * 
+ * <p>
+ * All implementations are expected to be thread safe.
+ *
  * @param <BASE_TYPE>
  *            Base type that may represent this type of value object.
+ * <p>
+ * All implementations are expected to be thread safe.
  */
+@ThreadSafe
 public interface ValueObjectWithBaseType<BASE_TYPE> extends ValueObject {
 
     /**

@@ -19,7 +19,7 @@ package org.fuin.objects4j.jaxb;
 
 import org.fuin.objects4j.core.HourRanges;
 
-import javax.annotation.concurrent.ThreadSafe;
+import org.fuin.objects4j.common.ThreadSafe;
 
 /**
  * Converts {@link HourRanges} into a String and back.

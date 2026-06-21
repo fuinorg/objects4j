@@ -20,6 +20,7 @@ package org.fuin.objects4j.ui;
 import com.tngtech.archunit.core.importer.ImportOption;
 import com.tngtech.archunit.junit.AnalyzeClasses;
 import com.tngtech.archunit.junit.ArchTest;
+import static org.fuin.units4j.archunit.Units4JConditions.ALL_CLASSES_SHOULD_HAVE_A_THREAD_SAFETY_ANNOTATION;
 import com.tngtech.archunit.lang.ArchRule;
 import com.tngtech.archunit.lang.syntax.ArchRuleDefinition;
 import com.tngtech.archunit.library.DependencyRules;
@@ -34,6 +35,9 @@ class ArchitectureTest {
 
     @ArchTest
     static final ArchRule no_accesses_to_upper_package = DependencyRules.NO_CLASSES_SHOULD_DEPEND_UPPER_PACKAGES;
+
+    @ArchTest
+    static final ArchRule all_classes_have_a_thread_safety_annotation = ALL_CLASSES_SHOULD_HAVE_A_THREAD_SAFETY_ANNOTATION;
 
     @ArchTest
     static final ArchRule ui_access_only_to_defined_packages = ArchRuleDefinition.classes()

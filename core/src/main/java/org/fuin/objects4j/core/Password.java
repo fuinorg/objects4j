@@ -24,7 +24,7 @@ import org.fuin.objects4j.ui.Label;
 import org.fuin.objects4j.ui.ShortLabel;
 import org.fuin.objects4j.ui.Tooltip;
 
-import javax.annotation.concurrent.Immutable;
+import org.fuin.objects4j.common.Immutable;
 import java.io.Serial;
 
 /**
@@ -41,14 +41,7 @@ public final class Password extends AbstractStringValueObject {
 
     @NotNull
     @PasswordStr
-    private String str;
-
-    /**
-     * Protected default constructor for deserialization.
-     */
-    protected Password() {// NOSONAR Ignore JAXB default constructor
-        super();
-    }
+    private final String str;
 
     /**
      * Constructor with password.

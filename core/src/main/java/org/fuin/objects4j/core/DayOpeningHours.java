@@ -29,7 +29,7 @@ import org.fuin.objects4j.common.ValueObjectWithBaseType;
 import org.fuin.objects4j.core.HourRanges.ChangeType;
 import org.fuin.objects4j.ui.Prompt;
 
-import javax.annotation.concurrent.Immutable;
+import org.fuin.objects4j.common.Immutable;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -56,17 +56,10 @@ public final class DayOpeningHours implements ValueObjectWithBaseType<String>, C
     private static final long serialVersionUID = 1000L;
 
     @NotNull
-    private DayOfTheWeek dayOfTheWeek;
+    private final DayOfTheWeek dayOfTheWeek;
 
     @NotNull
-    private HourRanges hourRanges;
-
-    /**
-     * Protected default constructor for deserialization.
-     */
-    protected DayOpeningHours() {// NOSONAR Ignore JAXB default constructor
-        super();
-    }
+    private final HourRanges hourRanges;
 
     /**
      * Constructor with string.

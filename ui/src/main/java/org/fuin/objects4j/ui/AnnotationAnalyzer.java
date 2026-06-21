@@ -20,6 +20,7 @@ package org.fuin.objects4j.ui;
 import org.jspecify.annotations.Nullable;
 import jakarta.validation.constraints.NotEmpty;
 import org.fuin.objects4j.common.Contract;
+import org.fuin.objects4j.common.ThreadSafe;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -36,6 +37,7 @@ import java.util.ResourceBundle;
 /**
  * Wrapper for a class that has some annotations to perform some actions with.
  */
+@ThreadSafe
 public final class AnnotationAnalyzer {
 
     private static final Map<Class<?>, String> CLASS_NAME_MAP = new HashMap<>();

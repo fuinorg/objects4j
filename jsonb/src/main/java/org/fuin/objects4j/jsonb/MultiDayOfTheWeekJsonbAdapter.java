@@ -19,7 +19,7 @@ package org.fuin.objects4j.jsonb;
 
 import org.fuin.objects4j.core.MultiDayOfTheWeek;
 
-import javax.annotation.concurrent.ThreadSafe;
+import org.fuin.objects4j.common.ThreadSafe;
 
 /**
  * Converts {@link MultiDayOfTheWeek} into a String and back.

@@ -19,10 +19,12 @@ package org.fuin.objects4j.core;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import org.fuin.objects4j.common.ThreadSafe;
 
 /**
  * Check that a given string is a well-formed user id.
  */
+@ThreadSafe
 public final class UserNameStrValidator implements ConstraintValidator<UserNameStr, String> {
 
     @Override

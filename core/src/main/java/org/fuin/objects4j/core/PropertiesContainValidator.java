@@ -19,6 +19,7 @@ package org.fuin.objects4j.core;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import org.fuin.objects4j.common.ThreadSafe;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,6 +31,7 @@ import java.util.Set;
 /**
  * Check that a properties object contains a given number of expected keys.
  */
+@ThreadSafe
 public final class PropertiesContainValidator implements ConstraintValidator<PropertiesContain, Properties> {
 
     private Set<String> expectedKeys;
