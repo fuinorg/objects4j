@@ -17,12 +17,15 @@
  */
 package org.fuin.objects4j.jpa;
 
+import org.fuin.utils4j.TestOmitted;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import org.fuin.objects4j.core.PasswordSha512;
 
+@TestOmitted("Only a test class")
 @Entity(name = "PASSWORD_SHA512_PARENT")
 public class PasswordSha512ParentEntity {
 

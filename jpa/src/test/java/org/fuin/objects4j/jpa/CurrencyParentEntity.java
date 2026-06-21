@@ -17,6 +17,8 @@
  */
 package org.fuin.objects4j.jpa;
 
+import org.fuin.utils4j.TestOmitted;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
@@ -24,6 +26,7 @@ import jakarta.persistence.Id;
 
 import java.util.Currency;
 
+@TestOmitted("Only a test class")
 @Entity(name = "CURRENCY_PARENT")
 public class CurrencyParentEntity {
 

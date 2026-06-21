@@ -17,48 +17,25 @@
  */
 package org.fuin.objects4j.jpa;
 
-import org.fuin.utils4j.TestOmitted;
+import org.fuin.objects4j.core.MultiDayOfTheWeek;
+import org.junit.jupiter.api.Test;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.Locale;
+public final class MultiDayOfTheWeekAttributeConverterTest {
 
-@TestOmitted("Only a test class")
-@Entity(name = "LOCALE_PARENT")
-public class LocaleParentEntity {
-
-    @Id
-    @Column(name = "ID")
-    private long id;
-
-    @Column(name = "LOCALE", nullable = true)
-    private Locale locale;
-
-    public LocaleParentEntity() {
-        super();
+    @Test
+    public void testNull() {
+        final MultiDayOfTheWeekAttributeConverter testee = new MultiDayOfTheWeekAttributeConverter();
+        assertThat(testee.convertToDatabaseColumn(null)).isNull();
+        assertThat((Object) testee.convertToEntityAttribute(null)).isNull();
     }
 
-    public LocaleParentEntity(long id) {
-        super();
-        this.id = id;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public Locale getLocale() {
-        return locale;
-    }
-
-    public void setLocale(Locale locale) {
-        this.locale = locale;
+    @Test
+    public void testRoundTrip() {
+        final MultiDayOfTheWeekAttributeConverter testee = new MultiDayOfTheWeekAttributeConverter();
+        final MultiDayOfTheWeek value = new MultiDayOfTheWeek("Mon/Tue");
+        assertThat((Object) testee.convertToEntityAttribute(testee.convertToDatabaseColumn(value))).isEqualTo(value);
     }
 
 }

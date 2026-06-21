@@ -17,10 +17,13 @@
  */
 package org.fuin.objects4j.jpa;
 
+import org.fuin.utils4j.TestOmitted;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
+@TestOmitted("Only a test class")
 @Entity(name = "ANY_STR_PARENT")
 public class AnyStrParentEntity {
 

@@ -17,11 +17,14 @@
  */
 package org.fuin.objects4j.jpa;
 
+import org.fuin.utils4j.TestOmitted;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import org.fuin.objects4j.core.MultiDayOfTheWeek;
 
+@TestOmitted("Only a test class")
 @Entity(name = "MULTI_DAY_OF_THE_WEEK_PARENT")
 public class MultiDayOfTheWeekParentEntity {
 

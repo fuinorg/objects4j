@@ -17,11 +17,14 @@
  */
 package org.fuin.objects4j.jpa;
 
+import org.fuin.utils4j.TestOmitted;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import org.fuin.objects4j.core.WeeklyOpeningHours;
 
+@TestOmitted("Only a test class")
 @Entity(name = "WEEKLY_OPENING_HOURS_PARENT")
 public class WeeklyOpeningHoursParentEntity {
 

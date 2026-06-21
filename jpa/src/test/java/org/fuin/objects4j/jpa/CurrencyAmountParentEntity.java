@@ -17,6 +17,8 @@
  */
 package org.fuin.objects4j.jpa;
 
+import org.fuin.utils4j.TestOmitted;
+
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
@@ -27,6 +29,7 @@ import jakarta.persistence.Id;
 import org.fuin.objects4j.core.CurrencyAmount;
 import org.hibernate.annotations.EmbeddableInstantiator;
 
+@TestOmitted("Only a test class")
 @Entity(name = "CURRENCY_AMOUNT_PARENT")
 public class CurrencyAmountParentEntity {
 

@@ -15,27 +15,24 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fuin.objects4j.jpa;
+package org.fuin.objects4j.crypto;
 
 import com.tngtech.archunit.core.importer.ImportOption;
 import com.tngtech.archunit.junit.AnalyzeClasses;
 import com.tngtech.archunit.junit.ArchTest;
-import static org.fuin.units4j.archunit.Units4JConditions.ALL_CLASSES_SHOULD_HAVE_A_THREAD_SAFETY_ANNOTATION;
 import com.tngtech.archunit.lang.ArchRule;
 import org.fuin.objects4j.common.ConstraintViolationException;
-import org.fuin.objects4j.core.AbstractIntegerValueObject;
 
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 import static com.tngtech.archunit.library.DependencyRules.NO_CLASSES_SHOULD_DEPEND_UPPER_PACKAGES;
+import static org.fuin.units4j.archunit.Units4JConditions.ALL_CLASSES_SHOULD_HAVE_A_THREAD_SAFETY_ANNOTATION;
 
 @AnalyzeClasses(packagesOf = ArchitectureTest.class, importOptions = ImportOption.DoNotIncludeTests.class)
 class ArchitectureTest {
 
     private static final String COMMON_PACKAGE = ConstraintViolationException.class.getPackageName();
 
-    private static final String CORE_PACKAGE = AbstractIntegerValueObject.class.getPackageName();
-
-    private static final String JPA_PACKAGE = CurrencyAttributeConverter.class.getPackageName();
+    private static final String CRYPTO_PACKAGE = ArchitectureTest.class.getPackageName();
 
     @ArchTest
     static final ArchRule no_accesses_to_upper_package = NO_CLASSES_SHOULD_DEPEND_UPPER_PACKAGES;
@@ -44,16 +41,13 @@ class ArchitectureTest {
     static final ArchRule all_classes_have_a_thread_safety_annotation = ALL_CLASSES_SHOULD_HAVE_A_THREAD_SAFETY_ANNOTATION;
 
     @ArchTest
-    static final ArchRule accesses_only_defined_packages = classes()
+    static final ArchRule crypto_access_only_to_defined_packages = classes()
             .that()
-            .resideInAPackage(JPA_PACKAGE)
+            .resideInAPackage(CRYPTO_PACKAGE)
             .should()
             .onlyDependOnClassesThat()
-            .resideInAnyPackage(JPA_PACKAGE, COMMON_PACKAGE, CORE_PACKAGE,
-                    "java.lang..", "java.util..",
-                    "jakarta.annotation..", "jakarta.persistence..",
-                    "javax.annotation.concurrent", "org.jspecify..");
-
+            .resideInAnyPackage(CRYPTO_PACKAGE, COMMON_PACKAGE,
+                    "java.lang..", "java.util..", "java.io..",
+                    "jakarta.validation..", "org.jspecify..");
 
 }
-

@@ -17,11 +17,14 @@
  */
 package org.fuin.objects4j.jpa;
 
+import org.fuin.utils4j.TestOmitted;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import org.fuin.objects4j.core.Hour;
 
+@TestOmitted("Only a test class")
 @Entity(name = "HOUR_PARENT")
 public class HourParentEntity {
 

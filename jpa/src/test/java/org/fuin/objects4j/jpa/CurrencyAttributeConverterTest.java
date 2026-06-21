@@ -17,48 +17,26 @@
  */
 package org.fuin.objects4j.jpa;
 
-import org.fuin.utils4j.TestOmitted;
+import org.junit.jupiter.api.Test;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import java.util.Currency;
 
-import java.util.Locale;
+import static org.assertj.core.api.Assertions.assertThat;
 
-@TestOmitted("Only a test class")
-@Entity(name = "LOCALE_PARENT")
-public class LocaleParentEntity {
+public final class CurrencyAttributeConverterTest {
 
-    @Id
-    @Column(name = "ID")
-    private long id;
-
-    @Column(name = "LOCALE", nullable = true)
-    private Locale locale;
-
-    public LocaleParentEntity() {
-        super();
+    @Test
+    public void testNull() {
+        final CurrencyAttributeConverter testee = new CurrencyAttributeConverter();
+        assertThat(testee.convertToDatabaseColumn(null)).isNull();
+        assertThat(testee.convertToEntityAttribute(null)).isNull();
     }
 
-    public LocaleParentEntity(long id) {
-        super();
-        this.id = id;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public Locale getLocale() {
-        return locale;
-    }
-
-    public void setLocale(Locale locale) {
-        this.locale = locale;
+    @Test
+    public void testRoundTrip() {
+        final CurrencyAttributeConverter testee = new CurrencyAttributeConverter();
+        final Currency value = Currency.getInstance("EUR");
+        assertThat(testee.convertToEntityAttribute(testee.convertToDatabaseColumn(value))).isEqualTo(value);
     }
 
 }
