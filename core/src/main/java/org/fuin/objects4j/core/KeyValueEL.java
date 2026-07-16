@@ -23,6 +23,8 @@ import jakarta.el.ELProcessor;
 import jakarta.el.ValueExpression;
 import org.fuin.objects4j.common.ThreadSafe;
 import org.jspecify.annotations.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Replaces variables in a message using Jakarta Expression Language (EL). This is an EL-powered variant of
@@ -39,6 +41,8 @@ import org.jspecify.annotations.Nullable;
 @ThreadSafe
 public final class KeyValueEL {
 
+    private static final Logger LOG = LoggerFactory.getLogger(KeyValueEL.class);
+
     private static final ThreadLocal<ELProcessor> PROCESSOR = ThreadLocal.withInitial(ELProcessor::new);
 
     private KeyValueEL() {
@@ -50,20 +54,24 @@ public final class KeyValueEL {
      * of a key from the <code>keyValue</code> array and can be used inside a full EL expression (for example
      * <code>${NAME.toUpperCase()}</code>).
      * <p>
-     * Note the behavioural differences to {@link KeyValue#replace(String, KeyValue...)}: because evaluation is done
-     * by the EL engine, a reference to an <em>unknown</em> variable results in an EL exception (rather than the
-     * {@code ${NAME}} being left unchanged), and a key with a {@code null} value is undefined in the EL context.
+     * Note the behavioural differences to {@link KeyValue#replace(String, KeyValue...)}: because the EL engine
+     * evaluates the message as a whole, a reference to an <em>unknown</em> variable makes the whole message fail to
+     * render (and not only that single {@code ${NAME}}), and a key with a {@code null} value is undefined in the EL
+     * context. This method never throws: the message is often built inside a {@code toString()}, so a failure is
+     * logged as an error and the message is returned with its variables unreplaced.
      *
      * @param message  Message to replace. Returned unchanged if {@literal null} or empty.
-     * @param keyValue Array of key values or {@literal null}. If {@literal null} the message is returned unchanged.
-     * @return Replaced message.
+     * @param keyValue Array of key values. If {@literal null} or empty there is nothing to substitute and the message
+     *                 is returned unchanged without being evaluated - beans defined by a previous call on the same
+     *                 thread are never applied to it.
+     * @return Replaced message, or the message with its variables unreplaced if it could not be rendered.
      */
     @Nullable
     public static String replace(@Nullable final String message, final KeyValue... keyValue) {
         if (message == null || message.isEmpty()) {
             return message;
         }
-        if (keyValue == null) {
+        if (keyValue == null || keyValue.length == 0) {
             return message;
         }
         final ELProcessor elp = PROCESSOR.get();
@@ -72,7 +80,12 @@ public final class KeyValueEL {
         }
         final ELContext ctx = elp.getELManager().getELContext();
         final ValueExpression ve = ELManager.getExpressionFactory().createValueExpression(ctx, message, String.class);
-        return (String) ve.getValue(ctx);
+        try {
+            return ve.getValue(ctx);
+        } catch (RuntimeException e) {
+            LOG.error("Failed to render '{}'", message, e);
+            return message;
+        }
     }
 
     /**

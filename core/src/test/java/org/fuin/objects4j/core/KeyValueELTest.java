@@ -21,7 +21,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 // CHECKSTYLE:OFF
 public final class KeyValueELTest {
@@ -70,20 +69,37 @@ public final class KeyValueELTest {
     }
 
     @Test
-    void testReplaceUnknownVariableThrows() {
-        // Unlike KeyValue.replace (which leaves unknown ${x} untouched), strict EL fails on unknown identifiers.
-        assertThatThrownBy(() -> KeyValueEL.replace("${unknown}")).isInstanceOf(Exception.class);
+    void testReplaceWithoutKeyValuesIsNotEvaluated() {
+        // Without any key value there is nothing to substitute, so the message is returned as-is instead of
+        // being evaluated against beans a previous call may have left on this thread.
+        assertThat(KeyValueEL.replace("${unknown}")).isEqualTo("${unknown}");
+    }
+
+    @Test
+    void testReplaceUnknownVariableReturnsMessageUnreplaced() {
+        // Unlike KeyValue.replace (which leaves unknown ${x} untouched), strict EL fails on unknown
+        // identifiers. The message is often built inside a "toString()", so the error is logged and the
+        // message is returned unreplaced instead of being thrown.
+        assertThat(KeyValueEL.replace("${unknown}", new KeyValue("known", "1"))).isEqualTo("${unknown}");
+    }
+
+    @Test
+    void testReplaceUnknownVariableKeepsKnownOnesUnreplacedAsWell() {
+        // The EL engine evaluates the message as a whole, so a single unknown variable makes the known ones
+        // stay unreplaced too.
+        assertThat(KeyValueEL.replace("${one} ${unknown}", new KeyValue("one", "1"))).isEqualTo("${one} ${unknown}");
     }
 
     @Test
     void testClearRemovesThreadLocalBeans() {
-        // A bean defined by one call stays visible on the same thread (this is exactly the leak clear() prevents).
+        // A bean defined by one call stays visible on the same thread (this is exactly the leak clear()
+        // prevents): the second call only defines "two", but "one" still resolves.
         assertThat(KeyValueEL.replace("${one}", new KeyValue("one", "1"))).isEqualTo("1");
-        assertThat(KeyValueEL.replace("${one}")).isEqualTo("1");
+        assertThat(KeyValueEL.replace("${one} ${two}", new KeyValue("two", "2"))).isEqualTo("1 2");
 
-        // After clear() the processor (and its beans) are gone, so the same reference no longer resolves.
+        // After clear() the processor (and its beans) are gone, so "one" no longer resolves.
         KeyValueEL.clear();
-        assertThatThrownBy(() -> KeyValueEL.replace("${one}")).isInstanceOf(Exception.class);
+        assertThat(KeyValueEL.replace("${one} ${two}", new KeyValue("two", "2"))).isEqualTo("${one} ${two}");
     }
 
 }

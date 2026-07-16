@@ -43,6 +43,11 @@
         </dependency>
 
         <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>jakarta.el</groupId>
             <artifactId>jakarta.el-api</artifactId>
             <optional>true</optional>
@@ -50,6 +55,12 @@
 
 
         <!-- Test -->
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <scope>test</scope>
+        </dependency>
 
         <dependency>
             <groupId>org.glassfish.expressly</groupId>
@@ -164,6 +175,7 @@
                 <artifactId>maven-dependency-plugin</artifactId>
                 <configuration>
                     <ignoredUnusedDeclaredDependencies>
+                        <ignoredUnusedDeclaredDependency>ch.qos.logback:logback-classic</ignoredUnusedDeclaredDependency>
                         <ignoredUnusedDeclaredDependency>org.glassfish.expressly:expressly</ignoredUnusedDeclaredDependency>
                         <ignoredUnusedDeclaredDependency>org.hibernate.validator:hibernate-validator</ignoredUnusedDeclaredDependency>
                         <ignoredUnusedDeclaredDependency>com.tngtech.archunit:archunit-junit5</ignoredUnusedDeclaredDependency>
