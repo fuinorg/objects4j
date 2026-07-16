@@ -75,7 +75,42 @@ For example shop opening hours may be defined like this:
   ```
 
 ## Other
-* [KeyValue](src/main/java/org/fuin/objects4j/core/KeyValue.java) - Container for a key (String) and a value (Object).
+* [KeyValue](src/main/java/org/fuin/objects4j/core/KeyValue.java) - Container for a key (String) and a value (Object). The static `replace` method replaces `${NAME}` variables in a message with the matching values.
   ```java
   KeyValue kv = new KeyValue("millis", 1000);
+
+  // "Timeout after 1000 ms"
+  String msg = KeyValue.replace("Timeout after ${millis} ms", new KeyValue("millis", 1000));
+  ```
+* [KeyValueEL](src/main/java/org/fuin/objects4j/core/KeyValueEL.java) - Jakarta Expression Language (EL) powered variant of `KeyValue.replace`. It keeps the same `${NAME}` template syntax (literal text around the expressions is preserved), but resolves each `${...}` through EL, so full expressions are supported. Each key becomes a named bean, so its properties and methods can be used inside the expression.
+
+  The `jakarta.el-api` dependency is declared **optional**, so you have to add the EL API plus an EL implementation (for example [Expressly](https://github.com/eclipse-ee4j/expressly)) to your project to use `KeyValueEL` (frameworks like Spring Boot or Quarkus with Hibernate Validator usually provide both already):
+  ```xml
+  <dependency>
+      <groupId>jakarta.el</groupId>
+      <artifactId>jakarta.el-api</artifactId>
+  </dependency>
+  <dependency>
+      <groupId>org.glassfish.expressly</groupId>
+      <artifactId>expressly</artifactId>
+      <scope>runtime</scope>
+  </dependency>
+  ```
+  ```java
+  // Simple variable (same as KeyValue.replace): "Hello John!"
+  String greeting = KeyValueEL.replace("Hello ${name}!", new KeyValue("name", "John"));
+
+  // Full EL expression using a method call: "JOHN"
+  String upper = KeyValueEL.replace("${name.toUpperCase()}", new KeyValue("name", "John"));
+
+  // Bean property access: "Order 42 total 19.99"
+  String line = KeyValueEL.replace("Order ${order.id} total ${order.amount}", new KeyValue("order", order));
+  ```
+  `KeyValueEL` keeps one `ELProcessor` per thread (in a `ThreadLocal`) so it is safe to call concurrently. In a pooled request/response environment (Spring Boot, Quarkus) the same thread is reused across requests, so call `KeyValueEL.clear()` when the thread finishes handling a request to release the retained beans and avoid a memory leak:
+  ```java
+  try {
+      return KeyValueEL.replace(template, keyValues);
+  } finally {
+      KeyValueEL.clear(); // Frees the thread-bound ELProcessor
+  }
   ```

@@ -11,6 +11,7 @@
 - Added new [@ImmutableAfterUnmarshal](common/src/main/java/org/fuin/objects4j/common/ImmutableAfterUnmarshal.java) annotation.
 - Added new [@ThreadSafetyUndefined](common/src/main/java/org/fuin/objects4j/common/ThreadSafetyUndefined.java) annotation.
 - Document immutable and thread-safety for all classes.
+- Added new [KeyValueEL](core/src/main/java/org/fuin/objects4j/core/KeyValueEL.java) utility that replaces `${...}` variables in a message using Jakarta Expression Language (EL).
 
 ## 0.11.0
 - Removed unnecessary Jackson serializer/deserializer classes

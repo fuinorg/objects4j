@@ -34,7 +34,7 @@ import java.util.Set;
 /**
  * Utility class for assertions on objects.
  */
-@NotThreadSafe
+@NotThreadSafe // TODO Rework to make it thread-safe
 public final class Contract {
 
     // According to the specification instances are thread safe
