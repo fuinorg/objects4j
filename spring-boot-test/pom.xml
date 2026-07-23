@@ -15,6 +15,7 @@
 
     <dependencyManagement>
         <dependencies>
+
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
@@ -22,6 +23,25 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+            <!-- Byte Buddy only supports the Java 25 class file format (major 69) from 1.17.5 on,
+                 while spring-boot-dependencies 3.4.4 manages 1.15.11, which makes Hibernate and
+                 Mockito fail on JDK 25. org.fuin:bom already aligns on a Java-25-aware version, but
+                 it is built against Spring Boot 3.5.14 / Quarkus 3.23.4 and importing it ahead of
+                 spring-boot-dependencies would drag unrelated artifacts along. A direct entry
+                 overrides the imported BOM instead - keep it in sync with org.fuin:bom. -->
+            <dependency>
+                <groupId>net.bytebuddy</groupId>
+                <artifactId>byte-buddy</artifactId>
+                <version>${byte-buddy.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>net.bytebuddy</groupId>
+                <artifactId>byte-buddy-agent</artifactId>
+                <version>${byte-buddy.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -157,14 +177,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <systemProperties>
-                        <!-- Byte Buddy (used by Hibernate) does not yet officially support the Java 25 class
-                             file format; enable experimental support so the tests run on JDK 25. Remove once
-                             the managed Byte Buddy supports Java 25. -->
-                        <net.bytebuddy.experimental>true</net.bytebuddy.experimental>
-                    </systemProperties>
-                </configuration>
             </plugin>
 
             <plugin>
@@ -177,14 +189,6 @@
                             <goal>integration-test</goal>
                             <goal>verify</goal>
                         </goals>
-                        <configuration>
-                            <systemProperties>
-                                <!-- Byte Buddy (used by Hibernate) does not yet officially support the Java 25 class
-                                     file format; enable experimental support so the tests run on JDK 25. Remove once
-                                     the managed Byte Buddy supports Java 25. -->
-                                <net.bytebuddy.experimental>true</net.bytebuddy.experimental>
-                            </systemProperties>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>

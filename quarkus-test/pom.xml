@@ -15,6 +15,7 @@
 
     <dependencyManagement>
         <dependencies>
+
             <dependency>
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-bom</artifactId>
@@ -22,6 +23,26 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+            <!-- Byte Buddy only supports the Java 25 class file format (major 69) from 1.17.5 on,
+                 while quarkus-bom manages 1.15.11, which aborts the build augmentation on JDK 25.
+                 org.fuin:bom already aligns on a Java-25-aware version, but importing it ahead of
+                 quarkus-bom is not an option here: it is built against Quarkus 3.23.4 and would
+                 pull every io.quarkus artifact up to that version while the quarkus-maven-plugin
+                 stays at ${quarkus.version}. A direct entry overrides the imported BOM instead -
+                 keep it in sync with org.fuin:bom. -->
+            <dependency>
+                <groupId>net.bytebuddy</groupId>
+                <artifactId>byte-buddy</artifactId>
+                <version>${byte-buddy.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>net.bytebuddy</groupId>
+                <artifactId>byte-buddy-agent</artifactId>
+                <version>${byte-buddy.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -165,10 +186,6 @@
                 <configuration>
                     <systemProperties>
                         <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
-                        <!-- Byte Buddy (used by Hibernate during the Quarkus build augmentation) does not yet
-                             officially support the Java 25 class file format; enable experimental support so
-                             the tests run on JDK 25. Remove once the Quarkus-managed Byte Buddy supports Java 25. -->
-                        <net.bytebuddy.experimental>true</net.bytebuddy.experimental>
                     </systemProperties>
                 </configuration>
             </plugin>
