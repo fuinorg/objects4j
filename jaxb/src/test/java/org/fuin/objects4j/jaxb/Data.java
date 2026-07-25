@@ -18,6 +18,7 @@
 package org.fuin.objects4j.jaxb;
 
 import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.fuin.objects4j.core.CurrencyAmount;
@@ -89,5 +90,13 @@ public class Data {
 
     @XmlAttribute
     public Locale locale;
+
+    @XmlElement(name = "anyDecimal")
+    @XmlJavaTypeAdapter(AnyDecimalXmlAdapter.class)
+    public AnyDecimal anyDecimal;
+
+    @XmlAttribute(name = "anyLong")
+    @XmlJavaTypeAdapter(AnyLongXmlAdapter.class)
+    public AnyLong anyLong;
 
 }

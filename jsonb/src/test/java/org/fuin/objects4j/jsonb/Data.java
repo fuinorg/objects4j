@@ -18,6 +18,7 @@
 package org.fuin.objects4j.jsonb;
 
 import jakarta.json.bind.annotation.JsonbProperty;
+import jakarta.json.bind.annotation.JsonbTypeAdapter;
 import org.fuin.objects4j.core.CurrencyAmount;
 import org.fuin.objects4j.core.DayOfTheWeek;
 import org.fuin.objects4j.core.DayOpeningHours;
@@ -85,5 +86,13 @@ public class Data {
 
     @JsonbProperty
     public Locale locale;
+
+    @JsonbProperty
+    @JsonbTypeAdapter(AnyDecimalJsonbAdapter.class)
+    public AnyDecimal anyDecimal;
+
+    @JsonbProperty
+    @JsonbTypeAdapter(AnyLongJsonbAdapter.class)
+    public AnyLong anyLong;
 
 }

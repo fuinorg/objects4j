@@ -71,4 +71,10 @@ public class Data {
 
     public Locale locale;
 
+    @JsonProperty
+    public AnyDecimal anyDecimal;
+
+    @JsonProperty
+    public AnyLong anyLong;
+
 }
