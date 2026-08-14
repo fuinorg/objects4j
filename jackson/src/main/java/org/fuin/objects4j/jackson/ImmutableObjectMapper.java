@@ -50,7 +50,12 @@ public record ImmutableObjectMapper(ObjectMapper objectMapper) {
 
         private final Builder builder;
 
-        private @Nullable ImmutableObjectMapper mapper;
+        /**
+         * Volatile is load bearing, not decoration: it is what makes the double-checked locking in
+         * {@link #mapper()} correct. Without it a reader could see a non-null reference to a mapper
+         * whose construction it cannot yet see completed.
+         */
+        private volatile @Nullable ImmutableObjectMapper mapper;
 
         /**
          * Constructor with builder.
@@ -63,14 +68,33 @@ public record ImmutableObjectMapper(ObjectMapper objectMapper) {
 
         /**
          * Returns the mapper. The instance will be built on first access.
+         * <p>
+         * A provider is normally shared, and the builder behind it can be built only once, so the lazy
+         * initialisation has to be thread safe: without it two threads arriving together both find no
+         * mapper and both build, and one fails with "The object mapper was already built". Even without
+         * overlapping, a second thread could miss the first one's write and rebuild, because a plain
+         * field carries no happens-before of its own.
+         * <p>
+         * Double-checked locking rather than a synchronized method, because this is a hot path -
+         * {@link #reader()} and {@link #writer()} come through here on <em>every</em> read and write, so
+         * a lock would serialize callers that otherwise work in parallel. After the first call the fast
+         * path is a single volatile read; the lock is only ever contended while the mapper does not
+         * exist yet.
          *
          * @return Instance.
          */
         public ImmutableObjectMapper mapper() {
-            if (mapper == null) {
-                mapper = builder.build();
+            ImmutableObjectMapper result = mapper;
+            if (result == null) {
+                synchronized (this) {
+                    result = mapper;
+                    if (result == null) {
+                        result = builder.build();
+                        mapper = result;
+                    }
+                }
             }
-            return mapper;
+            return result;
         }
 
         /**
